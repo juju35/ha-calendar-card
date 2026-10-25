@@ -17,6 +17,7 @@ var CcI18n = {
     event_today: '1 événement aujourd\'hui',
     none_today: 'Rien aujourd\'hui',
     next: 'Ensuite',
+    until: 'jusqu\'au {d}',
     more: '{n} événements de plus',
     more_one: '1 événement de plus',
     less: 'Réduire',
@@ -58,6 +59,7 @@ var CcI18n = {
     event_today: '1 event today',
     none_today: 'Nothing today',
     next: 'Next',
+    until: 'until {d}',
     more: '{n} more events',
     more_one: '1 more event',
     less: 'Show less',
@@ -623,7 +625,13 @@ class CalendarAgendaCard extends HTMLElement {
         ' white-space: nowrap; background: color-mix(in srgb, var(--cc-accent) 15%, transparent); color: var(--cc-accent); }' +
       '.mnext { font-size: 12px; color: var(--secondary-text-color); display: flex; gap: 6px; align-items: center; min-width: 0; white-space: nowrap; overflow: hidden; }' +
       '.mnext b { font-weight: 500; color: var(--primary-text-color); overflow: hidden; text-overflow: ellipsis; }' +
-      '.mnext .ndot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: var(--c); }' +
+      '.mallday { display: flex; align-items: center; gap: 6px; min-width: 0; padding: 4px 8px; border-radius: 10px; cursor: pointer; white-space: nowrap; overflow: hidden;' +
+        ' font-size: 12px; color: var(--secondary-text-color); background: color-mix(in srgb, var(--c) 9%, transparent); outline: none; }' +
+      '.mallday:hover { background: color-mix(in srgb, var(--c) 16%, transparent); }' +
+      '.mallday:focus-visible { box-shadow: 0 0 0 2px var(--c); }' +
+      '.mallday b { font-weight: 500; color: var(--primary-text-color); overflow: hidden; text-overflow: ellipsis; }' +
+      '.mallday span:last-child { margin-left: auto; flex-shrink: 0; }' +
+      '.mallday .ndot, .mnext .ndot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: var(--c); }' +
     '</style>';
   }
 }
@@ -661,12 +669,22 @@ class CalendarAgendaMiniCard extends CalendarAgendaCard {
   _miniHtml(days, now) {
     // Upcoming: all-day, ongoing or future events.
     var upcoming = this._flat.filter((x) => x.e.allDay || x.e.end > now);
-    // A timed event (under way or next) comes before the day's all-day ones.
+    // All-day events under way today (school holidays, a public holiday…) get a compact line each, on top.
+    var current = upcoming.filter((x) => x.e.allDay && x.e.start <= now && x.e.end > now).slice(0, 3);
+    var allDayHtml = current.map((x) => {
+      var last = ccAddDays(x.e.end, -1);
+      var until = ccKey(last) === ccKey(now) ? this._t('all_day')
+        : this._t('until').replace('{d}', this._dateFmt(last, { weekday: 'short', day: 'numeric', month: 'short' }));
+      return `<div class="mallday" style="--c:${ccEsc(this._cals[x.e.cal].color)}" data-ev="${this._flat.indexOf(x)}" role="button" tabindex="0">` +
+        `<span class="ndot"></span><b>${ccEsc(x.e.summary)}</b><span>${ccEsc(until)}</span></div>`;
+    }).join('');
+    upcoming = upcoming.filter((x) => current.indexOf(x) < 0);
+    // A timed event (under way or next) comes before the day's other all-day ones.
     var first = upcoming.find((x) => !x.e.allDay) || upcoming[0];
     var second = upcoming.find((x) => x !== first && !x.e.allDay) || upcoming.find((x) => x !== first);
     var body;
     if (!first) {
-      body = `<div class="none big">${this._loaded ? this._t('no_upcoming') : ''}</div>`;
+      body = allDayHtml || `<div class="none big">${this._loaded ? this._t('no_upcoming') : ''}</div>`;
     } else {
       var i = this._flat.indexOf(first);
       var isToday = ccKey(first.day) === ccKey(now);
@@ -676,7 +694,7 @@ class CalendarAgendaMiniCard extends CalendarAgendaCard {
         var d = ccKey(first.day) === ccKey(ccAddDays(now, 1)) ? this._t('tomorrow') : this._dateFmt(first.day, { weekday: 'short', day: 'numeric', month: 'short' });
         html = html.replace('<div class="emeta">', `<div class="emeta">${ccEsc(d)}<span class="sep">·</span>`);
       }
-      body = html;
+      body = allDayHtml + html;
       if (second) {
         var cal = this._cals[second.e.cal];
         var when = ccKey(second.day) === ccKey(now) ? this._when(second.e)

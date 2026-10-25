@@ -91,6 +91,7 @@ const EVENTS = {
     { summary: "Training", start: { date: "2026-10-28" }, end: { date: "2026-10-30" }, location: "Paris" },
   ],
   "calendar.holidays": [
+    { summary: "Autumn school holidays", start: { date: "2026-10-17" }, end: { date: "2026-11-02" } },
     { summary: "All Saints' Day", start: { date: "2026-11-01" }, end: { date: "2026-11-02" } },
   ],
 };

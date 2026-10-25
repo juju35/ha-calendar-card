@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2
+
+### Fixes
+- Mini card: all-day events under way today (school holidays, a public holiday…) were never shown as soon as there were timed events. They now get a compact line each on top (up to three), with the day they end, before the next timed event.
+
 ## 1.0.1
 
 ### Changes

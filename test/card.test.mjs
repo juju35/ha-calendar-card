@@ -196,6 +196,19 @@ test("mini card: next event, detail button unfolds the full card", async () => {
   assert.equal(Mini.getConfigElement().mini, true);
 });
 
+test("mini card: an all-day event under way is shown on top, before the next timed event", async () => {
+  const Mini = customElements.get("calendar-agenda-mini-card");
+  const card = await render(Mini, {
+    "calendar.work": [{ summary: "School holidays", start: { date: day(-8) }, end: { date: day(7) } }],
+    "calendar.home": [
+      { summary: "First", start: { dateTime: at(1, 9) }, end: { dateTime: at(1, 10) } },
+      { summary: "Second", start: { dateTime: at(2, 9) }, end: { dateTime: at(2, 10) } },
+    ],
+  });
+  const html = card.shadowRoot.innerHTML;
+  assert.match(html, /class="mallday"[^>]*data-ev="0"[\s\S]*School holidays[\s\S]*until [^<]+<[\s\S]*class="etitle">First<[\s\S]*Second/);
+});
+
 test("stub config picks the first calendars", () => {
   assert.deepEqual(plain(CalendarAgendaCard.getStubConfig(mockHass({}))), { entities: ["calendar.home", "calendar.work"] });
 });

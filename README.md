@@ -83,7 +83,7 @@ entities:
   - calendar.work
 ```
 
-The mini card shows the event under way or the next one (with its countdown), then the one after. The detail button (top right) unfolds the full agenda; a click anywhere else on the page folds it back. It takes the same options as the full card, which apply once unfolded, plus `zoom`.
+The mini card shows today's all-day events under way (school holidays, a public holiday…) on a compact line each, with the day they end, then the event under way or the next one (with its countdown), then the one after. The detail button (top right) unfolds the full agenda; a click anywhere else on the page folds it back. It takes the same options as the full card, which apply once unfolded, plus `zoom`.
 
 ### Full options
 
