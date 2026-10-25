@@ -59,7 +59,7 @@ test("ccParse reads timed and all-day events", () => {
   assert.equal(ccParse({ summary: "D", start: "nope" }, 0), null);
 });
 
-test("ccByDay spreads multi-day events and hides today's finished ones", () => {
+test("ccByDay lists a multi-day event once and hides today's finished ones", () => {
   const now = new Date(at(0, 12));
   const events = [
     ccParse({ summary: "Done", start: { dateTime: at(0, 8) }, end: { dateTime: at(0, 9) } }, 0),
@@ -67,8 +67,22 @@ test("ccByDay spreads multi-day events and hides today's finished ones", () => {
     ccParse({ summary: "Later", start: { dateTime: at(1, 10) }, end: { dateTime: at(1, 11) } }, 0),
   ];
   const days = ccByDay(events, today, 4, now, false);
-  assert.deepEqual(plain(days.map((d) => d.events.map((e) => e.summary))), [["Trip"], ["Trip", "Later"], ["Trip"], []]);
+  assert.deepEqual(plain(days.map((d) => d.events.map((e) => e.summary))), [["Trip"], ["Later"], [], []]);
   assert.deepEqual(plain(ccByDay(events, today, 1, now, true)[0].events.map((e) => e.summary)), ["Trip", "Done"]);
+});
+
+test("a multi-day event shows once, with its date range", async () => {
+  const card = await render(CalendarAgendaCard, {
+    "calendar.home": [
+      { summary: "Holidays", start: { date: day(1) }, end: { date: day(4) } },
+      { summary: "Trip", start: { dateTime: at(2, 18) }, end: { dateTime: at(4, 10) } },
+    ],
+  }, { max_events: 0 });
+  const html = card.shadowRoot.innerHTML;
+  assert.equal(html.match(/class="etitle">Holidays</g).length, 1);
+  assert.equal(html.match(/class="etitle">Trip</g).length, 1);
+  assert.match(html, /All day · [^<]+ – [^<]+</);
+  assert.match(html, /\d\d:\d\d – [^<]*\d\d:\d\d/);
 });
 
 test("ccCalendars accepts ids or objects and fills colors and names", () => {

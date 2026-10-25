@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1
+
+### Changes
+- A multi-day event is listed once, on its first day shown (its start day, or today when it started earlier), with its date range, instead of on every day it covers.
+
 ## 1.0.0
 
 ### Changes

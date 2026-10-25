@@ -170,21 +170,29 @@ function ccSort(a, b) {
   return (a.start - b.start) || (a.end - b.end) || a.summary.localeCompare(b.summary);
 }
 
-// Days from `from`, each with the events it overlaps; a multi-day event shows on every day it covers.
+// Days from `from`, each with the events it overlaps. A multi-day event is listed once, on the first
+// day shown (its start day, or today when it started earlier), with its full date range.
 function ccByDay(events, from, days, now, showPast) {
-  var out = [];
+  var out = [], placed = new Set();
   for (var i = 0; i < days; i++) {
     var ds = ccAddDays(from, i), de = ccAddDays(from, i + 1);
     var list = events.filter((e) => {
+      if (placed.has(e)) return false;
       var overlaps = e.start < de && (e.end > ds || (+e.end === +e.start && e.start >= ds));
       if (!overlaps) return false;
-      // Today's timed events that are over are hidden unless show_past_events.
+      // Timed events that are over are hidden unless show_past_events.
       if (!showPast && !e.allDay && (e.end > e.start ? e.end <= now : e.start < now)) return false;
+      placed.add(e);
       return true;
     }).sort(ccSort);
     out.push({ date: ds, events: list });
   }
   return out;
+}
+
+function ccMultiDay(e) {
+  var last = e.allDay ? ccAddDays(e.end, -1) : new Date(e.end - 1);
+  return +e.end > +e.start && ccKey(e.start) !== ccKey(last);
 }
 
 function ccExcluded(e, exclude) {
@@ -300,24 +308,20 @@ class CalendarAgendaCard extends HTMLElement {
     return m ? this._t('in_h').replace('{h}', h).replace('{m}', String(m).padStart(2, '0')) : this._t('in_hours').replace('{h}', h);
   }
 
-  // Time line of an event as seen on a given day (a multi-day event starts or ends on another day).
-  _when(e, day) {
+  // Time line of an event: a multi-day one shows its whole range, since it is listed only once.
+  _when(e) {
     if (e.allDay) {
       var days = Math.round((ccDayStart(e.end) - ccDayStart(e.start)) / 86400000);
       if (days <= 1) return this._t('all_day');
       return `${this._t('all_day')} · ${this._dateFmt(e.start, { day: 'numeric', month: 'short' })} – ${this._dateFmt(ccAddDays(e.end, -1), { day: 'numeric', month: 'short' })}`;
     }
-    var ds = ccDayStart(day), de = ccAddDays(day, 1);
-    var startsBefore = e.start < ds, endsAfter = e.end > de;
-    if (startsBefore && endsAfter) return this._t('all_day');
-    var from = startsBefore ? '' : this._timeFmt(e.start);
-    var to = '';
-    if (this._config.show_end_time || startsBefore) {
-      to = endsAfter ? '' : (+e.end !== +e.start ? this._timeFmt(e.end) : '');
+    var hasEnd = +e.end !== +e.start;
+    if (hasEnd && ccKey(e.start) !== ccKey(new Date(e.end - 1))) {
+      var o = { weekday: 'short', day: 'numeric', month: 'short' };
+      return `${this._dateFmt(e.start, o)} ${this._timeFmt(e.start)} – ${this._dateFmt(e.end, o)} ${this._timeFmt(e.end)}`;
     }
-    if (from && to) return `${from} – ${to}`;
-    if (from) return endsAfter ? `${from} →` : from;
-    return `→ ${to}`;
+    var from = this._timeFmt(e.start);
+    return this._config.show_end_time && hasEnd ? `${from} – ${this._timeFmt(e.end)}` : from;
   }
 
   _update() {
@@ -372,7 +376,7 @@ class CalendarAgendaCard extends HTMLElement {
 
   _eventHtml(e, day, now, idx, isToday) {
     var c = this._config, cal = this._cals[e.cal];
-    var meta = [ccEsc(this._when(e, day))];
+    var meta = [ccEsc(this._when(e))];
     if (c.show_location && e.location) meta.push(`<span class="loc"><ha-icon icon="mdi:map-marker-outline"></ha-icon>${ccEsc(e.location)}</span>`);
     var ongoing = !e.allDay && e.start <= now && e.end > now;
     var cd = c.show_countdown && isToday ? this._countdown(e, now) : '';
@@ -488,7 +492,7 @@ class CalendarAgendaCard extends HTMLElement {
     var date = this._dateFmt(e.start, { weekday: 'long', day: 'numeric', month: 'long' });
     var when;
     if (e.allDay) {
-      when = this._when(e, e.start).indexOf('·') > 0 ? this._when(e, e.start) : `${date} · ${this._t('all_day')}`;
+      when = this._when(e).indexOf('·') > 0 ? this._when(e) : `${date} · ${this._t('all_day')}`;
     } else if (ccKey(e.start) === ccKey(e.end) || +e.end === +ccAddDays(ccDayStart(e.start), 1)) {
       when = `${date} · ${this._timeFmt(e.start)}${+e.end !== +e.start ? ` – ${this._timeFmt(e.end)}` : ''}`;
     } else {
@@ -655,10 +659,8 @@ class CalendarAgendaMiniCard extends CalendarAgendaCard {
   }
 
   _miniHtml(days, now) {
-    // Upcoming: all-day, ongoing or future events, each once even when it spans several days.
+    // Upcoming: all-day, ongoing or future events.
     var upcoming = this._flat.filter((x) => x.e.allDay || x.e.end > now);
-    var seen = new Set();
-    upcoming = upcoming.filter((x) => (seen.has(x.e) ? false : seen.add(x.e)));
     // A timed event (under way or next) comes before the day's all-day ones.
     var first = upcoming.find((x) => !x.e.allDay) || upcoming[0];
     var second = upcoming.find((x) => x !== first && !x.e.allDay) || upcoming.find((x) => x !== first);
@@ -669,15 +671,15 @@ class CalendarAgendaMiniCard extends CalendarAgendaCard {
       var i = this._flat.indexOf(first);
       var isToday = ccKey(first.day) === ccKey(now);
       var html = this._eventHtml(first.e, first.day, now, i, isToday);
-      if (!isToday) {
-        // A later day: its date goes in front of the time.
+      if (!isToday && !ccMultiDay(first.e)) {
+        // A later day: its date goes in front of the time (a multi-day event already shows its dates).
         var d = ccKey(first.day) === ccKey(ccAddDays(now, 1)) ? this._t('tomorrow') : this._dateFmt(first.day, { weekday: 'short', day: 'numeric', month: 'short' });
         html = html.replace('<div class="emeta">', `<div class="emeta">${ccEsc(d)}<span class="sep">·</span>`);
       }
       body = html;
       if (second) {
         var cal = this._cals[second.e.cal];
-        var when = ccKey(second.day) === ccKey(now) ? this._when(second.e, second.day)
+        var when = ccKey(second.day) === ccKey(now) ? this._when(second.e)
           : `${this._dateFmt(second.day, { weekday: 'short' }).replace('.', '')} ${second.e.allDay ? '' : this._timeFmt(second.e.start)}`.trim();
         body += `<div class="mnext" style="--c:${ccEsc(cal.color)}"><span>${this._t('next')}</span><span class="ndot"></span><b>${ccEsc(second.e.summary)}</b><span>${ccEsc(when)}</span></div>`;
       }

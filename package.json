@@ -1,6 +1,6 @@
 {
   "name": "ha-calendar-card",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Agenda card for Home Assistant calendars, with a mini card that unfolds into the full agenda.",
   "private": true,
   "type": "module",

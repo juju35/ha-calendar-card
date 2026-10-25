@@ -18,7 +18,7 @@ Custom Lovelace agenda card for Home Assistant [calendars](https://www.home-assi
 
 - Two cards: `calendar-agenda-card` and its mini version `calendar-agenda-mini-card` (next event and the one after; a detail button unfolds the full agenda)
 - Several calendars merged in one list, each with its own color and name; an event shared by several calendars is listed once
-- Days with today and tomorrow labelled, all-day and multi-day events, time range and location
+- Days with today and tomorrow labelled, all-day events, time range and location; a multi-day event is listed once with its date range
 - Countdown for today's events (*in 25 min*, *in 2 h 05*), **Now** badge and progress bar for the event under way; finished events go away
 - Events past `max_events` fold into a **N more events** section (chevron right folded, down unfolded, folds back on a click elsewhere)
 - Click an event for its details (date and time, location, calendar, description) in a popup at the top of the card
@@ -151,7 +151,7 @@ Calendar options:
 
 The card asks Home Assistant for the events of each calendar between today midnight and `days_to_show` days later (the `/api/calendars/<entity>` endpoint the built-in calendar uses). It fetches again when a calendar entity changes state (an event starts or ends), when the day changes and every 5 minutes; countdowns move on every minute. A calendar that fails to load is named under the list and the others are still shown.
 
-A multi-day event shows on every day it covers. Today's timed events that are over are hidden unless `show_past_events` is on.
+A multi-day event is listed once, on the first day shown (its start day, or today when it started earlier), with its date range. Today's timed events that are over are hidden unless `show_past_events` is on.
 
 ## Development
 
