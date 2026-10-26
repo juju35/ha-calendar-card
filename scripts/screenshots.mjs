@@ -78,7 +78,7 @@ const at = (day, hm) => `2026-10-${day}T${hm}:00Z`;
 const EVENTS = {
   "calendar.home": [
     { summary: "Bin collection", start: { date: "2026-10-26" }, end: { date: "2026-10-27" } },
-    { summary: "Dentist", start: { dateTime: at(26, "11:30") }, end: { dateTime: at(26, "12:00") }, location: "Rue de la Paix" },
+    { summary: "Dentist", start: { dateTime: at(26, "11:30") }, end: { dateTime: at(26, "12:00") }, location: "12 High Street" },
     { summary: "Swimming lesson", start: { dateTime: at(27, "17:30") }, end: { dateTime: at(27, "18:30") }, location: "Municipal pool" },
     { summary: "Dinner with friends", start: { dateTime: at(28, "19:30") }, end: { dateTime: at(28, "23:00") } },
     { summary: "Boiler service", start: { dateTime: at(30, "08:00") }, end: { dateTime: at(30, "10:00") },
@@ -104,17 +104,17 @@ const states = {
 const entities = ["calendar.home", { entity: "calendar.work", color: "#33b679" }, { entity: "calendar.holidays", color: "#8e24aa" }];
 
 const shots = [
-  { file: "agenda", type: "calendar-agenda-card", theme: "light", config: { max_events: 0 } },
-  { file: "agenda-dark", type: "calendar-agenda-card", theme: "dark", config: { max_events: 0, language: "fr" } },
-  { file: "agenda-more", type: "calendar-agenda-card", theme: "light", config: {} },
+  { file: "agenda", type: "calendar-agenda-card", theme: "light", width: 460, config: { max_events: 0 } },
+  { file: "agenda-dark", type: "calendar-agenda-card", theme: "dark", width: 460, config: { max_events: 0 } },
+  { file: "agenda-more", type: "calendar-agenda-card", theme: "light", width: 460, config: {} },
   {
-    file: "agenda-details", type: "calendar-agenda-card", theme: "light", config: {},
+    file: "agenda-details", type: "calendar-agenda-card", theme: "light", width: 460, config: {},
     after: (page) => page.locator("calendar-agenda-card .ev", { hasText: "Project review" }).click(),
   },
-  { file: "mini", type: "calendar-agenda-mini-card", theme: "light", config: {} },
-  { file: "mini-dark", type: "calendar-agenda-mini-card", theme: "dark", config: { language: "fr" } },
+  { file: "mini", type: "calendar-agenda-mini-card", theme: "light", width: 380, config: {} },
+  { file: "mini-dark", type: "calendar-agenda-mini-card", theme: "dark", width: 380, config: {} },
   {
-    file: "mini-zoom", type: "calendar-agenda-mini-card", theme: "light", config: { days_to_show: 4 },
+    file: "mini-zoom", type: "calendar-agenda-mini-card", theme: "light", width: 460, config: { days_to_show: 4 },
     after: async (page) => {
       await page.locator("calendar-agenda-mini-card .zoom").click();
       await page.mouse.move(0, 0);
@@ -127,7 +127,8 @@ const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePa
 for (const s of shots) {
   const page = await browser.newPage({ deviceScaleFactor: 2, viewport: { width: 1000, height: 2000 }, timezoneId: "UTC" });
   await page.clock.setFixedTime(NOW);
-  await page.setContent(pageHtml(s.theme, 400));
+  page.on("pageerror", (err) => console.error(`${s.file}: ${err.message}`));
+  await page.setContent(pageHtml(s.theme, s.width));
   await page.addScriptTag({ content: haElements(icons) });
   await page.addScriptTag({ content: cardJs });
   await page.evaluate(
@@ -146,7 +147,13 @@ for (const s of shots) {
   await page.waitForTimeout(300);
   if (s.after) await s.after(page);
   await page.waitForTimeout(400);
-  await page.locator(s.type).screenshot({ path: `${root}screenshots/${s.file}.png`, animations: "disabled" });
+  // The card on the theme background, with the body's 16px padding around it.
+  const box = await page.locator("#root").boundingBox();
+  await page.screenshot({
+    path: `${root}screenshots/${s.file}.png`,
+    clip: { x: 0, y: 0, width: s.width + 32, height: Math.ceil(box.height) + 32 },
+    animations: "disabled",
+  });
   console.log(`screenshots/${s.file}.png`);
   await page.close();
 }
