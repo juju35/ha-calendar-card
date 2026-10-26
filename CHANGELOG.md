@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Changes
+- The agenda starts 8px under the header (it was 10px), like the other ha-* cards.
+- Code: the unused `day` parameter of the event renderer is gone (Biome warning).
+
 ## 1.0.2
 
 ### Fixes

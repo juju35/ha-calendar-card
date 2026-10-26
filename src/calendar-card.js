@@ -376,7 +376,7 @@ class CalendarAgendaCard extends HTMLElement {
     return ccByDay(events, ccDayStart(now), this._days(), now, c.show_past_events);
   }
 
-  _eventHtml(e, day, now, idx, isToday) {
+  _eventHtml(e, now, idx, isToday) {
     var c = this._config, cal = this._cals[e.cal];
     var meta = [ccEsc(this._when(e))];
     if (c.show_location && e.location) meta.push(`<span class="loc"><ha-icon icon="mdi:map-marker-outline"></ha-icon>${ccEsc(e.location)}</span>`);
@@ -403,7 +403,7 @@ class CalendarAgendaCard extends HTMLElement {
       : `<div class="date${isToday ? ' today' : ''}"><span class="wd">${ccEsc(wd)}</span><span class="dn">${day.date.getDate()}</span>` +
         `<span class="mo">${ccEsc(this._dateFmt(day.date, { month: 'short' }).replace('.', ''))}</span></div>`;
     var body = events.length
-      ? events.map((e, i) => this._eventHtml(e, day.date, now, firstIdx + i, isToday)).join('')
+      ? events.map((e, i) => this._eventHtml(e, now, firstIdx + i, isToday)).join('')
       : `<div class="none">${this._t('no_events')}</div>`;
     return `<div class="day${cont ? ' cont' : ''}">${date}<div class="events">${label && !cont ? `<div class="dlabel">${ccEsc(label)}</div>` : ''}${body}</div></div>`;
   }
@@ -557,7 +557,8 @@ class CalendarAgendaCard extends HTMLElement {
       'ha-card { position: relative; height: 100%; box-sizing: border-box; padding: 12px; display: flex; flex-direction: column; gap: 10px; }' +
       'ha-card.popped { min-height: 240px; }' +
       '.empty { display: flex; align-items: center; gap: 10px; color: var(--secondary-text-color); }' +
-      '.header { display: flex; align-items: center; gap: 10px; }' +
+      // The body starts 8px under the header, like the other ha-* cards (the card's gap is 10px).
+      '.header { display: flex; align-items: center; gap: 10px; margin-bottom: -2px; }' +
       '.logo { width: 40px; height: 40px; flex-shrink: 0; font-family: inherit; }' +
       '.titles { flex: 1; min-width: 0; }' +
       '.name { font-size: 16px; font-weight: 500; line-height: 1.25; color: var(--primary-text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }' +
@@ -688,7 +689,7 @@ class CalendarAgendaMiniCard extends CalendarAgendaCard {
     } else {
       var i = this._flat.indexOf(first);
       var isToday = ccKey(first.day) === ccKey(now);
-      var html = this._eventHtml(first.e, first.day, now, i, isToday);
+      var html = this._eventHtml(first.e, now, i, isToday);
       if (!isToday && !ccMultiDay(first.e)) {
         // A later day: its date goes in front of the time (a multi-day event already shows its dates).
         var d = ccKey(first.day) === ccKey(ccAddDays(now, 1)) ? this._t('tomorrow') : this._dateFmt(first.day, { weekday: 'short', day: 'numeric', month: 'short' });
