@@ -134,6 +134,17 @@ test("events past max_events go into a folded 'more' section", async () => {
   assert.doesNotMatch((await render(CalendarAgendaCard, events, { max_events: 0 })).shadowRoot.innerHTML, /data-action="more"/);
 });
 
+test("a pending fetch is not re-triggered by hass updates", async () => {
+  const card = new CalendarAgendaCard();
+  card.setConfig({ entities: ["calendar.home", "calendar.work"] });
+  const hass = mockHass({});
+  hass.callApi = (method, path) => { hass.calls.push([method, path]); return new Promise(() => {}); };
+  card.hass = hass;
+  card.hass = hass;
+  card.hass = hass;
+  assert.equal(hass.calls.length, 2);
+});
+
 test("clicking an event opens its details at the top of the card", async () => {
   const card = await render(CalendarAgendaCard, {
     "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) }, description: "Bring the card" }],

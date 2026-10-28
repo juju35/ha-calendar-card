@@ -351,7 +351,8 @@ class CalendarAgendaCard extends HTMLElement {
     var from = ccDayStart(new Date());
     var to = ccAddDays(from, this._days());
     var q = `?start=${encodeURIComponent(from.toISOString())}&end=${encodeURIComponent(to.toISOString())}`;
-    this._fetchedAt = this._fetchedAt || 1;
+    // Set before the await, so a `set hass` while the request is pending does not refetch.
+    this._fetchedAt = Date.now();
     var res = await Promise.allSettled(cals.map((c) => this._hass.callApi('GET', `calendars/${c.entity}${q}`)));
     if (seq !== this._fetchSeq) return;
     var events = [], failed = [];
