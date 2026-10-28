@@ -1,8 +1,11 @@
-// Renders the card with mock calendars and saves the README screenshots.
-// Usage: npm run build && npm run screenshots  (CHROMIUM_PATH=/path/to/chrome to use an installed browser)
-import { chromium } from "playwright";
-import { readFileSync } from "node:fs";
+// Renders the card with mock calendars and saves the README screenshots and GIFs.
+// Usage: npm run build && npm run screenshots  (CHROMIUM_PATH=/path/to/chrome to use an installed browser; GIFs need ffmpeg)
+import { execFileSync } from "node:child_process";
+import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { chromium } from "playwright";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 // Fixed clock and time zone: countdowns and dates in the captures do not depend on when they are taken.
@@ -122,9 +125,46 @@ const shots = [
   },
 ];
 
+// The GIFs of the card's interactions: each step clicks an element of the card (found by selector and,
+// optionally, by its text) and holds a number of frames; `anim` steps the triggered CSS animation frame
+// by frame (slowed down ~2x), so the GIF is identical whatever the machine's speed. FPS below.
+const gifs = [
+  {
+    file: "agenda-popup", type: "calendar-agenda-card", theme: "light", width: 460, config: {},
+    steps: [
+      { hold: 8 },
+      { click: { sel: ".ev", text: "Project review" }, anim: 160, frames: 8 },
+      { hold: 26 },
+      { click: { sel: ".pclose" } },
+      { hold: 8 },
+    ],
+  },
+  {
+    file: "agenda-more", type: "calendar-agenda-card", theme: "light", width: 460, config: {},
+    steps: [
+      { hold: 8 },
+      { click: { sel: ".more" } },
+      { hold: 26 },
+      { click: { sel: ".more" } },
+      { hold: 8 },
+    ],
+  },
+  {
+    file: "mini-zoom", type: "calendar-agenda-mini-card", theme: "light", width: 460, config: { days_to_show: 4 },
+    steps: [
+      { hold: 8 },
+      { click: { sel: ".zoom" } },
+      { hold: 26 },
+      { click: { sel: ".zoom" } },
+      { hold: 8 },
+    ],
+  },
+];
+
 const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
+
 // A fresh page per shot: re-running the scripts in the same realm would redeclare their globals.
-for (const s of shots) {
+async function openCard(s) {
   const page = await browser.newPage({ deviceScaleFactor: 2, viewport: { width: 1000, height: 2000 }, timezoneId: "UTC" });
   await page.clock.setFixedTime(NOW);
   page.on("pageerror", (err) => console.error(`${s.file}: ${err.message}`));
@@ -145,6 +185,20 @@ for (const s of shots) {
     { type: s.type, config: s.config, states, events: EVENTS, entities }
   );
   await page.waitForTimeout(300);
+  return page;
+}
+
+// Clicks the step's element inside the card's shadow root and pauses the animations it starts, all in
+// one synchronous script, so a short animation cannot finish before it is stepped.
+const doClick = (page, s, step) => page.evaluate(({ type, click }) => {
+  const sr = document.querySelector(type).shadowRoot;
+  const el = [...sr.querySelectorAll(click.sel)].find((n) => !click.text || n.textContent.includes(click.text));
+  el.click();
+  for (const a of document.getAnimations()) { a.pause(); a.currentTime = 0; }
+}, { type: s.type, click: step.click });
+
+for (const s of shots) {
+  const page = await openCard(s);
   if (s.after) await s.after(page);
   await page.waitForTimeout(400);
   // The card on the theme background, with the body's 16px padding around it.
@@ -157,4 +211,52 @@ for (const s of shots) {
   console.log(`screenshots/${s.file}.png`);
   await page.close();
 }
+
+const FPS = 20;
+for (const s of gifs) {
+  // First pass: play the steps without capturing, to measure the tallest state the clip must hold.
+  let page = await openCard(s);
+  let maxH = 0;
+  const measure = async () => { maxH = Math.max(maxH, (await page.locator("#root").boundingBox()).height); };
+  await measure();
+  for (const step of s.steps) {
+    if (!step.click) continue;
+    await doClick(page, s, step);
+    await page.waitForTimeout(100);
+    await measure();
+  }
+  await page.close();
+
+  // Second pass: capture the frames.
+  page = await openCard(s);
+  const clip = { x: 0, y: 0, width: s.width + 32, height: Math.ceil(maxH) + 32 };
+  const dir = mkdtempSync(join(tmpdir(), "cc-frames-"));
+  let n = 0;
+  const snap = () => page.screenshot({ path: join(dir, `f${String(n++).padStart(3, "0")}.png`), clip });
+  for (const step of s.steps) {
+    if (step.click) {
+      await doClick(page, s, step);
+      // Step the triggered animation at half speed; without one, the change is instant.
+      const frames = step.anim ? step.frames : 1;
+      for (let i = 1; i <= frames; i++) {
+        if (step.anim) {
+          await page.evaluate((t) => { for (const a of document.getAnimations()) { a.pause(); a.currentTime = t; } }, (step.anim * i) / frames);
+        }
+        await snap();
+      }
+    } else {
+      for (let i = 0; i < step.hold; i++) await snap();
+    }
+  }
+  await page.close();
+  const out = `${root}screenshots/${s.file}.gif`;
+  execFileSync("ffmpeg", [
+    "-y", "-loglevel", "error", "-framerate", String(FPS), "-i", join(dir, "f%03d.png"),
+    "-vf", `scale=${clip.width}:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=128[p];[b][p]paletteuse=dither=bayer:bayer_scale=4`,
+    "-loop", "0", out,
+  ]);
+  rmSync(dir, { recursive: true });
+  console.log(`screenshots/${s.file}.gif`);
+}
+
 await browser.close();

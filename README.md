@@ -149,6 +149,20 @@ Calendar options:
 |---|---|---|
 | ![agenda with folded events](screenshots/agenda-more.png) | ![event details](screenshots/agenda-details.png) | ![mini card unfolded](screenshots/mini-zoom.png) |
 
+### Animations
+
+![event details popup](screenshots/agenda-popup.gif)
+
+Clicking an event slides its details in at the top of the card; a second click (or the cross) closes them.
+
+![folded events](screenshots/agenda-more.gif)
+
+The **more** button unfolds the events past `max_events`, and folds them back.
+
+![mini card unfolding](screenshots/mini-zoom.gif)
+
+The mini card's detail button unfolds the full agenda in place, and folds it back.
+
 ## How it works
 
 The card asks Home Assistant for the events of each calendar between today midnight and `days_to_show` days later (the `/api/calendars/<entity>` endpoint the built-in calendar uses). It fetches again when a calendar entity changes state (an event starts or ends), when the day changes and every 5 minutes; countdowns move on every minute. A calendar that fails to load is named under the list and the others are still shown.
@@ -162,7 +176,7 @@ npm install
 npm run build        # stamps the version of package.json into dist/calendar-card.js
 npm run check        # builds and checks the card (run in CI)
 npm test             # unit tests
-npm run screenshots  # renders the cards with mock calendars into screenshots/
+npm run screenshots  # renders the cards with mock calendars into screenshots/ (PNGs + GIFs, Playwright + ffmpeg)
 ```
 
 `dist/` is not committed: `npm run build` creates it locally, CI builds it on every push, and the release workflow attaches the built file to the release, which is where HACS downloads it from.
