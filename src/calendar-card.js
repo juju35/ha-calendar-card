@@ -435,11 +435,13 @@ class CalendarAgendaCard extends HTMLElement {
     return `<div class="day${cont ? ' cont' : ''}">${date}<div class="events">${label && !cont ? `<div class="dlabel">${ccEsc(label)}</div>` : ''}${body}</div></div>`;
   }
 
+  // Shared by the full and mini cards: the "N events today" counter is a status badge at the right
+  // of the header, like the other ha-* cards.
   _headerHtml(now, sub) {
     var wd = this._dateFmt(now, { weekday: 'short' }).replace('.', '').toUpperCase();
     return '<div class="header">' + ccLogo(wd, now.getDate()) +
-      `<div class="titles"><div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div><div class="sub">${ccEsc(sub)}</div></div>` +
-      this._zoomButton() + '</div>';
+      `<div class="titles"><div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div></div>` +
+      `<span class="st">${ccEsc(sub)}</span>${this._zoomButton()}</div>`;
   }
 
   _todaySub(days) {
@@ -593,7 +595,6 @@ class CalendarAgendaCard extends HTMLElement {
       '.logo { width: 40px; height: 40px; flex-shrink: 0; font-family: inherit; }' +
       '.titles { flex: 1; min-width: 0; }' +
       '.name { font-size: 16px; font-weight: 500; line-height: 1.25; color: var(--primary-text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }' +
-      '.sub { font-size: 12px; color: var(--secondary-text-color); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }' +
       '.list, .more-body { display: flex; flex-direction: column; gap: 10px; }' +
       '.more-body:not(.open) { display: none; }' +
       '.day { display: flex; gap: 10px; }' +
@@ -734,13 +735,9 @@ class CalendarAgendaMiniCard extends CalendarAgendaCard {
         body += `<div class="mnext" style="--c:${ccEsc(cal.color)}"><span>${this._t('next')}</span><span class="ndot"></span><b>${ccEsc(second.e.summary)}</b><span>${ccEsc(when)}</span></div>`;
       }
     }
-    var sub = this._todaySub(days);
-    var wd = this._dateFmt(now, { weekday: 'short' }).replace('.', '').toUpperCase();
     return `<ha-card class="mini${this._detail != null ? ' popped' : ''}">` +
-      '<div class="header">' + ccLogo(wd, now.getDate()) +
-        `<div class="titles"><div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div></div>` +
-        `<span class="st">${ccEsc(sub)}</span>${this._zoomButton()}` +
-      `</div><div class="list">${body}</div>${this._errorHtml()}${this._popupHtml()}</ha-card>`;
+      this._headerHtml(now, this._todaySub(days)) +
+      `<div class="list">${body}</div>${this._errorHtml()}${this._popupHtml()}</ha-card>`;
   }
 }
 
