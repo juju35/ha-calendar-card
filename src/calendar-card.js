@@ -294,6 +294,15 @@ class CalendarAgendaCard extends HTMLElement {
 
   _t(k) { return ccT(this._lang(), k); }
 
+  // Full locale tag for date/time formatting (en-GB vs en-US…); the truncated _lang() is only for CcI18n.
+  _fmtLang() {
+    var l = (this._config?.language) || (this._hass?.locale?.language) || (this._hass?.language) || document.documentElement.lang || 'en';
+    if (l !== this._fmtOk) {
+      try { new Intl.DateTimeFormat(l); this._fmtOk = l; } catch { l = this._lang(); }
+    }
+    return l;
+  }
+
   _days() { return Math.max(1, Math.min(62, Number(this._config.days_to_show) || CC_DEFAULTS.days_to_show)); }
 
   _timeFmt(d) {
@@ -301,10 +310,10 @@ class CalendarAgendaCard extends HTMLElement {
     var tf = this._hass?.locale?.time_format;
     if (tf === '12') o.hour12 = true;
     else if (tf === '24') o.hour12 = false;
-    return d.toLocaleTimeString(this._lang(), o);
+    return d.toLocaleTimeString(this._fmtLang(), o);
   }
 
-  _dateFmt(d, opts) { return d.toLocaleDateString(this._lang(), opts); }
+  _dateFmt(d, opts) { return d.toLocaleDateString(this._fmtLang(), opts); }
 
 
   // "in 25 min", "in 2 h 05", "Now": for today's events only.
@@ -353,7 +362,7 @@ class CalendarAgendaCard extends HTMLElement {
       this._fetchKey = key;
       this._fetch(cals);
     }
-    var sig = JSON.stringify([this._lang(), this._fetchedAt, this._detail, this._expanded, this._zoomed,
+    var sig = JSON.stringify([this._lang(), this._fmtLang(), this._fetchedAt, this._detail, this._expanded, this._zoomed,
       Math.floor(Date.now() / 60000), cals.map((c) => [c.entity, c.color, c.name]), this._hass.locale?.time_format]);
     if (sig === this._sig) return;
     this._sig = sig;
