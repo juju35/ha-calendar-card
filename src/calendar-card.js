@@ -268,8 +268,9 @@ class CalendarAgendaCard extends HTMLElement {
 
   connectedCallback() {
     // Every minute: countdowns move on, finished events go, and the events are fetched again every 5 min.
+    // The tick is skipped while the details popup is open: re-rendering would reset its scroll position.
     clearInterval(this._timer);
-    this._timer = setInterval(() => { this._sig = null; this._update(); }, 60000);
+    this._timer = setInterval(() => { if (this._detail != null) return; this._sig = null; this._update(); }, 60000);
     document.addEventListener('click', this._onOutside, true);
   }
 
@@ -293,6 +294,15 @@ class CalendarAgendaCard extends HTMLElement {
 
   _t(k) { return ccT(this._lang(), k); }
 
+  // Full locale tag for date/time formatting (en-GB vs en-US…); the truncated _lang() is only for CcI18n.
+  _fmtLang() {
+    var l = (this._config?.language) || (this._hass?.locale?.language) || (this._hass?.language) || document.documentElement.lang || 'en';
+    if (l !== this._fmtOk) {
+      try { new Intl.DateTimeFormat(l); this._fmtOk = l; } catch { l = this._lang(); }
+    }
+    return l;
+  }
+
   _days() { return Math.max(1, Math.min(62, Number(this._config.days_to_show) || CC_DEFAULTS.days_to_show)); }
 
   _timeFmt(d) {
@@ -300,10 +310,10 @@ class CalendarAgendaCard extends HTMLElement {
     var tf = this._hass?.locale?.time_format;
     if (tf === '12') o.hour12 = true;
     else if (tf === '24') o.hour12 = false;
-    return d.toLocaleTimeString(this._lang(), o);
+    return d.toLocaleTimeString(this._fmtLang(), o);
   }
 
-  _dateFmt(d, opts) { return d.toLocaleDateString(this._lang(), opts); }
+  _dateFmt(d, opts) { return d.toLocaleDateString(this._fmtLang(), opts); }
 
 
   // "in 25 min", "in 2 h 05", "Now": for today's events only.
@@ -338,6 +348,12 @@ class CalendarAgendaCard extends HTMLElement {
     var cals = ccCalendars(this._config, this._hass);
     this._cals = cals;
     var now = new Date();
+    // Cheap pre-check: a hass update that touches neither the calendar entities, the minute nor the
+    // card state cannot change the fetch key or the render — skip the two JSON.stringify below.
+    // `_sig = null` (set by setConfig, the minute timer and a resolved fetch) forces a full pass.
+    var tick = `${cals.map((c) => this._hass.states[c.entity]?.last_updated || '').join('|')}|${Math.floor(Date.now() / 60000)}|${this._detail}|${this._expanded}|${this._zoomed}`;
+    if (this._sig != null && tick === this._tick) return;
+    this._tick = tick;
     // Fetch again when the calendars, the range or the day change, when a calendar entity changes
     // (an event starts or ends) and every 5 minutes.
     var key = JSON.stringify([cals.map((c) => c.entity), this._days(), ccKey(now),
@@ -346,11 +362,14 @@ class CalendarAgendaCard extends HTMLElement {
       this._fetchKey = key;
       this._fetch(cals);
     }
-    var sig = JSON.stringify([this._lang(), this._fetchedAt, this._detail, this._expanded, this._zoomed,
+    var sig = JSON.stringify([this._lang(), this._fmtLang(), this._fetchedAt, this._detail, this._expanded, this._zoomed,
       Math.floor(Date.now() / 60000), cals.map((c) => [c.entity, c.color, c.name]), this._hass.locale?.time_format]);
     if (sig === this._sig) return;
     this._sig = sig;
+    // Re-rendering replaces the whole shadow DOM: put the keyboard focus back on the same event row.
+    var focused = this.shadowRoot.activeElement?.dataset?.ev;
     this._render(cals, now);
+    if (focused != null) this.shadowRoot.querySelector(`[data-ev="${focused}"]`)?.focus();
   }
 
   async _fetch(cals) {
@@ -416,11 +435,13 @@ class CalendarAgendaCard extends HTMLElement {
     return `<div class="day${cont ? ' cont' : ''}">${date}<div class="events">${label && !cont ? `<div class="dlabel">${ccEsc(label)}</div>` : ''}${body}</div></div>`;
   }
 
+  // Shared by the full and mini cards: the "N events today" counter is a status badge at the right
+  // of the header, like the other ha-* cards.
   _headerHtml(now, sub) {
     var wd = this._dateFmt(now, { weekday: 'short' }).replace('.', '').toUpperCase();
     return '<div class="header">' + ccLogo(wd, now.getDate()) +
-      `<div class="titles"><div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div><div class="sub">${ccEsc(sub)}</div></div>` +
-      this._zoomButton() + '</div>';
+      `<div class="titles"><div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div></div>` +
+      `<span class="st">${ccEsc(sub)}</span>${this._zoomButton()}</div>`;
   }
 
   _todaySub(days) {
@@ -556,7 +577,9 @@ class CalendarAgendaCard extends HTMLElement {
     }
     if ((ev.key === 'Enter' || ev.key === ' ') && ev.target?.dataset?.ev != null) {
       ev.preventDefault();
-      this._detail = Number(ev.target.dataset.ev);
+      // Same toggle as a click: a second Enter/Space on the open event closes its details.
+      var i = Number(ev.target.dataset.ev);
+      this._detail = this._detail === i ? null : i;
       this._update();
     }
   }
@@ -572,7 +595,6 @@ class CalendarAgendaCard extends HTMLElement {
       '.logo { width: 40px; height: 40px; flex-shrink: 0; font-family: inherit; }' +
       '.titles { flex: 1; min-width: 0; }' +
       '.name { font-size: 16px; font-weight: 500; line-height: 1.25; color: var(--primary-text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }' +
-      '.sub { font-size: 12px; color: var(--secondary-text-color); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }' +
       '.list, .more-body { display: flex; flex-direction: column; gap: 10px; }' +
       '.more-body:not(.open) { display: none; }' +
       '.day { display: flex; gap: 10px; }' +
@@ -713,13 +735,9 @@ class CalendarAgendaMiniCard extends CalendarAgendaCard {
         body += `<div class="mnext" style="--c:${ccEsc(cal.color)}"><span>${this._t('next')}</span><span class="ndot"></span><b>${ccEsc(second.e.summary)}</b><span>${ccEsc(when)}</span></div>`;
       }
     }
-    var sub = this._todaySub(days);
-    var wd = this._dateFmt(now, { weekday: 'short' }).replace('.', '').toUpperCase();
     return `<ha-card class="mini${this._detail != null ? ' popped' : ''}">` +
-      '<div class="header">' + ccLogo(wd, now.getDate()) +
-        `<div class="titles"><div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div></div>` +
-        `<span class="st">${ccEsc(sub)}</span>${this._zoomButton()}` +
-      `</div><div class="list">${body}</div>${this._errorHtml()}${this._popupHtml()}</ha-card>`;
+      this._headerHtml(now, this._todaySub(days)) +
+      `<div class="list">${body}</div>${this._errorHtml()}${this._popupHtml()}</ha-card>`;
   }
 }
 

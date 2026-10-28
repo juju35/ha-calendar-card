@@ -140,12 +140,28 @@ Calendar options:
 
 ## Screenshots
 
-| Light | Dark (French) |
+| Light | Dark |
 |---|---|
 | ![agenda](screenshots/agenda.png) | ![agenda dark](screenshots/agenda-dark.png) |
-| ![agenda with folded events](screenshots/agenda-more.png) | ![event details](screenshots/agenda-details.png) |
 | ![mini card](screenshots/mini.png) | ![mini card dark](screenshots/mini-dark.png) |
-| ![mini card unfolded](screenshots/mini-zoom.png) | |
+
+| Folded events | Event details | Mini card unfolded |
+|---|---|---|
+| ![agenda with folded events](screenshots/agenda-more.png) | ![event details](screenshots/agenda-details.png) | ![mini card unfolded](screenshots/mini-zoom.png) |
+
+### Animations
+
+![event details popup](screenshots/agenda-popup.gif)
+
+Clicking an event slides its details in at the top of the card; a second click (or the cross) closes them.
+
+![folded events](screenshots/agenda-more.gif)
+
+The **more** button unfolds the events past `max_events`, and folds them back.
+
+![mini card unfolding](screenshots/mini-zoom.gif)
+
+The mini card's detail button unfolds the full agenda in place, and folds it back.
 
 ## How it works
 
@@ -160,7 +176,7 @@ npm install
 npm run build        # stamps the version of package.json into dist/calendar-card.js
 npm run check        # builds and checks the card (run in CI)
 npm test             # unit tests
-npm run screenshots  # renders the cards with mock calendars into screenshots/
+npm run screenshots  # renders the cards with mock calendars into screenshots/ (PNGs + GIFs, Playwright + ffmpeg)
 ```
 
 `dist/` is not committed: `npm run build` creates it locally, CI builds it on every push, and the release workflow attaches the built file to the release, which is where HACS downloads it from.
