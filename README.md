@@ -140,12 +140,14 @@ Calendar options:
 
 ## Screenshots
 
-| Light | Dark (French) |
+| Light | Dark |
 |---|---|
 | ![agenda](screenshots/agenda.png) | ![agenda dark](screenshots/agenda-dark.png) |
-| ![agenda with folded events](screenshots/agenda-more.png) | ![event details](screenshots/agenda-details.png) |
 | ![mini card](screenshots/mini.png) | ![mini card dark](screenshots/mini-dark.png) |
-| ![mini card unfolded](screenshots/mini-zoom.png) | |
+
+| Folded events | Event details | Mini card unfolded |
+|---|---|---|
+| ![agenda with folded events](screenshots/agenda-more.png) | ![event details](screenshots/agenda-details.png) | ![mini card unfolded](screenshots/mini-zoom.png) |
 
 ## How it works
 

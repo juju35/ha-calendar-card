@@ -2,6 +2,11 @@
   "name": "ha-calendar-card",
   "version": "1.0.3",
   "description": "Agenda card for Home Assistant calendars, with a mini card that unfolds into the full agenda.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juju35/ha-calendar-card.git"
+  },
+  "author": "Julien Stéphan (https://jstephan.me)",
   "private": true,
   "type": "module",
   "scripts": {
