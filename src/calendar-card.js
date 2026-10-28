@@ -243,7 +243,14 @@ class CalendarAgendaCard extends HTMLElement {
 
   setConfig(config) {
     if (!config) throw new Error('Invalid configuration');
+    var prev = this._config;
     this._config = Object.assign({}, CC_DEFAULTS, config);
+    // A new calendar list invalidates the stored events, whose `cal` indexes the old one.
+    var ccIds = (c) => JSON.stringify((c.entities || (c.entity ? [c.entity] : [])).map((x) => (typeof x === 'string' ? x : x?.entity)));
+    if (prev && ccIds(prev) !== ccIds(this._config)) {
+      this._events = [];
+      this._loaded = false;
+    }
     if (!this.shadowRoot) {
       this.attachShadow({ mode: 'open' });
       this.shadowRoot.addEventListener('click', (ev) => this._onClick(ev));
@@ -351,7 +358,8 @@ class CalendarAgendaCard extends HTMLElement {
     var from = ccDayStart(new Date());
     var to = ccAddDays(from, this._days());
     var q = `?start=${encodeURIComponent(from.toISOString())}&end=${encodeURIComponent(to.toISOString())}`;
-    this._fetchedAt = this._fetchedAt || 1;
+    // Set before the await, so a `set hass` while the request is pending does not refetch.
+    this._fetchedAt = Date.now();
     var res = await Promise.allSettled(cals.map((c) => this._hass.callApi('GET', `calendars/${c.entity}${q}`)));
     if (seq !== this._fetchSeq) return;
     var events = [], failed = [];
@@ -470,6 +478,8 @@ class CalendarAgendaCard extends HTMLElement {
       idx += d.events.length;
     });
     var moreCount = max ? Math.max(0, this._flat.length - max) : 0;
+    // No event hidden: `more` only holds trailing empty days — keep them visible.
+    if (!moreCount && more.length) { shown = shown.concat(more); more = []; }
     this._shown = Math.min(this._flat.length, max || this._flat.length) + (this._expanded ? moreCount : 0);
 
     var list = shown.join('') || (this._loaded ? `<div class="none big">${this._t('no_upcoming')}</div>` : '');
