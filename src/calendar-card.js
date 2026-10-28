@@ -268,8 +268,9 @@ class CalendarAgendaCard extends HTMLElement {
 
   connectedCallback() {
     // Every minute: countdowns move on, finished events go, and the events are fetched again every 5 min.
+    // The tick is skipped while the details popup is open: re-rendering would reset its scroll position.
     clearInterval(this._timer);
-    this._timer = setInterval(() => { this._sig = null; this._update(); }, 60000);
+    this._timer = setInterval(() => { if (this._detail != null) return; this._sig = null; this._update(); }, 60000);
     document.addEventListener('click', this._onOutside, true);
   }
 
@@ -338,6 +339,12 @@ class CalendarAgendaCard extends HTMLElement {
     var cals = ccCalendars(this._config, this._hass);
     this._cals = cals;
     var now = new Date();
+    // Cheap pre-check: a hass update that touches neither the calendar entities, the minute nor the
+    // card state cannot change the fetch key or the render — skip the two JSON.stringify below.
+    // `_sig = null` (set by setConfig, the minute timer and a resolved fetch) forces a full pass.
+    var tick = `${cals.map((c) => this._hass.states[c.entity]?.last_updated || '').join('|')}|${Math.floor(Date.now() / 60000)}|${this._detail}|${this._expanded}|${this._zoomed}`;
+    if (this._sig != null && tick === this._tick) return;
+    this._tick = tick;
     // Fetch again when the calendars, the range or the day change, when a calendar entity changes
     // (an event starts or ends) and every 5 minutes.
     var key = JSON.stringify([cals.map((c) => c.entity), this._days(), ccKey(now),
@@ -350,7 +357,10 @@ class CalendarAgendaCard extends HTMLElement {
       Math.floor(Date.now() / 60000), cals.map((c) => [c.entity, c.color, c.name]), this._hass.locale?.time_format]);
     if (sig === this._sig) return;
     this._sig = sig;
+    // Re-rendering replaces the whole shadow DOM: put the keyboard focus back on the same event row.
+    var focused = this.shadowRoot.activeElement?.dataset?.ev;
     this._render(cals, now);
+    if (focused != null) this.shadowRoot.querySelector(`[data-ev="${focused}"]`)?.focus();
   }
 
   async _fetch(cals) {
