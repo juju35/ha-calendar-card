@@ -153,6 +153,19 @@ test("show_empty_days keeps the empty days past the max_events cut", async () =>
   assert.doesNotMatch(html, /data-action="more"/);
 });
 
+test("changing the calendars drops the events indexed on the old list", async () => {
+  const card = await render(CalendarAgendaCard, {
+    "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }],
+  });
+  assert.equal(card._events.length, 1);
+  card.setConfig({ entities: ["calendar.work", "calendar.home"] });
+  assert.equal(card._events.length, 0);
+  card.setConfig({ entities: [{ entity: "calendar.work" }, "calendar.home"], max_events: 9 });
+  assert.equal(card._loaded, false);
+  await new Promise((r) => setTimeout(r, 0));
+  assert.equal(card._events.length, 1);
+});
+
 test("clicking an event opens its details at the top of the card", async () => {
   const card = await render(CalendarAgendaCard, {
     "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) }, description: "Bring the card" }],

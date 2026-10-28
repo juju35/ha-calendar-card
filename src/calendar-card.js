@@ -243,7 +243,14 @@ class CalendarAgendaCard extends HTMLElement {
 
   setConfig(config) {
     if (!config) throw new Error('Invalid configuration');
+    var prev = this._config;
     this._config = Object.assign({}, CC_DEFAULTS, config);
+    // A new calendar list invalidates the stored events, whose `cal` indexes the old one.
+    var ccIds = (c) => JSON.stringify((c.entities || (c.entity ? [c.entity] : [])).map((x) => (typeof x === 'string' ? x : x?.entity)));
+    if (prev && ccIds(prev) !== ccIds(this._config)) {
+      this._events = [];
+      this._loaded = false;
+    }
     if (!this.shadowRoot) {
       this.attachShadow({ mode: 'open' });
       this.shadowRoot.addEventListener('click', (ev) => this._onClick(ev));
