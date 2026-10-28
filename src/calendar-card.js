@@ -556,7 +556,9 @@ class CalendarAgendaCard extends HTMLElement {
     }
     if ((ev.key === 'Enter' || ev.key === ' ') && ev.target?.dataset?.ev != null) {
       ev.preventDefault();
-      this._detail = Number(ev.target.dataset.ev);
+      // Same toggle as a click: a second Enter/Space on the open event closes its details.
+      var i = Number(ev.target.dataset.ev);
+      this._detail = this._detail === i ? null : i;
       this._update();
     }
   }
