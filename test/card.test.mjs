@@ -5,9 +5,9 @@ import { loadCard } from "./load.mjs";
 // Values from the card's sandbox come from another realm: compare them as plain JSON.
 const plain = (v) => JSON.parse(JSON.stringify(v));
 
-const { CalendarAgendaCard, CalendarAgendaCardEditor, ccParse, ccByDay, ccCalendars, ccDayStart, ccEsc, customElements } = loadCard(
+const { CalendarAgendaCard, CalendarAgendaCardEditor, CcI18n, ccParse, ccByDay, ccCalendars, ccDayStart, ccEsc, customElements } = loadCard(
   "calendar-card.js",
-  ["CalendarAgendaCard", "CalendarAgendaCardEditor", "ccParse", "ccByDay", "ccCalendars", "ccDayStart", "ccEsc"]
+  ["CalendarAgendaCard", "CalendarAgendaCardEditor", "CcI18n", "ccParse", "ccByDay", "ccCalendars", "ccDayStart", "ccEsc"]
 );
 
 // Today at 09:40 local time, events around it.
@@ -200,6 +200,24 @@ test("French labels follow the language option", async () => {
     "calendar.home": [{ summary: "Dentiste", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }],
   }, { language: "fr" });
   assert.match(card.shadowRoot.innerHTML, /Demain/);
+});
+
+test("I18N parity: every language has exactly the English keys and placeholders", () => {
+  const ph = (v) => (String(v).match(/\{\w+\}/g) || []).sort();
+  const en = CcI18n.en;
+  assert.deepEqual(Object.keys(CcI18n).sort(), ["de", "en", "es", "fr"]);
+  for (const [lang, strings] of Object.entries(CcI18n)) {
+    assert.deepEqual(Object.keys(strings).sort(), Object.keys(en).sort(), lang);
+    for (const k of Object.keys(en)) assert.deepEqual(ph(strings[k]), ph(en[k]), `${lang}.${k}`);
+  }
+});
+
+test("German and Spanish labels follow the language option", async () => {
+  const events = { "calendar.home": [{ summary: "Zahnarzt", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }] };
+  assert.match((await render(CalendarAgendaCard, events, { language: "de" })).shadowRoot.innerHTML, /Morgen/);
+  assert.match((await render(CalendarAgendaCard, events, { language: "es" })).shadowRoot.innerHTML, /Mañana/);
+  assert.equal(editor({ language: "de" })._form.computeLabel({ name: "title" }), "Titel");
+  assert.equal(editor({ language: "es" })._form.computeLabel({ name: "title" }), "Título");
 });
 
 test("mini card: next event, detail button unfolds the full card", async () => {
