@@ -25,7 +25,7 @@ Custom Lovelace agenda card for Home Assistant [calendars](https://www.home-assi
 - Hide events by title with `exclude`
 - Refreshes when an event starts or ends and every 5 minutes
 - Visual editor in the dashboard UI
-- English and French, follows the Home Assistant language and 12 h / 24 h time format
+- English, French, German and Spanish, follows the Home Assistant language and 12 h / 24 h time format
 - Light and dark theme compatible
 - Single file, no dependencies, HACS-ready
 
@@ -128,7 +128,7 @@ language: en
 | `show_past_events` | ❌ | `false` | Keep today's finished events (greyed out) |
 | `exclude` | ❌ | — | Hide events whose title contains one of these texts (case-insensitive) |
 | `zoom` | ❌ | `true` | Mini card only: detail button at the top right that unfolds the full agenda (a click elsewhere folds it back) |
-| `language` | ❌ | Auto | Force language: `fr` or `en` (auto-detects from HA settings) |
+| `language` | ❌ | Auto | Force language: `en`, `fr`, `de` or `es` (auto-detects from HA settings) |
 
 Calendar options:
 
@@ -195,6 +195,8 @@ The card auto-detects the language from your Home Assistant settings. Currently 
 |---|---|
 | English | `en` |
 | Français | `fr` |
+| Deutsch | `de` |
+| Español | `es` |
 
 Contributions for additional languages are welcome!
 
