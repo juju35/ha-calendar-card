@@ -145,6 +145,14 @@ test("a pending fetch is not re-triggered by hass updates", async () => {
   assert.equal(hass.calls.length, 2);
 });
 
+test("show_empty_days keeps the empty days past the max_events cut", async () => {
+  const events = { "calendar.home": [1, 2].map((i) => ({ summary: `E${i}`, start: { dateTime: at(0, 10 + i) }, end: { dateTime: at(0, 11 + i) } })) };
+  const card = await render(CalendarAgendaCard, events, { max_events: 2, show_empty_days: true, days_to_show: 3 });
+  const html = card.shadowRoot.innerHTML;
+  assert.equal(html.match(/class="none"/g).length, 2);
+  assert.doesNotMatch(html, /data-action="more"/);
+});
+
 test("clicking an event opens its details at the top of the card", async () => {
   const card = await render(CalendarAgendaCard, {
     "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) }, description: "Bring the card" }],

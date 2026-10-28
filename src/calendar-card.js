@@ -471,6 +471,8 @@ class CalendarAgendaCard extends HTMLElement {
       idx += d.events.length;
     });
     var moreCount = max ? Math.max(0, this._flat.length - max) : 0;
+    // No event hidden: `more` only holds trailing empty days — keep them visible.
+    if (!moreCount && more.length) { shown = shown.concat(more); more = []; }
     this._shown = Math.min(this._flat.length, max || this._flat.length) + (this._expanded ? moreCount : 0);
 
     var list = shown.join('') || (this._loaded ? `<div class="none big">${this._t('no_upcoming')}</div>` : '');
