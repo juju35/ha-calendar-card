@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.0
+
+### Changes
+- German and Spanish translations (card and visual editor), with `de` and `es` in the editor language selector.
+
 ## 1.1.0
 
 ### Changes
