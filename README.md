@@ -117,7 +117,7 @@ language: en
 | Option | Required | Default | Description |
 |---|---|---|---|
 | `entities` | ✅ | — | Calendars: entity IDs, or objects `{ entity, color, name }` |
-| `title` | ❌ | `Agenda` | Card title |
+| `title` | ❌ | `Agenda` (translated) | Card title |
 | `days_to_show` | ❌ | `7` | Number of days from today (1 to 62) |
 | `max_events` | ❌ | `5` | Events shown before the folded **more** section (`0` shows everything) |
 | `show_header` | ❌ | `true` | Header with today's date and the number of events today |
