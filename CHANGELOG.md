@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.2
+
+### Fixes
+- An event details popup opened from the keyboard while another one was scrolled now starts at the top instead of inheriting the previous popup's scroll position.
+
 ## 1.2.1
 
 ### Fixes
