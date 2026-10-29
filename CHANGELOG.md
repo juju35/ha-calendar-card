@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.2.1
+
+### Fixes
+- The event details popup no longer switches to another event when an earlier event ends or the calendars refresh; it closes if its event is gone, and keyboard focus stays on the right event.
+- The open details popup keeps its scroll position: it was still reset about once a minute and on each refresh.
+- A language or time format change in the Home Assistant profile is applied at once instead of at the next minute.
+- German and Spanish countdowns read "in 2 Std. 5 Min." / "en 2 h 5 min" (no leading zero on the minutes).
+- Visual editor: a YAML config with a single `entity:` is shown in the calendar list and no longer replaced by an empty list ("No calendar found").
+- An invalid `language` tag no longer slows down every date and time format.
+
 ## 1.2.0
 
 ### Changes
