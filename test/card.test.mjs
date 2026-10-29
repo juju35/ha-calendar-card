@@ -170,12 +170,84 @@ test("clicking an event opens its details at the top of the card", async () => {
   const card = await render(CalendarAgendaCard, {
     "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) }, description: "Bring the card" }],
   });
-  card._detail = 0;
-  card._update();
+  card._onClick({ composedPath: () => [{ dataset: { ev: "0" } }] });
   const html = card.shadowRoot.innerHTML;
   assert.match(html, /class="pop"/);
   assert.match(html, /Bring the card/);
   assert.match(html, /Home/);
+  card._onKey({ key: "Enter", target: { dataset: { ev: "0" } }, preventDefault() {} });
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /class="pop"/);
+});
+
+test("the open details follow their event when the rows before it change, and close when it is gone", async () => {
+  const events = {
+    "calendar.home": [
+      { summary: "Dentist", start: { dateTime: at(1, 9) }, end: { dateTime: at(1, 10) } },
+      { summary: "Review", start: { dateTime: at(2, 14) }, end: { dateTime: at(2, 15) }, description: "Slides" },
+    ],
+  };
+  const card = await render(CalendarAgendaCard, events);
+  card._onClick({ composedPath: () => [{ dataset: { ev: "1" } }] });
+  assert.match(card.shadowRoot.innerHTML, /class="pop" role="dialog" aria-label="Review"/);
+  // A refetch drops the event listed before the open one: the popup keeps showing "Review".
+  events["calendar.home"].shift();
+  card._fetch(card._cals);
+  await new Promise((r) => setTimeout(r, 0));
+  assert.match(card.shadowRoot.innerHTML, /class="pop" role="dialog" aria-label="Review"/);
+  // The open event itself disappears: its details close instead of showing another event.
+  events["calendar.home"] = [{ summary: "Other", start: { dateTime: at(3, 9) }, end: { dateTime: at(3, 10) } }];
+  card._fetch(card._cals);
+  await new Promise((r) => setTimeout(r, 0));
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /class="pop"/);
+  assert.equal(card._detail, null);
+});
+
+test("hass updates after a minute change do not re-render under the open popup", async () => {
+  const card = await render(CalendarAgendaCard, {
+    "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }],
+  });
+  card._onClick({ composedPath: () => [{ dataset: { ev: "0" } }] });
+  let renders = 0;
+  const orig = card._render.bind(card);
+  card._render = (...a) => { renders++; return orig(...a); };
+  const realNow = Date.now;
+  Date.now = () => realNow() + 61000;
+  try {
+    card.hass = card._hass;
+    assert.equal(renders, 0);
+    card._onKey({ key: "Escape" });
+    assert.equal(renders, 1);
+    card.hass = card._hass;
+    assert.equal(renders, 1);
+  } finally {
+    Date.now = realNow;
+  }
+});
+
+test("a language change in the Home Assistant profile re-renders at once", async () => {
+  const card = await render(CalendarAgendaCard, {
+    "calendar.home": [{ summary: "Dentiste", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }],
+  });
+  assert.match(card.shadowRoot.innerHTML, /Tomorrow/);
+  card.hass = { ...card._hass, language: "fr" };
+  assert.match(card.shadowRoot.innerHTML, /Demain/);
+});
+
+test("countdowns pad the minutes only in the clock-style languages", async () => {
+  const now = new Date();
+  const e = { allDay: false, start: new Date(+now + 125 * 60000), end: new Date(+now + 185 * 60000) };
+  const expect = { en: "in 2 h 05", fr: "dans 2 h 05", de: "in 2 Std. 5 Min.", es: "en 2 h 5 min" };
+  for (const [language, text] of Object.entries(expect)) {
+    const card = await render(CalendarAgendaCard, {}, { language });
+    assert.equal(card._countdown(e, now), text);
+  }
+});
+
+test("an invalid language tag is checked against Intl only once", async () => {
+  const card = await render(CalendarAgendaCard, {}, { language: "zz_ZZ" });
+  assert.equal(card._fmtLang(), "en");
+  assert.equal(card._fmtBad, "zz_ZZ");
+  assert.equal(card._fmtLang(), "en");
 });
 
 test("failed calendars are reported, the others still shown", async () => {
@@ -236,7 +308,7 @@ test("mini card: next event, detail button unfolds the full card", async () => {
   assert.match(html, /class="mnext"[\s\S]*Second/);
   assert.match(html, /data-action="zoom"[^>]*><ha-icon icon="mdi:arrow-expand"/);
   assert.deepEqual({ ...card.getGridOptions() }, { columns: 6, min_columns: 6 });
-  card._setZoom(true);
+  card._onClick({ composedPath: () => [{ dataset: { action: "zoom" } }], detail: 1 });
   html = card.shadowRoot.innerHTML;
   assert.doesNotMatch(html, /ha-card class="mini/);
   assert.match(html, /mdi:arrow-collapse/);
@@ -273,6 +345,16 @@ function editor(config, language = "en") {
 test("editor labels follow the language option", () => {
   assert.equal(editor({})._form.computeLabel({ name: "title" }), "Title");
   assert.equal(editor({ language: "fr" })._form.computeLabel({ name: "title" }), "Titre");
+});
+
+test("editor turns a YAML single entity into the calendar list", () => {
+  const ed = editor({ type: "custom:calendar-agenda-card", entity: "calendar.home" });
+  assert.deepEqual(plain(ed._form.data.entities), ["calendar.home"]);
+  assert.equal(ed._form.data.entity, undefined);
+  ed._valueChanged({ stopPropagation() {}, detail: { value: { ...ed._form.data, title: "Family" } } });
+  assert.deepEqual(plain(ed._config.entities), ["calendar.home"]);
+  assert.equal(ed._config.entity, undefined);
+  assert.equal(ed._config.title, "Family");
 });
 
 test("editor keeps YAML colors of the calendars still listed and drops defaults", () => {
