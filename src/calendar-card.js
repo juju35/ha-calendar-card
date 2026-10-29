@@ -251,6 +251,11 @@ function ccDedupe(events) {
   });
 }
 
+// Stable identity of an event across fetches and re-renders (row indexes shift as events end or change).
+function ccEvKey(e) {
+  return `${e.uid}|${e.summary}|${+e.start}|${+e.end}`;
+}
+
 function ccSort(a, b) {
   if (a.allDay !== b.allDay) return a.allDay ? -1 : 1;
   return (a.start - b.start) || (a.end - b.end) || a.summary.localeCompare(b.summary);
@@ -381,9 +386,10 @@ class CalendarAgendaCard extends HTMLElement {
   // Full locale tag for date/time formatting (en-GB vs en-US…); the truncated _lang() is only for CcI18n.
   _fmtLang() {
     var l = (this._config?.language) || (this._hass?.locale?.language) || (this._hass?.language) || document.documentElement.lang || 'en';
-    if (l !== this._fmtOk) {
-      try { new Intl.DateTimeFormat(l); this._fmtOk = l; } catch { l = this._lang(); }
-    }
+    if (l === this._fmtOk) return l;
+    // An invalid tag is remembered too, so Intl is not asked (and does not throw) again on every format.
+    if (l === this._fmtBad) return this._lang();
+    try { new Intl.DateTimeFormat(l); this._fmtOk = l; } catch { this._fmtBad = l; l = this._lang(); }
     return l;
   }
 
@@ -408,7 +414,10 @@ class CalendarAgendaCard extends HTMLElement {
     if (mins < 0 || mins >= 24 * 60) return '';
     if (mins < 60) return this._t('in_min').replace('{n}', Math.max(1, mins));
     var h = Math.floor(mins / 60), m = mins % 60;
-    return m ? this._t('in_h').replace('{h}', h).replace('{m}', String(m).padStart(2, '0')) : this._t('in_hours').replace('{h}', h);
+    if (!m) return this._t('in_hours').replace('{h}', h);
+    // Clock-style "in 2 h 05" (fr/en, minutes last) pads the minutes; "in 2 Std. 5 Min." (de/es) does not.
+    var tpl = this._t('in_h');
+    return tpl.replace('{h}', h).replace('{m}', /\{m\}$/.test(tpl) ? String(m).padStart(2, '0') : m);
   }
 
   // Time line of an event: a multi-day one shows its whole range, since it is listed only once.
@@ -432,10 +441,15 @@ class CalendarAgendaCard extends HTMLElement {
     var cals = ccCalendars(this._config, this._hass);
     this._cals = cals;
     var now = new Date();
-    // Cheap pre-check: a hass update that touches neither the calendar entities, the minute nor the
-    // card state cannot change the fetch key or the render — skip the two JSON.stringify below.
-    // `_sig = null` (set by setConfig, the minute timer and a resolved fetch) forces a full pass.
-    var tick = `${cals.map((c) => this._hass.states[c.entity]?.last_updated || '').join('|')}|${Math.floor(Date.now() / 60000)}|${this._detail}|${this._expanded}|${this._zoomed}`;
+    // Cheap pre-check: a hass update that touches neither the calendar entities, the minute, the
+    // language / time format nor the card state cannot change the fetch key or the render — skip the
+    // two JSON.stringify below. `_sig = null` (set by setConfig, the minute timer and a resolved fetch)
+    // forces a full pass. While the details popup is open the minute is left out, so the next hass
+    // update after a minute change does not re-render (and reset the popup's scroll) underneath it.
+    var minute = this._detail != null ? '' : Math.floor(Date.now() / 60000);
+    var loc = this._hass.locale || {};
+    var tick = `${cals.map((c) => this._hass.states[c.entity]?.last_updated || '').join('|')}|${minute}|${this._detail}|${this._expanded}|${this._zoomed}` +
+      `|${this._hass.language}|${loc.language}|${loc.time_format}`;
     if (this._sig != null && tick === this._tick) return;
     this._tick = tick;
     // Fetch again when the calendars, the range or the day change, when a calendar entity changes
@@ -447,13 +461,34 @@ class CalendarAgendaCard extends HTMLElement {
       this._fetch(cals);
     }
     var sig = JSON.stringify([this._lang(), this._fmtLang(), this._fetchedAt, this._detail, this._expanded, this._zoomed,
-      Math.floor(Date.now() / 60000), cals.map((c) => [c.entity, c.color, c.name]), this._hass.locale?.time_format]);
+      minute, cals.map((c) => [c.entity, c.color, c.name]), this._hass.locale?.time_format]);
     if (sig === this._sig) return;
     this._sig = sig;
-    // Re-rendering replaces the whole shadow DOM: put the keyboard focus back on the same event row.
-    var focused = this.shadowRoot.activeElement?.dataset?.ev;
+    // Re-rendering replaces the whole shadow DOM: put the keyboard focus back on the same event (found
+    // by its key, its row index may have moved) and keep the open popup's scroll position.
+    var focusedIdx = this.shadowRoot.activeElement?.dataset?.ev;
+    var focused = focusedIdx != null ? this._evKeyAt(focusedIdx) : null;
+    var popScroll = this.shadowRoot.querySelector('.pop')?.scrollTop;
     this._render(cals, now);
-    if (focused != null) this.shadowRoot.querySelector(`[data-ev="${focused}"]`)?.focus();
+    if (popScroll) { var pop = this.shadowRoot.querySelector('.pop'); if (pop) pop.scrollTop = popScroll; }
+    var at = focused != null ? this._evIndex(focused) : -1;
+    if (at >= 0) this.shadowRoot.querySelector(`[data-ev="${at}"]`)?.focus();
+  }
+
+  // `_detail` holds the open event's key (ccEvKey); rows carry their index in `_flat`.
+  _evKeyAt(i) {
+    var item = this._flat?.[Number(i)];
+    return item ? ccEvKey(item.e) : null;
+  }
+
+  _evIndex(key) {
+    return (this._flat || []).findIndex((x) => ccEvKey(x.e) === key);
+  }
+
+  _toggleDetail(i) {
+    var key = this._evKeyAt(i);
+    this._detail = key == null || this._detail === key ? null : key;
+    this._update();
   }
 
   async _fetch(cals) {
@@ -556,6 +591,8 @@ class CalendarAgendaCard extends HTMLElement {
     // Flat list of shown events, so a click finds its event back.
     this._flat = [];
     days.forEach((d) => { d.events.forEach((e) => { this._flat.push({ e: e, day: d.date }); }); });
+    // The open event is gone (finished and hidden, removed by a refetch): close its details.
+    if (this._detail != null && this._evIndex(this._detail) < 0) this._detail = null;
 
     if (this._compact()) {
       this.shadowRoot.innerHTML = this._styles(accent) + this._miniHtml(days, now);
@@ -603,7 +640,7 @@ class CalendarAgendaCard extends HTMLElement {
 
   // Event details, at the top of the card.
   _popupHtml() {
-    var item = this._detail != null && this._flat[this._detail];
+    var item = this._detail != null && this._flat[this._evIndex(this._detail)];
     if (!item) return '';
     var e = item.e, cal = this._cals[e.cal];
     var date = this._dateFmt(e.start, { weekday: 'long', day: 'numeric', month: 'long' });
@@ -641,9 +678,7 @@ class CalendarAgendaCard extends HTMLElement {
     }
     var row = path.find((n) => n.dataset?.ev != null);
     if (row) {
-      var i = Number(row.dataset.ev);
-      this._detail = this._detail === i ? null : i;
-      this._update();
+      this._toggleDetail(row.dataset.ev);
       return;
     }
     // A click on the card outside the popup closes it.
@@ -662,9 +697,7 @@ class CalendarAgendaCard extends HTMLElement {
     if ((ev.key === 'Enter' || ev.key === ' ') && ev.target?.dataset?.ev != null) {
       ev.preventDefault();
       // Same toggle as a click: a second Enter/Space on the open event closes its details.
-      var i = Number(ev.target.dataset.ev);
-      this._detail = this._detail === i ? null : i;
-      this._update();
+      this._toggleDetail(ev.target.dataset.ev);
     }
   }
 
@@ -778,11 +811,6 @@ class CalendarAgendaMiniCard extends CalendarAgendaCard {
     return `<button class="zoom" data-action="zoom" title="${label}" aria-label="${label}"><ha-icon icon="${z ? 'mdi:arrow-collapse' : 'mdi:arrow-expand'}"></ha-icon></button>`;
   }
 
-  _setZoom(on) {
-    this._zoomed = on;
-    this._update();
-  }
-
   _miniHtml(days, now) {
     // Upcoming: all-day, ongoing or future events.
     var upcoming = this._flat.filter((x) => x.e.allDay || x.e.end > now);
@@ -841,6 +869,11 @@ class CalendarAgendaCardEditor extends HTMLElement {
     else this._render();
   }
 
+  _calList() {
+    var c = this._config || {};
+    return c.entities || (c.entity ? [c.entity] : []);
+  }
+
   _lang() {
     var lang = ((this._config?.language) || (this._hass?.language) || 'en').split('-')[0];
     return CcI18n[lang] ? lang : 'en';
@@ -891,8 +924,10 @@ class CalendarAgendaCardEditor extends HTMLElement {
       return txt === key ? undefined : txt;
     };
     var data = Object.assign({}, CC_EDITOR_DEFAULTS, this._config);
-    // The form edits entity ids; colors and names set in YAML are kept aside.
-    data.entities = (this._config.entities || []).map((e) => (typeof e === 'string' ? e : e.entity));
+    // The form edits entity ids; colors and names set in YAML are kept aside. A YAML `entity:` (single
+    // calendar) is shown as the list and written back as `entities`.
+    data.entities = this._calList().map((e) => (typeof e === 'string' ? e : e.entity));
+    delete data.entity;
     this._form.data = data;
   }
 
@@ -907,7 +942,9 @@ class CalendarAgendaCardEditor extends HTMLElement {
     });
     // Put back the YAML settings (color, name) of the calendars still listed.
     var prev = {};
-    (this._config.entities || []).forEach((e) => { if (typeof e === 'object' && e) prev[e.entity] = e; });
+    this._calList().forEach((e) => { if (typeof e === 'object' && e) prev[e.entity] = e; });
+    // `entities` replaces a YAML `entity:` (an empty list would otherwise hide it from ccCalendars).
+    delete value.entity;
     if (value.entities) value.entities = value.entities.map((id) => prev[id] || id);
     if (this._config.exclude) value.exclude = this._config.exclude;
     if (this._config.type) value = Object.assign({ type: this._config.type }, value);
