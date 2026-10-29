@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.3
+
+### Fixes
+- A brief network drop (Wi-Fi change on the mobile app, Home Assistant restarting) during the periodic refresh no longer empties the agenda: a calendar that cannot be reached keeps its events, with the "Calendar not loaded" warning, and the card tries again a minute later instead of five.
+- When no calendar could be loaded, the card shows only the error, no longer also "No upcoming events".
+
 ## 1.2.2
 
 ### Fixes
