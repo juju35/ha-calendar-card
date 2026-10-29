@@ -300,6 +300,79 @@ test("failed calendars are reported, the others still shown", async () => {
   assert.match(html, /Calendar not loaded: calendar\.broken/);
 });
 
+// A refetch after a calendar entity change, with `fail` listing the calendars whose request throws.
+async function refetch(card, events, fail) {
+  const hass = mockHass(events);
+  const callApi = hass.callApi;
+  hass.callApi = async (method, path) => {
+    if (fail.some((id) => path.startsWith(`calendars/${id}?`))) { hass.calls.push([method, path]); throw new Error("offline"); }
+    return callApi(method, path);
+  };
+  for (const id of Object.keys(hass.states)) hass.states[id] = { ...hass.states[id], last_changed: "2", last_updated: "2" };
+  card.hass = hass;
+  await new Promise((r) => setTimeout(r, 0));
+  return hass;
+}
+
+test("a failed refetch keeps the events already shown and retries within a minute", async () => {
+  const events = { "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }] };
+  const card = await render(CalendarAgendaCard, events);
+  await refetch(card, events, ["calendar.home", "calendar.work"]);
+  const html = card.shadowRoot.innerHTML;
+  assert.match(html, /Dentist/);
+  assert.match(html, /Calendar not loaded: Home, Work/);
+  assert.doesNotMatch(html, /No upcoming events/);
+  // Network back: the next hass update a minute later fetches again, without waiting for the 5-minute refresh.
+  const hass = mockHass(events);
+  for (const id of Object.keys(hass.states)) hass.states[id] = { ...hass.states[id], last_changed: "2", last_updated: "2" };
+  const realNow = Date.now;
+  Date.now = () => realNow() + 61000;
+  try {
+    card.hass = hass;
+  } finally {
+    Date.now = realNow;
+  }
+  assert.equal(hass.calls.length, 2);
+  await new Promise((r) => setTimeout(r, 0));
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /Calendar not loaded/);
+});
+
+test("a partly failed refetch updates the calendars that answered and keeps the others", async () => {
+  const card = await render(CalendarAgendaCard, {
+    "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }],
+    "calendar.work": [{ summary: "Review", start: { dateTime: at(2, 14) }, end: { dateTime: at(2, 15) } }],
+  });
+  await refetch(card, {
+    "calendar.work": [{ summary: "Standup", start: { dateTime: at(2, 9) }, end: { dateTime: at(2, 10) } }],
+  }, ["calendar.home"]);
+  const html = card.shadowRoot.innerHTML;
+  assert.match(html, /Dentist/);
+  assert.match(html, /Standup/);
+  assert.doesNotMatch(html, /Review/);
+  assert.match(html, /Calendar not loaded: Home/);
+});
+
+test("a failed fetch after a calendar list change does not bring back the old list's events", async () => {
+  const card = await render(CalendarAgendaCard, {
+    "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }],
+  });
+  card._hass.callApi = async () => { throw new Error("offline"); };
+  card.setConfig({ entities: ["calendar.work", "calendar.home"] });
+  await new Promise((r) => setTimeout(r, 0));
+  assert.equal(card._events.length, 0);
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /Dentist/);
+  assert.match(card.shadowRoot.innerHTML, /Calendar not loaded: Work, Home/);
+});
+
+test("a first fetch where every calendar fails shows the error, not 'No upcoming events'", async () => {
+  for (const Card of [CalendarAgendaCard, customElements.get("calendar-agenda-mini-card")]) {
+    const card = await render(Card, {}, { entities: ["calendar.broken"] });
+    const html = card.shadowRoot.innerHTML;
+    assert.match(html, /Calendar not loaded: calendar\.broken/);
+    assert.doesNotMatch(html, /No upcoming events/);
+  }
+});
+
 test("event text is escaped", async () => {
   const card = await render(CalendarAgendaCard, {
     "calendar.home": [{ summary: '<img src=x onerror="alert(1)">', start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }],

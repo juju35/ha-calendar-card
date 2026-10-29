@@ -508,7 +508,13 @@ class CalendarAgendaCard extends HTMLElement {
     if (seq !== this._fetchSeq) return;
     var events = [], failed = [];
     res.forEach((r, i) => {
-      if (r.status !== 'fulfilled') { failed.push(cals[i].name); return; }
+      // A calendar that fails (network blip, HA restarting) keeps its last events instead of
+      // emptying the agenda. `_events` is cleared when the calendar list changes, so `cal` is valid.
+      if (r.status !== 'fulfilled') {
+        failed.push(cals[i].name);
+        this._events.forEach((e) => { if (e.cal === i) events.push(e); });
+        return;
+      }
       (Array.isArray(r.value) ? r.value : []).forEach((raw) => {
         var e = ccParse(raw, i);
         if (e) events.push(e);
@@ -516,8 +522,10 @@ class CalendarAgendaCard extends HTMLElement {
     });
     this._events = ccDedupe(events.sort(ccSort));
     this._failed = failed;
-    this._loaded = true;
-    this._fetchedAt = Date.now();
+    // "No upcoming events" needs at least one calendar that answered.
+    if (failed.length < cals.length) this._loaded = true;
+    // After a failure, try again a minute later rather than at the next 5-minute refresh.
+    this._fetchedAt = failed.length ? Date.now() - CC_REFRESH + 60000 : Date.now();
     this._sig = null;
     this._update();
   }
