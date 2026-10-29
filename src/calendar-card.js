@@ -465,12 +465,18 @@ class CalendarAgendaCard extends HTMLElement {
     if (sig === this._sig) return;
     this._sig = sig;
     // Re-rendering replaces the whole shadow DOM: put the keyboard focus back on the same event (found
-    // by its key, its row index may have moved) and keep the open popup's scroll position.
+    // by its key, its row index may have moved) and keep the open popup's scroll position — only when
+    // the popup still shows the same event (another event's popup, e.g. opened from the keyboard, starts
+    // at the top).
     var focusedIdx = this.shadowRoot.activeElement?.dataset?.ev;
     var focused = focusedIdx != null ? this._evKeyAt(focusedIdx) : null;
     var popScroll = this.shadowRoot.querySelector('.pop')?.scrollTop;
+    var popShown = this._popShown;
     this._render(cals, now);
-    if (popScroll) { var pop = this.shadowRoot.querySelector('.pop'); if (pop) pop.scrollTop = popScroll; }
+    this._popShown = this._detail;
+    if (popScroll && popShown != null && popShown === this._detail) {
+      var pop = this.shadowRoot.querySelector('.pop'); if (pop) pop.scrollTop = popScroll;
+    }
     var at = focused != null ? this._evIndex(focused) : -1;
     if (at >= 0) this.shadowRoot.querySelector(`[data-ev="${at}"]`)?.focus();
   }
