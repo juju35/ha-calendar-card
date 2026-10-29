@@ -224,6 +224,47 @@ test("hass updates after a minute change do not re-render under the open popup",
   }
 });
 
+// A fake `.pop` element, recreated on every render like the real shadow DOM, so the scroll restore can be observed.
+function trackPopup(card) {
+  const root = card.shadowRoot;
+  let html = root.innerHTML;
+  let pop = null;
+  Object.defineProperty(root, "innerHTML", {
+    get: () => html,
+    set: (v) => { html = v; pop = /class="pop"/.test(v) ? { scrollTop: 0 } : null; },
+  });
+  root.querySelector = (sel) => (sel === ".pop" ? pop : null);
+  return () => pop;
+}
+
+test("the popup scroll is kept on re-render, not carried over to another event's popup", async () => {
+  const events = {
+    "calendar.home": [
+      { summary: "Dentist", start: { dateTime: at(1, 9) }, end: { dateTime: at(1, 10) }, description: "Long notes" },
+      { summary: "Review", start: { dateTime: at(2, 14) }, end: { dateTime: at(2, 15) }, description: "Slides" },
+    ],
+  };
+  const card = await render(CalendarAgendaCard, events);
+  const pop = trackPopup(card);
+  card._onClick({ composedPath: () => [{ dataset: { ev: "0" } }] });
+  pop().scrollTop = 120;
+  // The same popup re-rendered (a refetch) keeps its scroll position.
+  card._fetch(card._cals);
+  await new Promise((r) => setTimeout(r, 0));
+  assert.match(card.shadowRoot.innerHTML, /aria-label="Dentist"/);
+  assert.equal(pop().scrollTop, 120);
+  // Keyboard: Enter on another row (hidden under the popup) opens that event's popup at the top.
+  card._onKey({ key: "Enter", target: { dataset: { ev: "1" } }, preventDefault() {} });
+  assert.match(card.shadowRoot.innerHTML, /aria-label="Review"/);
+  assert.equal(pop().scrollTop, 0);
+  // Closed then reopened, the popup starts at the top as well.
+  pop().scrollTop = 80;
+  card._onKey({ key: "Escape" });
+  assert.equal(pop(), null);
+  card._onClick({ composedPath: () => [{ dataset: { ev: "1" } }] });
+  assert.equal(pop().scrollTop, 0);
+});
+
 test("a language change in the Home Assistant profile re-renders at once", async () => {
   const card = await render(CalendarAgendaCard, {
     "calendar.home": [{ summary: "Dentiste", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }],
