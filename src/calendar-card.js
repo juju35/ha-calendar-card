@@ -1000,7 +1000,7 @@ class CalendarAgendaCardEditor extends HTMLElement {
       },
       {
         name: 'language',
-        selector: { select: { mode: 'dropdown', options: [{ value: 'fr', label: 'Français' }, { value: 'en', label: 'English' }, { value: 'de', label: 'Deutsch' }, { value: 'es', label: 'Español' }, { value: 'sr', label: 'Српски' },{ value: 'sr-Latn', label: 'Srpski (latinica)' },] } },
+        selector: { select: { mode: 'dropdown', options: [{ value: 'fr', label: 'Français' }, { value: 'en', label: 'English' }, { value: 'de', label: 'Deutsch' }, { value: 'es', label: 'Español' }, { value: 'sr', label: 'Српски' },{ value: 'sr-Latn', label: 'Srpski (latinica)' }] } },
       },
     ];
   }
