@@ -171,7 +171,8 @@ const gifs = [
       { hold: 8 },
     ],
   },
-];
+  // Each animation also gets its dark twin (<file>-dark.gif), with the exact same setup.
+].flatMap((g) => [g, { ...g, file: `${g.file}-dark`, theme: "dark" }]);
 
 const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
 

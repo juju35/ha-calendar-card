@@ -153,15 +153,21 @@ Calendar options:
 
 ### Animations
 
-![event details popup](screenshots/agenda-popup.gif)
+| Light | Dark |
+|---|---|
+| ![event details popup](screenshots/agenda-popup.gif) | ![event details popup dark](screenshots/agenda-popup-dark.gif) |
 
 Clicking an event slides its details in at the top of the card; a second click (or the cross) closes them.
 
-![folded events](screenshots/agenda-more.gif)
+| Light | Dark |
+|---|---|
+| ![folded events](screenshots/agenda-more.gif) | ![folded events dark](screenshots/agenda-more-dark.gif) |
 
 The **more** button unfolds the events past `max_events`, and folds them back.
 
-![mini card unfolding](screenshots/mini-zoom.gif)
+| Light | Dark |
+|---|---|
+| ![mini card unfolding](screenshots/mini-zoom.gif) | ![mini card unfolding dark](screenshots/mini-zoom-dark.gif) |
 
 The mini card's detail button unfolds the full agenda in place, and folds it back.
 
