@@ -481,3 +481,43 @@ test("editor keeps YAML colors of the calendars still listed and drops defaults"
   assert.equal(out.days_to_show, undefined);
   assert.equal(out.show_location, false);
 });
+
+// A YAML scalar where a list is expected (`entities: calendar.home`, `exclude: Private`) is read as a one-item list,
+// instead of throwing in the hass setter / an unhandled fetch promise and leaving an empty card.
+test("a single calendar given as a string instead of a list is shown", async () => {
+  const card = await render(CalendarAgendaCard, {
+    "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }],
+  }, { entities: "calendar.home" });
+  assert.deepEqual(card._hass.calls.map((c) => c[1].split("?")[0]), ["calendars/calendar.home"]);
+  assert.match(card.shadowRoot.innerHTML, /Dentist/);
+  assert.equal(ccCalendars({ entities: "calendar.home" }, mockHass({}))[0].name, "Home");
+});
+
+test("an exclude text given as a string instead of a list hides by title", async () => {
+  const card = await render(CalendarAgendaCard, {
+    "calendar.home": [
+      { summary: "Meeting", start: { dateTime: at(1, 9) }, end: { dateTime: at(1, 10) } },
+      { summary: "Private stuff", start: { dateTime: at(1, 12) }, end: { dateTime: at(1, 13) } },
+    ],
+  }, { exclude: "Private" });
+  const html = card.shadowRoot.innerHTML;
+  assert.match(html, /Meeting/);
+  assert.doesNotMatch(html, /Private stuff/);
+});
+
+test("changing a string calendar to a list (or back) still drops the old list's events only when the ids change", async () => {
+  const events = { "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }] };
+  const card = await render(CalendarAgendaCard, events, { entities: "calendar.home" });
+  card.setConfig({ entities: ["calendar.home"] });
+  assert.equal(card._loaded, true);
+  card.setConfig({ entities: "calendar.work" });
+  assert.equal(card._loaded, false);
+});
+
+test("editor turns a YAML string calendar into the calendar list", () => {
+  const ed = editor({ type: "custom:calendar-agenda-card", entities: "calendar.home", exclude: "Private" });
+  assert.deepEqual(plain(ed._form.data.entities), ["calendar.home"]);
+  ed._valueChanged({ stopPropagation() {}, detail: { value: { ...ed._form.data, title: "Family" } } });
+  assert.deepEqual(plain(ed._config.entities), ["calendar.home"]);
+  assert.equal(ed._config.exclude, "Private");
+});
