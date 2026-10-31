@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.4
+
+### Fixes
+- A single calendar or exclude text written as plain text instead of a list (`entities: calendar.home`, `exclude: Private`) now works like a one-item list, instead of leaving an empty card.
+
 ## 1.2.3
 
 ### Fixes
