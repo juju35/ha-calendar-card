@@ -189,10 +189,20 @@ var CC_DEFAULTS = {
   show_countdown: true, show_empty_days: false, show_past_events: false,
 };
 
+// A YAML scalar where a list is expected (`entities: calendar.home`, `exclude: Private`) is a one-item list.
+function ccList(v) {
+  if (Array.isArray(v)) return v;
+  return v == null || v === '' ? [] : [v];
+}
+
+// The configured calendars: `entities` (a list, or a single one), else the single `entity`.
+function ccCalList(config) {
+  return config.entities ? ccList(config.entities) : ccList(config.entity);
+}
+
 // `entities` accepts entity ids or objects { entity, color, name }; colors default to a palette.
 function ccCalendars(config, hass) {
-  var list = config.entities || (config.entity ? [config.entity] : []);
-  return list.map((item, i) => {
+  return ccCalList(config).map((item, i) => {
     var c = typeof item === 'string' ? { entity: item } : Object.assign({}, item);
     var st = hass?.states?.[c.entity];
     c.color = c.color || CC_COLORS[i % CC_COLORS.length];
@@ -287,9 +297,10 @@ function ccMultiDay(e) {
 }
 
 function ccExcluded(e, exclude) {
-  if (!exclude?.length) return false;
+  var list = ccList(exclude);
+  if (!list.length) return false;
   var s = e.summary.toLowerCase();
-  return exclude.some((x) => x && s.indexOf(String(x).toLowerCase()) >= 0);
+  return list.some((x) => x && s.indexOf(String(x).toLowerCase()) >= 0);
 }
 
 // ── Header logo: a tear-off calendar page with today's date ─────────────────
@@ -335,7 +346,7 @@ class CalendarAgendaCard extends HTMLElement {
     var prev = this._config;
     this._config = Object.assign({}, CC_DEFAULTS, config);
     // A new calendar list invalidates the stored events, whose `cal` indexes the old one.
-    var ccIds = (c) => JSON.stringify((c.entities || (c.entity ? [c.entity] : [])).map((x) => (typeof x === 'string' ? x : x?.entity)));
+    var ccIds = (c) => JSON.stringify(ccCalList(c).map((x) => (typeof x === 'string' ? x : x?.entity)));
     if (prev && ccIds(prev) !== ccIds(this._config)) {
       this._events = [];
       this._loaded = false;
@@ -884,8 +895,7 @@ class CalendarAgendaCardEditor extends HTMLElement {
   }
 
   _calList() {
-    var c = this._config || {};
-    return c.entities || (c.entity ? [c.entity] : []);
+    return ccCalList(this._config || {});
   }
 
   _lang() {
