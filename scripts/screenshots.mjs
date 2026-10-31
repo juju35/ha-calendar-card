@@ -110,14 +110,26 @@ const shots = [
   { file: "agenda", type: "calendar-agenda-card", theme: "light", width: 460, config: { max_events: 0 } },
   { file: "agenda-dark", type: "calendar-agenda-card", theme: "dark", width: 460, config: { max_events: 0 } },
   { file: "agenda-more", type: "calendar-agenda-card", theme: "light", width: 460, config: {} },
+  { file: "agenda-more-dark", type: "calendar-agenda-card", theme: "dark", width: 460, config: {} },
   {
     file: "agenda-details", type: "calendar-agenda-card", theme: "light", width: 460, config: {},
+    after: (page) => page.locator("calendar-agenda-card .ev", { hasText: "Project review" }).click(),
+  },
+  {
+    file: "agenda-details-dark", type: "calendar-agenda-card", theme: "dark", width: 460, config: {},
     after: (page) => page.locator("calendar-agenda-card .ev", { hasText: "Project review" }).click(),
   },
   { file: "mini", type: "calendar-agenda-mini-card", theme: "light", width: 380, config: {} },
   { file: "mini-dark", type: "calendar-agenda-mini-card", theme: "dark", width: 380, config: {} },
   {
     file: "mini-zoom", type: "calendar-agenda-mini-card", theme: "light", width: 460, config: { days_to_show: 4 },
+    after: async (page) => {
+      await page.locator("calendar-agenda-mini-card .zoom").click();
+      await page.mouse.move(0, 0);
+    },
+  },
+  {
+    file: "mini-zoom-dark", type: "calendar-agenda-mini-card", theme: "dark", width: 460, config: { days_to_show: 4 },
     after: async (page) => {
       await page.locator("calendar-agenda-mini-card .zoom").click();
       await page.mouse.move(0, 0);

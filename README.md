@@ -145,9 +145,11 @@ Calendar options:
 | ![agenda](screenshots/agenda.png) | ![agenda dark](screenshots/agenda-dark.png) |
 | ![mini card](screenshots/mini.png) | ![mini card dark](screenshots/mini-dark.png) |
 
-| Folded events | Event details | Mini card unfolded |
+| | Light | Dark |
 |---|---|---|
-| ![agenda with folded events](screenshots/agenda-more.png) | ![event details](screenshots/agenda-details.png) | ![mini card unfolded](screenshots/mini-zoom.png) |
+| Folded events | ![agenda with folded events](screenshots/agenda-more.png) | ![agenda with folded events dark](screenshots/agenda-more-dark.png) |
+| Event details | ![event details](screenshots/agenda-details.png) | ![event details dark](screenshots/agenda-details-dark.png) |
+| Mini card unfolded | ![mini card unfolded](screenshots/mini-zoom.png) | ![mini card unfolded dark](screenshots/mini-zoom-dark.png) |
 
 ### Animations
 
