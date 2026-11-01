@@ -294,6 +294,30 @@ test("an invalid language tag is checked against Intl only once", async () => {
   assert.equal(card._fmtLang(), "en");
 });
 
+test("dates use the full Home Assistant locale, with bare pt as European Portuguese", async () => {
+  const fmt = async (config, hass) => {
+    const card = new CalendarAgendaCard();
+    card.setConfig({ entities: ["calendar.home"], ...config });
+    card.hass = mockHass({}, hass);
+    return card._fmtLang();
+  };
+  assert.equal(await fmt({}, { language: "pt", locale: { language: "pt" } }), "pt-PT");
+  assert.equal(await fmt({}, { language: "pt-BR", locale: { language: "pt-BR" } }), "pt-BR");
+  assert.equal(await fmt({}, { language: "en", locale: { language: "en-GB" } }), "en-GB");
+  assert.equal(await fmt({}, { language: "sr-Latn", locale: { language: "sr-Latn" } }), "sr-Latn");
+  // A locale whose base differs from the card language falls back to the card language.
+  assert.equal(await fmt({}, { language: "fr", locale: { language: "en-GB" } }), "fr");
+  // The language option still comes first.
+  assert.equal(await fmt({ language: "pt" }, { language: "pt-BR", locale: { language: "pt-BR" } }), "pt-PT");
+  assert.equal(await fmt({ language: "de" }, { language: "pt", locale: { language: "pt" } }), "de");
+  // pt-PT dates: no Brazilian "de" between day and month.
+  const card = new CalendarAgendaCard();
+  card.setConfig({ entities: ["calendar.home"] });
+  card.hass = mockHass({}, { language: "pt", locale: { language: "pt" } });
+  assert.equal(card._dateFmt(new Date(2026, 10, 1), { day: "numeric", month: "short", year: "numeric" }),
+    new Date(2026, 10, 1).toLocaleDateString("pt-PT", { day: "numeric", month: "short", year: "numeric" }));
+});
+
 test("failed calendars are reported, the others still shown", async () => {
   const card = await render(CalendarAgendaCard, {
     "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }],
@@ -462,7 +486,7 @@ test("Italian, Dutch, Portuguese and Polish labels follow the language option", 
   const options = editor({})._schema().find((s) => s.name === "language").selector.select.options;
   assert.deepEqual(plain(options.slice(-4)), [
     { value: "it", label: "Italiano" }, { value: "nl", label: "Nederlands" },
-    { value: "pt", label: "Português" }, { value: "pl", label: "Polski" },
+    { value: "pt", label: "Português (Portugal)" }, { value: "pl", label: "Polski" },
   ]);
   assert.deepEqual(plain(options.map((o) => o.value)).sort(), Object.keys(CcI18n).sort());
 });

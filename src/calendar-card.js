@@ -433,6 +433,14 @@ function ccLang(l) {
   return Object.hasOwn(CcI18n, l) ? l : 'en';
 }
 
+// Locale for Intl: the full tag when its base matches the resolved card language (en-GB, sr-Latn…),
+// else the card language; bare pt means European Portuguese.
+function ccFmtLang(tag, lang) {
+  var l = String(tag || '');
+  if (l.split('-')[0].toLowerCase() !== lang.split('-')[0]) l = lang;
+  return l.toLowerCase() === 'pt' ? 'pt-PT' : l;
+}
+
 function ccT(lang, key) {
   var strings = CcI18n[lang] || CcI18n.en;
   return strings[key] || CcI18n.en[key] || key;
@@ -701,7 +709,13 @@ class CalendarAgendaCard extends HTMLElement {
   _t(k) { return ccT(this._lang(), k); }
 
   // Full locale tag for date/time formatting (en-GB vs en-US…); the truncated _lang() is only for CcI18n.
+  // The full tag is kept only when its base matches the card language, else the card language is used;
+  // bare pt (Home Assistant's European Portuguese) becomes pt-PT, as Intl reads pt as Brazilian.
   _fmtLang() {
+    return ccFmtLang(this._fmtTag(), this._lang());
+  }
+
+  _fmtTag() {
     var l = (this._config?.language) || (this._hass?.locale?.language) || (this._hass?.language) || document.documentElement.lang || 'en';
     if (l === this._fmtOk) return l;
     // An invalid tag is remembered too, so Intl is not asked (and does not throw) again on every format.
@@ -1235,7 +1249,7 @@ class CalendarAgendaCardEditor extends HTMLElement {
       },
       {
         name: 'language',
-        selector: { select: { mode: 'dropdown', options: [{ value: 'fr', label: 'Français' }, { value: 'en', label: 'English' }, { value: 'de', label: 'Deutsch' }, { value: 'es', label: 'Español' }, { value: 'sr', label: 'Српски' }, { value: 'sr-Latn', label: 'Srpski (latinica)' }, { value: 'it', label: 'Italiano' }, { value: 'nl', label: 'Nederlands' }, { value: 'pt', label: 'Português' }, { value: 'pl', label: 'Polski' }] } },
+        selector: { select: { mode: 'dropdown', options: [{ value: 'fr', label: 'Français' }, { value: 'en', label: 'English' }, { value: 'de', label: 'Deutsch' }, { value: 'es', label: 'Español' }, { value: 'sr', label: 'Српски' }, { value: 'sr-Latn', label: 'Srpski (latinica)' }, { value: 'it', label: 'Italiano' }, { value: 'nl', label: 'Nederlands' }, { value: 'pt', label: 'Português (Portugal)' }, { value: 'pl', label: 'Polski' }] } },
       },
     ];
   }
