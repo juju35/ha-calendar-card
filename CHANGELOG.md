@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.7 - 2026-11-01
+
+### Features
+- Added Italian, Dutch, European Portuguese and Polish translations (`it`, `nl`, `pt`, `pl`), also offered in the editor's language list. Brazilian Portuguese (`pt-BR`) uses the European Portuguese strings.
+
 ## 1.2.6 - 2026-11-01
 
 ### Features

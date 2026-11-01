@@ -277,7 +277,10 @@ test("a language change in the Home Assistant profile re-renders at once", async
 test("countdowns pad the minutes only in the clock-style languages", async () => {
   const now = new Date();
   const e = { allDay: false, start: new Date(+now + 125 * 60000), end: new Date(+now + 185 * 60000) };
-  const expect = { en: "in 2 h 05", fr: "dans 2 h 05", de: "in 2 Std. 5 Min.", es: "en 2 h 5 min" };
+  const expect = {
+    en: "in 2 h 05", fr: "dans 2 h 05", de: "in 2 Std. 5 Min.", es: "en 2 h 5 min",
+    it: "tra 2 h 5 min", nl: "over 2 u 5 min", pt: "daqui a 2 h 5 min", pl: "za 2 godz. 5 min",
+  };
   for (const [language, text] of Object.entries(expect)) {
     const card = await render(CalendarAgendaCard, {}, { language });
     assert.equal(card._countdown(e, now), text);
@@ -388,13 +391,18 @@ test("French labels follow the language option", async () => {
   assert.match(card.shadowRoot.innerHTML, /Demain/);
 });
 
-test("I18N parity: every language has exactly the English keys and placeholders", () => {
+test("I18N parity: every language has exactly the English keys, placeholders and array lengths", () => {
   const ph = (v) => (String(v).match(/\{\w+\}/g) || []).sort();
   const en = CcI18n.en;
-  assert.deepEqual(Object.keys(CcI18n).sort(), ["de", "en", "es", "fr", "sr", "sr-Latn"]);
+  assert.deepEqual(Object.keys(CcI18n).sort(), ["de", "en", "es", "fr", "it", "nl", "pl", "pt", "sr", "sr-Latn"]);
   for (const [lang, strings] of Object.entries(CcI18n)) {
     assert.deepEqual(Object.keys(strings).sort(), Object.keys(en).sort(), lang);
-    for (const k of Object.keys(en)) assert.deepEqual(ph(strings[k]), ph(en[k]), `${lang}.${k}`);
+    for (const k of Object.keys(en)) {
+      assert.deepEqual(ph(strings[k]), ph(en[k]), `${lang}.${k}`);
+      assert.equal(Array.isArray(strings[k]), Array.isArray(en[k]), `${lang}.${k}`);
+      if (Array.isArray(en[k])) assert.equal(strings[k].length, en[k].length, `${lang}.${k}`);
+      for (const v of [].concat(strings[k])) assert.ok(String(v).trim(), `${lang}.${k} is empty`);
+    }
   }
 });
 
@@ -414,7 +422,10 @@ test("Serbian has exactly the English keys, Cyrillic in sr and Latin in sr-Latn"
 });
 
 test("language tags resolve to the full tag, then the part before the dash, then English", async () => {
-  const expect = { "fr-FR": "fr", "de-CH": "de", "sr-Latn": "sr-Latn", sr: "sr", "pt-BR": "en", toString: "en" };
+  const expect = {
+    "fr-FR": "fr", "de-CH": "de", "sr-Latn": "sr-Latn", sr: "sr", toString: "en",
+    "it-IT": "it", "nl-BE": "nl", pt: "pt", "pt-BR": "pt", "pl-PL": "pl", ja: "en",
+  };
   for (const [language, lang] of Object.entries(expect)) {
     assert.equal((await render(CalendarAgendaCard, {}, { language }))._lang(), lang, language);
     assert.equal(editor({ language })._lang(), lang, language);
@@ -438,7 +449,22 @@ test("Serbian labels follow the language option, in both scripts", async () => {
   assert.match((await render(CalendarAgendaCard, events, { language: "sr-Latn" })).shadowRoot.innerHTML, /Sutra/);
   assert.equal(editor({ language: "sr" })._form.computeLabel({ name: "title" }), "Наслов");
   const options = editor({})._schema().find((s) => s.name === "language").selector.select.options;
-  assert.deepEqual(plain(options.slice(-2)), [{ value: "sr", label: "Српски" }, { value: "sr-Latn", label: "Srpski (latinica)" }]);
+  assert.deepEqual(plain(options.filter((o) => o.value.startsWith("sr"))), [{ value: "sr", label: "Српски" }, { value: "sr-Latn", label: "Srpski (latinica)" }]);
+});
+
+test("Italian, Dutch, Portuguese and Polish labels follow the language option", async () => {
+  const events = { "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }] };
+  const expect = { it: [/Domani/, "Titolo"], nl: [/Morgen/, "Titel"], pt: [/Amanhã/, "Título"], pl: [/Jutro/, "Tytuł"] };
+  for (const [language, [tomorrow, title]] of Object.entries(expect)) {
+    assert.match((await render(CalendarAgendaCard, events, { language })).shadowRoot.innerHTML, tomorrow, language);
+    assert.equal(editor({ language })._form.computeLabel({ name: "title" }), title, language);
+  }
+  const options = editor({})._schema().find((s) => s.name === "language").selector.select.options;
+  assert.deepEqual(plain(options.slice(-4)), [
+    { value: "it", label: "Italiano" }, { value: "nl", label: "Nederlands" },
+    { value: "pt", label: "Português" }, { value: "pl", label: "Polski" },
+  ]);
+  assert.deepEqual(plain(options.map((o) => o.value)).sort(), Object.keys(CcI18n).sort());
 });
 
 test("German and Spanish labels follow the language option", async () => {
