@@ -170,7 +170,276 @@ var CcI18n = {
     ed_language: 'Idioma',
     ed_language_helper: 'Déjalo vacío para usar el idioma de Home Assistant',
   },
+  sr: {
+    agenda: 'Агенда',
+    today: 'Данас',
+    tomorrow: 'Сутра',
+    all_day: 'Цео дан',
+    now: 'У току',
+    in_min: 'за {n} мин',
+    in_h: 'за {h} х {m}',
+    in_hours: 'за {h} х',
+    no_events: 'Нема догађаја',
+    no_upcoming: 'Нема предстојећих догађаја',
+    events_today: '{n} догађаја данас',
+    event_today: '1 догађај данас',
+    none_today: 'Ништа данас',
+    next: 'Следеће',
+    until: 'до {d}',
+    more: 'још {n} догађаја',
+    more_one: 'још 1 догађај',
+    less: 'Мање',
+    close: 'Затвори',
+    load_failed: 'Календар није учитан: {list}',
+    no_calendar: 'Није пронађен ниједан календар',
+    zoom_in: 'Прикажи пуну картицу',
+    zoom_out: 'Назад на компактан приказ',
+    ed_entities: 'Календари',
+    ed_entities_helper: 'Боје и ознаке по календару: у YAML-у (погледајте README)',
+    ed_title: 'Наслов',
+    ed_title_helper: 'Оставите празно за „Агенда“',
+    ed_days_to_show: 'Број приказаних дана',
+    ed_max_events: 'Догађаји пре „још“',
+    ed_max_events_helper: '0 за приказ свих догађаја',
+    ed_show_header: 'Заглавље',
+    ed_show_location: 'Локација',
+    ed_show_end_time: 'Време завршетка',
+    ed_show_countdown: 'Одбројавање',
+    ed_show_empty_days: 'Дани без догађаја',
+    ed_show_past_events: 'Завршени догађаји за данас',
+    ed_zoom: 'Дугме за детаље',
+    ed_zoom_helper: 'Дугме у горњем десном углу које пребацује мини картицу на пуну картицу и назад',
+    ed_language: 'Језик',
+    ed_language_helper: 'Оставите празно да прати језик Home Assistant-а',
+  },
+  'sr-Latn': {
+    agenda: 'Agenda',
+    today: 'Danas',
+    tomorrow: 'Sutra',
+    all_day: 'Ceo dan',
+    now: 'U toku',
+    in_min: 'za {n} min',
+    in_h: 'za {h} h {m}',
+    in_hours: 'za {h} h',
+    no_events: 'Nema događaja',
+    no_upcoming: 'Nema predstojećih događaja',
+    events_today: '{n} događaja danas',
+    event_today: '1 događaj danas',
+    none_today: 'Ništa danas',
+    next: 'Sledeće',
+    until: 'do {d}',
+    more: 'još {n} događaja',
+    more_one: 'još 1 događaj',
+    less: 'Manje',
+    close: 'Zatvori',
+    load_failed: 'Kalendar nije učitan: {list}',
+    no_calendar: 'Nije pronađen nijedan kalendar',
+    zoom_in: 'Prikaži punu karticu',
+    zoom_out: 'Nazad na kompaktan prikaz',
+    ed_entities: 'Kalendari',
+    ed_entities_helper: 'Boje i oznake po kalendaru: u YAML-u (pogledajte README)',
+    ed_title: 'Naslov',
+    ed_title_helper: 'Ostavite prazno za „Agenda“',
+    ed_days_to_show: 'Broj prikazanih dana',
+    ed_max_events: 'Događaji pre „još“',
+    ed_max_events_helper: '0 za prikaz svih događaja',
+    ed_show_header: 'Zaglavlje',
+    ed_show_location: 'Lokacija',
+    ed_show_end_time: 'Vreme završetka',
+    ed_show_countdown: 'Odbrojavanje',
+    ed_show_empty_days: 'Dani bez događaja',
+    ed_show_past_events: 'Završeni događaji za danas',
+    ed_zoom: 'Dugme za detalje',
+    ed_zoom_helper: 'Dugme u gornjem desnom uglu koje prebacuje mini karticu na punu karticu i nazad',
+    ed_language: 'Jezik',
+    ed_language_helper: 'Ostavite prazno da prati jezik Home Assistant-a',
+  },
+  it: {
+    agenda: 'Agenda',
+    today: 'Oggi',
+    tomorrow: 'Domani',
+    all_day: 'Tutto il giorno',
+    now: 'In corso',
+    in_min: 'tra {n} min',
+    in_h: 'tra {h} h {m} min',
+    in_hours: 'tra {h} h',
+    no_events: 'Nessun evento',
+    no_upcoming: 'Nessun evento in programma',
+    events_today: '{n} eventi oggi',
+    event_today: '1 evento oggi',
+    none_today: 'Niente oggi',
+    next: 'Dopo',
+    until: 'fino a {d}',
+    more: 'Altri {n} eventi',
+    more_one: 'Un altro evento',
+    less: 'Mostra meno',
+    close: 'Chiudi',
+    load_failed: 'Calendario non caricato: {list}',
+    no_calendar: 'Nessun calendario trovato',
+    zoom_in: 'Mostra la scheda completa',
+    zoom_out: 'Torna alla vista compatta',
+    ed_entities: 'Calendari',
+    ed_entities_helper: 'Colori ed etichette per calendario: in YAML (vedi il README)',
+    ed_title: 'Titolo',
+    ed_title_helper: 'Lascia vuoto per «Agenda»',
+    ed_days_to_show: 'Giorni mostrati',
+    ed_max_events: 'Eventi prima di «altri»',
+    ed_max_events_helper: '0 per mostrare tutto',
+    ed_show_header: 'Intestazione',
+    ed_show_location: 'Luogo',
+    ed_show_end_time: 'Ora di fine',
+    ed_show_countdown: 'Conto alla rovescia',
+    ed_show_empty_days: 'Giorni senza eventi',
+    ed_show_past_events: 'Eventi di oggi già terminati',
+    ed_zoom: 'Pulsante dettagli',
+    ed_zoom_helper: 'Pulsante in alto a destra che passa dalla mini scheda alla scheda completa e viceversa',
+    ed_language: 'Lingua',
+    ed_language_helper: 'Lascia vuoto per seguire la lingua di Home Assistant',
+  },
+  nl: {
+    agenda: 'Agenda',
+    today: 'Vandaag',
+    tomorrow: 'Morgen',
+    all_day: 'Hele dag',
+    now: 'Nu bezig',
+    in_min: 'over {n} min',
+    in_h: 'over {h} u {m} min',
+    in_hours: 'over {h} u',
+    no_events: 'Geen afspraken',
+    no_upcoming: 'Geen komende afspraken',
+    events_today: '{n} afspraken vandaag',
+    event_today: '1 afspraak vandaag',
+    none_today: 'Niets vandaag',
+    next: 'Daarna',
+    until: 'tot {d}',
+    more: 'Nog {n} afspraken',
+    more_one: 'Nog 1 afspraak',
+    less: 'Minder tonen',
+    close: 'Sluiten',
+    load_failed: 'Agenda niet geladen: {list}',
+    no_calendar: 'Geen agenda gevonden',
+    zoom_in: 'Volledige kaart tonen',
+    zoom_out: 'Terug naar de compacte weergave',
+    ed_entities: 'Agenda\'s',
+    ed_entities_helper: 'Kleuren en labels per agenda: in YAML (zie de README)',
+    ed_title: 'Titel',
+    ed_title_helper: 'Leeg laten voor ‘Agenda’',
+    ed_days_to_show: 'Getoonde dagen',
+    ed_max_events: 'Afspraken vóór ‘nog’',
+    ed_max_events_helper: '0 om alles te tonen',
+    ed_show_header: 'Koptekst',
+    ed_show_location: 'Locatie',
+    ed_show_end_time: 'Eindtijd',
+    ed_show_countdown: 'Aftellen',
+    ed_show_empty_days: 'Dagen zonder afspraken',
+    ed_show_past_events: 'Afgelopen afspraken van vandaag',
+    ed_zoom: 'Detailknop',
+    ed_zoom_helper: 'Knop rechtsboven die de minikaart uitklapt tot de volledige kaart en terug',
+    ed_language: 'Taal',
+    ed_language_helper: 'Leeg laten om de taal van Home Assistant te volgen',
+  },
+  pt: {
+    agenda: 'Agenda',
+    today: 'Hoje',
+    tomorrow: 'Amanhã',
+    all_day: 'Todo o dia',
+    now: 'A decorrer',
+    in_min: 'daqui a {n} min',
+    in_h: 'daqui a {h} h {m}',
+    in_hours: 'daqui a {h} h',
+    no_events: 'Sem eventos',
+    no_upcoming: 'Sem eventos próximos',
+    events_today: '{n} eventos hoje',
+    event_today: '1 evento hoje',
+    none_today: 'Nada hoje',
+    next: 'A seguir',
+    until: 'até {d}',
+    more: 'Mais {n} eventos',
+    more_one: 'Mais 1 evento',
+    less: 'Mostrar menos',
+    close: 'Fechar',
+    load_failed: 'Calendário não carregado: {list}',
+    no_calendar: 'Nenhum calendário encontrado',
+    zoom_in: 'Mostrar o cartão completo',
+    zoom_out: 'Voltar à vista compacta',
+    ed_entities: 'Calendários',
+    ed_entities_helper: 'Cores e etiquetas por calendário: em YAML (ver o README)',
+    ed_title: 'Título',
+    ed_title_helper: 'Deixar vazio para «Agenda»',
+    ed_days_to_show: 'Dias mostrados',
+    ed_max_events: 'Eventos antes de «mais»',
+    ed_max_events_helper: '0 para mostrar tudo',
+    ed_show_header: 'Cabeçalho',
+    ed_show_location: 'Local',
+    ed_show_end_time: 'Hora de fim',
+    ed_show_countdown: 'Contagem decrescente',
+    ed_show_empty_days: 'Dias sem eventos',
+    ed_show_past_events: 'Eventos de hoje já terminados',
+    ed_zoom: 'Botão de detalhe',
+    ed_zoom_helper: 'Botão no canto superior direito que alterna entre o mini cartão e o cartão completo',
+    ed_language: 'Idioma',
+    ed_language_helper: 'Deixar vazio para seguir o idioma do Home Assistant',
+  },
+  pl: {
+    agenda: 'Terminarz',
+    today: 'Dzisiaj',
+    tomorrow: 'Jutro',
+    all_day: 'Cały dzień',
+    now: 'Trwa',
+    in_min: 'za {n} min',
+    in_h: 'za {h} godz. {m}',
+    in_hours: 'za {h} godz.',
+    no_events: 'Brak wydarzeń',
+    no_upcoming: 'Brak nadchodzących wydarzeń',
+    events_today: 'Wydarzenia dzisiaj: {n}',
+    event_today: '1 wydarzenie dzisiaj',
+    none_today: 'Nic dzisiaj',
+    next: 'Następnie',
+    until: 'do {d}',
+    more: 'Więcej wydarzeń: {n}',
+    more_one: 'Jeszcze 1 wydarzenie',
+    less: 'Pokaż mniej',
+    close: 'Zamknij',
+    load_failed: 'Nie załadowano kalendarza: {list}',
+    no_calendar: 'Nie znaleziono kalendarza',
+    zoom_in: 'Pokaż pełną kartę',
+    zoom_out: 'Wróć do widoku kompaktowego',
+    ed_entities: 'Kalendarze',
+    ed_entities_helper: 'Kolory i etykiety dla każdego kalendarza: w YAML (zobacz README)',
+    ed_title: 'Tytuł',
+    ed_title_helper: 'Pozostaw puste dla „Terminarz”',
+    ed_days_to_show: 'Wyświetlane dni',
+    ed_max_events: 'Wydarzenia przed „Więcej”',
+    ed_max_events_helper: '0, aby pokazać wszystko',
+    ed_show_header: 'Nagłówek',
+    ed_show_location: 'Lokalizacja',
+    ed_show_end_time: 'Godzina zakończenia',
+    ed_show_countdown: 'Odliczanie',
+    ed_show_empty_days: 'Dni bez wydarzeń',
+    ed_show_past_events: 'Dzisiejsze zakończone wydarzenia',
+    ed_zoom: 'Przycisk szczegółów',
+    ed_zoom_helper: 'Przycisk w prawym górnym rogu, który przełącza mini kartę na pełną kartę i z powrotem',
+    ed_language: 'Język',
+    ed_language_helper: 'Pozostaw puste, aby używać języka Home Assistant',
+  },
 };
+
+// Language tag -> CcI18n key: the full tag when it has its own strings (sr-Latn), else the part before
+// the dash (fr-FR -> fr, pt-BR -> European Portuguese pt), else English.
+function ccLang(l) {
+  l = String(l || 'en');
+  if (Object.hasOwn(CcI18n, l)) return l;
+  l = l.split('-')[0];
+  return Object.hasOwn(CcI18n, l) ? l : 'en';
+}
+
+// Locale for Intl: the full tag when its base matches the resolved card language (en-GB, sr-Latn…),
+// else the card language; bare pt means European Portuguese.
+function ccFmtLang(tag, lang) {
+  var l = String(tag || '');
+  if (l.split('-')[0].toLowerCase() !== lang.split('-')[0]) l = lang;
+  return l.toLowerCase() === 'pt' ? 'pt-PT' : l;
+}
 
 function ccT(lang, key) {
   var strings = CcI18n[lang] || CcI18n.en;
@@ -200,12 +469,59 @@ function ccCalList(config) {
   return config.entities ? ccList(config.entities) : ccList(config.entity);
 }
 
+// A calendar color is written into the card's <style> and style attributes: anything that is not a
+// CSS color (a typo, or markup such as `red}</style><img …>`) falls back to the palette color.
+function ccColor(v, fallback) {
+  if (typeof v !== 'string' || !v.trim() || /[<>{};"'\\]/.test(v)) return fallback;
+  if (typeof CSS !== 'undefined' && CSS.supports && !CSS.supports('color', v)) return fallback;
+  return v.trim();
+}
+
+// [r, g, b] of an opaque color, or null when the card cannot tell (var(), transparency…).
+var ccRgbCache = new Map();
+function ccRgb(color) {
+  var key = String(color);
+  if (ccRgbCache.has(key)) return ccRgbCache.get(key);
+  var s = key.trim(), rgb = null, m;
+  if (!/^(#|rgba?\()/i.test(s)) {
+    // Named, hsl()… colors: the browser's canvas normalizes them to #rrggbb / rgba(); var() stays unknown.
+    try {
+      var ctx = document.createElement('canvas').getContext('2d');
+      ctx.fillStyle = '#010203';
+      ctx.fillStyle = s;
+      if (ctx.fillStyle !== '#010203') s = ctx.fillStyle;
+    } catch (_e) { /* no canvas: unknown color */ }
+  }
+  if ((m = s.match(/^#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i))) {
+    var h = m[1].length < 6 ? m[1].replace(/./g, '$&$&') : m[1];
+    if (h.length === 6 || /ff$/i.test(h)) rgb = [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16));
+  } else if ((m = s.match(/^rgba?\(\s*([\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)\s*(?:[,/]\s*([\d.]+)(%?)\s*)?\)$/i))) {
+    if (m[4] == null || Number(m[4]) >= (m[5] ? 100 : 1)) rgb = [m[1], m[2], m[3]].map(Number);
+  }
+  ccRgbCache.set(key, rgb);
+  return rgb;
+}
+
+// Text on a calendar color (live countdown, today's date, logo): white when it reaches the WCAG AA
+// 4.5:1, black otherwise (always ≥ 4.58:1 then). Same in light and dark themes, as the background is
+// the calendar color itself. An unreadable color keeps the theme's text color for colored backgrounds.
+function ccOnColor(color) {
+  var rgb = ccRgb(color);
+  if (!rgb) return 'var(--text-primary-color, #fff)';
+  var l = rgb.map((v) => {
+    var c = v / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+  var lum = 0.2126 * l[0] + 0.7152 * l[1] + 0.0722 * l[2];
+  return 1.05 / (lum + 0.05) >= 4.5 ? '#ffffff' : '#000000';
+}
+
 // `entities` accepts entity ids or objects { entity, color, name }; colors default to a palette.
 function ccCalendars(config, hass) {
   return ccCalList(config).map((item, i) => {
     var c = typeof item === 'string' ? { entity: item } : Object.assign({}, item);
     var st = hass?.states?.[c.entity];
-    c.color = c.color || CC_COLORS[i % CC_COLORS.length];
+    c.color = ccColor(c.color, CC_COLORS[i % CC_COLORS.length]);
     c.name = c.name || st?.attributes?.friendly_name || c.entity;
     return c;
   }).filter((c) => c.entity);
@@ -307,7 +623,7 @@ function ccExcluded(e, exclude) {
 var ccLogo = (wd, day) => '<svg class="logo" viewBox="0 0 40 40" role="img" aria-hidden="true">' +
   '<rect x="2" y="3" width="36" height="35" rx="8" fill="var(--card-background-color, #fff)" stroke="var(--divider-color, rgba(0,0,0,.12))"/>' +
   '<path d="M10 3h20a8 8 0 0 1 8 8v3H2v-3a8 8 0 0 1 8-8Z" fill="var(--cc-accent)"/>' +
-  `<text x="20" y="11.6" text-anchor="middle" font-size="7.2" font-weight="700" fill="#fff" letter-spacing=".4">${ccEsc(wd)}</text>` +
+  `<text x="20" y="11.6" text-anchor="middle" font-size="7.2" font-weight="700" fill="var(--cc-accent-on)" letter-spacing=".4">${ccEsc(wd)}</text>` +
   `<text x="20" y="32" text-anchor="middle" font-size="17" font-weight="500" fill="var(--primary-text-color, #212121)">${ccEsc(day)}</text></svg>`;
 
 var ccInDialog = (ev) => ev.composedPath().some((n) => ['ha-more-info-dialog', 'ha-dialog', 'dialog'].indexOf(n.localName) >= 0);
@@ -387,15 +703,19 @@ class CalendarAgendaCard extends HTMLElement {
   getGridOptions() { return { columns: 12, min_columns: 6 }; }
 
   _lang() {
-    var l = (this._config?.language) || (this._hass?.language) || document.documentElement.lang || 'en';
-    l = l.split('-')[0];
-    return CcI18n[l] ? l : 'en';
+    return ccLang((this._config?.language) || (this._hass?.language) || document.documentElement.lang);
   }
 
   _t(k) { return ccT(this._lang(), k); }
 
   // Full locale tag for date/time formatting (en-GB vs en-US…); the truncated _lang() is only for CcI18n.
+  // The full tag is kept only when its base matches the card language, else the card language is used;
+  // bare pt (Home Assistant's European Portuguese) becomes pt-PT, as Intl reads pt as Brazilian.
   _fmtLang() {
+    return ccFmtLang(this._fmtTag(), this._lang());
+  }
+
+  _fmtTag() {
     var l = (this._config?.language) || (this._hass?.locale?.language) || (this._hass?.language) || document.documentElement.lang || 'en';
     if (l === this._fmtOk) return l;
     // An invalid tag is remembered too, so Intl is not asked (and does not throw) again on every format.
@@ -426,7 +746,7 @@ class CalendarAgendaCard extends HTMLElement {
     if (mins < 60) return this._t('in_min').replace('{n}', Math.max(1, mins));
     var h = Math.floor(mins / 60), m = mins % 60;
     if (!m) return this._t('in_hours').replace('{h}', h);
-    // Clock-style "in 2 h 05" (fr/en, minutes last) pads the minutes; "in 2 Std. 5 Min." (de/es) does not.
+    // Clock-style "in 2 h 05" (fr/en/pt/pl, minutes last) pads the minutes; "in 2 Std. 5 Min." (de/es/it/nl) does not.
     var tpl = this._t('in_h');
     return tpl.replace('{h}', h).replace('{m}', /\{m\}$/.test(tpl) ? String(m).padStart(2, '0') : m);
   }
@@ -558,7 +878,7 @@ class CalendarAgendaCard extends HTMLElement {
       var pct = Math.round(((now - e.start) / (e.end - e.start)) * 100);
       prog = `<div class="eprog"><div class="efill" style="width:${pct}%"></div></div>`;
     }
-    return `<div class="ev${ongoing ? ' ongoing' : ''}${e.end <= now && !e.allDay ? ' past' : ''}" style="--c:${ccEsc(cal.color)}" data-ev="${idx}" role="button" tabindex="0">` +
+    return `<div class="ev${ongoing ? ' ongoing' : ''}${e.end <= now && !e.allDay ? ' past' : ''}" style="--c:${ccEsc(cal.color)};--c-on:${ccEsc(ccOnColor(cal.color))}" data-ev="${idx}" role="button" tabindex="0">` +
       '<span class="cbar"></span>' +
       `<div class="emain"><div class="etitle">${ccEsc(e.summary)}</div><div class="emeta">${meta.join('<span class="sep">·</span>')}</div>${prog}</div>` +
       (cd ? `<span class="cd${ongoing ? ' live' : ''}">${ccEsc(cd)}</span>` : '') +
@@ -659,7 +979,8 @@ class CalendarAgendaCard extends HTMLElement {
     }
 
     this.shadowRoot.innerHTML = this._styles(accent) + `<ha-card class="${this._detail != null ? 'popped' : ''}">` +
-      (c.show_header ? this._headerHtml(now, this._todaySub(days)) : '') +
+      // An unfolded mini card keeps its header whatever show_header says: it holds the fold button.
+      (c.show_header || this._zoomed ? this._headerHtml(now, this._todaySub(days)) : '') +
       `<div class="list">${list}</div>${moreHtml}${this._errorHtml()}${this._popupHtml()}</ha-card>`;
   }
 
@@ -728,7 +1049,7 @@ class CalendarAgendaCard extends HTMLElement {
 
   _styles(accent) {
     return '<style>' +
-      `:host { display: block; height: 100%; --cc-accent: ${accent}; }` +
+      `:host { display: block; height: 100%; --cc-accent: ${accent}; --cc-accent-on: ${ccOnColor(accent)}; }` +
       'ha-card { position: relative; height: 100%; box-sizing: border-box; padding: 12px; display: flex; flex-direction: column; gap: 10px; }' +
       'ha-card.popped { min-height: 240px; }' +
       '.empty { display: flex; align-items: center; gap: 10px; color: var(--secondary-text-color); }' +
@@ -745,8 +1066,9 @@ class CalendarAgendaCard extends HTMLElement {
       '.date { width: 40px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; line-height: 1.1; padding-top: 2px; }' +
       '.date .wd, .date .mo { font-size: 11px; font-weight: 500; text-transform: uppercase; color: var(--secondary-text-color); }' +
       '.date .dn { font-size: 20px; font-weight: 500; color: var(--primary-text-color); margin: 2px 0; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; }' +
-      '.date.today .wd { color: var(--cc-accent); }' +
-      '.date.today .dn { background: var(--cc-accent); color: #fff; }' +
+      // Accent text: mixed with the theme's text color so it reads at ≥ 4.5:1 in light and dark themes.
+      '.date.today .wd { color: color-mix(in srgb, var(--cc-accent) 45%, var(--primary-text-color)); }' +
+      '.date.today .dn { background: var(--cc-accent); color: var(--cc-accent-on); }' +
       '.events { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }' +
       '.dlabel { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; color: var(--secondary-text-color); margin: 2px 0 2px 2px; }' +
       '.none { font-size: 13px; color: var(--secondary-text-color); padding: 6px 2px; }' +
@@ -767,7 +1089,7 @@ class CalendarAgendaCard extends HTMLElement {
       '.efill { height: 100%; background: var(--c); border-radius: 2px; }' +
       '.cd { flex-shrink: 0; font-size: 11px; font-weight: 500; padding: 1px 8px; border-radius: 12px; white-space: nowrap;' +
         ' background: var(--secondary-background-color, rgba(128,128,128,0.12)); color: var(--secondary-text-color); }' +
-      '.cd.live { background: var(--c); color: #fff; }' +
+      '.cd.live { background: var(--c); color: var(--c-on); }' +
       'button { font: inherit; cursor: pointer; border: none; }' +
       '.more { align-self: flex-start; display: inline-flex; align-items: center; gap: 2px; font-size: 12px; font-weight: 500; padding: 4px 8px 4px 2px;' +
         ' border-radius: 10px; background: none; color: var(--primary-color, #03a9f4); }' +
@@ -784,6 +1106,7 @@ class CalendarAgendaCard extends HTMLElement {
       '.ptitle { flex: 1; font-size: 16px; font-weight: 500; line-height: 1.3; word-break: break-word; }' +
       '.pclose { all: unset; cursor: pointer; width: 28px; height: 28px; margin: -4px -4px 0 0; border-radius: 50%; display: grid; place-items: center; color: var(--secondary-text-color); }' +
       '.pclose:hover { background: color-mix(in srgb, var(--secondary-text-color) 16%, transparent); }' +
+      '.pclose:focus-visible { outline: 2px solid var(--primary-color, #03a9f4); outline-offset: 1px; }' +
       '.pclose ha-icon { --mdc-icon-size: 18px; }' +
       '.prow { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--secondary-text-color); padding-left: 14px; }' +
       '.prow ha-icon { --mdc-icon-size: 16px; flex-shrink: 0; }' +
@@ -797,7 +1120,8 @@ class CalendarAgendaCard extends HTMLElement {
       '.zoom:focus-visible { outline: 2px solid var(--primary-color, #03a9f4); outline-offset: 1px; }' +
       'ha-card.mini .logo { width: 32px; height: 32px; }' +
       '.st { display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0; padding: 1px 8px; border-radius: 12px; font-size: 11px; font-weight: 500;' +
-        ' white-space: nowrap; background: color-mix(in srgb, var(--cc-accent) 15%, transparent); color: var(--cc-accent); }' +
+        ' white-space: nowrap; background: color-mix(in srgb, var(--cc-accent) 15%, transparent);' +
+        ' color: color-mix(in srgb, var(--cc-accent) 45%, var(--primary-text-color)); }' +
       '.mnext { font-size: 12px; color: var(--secondary-text-color); display: flex; gap: 6px; align-items: center; min-width: 0; white-space: nowrap; overflow: hidden; }' +
       '.mnext b { font-weight: 500; color: var(--primary-text-color); overflow: hidden; text-overflow: ellipsis; }' +
       '.mallday { display: flex; align-items: center; gap: 6px; min-width: 0; padding: 4px 8px; border-radius: 10px; cursor: pointer; white-space: nowrap; overflow: hidden;' +
@@ -899,8 +1223,7 @@ class CalendarAgendaCardEditor extends HTMLElement {
   }
 
   _lang() {
-    var lang = ((this._config?.language) || (this._hass?.language) || 'en').split('-')[0];
-    return CcI18n[lang] ? lang : 'en';
+    return ccLang((this._config?.language) || (this._hass?.language));
   }
 
   _schema() {
@@ -926,7 +1249,7 @@ class CalendarAgendaCardEditor extends HTMLElement {
       },
       {
         name: 'language',
-        selector: { select: { mode: 'dropdown', options: [{ value: 'fr', label: 'Français' }, { value: 'en', label: 'English' }, { value: 'de', label: 'Deutsch' }, { value: 'es', label: 'Español' }] } },
+        selector: { select: { mode: 'dropdown', options: [{ value: 'fr', label: 'Français' }, { value: 'en', label: 'English' }, { value: 'de', label: 'Deutsch' }, { value: 'es', label: 'Español' }, { value: 'sr', label: 'Српски' }, { value: 'sr-Latn', label: 'Srpski (latinica)' }, { value: 'it', label: 'Italiano' }, { value: 'nl', label: 'Nederlands' }, { value: 'pt', label: 'Português (Portugal)' }, { value: 'pl', label: 'Polski' }] } },
       },
     ];
   }

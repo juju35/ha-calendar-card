@@ -5,9 +5,9 @@ import { loadCard } from "./load.mjs";
 // Values from the card's sandbox come from another realm: compare them as plain JSON.
 const plain = (v) => JSON.parse(JSON.stringify(v));
 
-const { CalendarAgendaCard, CalendarAgendaCardEditor, CcI18n, ccParse, ccByDay, ccCalendars, ccDayStart, ccEsc, customElements } = loadCard(
+const { CalendarAgendaCard, CalendarAgendaCardEditor, CcI18n, ccParse, ccByDay, ccCalendars, ccDayStart, ccEsc, ccOnColor, customElements } = loadCard(
   "calendar-card.js",
-  ["CalendarAgendaCard", "CalendarAgendaCardEditor", "CcI18n", "ccParse", "ccByDay", "ccCalendars", "ccDayStart", "ccEsc"]
+  ["CalendarAgendaCard", "CalendarAgendaCardEditor", "CcI18n", "ccParse", "ccByDay", "ccCalendars", "ccDayStart", "ccEsc", "ccOnColor"]
 );
 
 // Today at 09:40 local time, events around it.
@@ -277,7 +277,10 @@ test("a language change in the Home Assistant profile re-renders at once", async
 test("countdowns pad the minutes only in the clock-style languages", async () => {
   const now = new Date();
   const e = { allDay: false, start: new Date(+now + 125 * 60000), end: new Date(+now + 185 * 60000) };
-  const expect = { en: "in 2 h 05", fr: "dans 2 h 05", de: "in 2 Std. 5 Min.", es: "en 2 h 5 min" };
+  const expect = {
+    en: "in 2 h 05", fr: "dans 2 h 05", de: "in 2 Std. 5 Min.", es: "en 2 h 5 min",
+    it: "tra 2 h 5 min", nl: "over 2 u 5 min", pt: "daqui a 2 h 05", pl: "za 2 godz. 05",
+  };
   for (const [language, text] of Object.entries(expect)) {
     const card = await render(CalendarAgendaCard, {}, { language });
     assert.equal(card._countdown(e, now), text);
@@ -289,6 +292,30 @@ test("an invalid language tag is checked against Intl only once", async () => {
   assert.equal(card._fmtLang(), "en");
   assert.equal(card._fmtBad, "zz_ZZ");
   assert.equal(card._fmtLang(), "en");
+});
+
+test("dates use the full Home Assistant locale, with bare pt as European Portuguese", async () => {
+  const fmt = async (config, hass) => {
+    const card = new CalendarAgendaCard();
+    card.setConfig({ entities: ["calendar.home"], ...config });
+    card.hass = mockHass({}, hass);
+    return card._fmtLang();
+  };
+  assert.equal(await fmt({}, { language: "pt", locale: { language: "pt" } }), "pt-PT");
+  assert.equal(await fmt({}, { language: "pt-BR", locale: { language: "pt-BR" } }), "pt-BR");
+  assert.equal(await fmt({}, { language: "en", locale: { language: "en-GB" } }), "en-GB");
+  assert.equal(await fmt({}, { language: "sr-Latn", locale: { language: "sr-Latn" } }), "sr-Latn");
+  // A locale whose base differs from the card language falls back to the card language.
+  assert.equal(await fmt({}, { language: "fr", locale: { language: "en-GB" } }), "fr");
+  // The language option still comes first.
+  assert.equal(await fmt({ language: "pt" }, { language: "pt-BR", locale: { language: "pt-BR" } }), "pt-PT");
+  assert.equal(await fmt({ language: "de" }, { language: "pt", locale: { language: "pt" } }), "de");
+  // pt-PT dates: no Brazilian "de" between day and month.
+  const card = new CalendarAgendaCard();
+  card.setConfig({ entities: ["calendar.home"] });
+  card.hass = mockHass({}, { language: "pt", locale: { language: "pt" } });
+  assert.equal(card._dateFmt(new Date(2026, 10, 1), { day: "numeric", month: "short", year: "numeric" }),
+    new Date(2026, 10, 1).toLocaleDateString("pt-PT", { day: "numeric", month: "short", year: "numeric" }));
 });
 
 test("failed calendars are reported, the others still shown", async () => {
@@ -388,14 +415,80 @@ test("French labels follow the language option", async () => {
   assert.match(card.shadowRoot.innerHTML, /Demain/);
 });
 
-test("I18N parity: every language has exactly the English keys and placeholders", () => {
+test("I18N parity: every language has exactly the English keys, placeholders and array lengths", () => {
   const ph = (v) => (String(v).match(/\{\w+\}/g) || []).sort();
   const en = CcI18n.en;
-  assert.deepEqual(Object.keys(CcI18n).sort(), ["de", "en", "es", "fr"]);
+  assert.deepEqual(Object.keys(CcI18n).sort(), ["de", "en", "es", "fr", "it", "nl", "pl", "pt", "sr", "sr-Latn"]);
   for (const [lang, strings] of Object.entries(CcI18n)) {
     assert.deepEqual(Object.keys(strings).sort(), Object.keys(en).sort(), lang);
-    for (const k of Object.keys(en)) assert.deepEqual(ph(strings[k]), ph(en[k]), `${lang}.${k}`);
+    for (const k of Object.keys(en)) {
+      assert.deepEqual(ph(strings[k]), ph(en[k]), `${lang}.${k}`);
+      assert.equal(Array.isArray(strings[k]), Array.isArray(en[k]), `${lang}.${k}`);
+      if (Array.isArray(en[k])) assert.equal(strings[k].length, en[k].length, `${lang}.${k}`);
+      for (const v of [].concat(strings[k])) assert.ok(String(v).trim(), `${lang}.${k} is empty`);
+    }
   }
+});
+
+test("Serbian has exactly the English keys, Cyrillic in sr and Latin in sr-Latn", () => {
+  const en = CcI18n.en;
+  // Placeholders and proper names / units kept as they are in both scripts.
+  const bare = (v) => String(v).replace(/\{\w+\}|Home Assistant|YAML|README/g, "");
+  for (const [lang, other] of [["sr", /[A-Za-z\u00C0-\u024F]/], ["sr-Latn", /[\u0400-\u04FF]/]]) {
+    const strings = CcI18n[lang];
+    assert.deepEqual(Object.keys(strings).sort(), Object.keys(en).sort(), lang);
+    for (const k of Object.keys(en)) {
+      assert.equal(Array.isArray(strings[k]), Array.isArray(en[k]), `${lang}.${k}`);
+      if (Array.isArray(en[k])) assert.equal(strings[k].length, en[k].length, `${lang}.${k}`);
+      assert.doesNotMatch(bare(strings[k]), other, `${lang}.${k}`);
+    }
+  }
+});
+
+test("language tags resolve to the full tag, then the part before the dash, then English", async () => {
+  const expect = {
+    "fr-FR": "fr", "de-CH": "de", "sr-Latn": "sr-Latn", sr: "sr", toString: "en",
+    "it-IT": "it", "nl-BE": "nl", pt: "pt", "pt-BR": "pt", "pl-PL": "pl", ja: "en",
+  };
+  for (const [language, lang] of Object.entries(expect)) {
+    assert.equal((await render(CalendarAgendaCard, {}, { language }))._lang(), lang, language);
+    assert.equal(editor({ language })._lang(), lang, language);
+  }
+  // Home Assistant set to sr-Latn picks the Latin strings without a language option.
+  const card = new CalendarAgendaCard();
+  card.setConfig({ entities: ["calendar.home"] });
+  card.hass = mockHass({}, { language: "sr-Latn" });
+  assert.equal(card._lang(), "sr-Latn");
+  const ed = editor({});
+  ed.hass = { language: "sr-Latn" };
+  assert.equal(ed._form.computeLabel({ name: "title" }), "Naslov");
+  // The config option still comes first.
+  card.setConfig({ entities: ["calendar.home"], language: "sr" });
+  assert.equal(card._lang(), "sr");
+});
+
+test("Serbian labels follow the language option, in both scripts", async () => {
+  const events = { "calendar.home": [{ summary: "Zubar", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }] };
+  assert.match((await render(CalendarAgendaCard, events, { language: "sr" })).shadowRoot.innerHTML, /Сутра/);
+  assert.match((await render(CalendarAgendaCard, events, { language: "sr-Latn" })).shadowRoot.innerHTML, /Sutra/);
+  assert.equal(editor({ language: "sr" })._form.computeLabel({ name: "title" }), "Наслов");
+  const options = editor({})._schema().find((s) => s.name === "language").selector.select.options;
+  assert.deepEqual(plain(options.filter((o) => o.value.startsWith("sr"))), [{ value: "sr", label: "Српски" }, { value: "sr-Latn", label: "Srpski (latinica)" }]);
+});
+
+test("Italian, Dutch, Portuguese and Polish labels follow the language option", async () => {
+  const events = { "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }] };
+  const expect = { it: [/Domani/, "Titolo"], nl: [/Morgen/, "Titel"], pt: [/Amanhã/, "Título"], pl: [/Jutro/, "Tytuł"] };
+  for (const [language, [tomorrow, title]] of Object.entries(expect)) {
+    assert.match((await render(CalendarAgendaCard, events, { language })).shadowRoot.innerHTML, tomorrow, language);
+    assert.equal(editor({ language })._form.computeLabel({ name: "title" }), title, language);
+  }
+  const options = editor({})._schema().find((s) => s.name === "language").selector.select.options;
+  assert.deepEqual(plain(options.slice(-4)), [
+    { value: "it", label: "Italiano" }, { value: "nl", label: "Nederlands" },
+    { value: "pt", label: "Português (Portugal)" }, { value: "pl", label: "Polski" },
+  ]);
+  assert.deepEqual(plain(options.map((o) => o.value)).sort(), Object.keys(CcI18n).sort());
 });
 
 test("German and Spanish labels follow the language option", async () => {
@@ -520,4 +613,115 @@ test("editor turns a YAML string calendar into the calendar list", () => {
   ed._valueChanged({ stopPropagation() {}, detail: { value: { ...ed._form.data, title: "Family" } } });
   assert.deepEqual(plain(ed._config.entities), ["calendar.home"]);
   assert.equal(ed._config.exclude, "Private");
+});
+
+// ── Review pass 8 ────────────────────────────────────────────────────────────
+const PALETTE = ["#039be5", "#e67c73", "#33b679", "#f6bf26", "#8e24aa", "#f4511e", "#3f51b5", "#0b8043", "#d81b60", "#616161"];
+// WCAG 2 contrast ratio between two #rrggbb (or [r, g, b]) colors.
+const rgbOf = (c) => (Array.isArray(c) ? c : [1, 3, 5].map((i) => Number.parseInt(c.slice(i, i + 2), 16)));
+const lum = (c) => {
+  const [r, g, b] = rgbOf(c).map((v) => {
+    const s = v / 255;
+    return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
+const contrast = (a, b) => {
+  const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
+  return (x + 0.05) / (y + 0.05);
+};
+const mixRgb = (a, b, p) => rgbOf(a).map((v, i) => v * p + rgbOf(b)[i] * (1 - p));
+const cssRule = (html, sel) => html.match(new RegExp(`${sel.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")} \\{([^}]*)\\}`))?.[1] || "";
+
+test("a calendar color cannot break out of the card's style", async () => {
+  const payload = "red}</style><img src=x onerror=alert(1)><style>";
+  const card = await render(CalendarAgendaCard, {
+    "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }],
+  }, { entities: [{ entity: "calendar.home", color: payload }] });
+  const html = card.shadowRoot.innerHTML;
+  assert.doesNotMatch(html, /<img/);
+  assert.doesNotMatch(html, /<\/style>[\s\S]*<style>/);
+  assert.match(html, /--cc-accent: #039be5;/);
+});
+
+test("valid calendar colors are kept, in every CSS form", () => {
+  const colors = ["#123456", "#abc", "red", "rgb(1, 2, 3)", "hsl(120 50% 40% / 0.5)", "var(--red-color)", "color-mix(in srgb, red 50%, blue)"];
+  const cals = ccCalendars({ entities: colors.map((color, i) => ({ entity: `calendar.c${i}`, color })) }, mockHass({}));
+  assert.deepEqual(plain(cals.map((c) => c.color)), colors);
+});
+
+test("text on a calendar color (live countdown, today's date, logo) reaches 4.5:1", async () => {
+  for (const color of PALETTE) {
+    const card = await render(CalendarAgendaCard, {
+      "calendar.home": [{ summary: "Stand-up", start: { dateTime: new Date(Date.now() - 600000).toISOString() }, end: { dateTime: new Date(Date.now() + 600000).toISOString() } }],
+    }, { entities: [{ entity: "calendar.home", color }] });
+    const html = card.shadowRoot.innerHTML;
+    assert.match(cssRule(html, ".cd.live"), /color: var\(--c-on\)/);
+    assert.match(cssRule(html, ".date.today .dn"), /color: var\(--cc-accent-on\)/);
+    assert.match(html, /<text [^>]*fill="var\(--cc-accent-on\)"/);
+    assert.doesNotMatch(html, /fill="#fff"/);
+    const on = html.match(/--cc-accent-on: (#[0-9a-f]{6});/)?.[1];
+    assert.ok(on, `${color}: --cc-accent-on`);
+    assert.ok(contrast(on, color) >= 4.5, `${color}: ${on} ${contrast(on, color).toFixed(2)}:1`);
+    const evOn = html.match(/class="ev ongoing"[^>]*style="--c:[^;"]+;--c-on:(#[0-9a-f]{6})"/)?.[1];
+    assert.equal(evOn, on, color);
+  }
+});
+
+test("a calendar color the card cannot read falls back to the theme's text color on it", async () => {
+  const card = await render(CalendarAgendaCard, {}, { entities: [{ entity: "calendar.home", color: "var(--red-color)" }] });
+  assert.match(card.shadowRoot.innerHTML, /--cc-accent-on: var\(--text-primary-color, #fff\);/);
+});
+
+test("text color on a calendar color reads every opaque hex and rgb() form", () => {
+  assert.equal(ccOnColor("#fff"), "#000000");
+  assert.equal(ccOnColor("#000F"), "#ffffff");
+  assert.equal(ccOnColor("#3F51B5"), "#ffffff");
+  assert.equal(ccOnColor("#f6bf26ff"), "#000000");
+  assert.equal(ccOnColor("rgb(63, 81, 181)"), "#ffffff");
+  assert.equal(ccOnColor("rgb(246 191 38 / 100%)"), "#000000");
+  // Translucent or unresolved colors: the card cannot know what is behind them.
+  assert.equal(ccOnColor("rgba(0, 0, 0, 0.5)"), "var(--text-primary-color, #fff)");
+  assert.equal(ccOnColor("#00000080"), "var(--text-primary-color, #fff)");
+  assert.equal(ccOnColor("var(--red-color)"), "var(--text-primary-color, #fff)");
+});
+
+test("accent-colored text (today's counter, today's weekday) reaches 4.5:1 in light and dark themes", async () => {
+  const card = await render(CalendarAgendaCard, {});
+  const html = card.shadowRoot.innerHTML;
+  const themes = { light: { text: "#212121", bg: "#ffffff" }, dark: { text: "#e1e1e1", bg: "#1c1c1c" } };
+  for (const [sel, tinted] of [[".st", true], [".date.today .wd", false]]) {
+    const m = cssRule(html, sel).match(/color: color-mix\(in srgb, var\(--cc-accent\) (\d+)%, var\(--primary-text-color\)\)/);
+    assert.ok(m, `${sel} text color`);
+    const p = Number(m[1]) / 100;
+    for (const [name, t] of Object.entries(themes)) {
+      for (const c of PALETTE) {
+        const fg = mixRgb(c, t.text, p);
+        const bg = tinted ? mixRgb(c, t.bg, 0.15) : rgbOf(t.bg);
+        assert.ok(contrast(fg, bg) >= 4.5, `${sel} ${name} ${c}: ${contrast(fg, bg).toFixed(2)}:1`);
+      }
+    }
+  }
+});
+
+test("mini card with show_header: false keeps its fold button once unfolded", async () => {
+  const Mini = customElements.get("calendar-agenda-mini-card");
+  const card = await render(Mini, {}, { show_header: false });
+  assert.match(card.shadowRoot.innerHTML, /data-action="zoom"/);
+  card._onClick({ composedPath: () => [{ dataset: { action: "zoom" } }], detail: 1 });
+  assert.match(card.shadowRoot.innerHTML, /data-action="zoom"[^>]*><ha-icon icon="mdi:arrow-collapse"/);
+  // The full card itself still follows show_header.
+  const full = await render(CalendarAgendaCard, {}, { show_header: false });
+  assert.doesNotMatch(full.shadowRoot.innerHTML, /class="header"/);
+});
+
+test("mini card with show_header: false and zoom: false still has no fold button", async () => {
+  const Mini = customElements.get("calendar-agenda-mini-card");
+  const card = await render(Mini, {}, { show_header: false, zoom: false });
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /data-action="zoom"/);
+});
+
+test("the popup close button shows a keyboard focus ring", async () => {
+  const card = await render(CalendarAgendaCard, {});
+  assert.match(cssRule(card.shadowRoot.innerHTML, ".pclose:focus-visible"), /outline: 2px solid var\(--primary-color/);
 });
