@@ -725,3 +725,104 @@ test("the popup close button shows a keyboard focus ring", async () => {
   const card = await render(CalendarAgendaCard, {});
   assert.match(cssRule(card.shadowRoot.innerHTML, ".pclose:focus-visible"), /outline: 2px solid var\(--primary-color/);
 });
+
+test("narrow header: the title keeps a few characters, the pill shrinks to its dot, the buttons never shrink", async () => {
+  const Mini = customElements.get("calendar-agenda-mini-card");
+  const events = { "calendar.home": [{ summary: "Stand-up", start: { dateTime: at(0, 23) }, end: { dateTime: at(0, 23, 30) } }] };
+  for (const card of [await render(Mini, events, { language: "fr" }), await render(CalendarAgendaCard, events, { language: "fr" })]) {
+    const html = card.shadowRoot.innerHTML;
+    assert.match(cssRule(html, "ha-card"), /container-type: inline-size/);
+    assert.match(cssRule(html, ".titles"), /flex: 1 1 auto/);
+    assert.match(cssRule(html, ".titles"), /min-width: \d+(\.\d+)?ch/);
+    const st = cssRule(html, ".st");
+    for (const re of [/flex: 0 1 auto/, /min-width: 0/, /max-width: 50%/, /overflow: hidden/]) assert.match(st, re);
+    assert.doesNotMatch(st, /flex-shrink: 0/);
+    assert.match(cssRule(html, ".st .stt"), /text-overflow: ellipsis/);
+    // The counter text sits in its own ellipsized span; the whole text stays in the pill's tooltip.
+    assert.match(html, /<span class="st" title="1 événement aujourd&#39;hui"><span class="dot"><\/span><span class="stt">1 événement aujourd&#39;hui<\/span><\/span>/);
+    // Under the threshold only the dot is shown; the text is visually hidden but still read out.
+    const narrow = html.match(/@container \(max-width: \d+px\) \{([\s\S]*?)\}\s*\}/)?.[1] || "";
+    assert.match(narrow, /\.st \.stt \{[^}]*clip-path: inset\(50%\)/);
+    assert.match(narrow, /\.st \.dot \{[^}]*display: block/);
+  }
+  const card = await render(Mini, events);
+  assert.match(cssRule(card.shadowRoot.innerHTML, ".zoom"), /flex: none/);
+});
+
+test("narrow mini card: an all-day line and the next-event line keep the event name, their date gives way", async () => {
+  const Mini = customElements.get("calendar-agenda-mini-card");
+  const html = (await render(Mini, {})).shadowRoot.innerHTML;
+  for (const row of [".mallday", ".mnext"]) {
+    assert.match(cssRule(html, `${row} b`), /min-width: 40px/, row);
+    const last = cssRule(html, `${row} span:last-child`);
+    for (const re of [/min-width: 0/, /overflow: hidden/, /text-overflow: ellipsis/]) assert.match(last, re, row);
+    assert.doesNotMatch(last, /flex-shrink: 0/, row);
+  }
+});
+
+test("the time line of an event ends with an ellipsis when it is cut, on the card and the mini card", async () => {
+  const Mini = customElements.get("calendar-agenda-mini-card");
+  const events = { "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) }, location: "12 High Street" }] };
+  for (const card of [await render(CalendarAgendaCard, events), await render(Mini, events)]) {
+    const html = card.shadowRoot.innerHTML;
+    assert.match(cssRule(html, ".emeta .when"), /min-width: 0/);
+    assert.match(cssRule(html, ".emeta .when"), /text-overflow: ellipsis/);
+    assert.match(html, /<div class="emeta">(<span class="when">[^<]+<\/span><span class="sep">·<\/span>)?<span class="when">11:00 – 12:00<\/span>/);
+    // No bare text left in the flex row: a text node there cannot shrink nor end with an ellipsis.
+    const meta = html.match(/<div class="emeta">([\s\S]*?)<\/div>/)[1];
+    assert.doesNotMatch(meta.replace(/<span[^>]*>[\s\S]*?<\/span>/g, "").replace(/<\/span>/g, ""), /\S/);
+  }
+  // The mini card puts the day in front of the time, in its own span.
+  assert.match((await render(Mini, events)).shadowRoot.innerHTML, /<div class="emeta"><span class="when">Tomorrow<\/span>/);
+});
+
+test("counters use the singular for 1 in every language, and Serbian's for 21", async () => {
+  const card = await render(CalendarAgendaCard, {});
+  const sub = (language, n) => {
+    card._config = { ...card._config, language };
+    return card._todaySub([{ events: new Array(n).fill({}) }]);
+  };
+  const expect = {
+    en: ["1 event today", "2 events today", "5 events today", "21 events today", "22 events today"],
+    fr: ["1 événement aujourd'hui", "2 événements aujourd'hui", "5 événements aujourd'hui", "21 événements aujourd'hui", "22 événements aujourd'hui"],
+    sr: ["1 догађај данас", "2 догађаја данас", "5 догађаја данас", "21 догађај данас", "22 догађаја данас"],
+    "sr-Latn": ["1 događaj danas", "2 događaja danas", "5 događaja danas", "21 događaj danas", "22 događaja danas"],
+    pl: ["1 wydarzenie dzisiaj", "Wydarzenia dzisiaj: 2", "Wydarzenia dzisiaj: 5", "Wydarzenia dzisiaj: 21", "Wydarzenia dzisiaj: 22"],
+  };
+  for (const [language, texts] of Object.entries(expect)) {
+    assert.deepEqual([1, 2, 5, 21, 22].map((n) => sub(language, n)), texts, language);
+  }
+  for (const language of Object.keys(CcI18n)) assert.match(sub(language, 1), /(^|\s)1(\s|$)/, language);
+});
+
+test("the 'more events' button uses the singular for 1, and Serbian's for 21", async () => {
+  const many = (n) => ({
+    "calendar.home": Array.from({ length: n + 1 }, (_, i) => ({ summary: `E${i}`, start: { dateTime: at(1, 8, i) }, end: { dateTime: at(1, 9) } })),
+  });
+  const label = async (language, n) => (await render(CalendarAgendaCard, many(n), { language, max_events: 1 })).shadowRoot.innerHTML
+    .match(/data-action="more"[^>]*><ha-icon[^>]*><\/ha-icon>([^<]+)</)[1];
+  assert.equal(await label("sr", 1), "још 1 догађај");
+  assert.equal(await label("sr", 21), "још 21 догађај");
+  assert.equal(await label("sr", 22), "још 22 догађаја");
+  assert.equal(await label("sr-Latn", 21), "još 21 događaj");
+  assert.equal(await label("en", 1), "1 more event");
+  assert.equal(await label("en", 21), "21 more events");
+  assert.equal(await label("it", 1), "Ancora 1 evento");
+});
+
+test("Serbian Cyrillic abbreviates the hour as ч", async () => {
+  const now = new Date();
+  const e = { allDay: false, start: new Date(+now + 125 * 60000), end: new Date(+now + 185 * 60000) };
+  const card = await render(CalendarAgendaCard, {}, { language: "sr" });
+  assert.equal(card._countdown(e, now), "за 2 ч 05");
+  assert.equal(card._countdown({ ...e, start: new Date(+now + 120 * 60000) }, now), "за 2 ч");
+});
+
+test("the full card asks for 8 columns at least, the folded mini card keeps 6", async () => {
+  const Mini = customElements.get("calendar-agenda-mini-card");
+  assert.deepEqual({ ...(await render(CalendarAgendaCard, {})).getGridOptions() }, { columns: 12, min_columns: 8 });
+  const mini = await render(Mini, {});
+  assert.deepEqual({ ...mini.getGridOptions() }, { columns: 6, min_columns: 6 });
+  mini._onClick({ composedPath: () => [{ dataset: { action: "zoom" } }], detail: 1 });
+  assert.deepEqual({ ...mini.getGridOptions() }, { columns: 12, min_columns: 8 });
+});
