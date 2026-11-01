@@ -28,9 +28,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      # Same Biome version as the pre-commit hook, so both jobs apply the same rules
+      # (and stay aligned when Dependabot bumps .pre-commit-config.yaml).
+      - name: Read Biome version from .pre-commit-config.yaml
+        id: biome-version
+        run: |
+          version=$(awk '/biomejs\/pre-commit/ {f=1} f && /rev:/ {sub(/.*rev:[ ]*"?v?/, ""); sub(/".*/, ""); print; exit}' .pre-commit-config.yaml)
+          test -n "$version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
       - uses: biomejs/setup-biome@4c91541eaada48f67d7dbd7833600ce162b68f51 # v2
         with:
-          version: 2.6.2
+          version: ${{ steps.biome-version.outputs.version }}
       - run: biome ci --reporter=github .
   duplication:
     name: Duplication (jscpd)

@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.2.7 - 2026-11-01
+
+### Features
+- Added Italian, Dutch, European Portuguese and Polish translations (`it`, `nl`, `pt`, `pl`), also offered in the editor's language list. Brazilian Portuguese (`pt-BR`) uses the European Portuguese strings.
+
+## 1.2.6 - 2026-11-01
+
+### Features
+- Serbian translations in Cyrillic (`sr`) and Latin (`sr-Latn`) script, also offered in the editor's language list. Serbian translations by @cpmarexel2f (#12).
+
+### Fixes
+- A Home Assistant set to a language variant that has its own translation (`sr-Latn`) now uses it instead of the base language; other regional tags (`fr-FR`, `de-CH`) still use their base language, and unknown ones fall back to English.
+
+## 1.2.5
+
+### Fixes
+- Text on a calendar's color is readable again: the live countdown badge, today's date and the logo's weekday switch to black text on light calendar colors (green, light blue, yellow, salmon, orange…), where white text was hard to read.
+- The "N events today" badge and today's weekday are drawn in a darker (light theme) or lighter (dark theme) shade of the calendar color, so they stay readable in both themes.
+- A mini card set to `show_header: false` keeps its fold button once unfolded, so it can be folded back without clicking elsewhere on the page.
+- The close button of the event details popup shows a focus ring when reached with the keyboard.
+- A calendar `color` that is not a valid CSS color is ignored (the palette color is used instead) and can no longer inject markup into the card.
+
 ## 1.2.4
 
 ### Fixes
