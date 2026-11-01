@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.5
+
+### Fixes
+- Text on a calendar's color is readable again: the live countdown badge, today's date and the logo's weekday switch to black text on light calendar colors (green, light blue, yellow, salmon, orange…), where white text was hard to read.
+- The "N events today" badge and today's weekday are drawn in a darker (light theme) or lighter (dark theme) shade of the calendar color, so they stay readable in both themes.
+- A mini card set to `show_header: false` keeps its fold button once unfolded, so it can be folded back without clicking elsewhere on the page.
+- The close button of the event details popup shows a focus ring when reached with the keyboard.
+- A calendar `color` that is not a valid CSS color is ignored (the palette color is used instead) and can no longer inject markup into the card.
+
 ## 1.2.4
 
 ### Fixes
