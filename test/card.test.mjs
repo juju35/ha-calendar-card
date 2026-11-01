@@ -5,9 +5,9 @@ import { loadCard } from "./load.mjs";
 // Values from the card's sandbox come from another realm: compare them as plain JSON.
 const plain = (v) => JSON.parse(JSON.stringify(v));
 
-const { CalendarAgendaCard, CalendarAgendaCardEditor, CcI18n, ccParse, ccByDay, ccCalendars, ccDayStart, ccEsc, customElements } = loadCard(
+const { CalendarAgendaCard, CalendarAgendaCardEditor, CcI18n, ccParse, ccByDay, ccCalendars, ccDayStart, ccEsc, ccOnColor, customElements } = loadCard(
   "calendar-card.js",
-  ["CalendarAgendaCard", "CalendarAgendaCardEditor", "CcI18n", "ccParse", "ccByDay", "ccCalendars", "ccDayStart", "ccEsc"]
+  ["CalendarAgendaCard", "CalendarAgendaCardEditor", "CcI18n", "ccParse", "ccByDay", "ccCalendars", "ccDayStart", "ccEsc", "ccOnColor"]
 );
 
 // Today at 09:40 local time, events around it.
@@ -520,4 +520,115 @@ test("editor turns a YAML string calendar into the calendar list", () => {
   ed._valueChanged({ stopPropagation() {}, detail: { value: { ...ed._form.data, title: "Family" } } });
   assert.deepEqual(plain(ed._config.entities), ["calendar.home"]);
   assert.equal(ed._config.exclude, "Private");
+});
+
+// ── Review pass 8 ────────────────────────────────────────────────────────────
+const PALETTE = ["#039be5", "#e67c73", "#33b679", "#f6bf26", "#8e24aa", "#f4511e", "#3f51b5", "#0b8043", "#d81b60", "#616161"];
+// WCAG 2 contrast ratio between two #rrggbb (or [r, g, b]) colors.
+const rgbOf = (c) => (Array.isArray(c) ? c : [1, 3, 5].map((i) => Number.parseInt(c.slice(i, i + 2), 16)));
+const lum = (c) => {
+  const [r, g, b] = rgbOf(c).map((v) => {
+    const s = v / 255;
+    return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
+const contrast = (a, b) => {
+  const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
+  return (x + 0.05) / (y + 0.05);
+};
+const mixRgb = (a, b, p) => rgbOf(a).map((v, i) => v * p + rgbOf(b)[i] * (1 - p));
+const cssRule = (html, sel) => html.match(new RegExp(`${sel.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")} \\{([^}]*)\\}`))?.[1] || "";
+
+test("a calendar color cannot break out of the card's style", async () => {
+  const payload = "red}</style><img src=x onerror=alert(1)><style>";
+  const card = await render(CalendarAgendaCard, {
+    "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }],
+  }, { entities: [{ entity: "calendar.home", color: payload }] });
+  const html = card.shadowRoot.innerHTML;
+  assert.doesNotMatch(html, /<img/);
+  assert.doesNotMatch(html, /<\/style>[\s\S]*<style>/);
+  assert.match(html, /--cc-accent: #039be5;/);
+});
+
+test("valid calendar colors are kept, in every CSS form", () => {
+  const colors = ["#123456", "#abc", "red", "rgb(1, 2, 3)", "hsl(120 50% 40% / 0.5)", "var(--red-color)", "color-mix(in srgb, red 50%, blue)"];
+  const cals = ccCalendars({ entities: colors.map((color, i) => ({ entity: `calendar.c${i}`, color })) }, mockHass({}));
+  assert.deepEqual(plain(cals.map((c) => c.color)), colors);
+});
+
+test("text on a calendar color (live countdown, today's date, logo) reaches 4.5:1", async () => {
+  for (const color of PALETTE) {
+    const card = await render(CalendarAgendaCard, {
+      "calendar.home": [{ summary: "Stand-up", start: { dateTime: new Date(Date.now() - 600000).toISOString() }, end: { dateTime: new Date(Date.now() + 600000).toISOString() } }],
+    }, { entities: [{ entity: "calendar.home", color }] });
+    const html = card.shadowRoot.innerHTML;
+    assert.match(cssRule(html, ".cd.live"), /color: var\(--c-on\)/);
+    assert.match(cssRule(html, ".date.today .dn"), /color: var\(--cc-accent-on\)/);
+    assert.match(html, /<text [^>]*fill="var\(--cc-accent-on\)"/);
+    assert.doesNotMatch(html, /fill="#fff"/);
+    const on = html.match(/--cc-accent-on: (#[0-9a-f]{6});/)?.[1];
+    assert.ok(on, `${color}: --cc-accent-on`);
+    assert.ok(contrast(on, color) >= 4.5, `${color}: ${on} ${contrast(on, color).toFixed(2)}:1`);
+    const evOn = html.match(/class="ev ongoing"[^>]*style="--c:[^;"]+;--c-on:(#[0-9a-f]{6})"/)?.[1];
+    assert.equal(evOn, on, color);
+  }
+});
+
+test("a calendar color the card cannot read falls back to the theme's text color on it", async () => {
+  const card = await render(CalendarAgendaCard, {}, { entities: [{ entity: "calendar.home", color: "var(--red-color)" }] });
+  assert.match(card.shadowRoot.innerHTML, /--cc-accent-on: var\(--text-primary-color, #fff\);/);
+});
+
+test("text color on a calendar color reads every opaque hex and rgb() form", () => {
+  assert.equal(ccOnColor("#fff"), "#000000");
+  assert.equal(ccOnColor("#000F"), "#ffffff");
+  assert.equal(ccOnColor("#3F51B5"), "#ffffff");
+  assert.equal(ccOnColor("#f6bf26ff"), "#000000");
+  assert.equal(ccOnColor("rgb(63, 81, 181)"), "#ffffff");
+  assert.equal(ccOnColor("rgb(246 191 38 / 100%)"), "#000000");
+  // Translucent or unresolved colors: the card cannot know what is behind them.
+  assert.equal(ccOnColor("rgba(0, 0, 0, 0.5)"), "var(--text-primary-color, #fff)");
+  assert.equal(ccOnColor("#00000080"), "var(--text-primary-color, #fff)");
+  assert.equal(ccOnColor("var(--red-color)"), "var(--text-primary-color, #fff)");
+});
+
+test("accent-colored text (today's counter, today's weekday) reaches 4.5:1 in light and dark themes", async () => {
+  const card = await render(CalendarAgendaCard, {});
+  const html = card.shadowRoot.innerHTML;
+  const themes = { light: { text: "#212121", bg: "#ffffff" }, dark: { text: "#e1e1e1", bg: "#1c1c1c" } };
+  for (const [sel, tinted] of [[".st", true], [".date.today .wd", false]]) {
+    const m = cssRule(html, sel).match(/color: color-mix\(in srgb, var\(--cc-accent\) (\d+)%, var\(--primary-text-color\)\)/);
+    assert.ok(m, `${sel} text color`);
+    const p = Number(m[1]) / 100;
+    for (const [name, t] of Object.entries(themes)) {
+      for (const c of PALETTE) {
+        const fg = mixRgb(c, t.text, p);
+        const bg = tinted ? mixRgb(c, t.bg, 0.15) : rgbOf(t.bg);
+        assert.ok(contrast(fg, bg) >= 4.5, `${sel} ${name} ${c}: ${contrast(fg, bg).toFixed(2)}:1`);
+      }
+    }
+  }
+});
+
+test("mini card with show_header: false keeps its fold button once unfolded", async () => {
+  const Mini = customElements.get("calendar-agenda-mini-card");
+  const card = await render(Mini, {}, { show_header: false });
+  assert.match(card.shadowRoot.innerHTML, /data-action="zoom"/);
+  card._onClick({ composedPath: () => [{ dataset: { action: "zoom" } }], detail: 1 });
+  assert.match(card.shadowRoot.innerHTML, /data-action="zoom"[^>]*><ha-icon icon="mdi:arrow-collapse"/);
+  // The full card itself still follows show_header.
+  const full = await render(CalendarAgendaCard, {}, { show_header: false });
+  assert.doesNotMatch(full.shadowRoot.innerHTML, /class="header"/);
+});
+
+test("mini card with show_header: false and zoom: false still has no fold button", async () => {
+  const Mini = customElements.get("calendar-agenda-mini-card");
+  const card = await render(Mini, {}, { show_header: false, zoom: false });
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /data-action="zoom"/);
+});
+
+test("the popup close button shows a keyboard focus ring", async () => {
+  const card = await render(CalendarAgendaCard, {});
+  assert.match(cssRule(card.shadowRoot.innerHTML, ".pclose:focus-visible"), /outline: 2px solid var\(--primary-color/);
 });
