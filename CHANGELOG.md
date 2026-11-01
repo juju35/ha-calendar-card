@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.6 - 2026-11-01
+
+### Features
+- Serbian translations in Cyrillic (`sr`) and Latin (`sr-Latn`) script, also offered in the editor's language list. Serbian translations by @cpmarexel2f (#12).
+
+### Fixes
+- A Home Assistant set to a language variant that has its own translation (`sr-Latn`) now uses it instead of the base language; other regional tags (`fr-FR`, `de-CH`) still use their base language, and unknown ones fall back to English.
+
 ## 1.2.5
 
 ### Fixes
