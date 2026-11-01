@@ -200,12 +200,59 @@ function ccCalList(config) {
   return config.entities ? ccList(config.entities) : ccList(config.entity);
 }
 
+// A calendar color is written into the card's <style> and style attributes: anything that is not a
+// CSS color (a typo, or markup such as `red}</style><img …>`) falls back to the palette color.
+function ccColor(v, fallback) {
+  if (typeof v !== 'string' || !v.trim() || /[<>{};"'\\]/.test(v)) return fallback;
+  if (typeof CSS !== 'undefined' && CSS.supports && !CSS.supports('color', v)) return fallback;
+  return v.trim();
+}
+
+// [r, g, b] of an opaque color, or null when the card cannot tell (var(), transparency…).
+var ccRgbCache = new Map();
+function ccRgb(color) {
+  var key = String(color);
+  if (ccRgbCache.has(key)) return ccRgbCache.get(key);
+  var s = key.trim(), rgb = null, m;
+  if (!/^(#|rgba?\()/i.test(s)) {
+    // Named, hsl()… colors: the browser's canvas normalizes them to #rrggbb / rgba(); var() stays unknown.
+    try {
+      var ctx = document.createElement('canvas').getContext('2d');
+      ctx.fillStyle = '#010203';
+      ctx.fillStyle = s;
+      if (ctx.fillStyle !== '#010203') s = ctx.fillStyle;
+    } catch (_e) { /* no canvas: unknown color */ }
+  }
+  if ((m = s.match(/^#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i))) {
+    var h = m[1].length < 6 ? m[1].replace(/./g, '$&$&') : m[1];
+    if (h.length === 6 || /ff$/i.test(h)) rgb = [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16));
+  } else if ((m = s.match(/^rgba?\(\s*([\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)\s*(?:[,/]\s*([\d.]+)(%?)\s*)?\)$/i))) {
+    if (m[4] == null || Number(m[4]) >= (m[5] ? 100 : 1)) rgb = [m[1], m[2], m[3]].map(Number);
+  }
+  ccRgbCache.set(key, rgb);
+  return rgb;
+}
+
+// Text on a calendar color (live countdown, today's date, logo): white when it reaches the WCAG AA
+// 4.5:1, black otherwise (always ≥ 4.58:1 then). Same in light and dark themes, as the background is
+// the calendar color itself. An unreadable color keeps the theme's text color for colored backgrounds.
+function ccOnColor(color) {
+  var rgb = ccRgb(color);
+  if (!rgb) return 'var(--text-primary-color, #fff)';
+  var l = rgb.map((v) => {
+    var c = v / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+  var lum = 0.2126 * l[0] + 0.7152 * l[1] + 0.0722 * l[2];
+  return 1.05 / (lum + 0.05) >= 4.5 ? '#ffffff' : '#000000';
+}
+
 // `entities` accepts entity ids or objects { entity, color, name }; colors default to a palette.
 function ccCalendars(config, hass) {
   return ccCalList(config).map((item, i) => {
     var c = typeof item === 'string' ? { entity: item } : Object.assign({}, item);
     var st = hass?.states?.[c.entity];
-    c.color = c.color || CC_COLORS[i % CC_COLORS.length];
+    c.color = ccColor(c.color, CC_COLORS[i % CC_COLORS.length]);
     c.name = c.name || st?.attributes?.friendly_name || c.entity;
     return c;
   }).filter((c) => c.entity);
@@ -307,7 +354,7 @@ function ccExcluded(e, exclude) {
 var ccLogo = (wd, day) => '<svg class="logo" viewBox="0 0 40 40" role="img" aria-hidden="true">' +
   '<rect x="2" y="3" width="36" height="35" rx="8" fill="var(--card-background-color, #fff)" stroke="var(--divider-color, rgba(0,0,0,.12))"/>' +
   '<path d="M10 3h20a8 8 0 0 1 8 8v3H2v-3a8 8 0 0 1 8-8Z" fill="var(--cc-accent)"/>' +
-  `<text x="20" y="11.6" text-anchor="middle" font-size="7.2" font-weight="700" fill="#fff" letter-spacing=".4">${ccEsc(wd)}</text>` +
+  `<text x="20" y="11.6" text-anchor="middle" font-size="7.2" font-weight="700" fill="var(--cc-accent-on)" letter-spacing=".4">${ccEsc(wd)}</text>` +
   `<text x="20" y="32" text-anchor="middle" font-size="17" font-weight="500" fill="var(--primary-text-color, #212121)">${ccEsc(day)}</text></svg>`;
 
 var ccInDialog = (ev) => ev.composedPath().some((n) => ['ha-more-info-dialog', 'ha-dialog', 'dialog'].indexOf(n.localName) >= 0);
@@ -558,7 +605,7 @@ class CalendarAgendaCard extends HTMLElement {
       var pct = Math.round(((now - e.start) / (e.end - e.start)) * 100);
       prog = `<div class="eprog"><div class="efill" style="width:${pct}%"></div></div>`;
     }
-    return `<div class="ev${ongoing ? ' ongoing' : ''}${e.end <= now && !e.allDay ? ' past' : ''}" style="--c:${ccEsc(cal.color)}" data-ev="${idx}" role="button" tabindex="0">` +
+    return `<div class="ev${ongoing ? ' ongoing' : ''}${e.end <= now && !e.allDay ? ' past' : ''}" style="--c:${ccEsc(cal.color)};--c-on:${ccEsc(ccOnColor(cal.color))}" data-ev="${idx}" role="button" tabindex="0">` +
       '<span class="cbar"></span>' +
       `<div class="emain"><div class="etitle">${ccEsc(e.summary)}</div><div class="emeta">${meta.join('<span class="sep">·</span>')}</div>${prog}</div>` +
       (cd ? `<span class="cd${ongoing ? ' live' : ''}">${ccEsc(cd)}</span>` : '') +
@@ -659,7 +706,8 @@ class CalendarAgendaCard extends HTMLElement {
     }
 
     this.shadowRoot.innerHTML = this._styles(accent) + `<ha-card class="${this._detail != null ? 'popped' : ''}">` +
-      (c.show_header ? this._headerHtml(now, this._todaySub(days)) : '') +
+      // An unfolded mini card keeps its header whatever show_header says: it holds the fold button.
+      (c.show_header || this._zoomed ? this._headerHtml(now, this._todaySub(days)) : '') +
       `<div class="list">${list}</div>${moreHtml}${this._errorHtml()}${this._popupHtml()}</ha-card>`;
   }
 
@@ -728,7 +776,7 @@ class CalendarAgendaCard extends HTMLElement {
 
   _styles(accent) {
     return '<style>' +
-      `:host { display: block; height: 100%; --cc-accent: ${accent}; }` +
+      `:host { display: block; height: 100%; --cc-accent: ${accent}; --cc-accent-on: ${ccOnColor(accent)}; }` +
       'ha-card { position: relative; height: 100%; box-sizing: border-box; padding: 12px; display: flex; flex-direction: column; gap: 10px; }' +
       'ha-card.popped { min-height: 240px; }' +
       '.empty { display: flex; align-items: center; gap: 10px; color: var(--secondary-text-color); }' +
@@ -745,8 +793,9 @@ class CalendarAgendaCard extends HTMLElement {
       '.date { width: 40px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; line-height: 1.1; padding-top: 2px; }' +
       '.date .wd, .date .mo { font-size: 11px; font-weight: 500; text-transform: uppercase; color: var(--secondary-text-color); }' +
       '.date .dn { font-size: 20px; font-weight: 500; color: var(--primary-text-color); margin: 2px 0; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; }' +
-      '.date.today .wd { color: var(--cc-accent); }' +
-      '.date.today .dn { background: var(--cc-accent); color: #fff; }' +
+      // Accent text: mixed with the theme's text color so it reads at ≥ 4.5:1 in light and dark themes.
+      '.date.today .wd { color: color-mix(in srgb, var(--cc-accent) 45%, var(--primary-text-color)); }' +
+      '.date.today .dn { background: var(--cc-accent); color: var(--cc-accent-on); }' +
       '.events { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }' +
       '.dlabel { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; color: var(--secondary-text-color); margin: 2px 0 2px 2px; }' +
       '.none { font-size: 13px; color: var(--secondary-text-color); padding: 6px 2px; }' +
@@ -767,7 +816,7 @@ class CalendarAgendaCard extends HTMLElement {
       '.efill { height: 100%; background: var(--c); border-radius: 2px; }' +
       '.cd { flex-shrink: 0; font-size: 11px; font-weight: 500; padding: 1px 8px; border-radius: 12px; white-space: nowrap;' +
         ' background: var(--secondary-background-color, rgba(128,128,128,0.12)); color: var(--secondary-text-color); }' +
-      '.cd.live { background: var(--c); color: #fff; }' +
+      '.cd.live { background: var(--c); color: var(--c-on); }' +
       'button { font: inherit; cursor: pointer; border: none; }' +
       '.more { align-self: flex-start; display: inline-flex; align-items: center; gap: 2px; font-size: 12px; font-weight: 500; padding: 4px 8px 4px 2px;' +
         ' border-radius: 10px; background: none; color: var(--primary-color, #03a9f4); }' +
@@ -784,6 +833,7 @@ class CalendarAgendaCard extends HTMLElement {
       '.ptitle { flex: 1; font-size: 16px; font-weight: 500; line-height: 1.3; word-break: break-word; }' +
       '.pclose { all: unset; cursor: pointer; width: 28px; height: 28px; margin: -4px -4px 0 0; border-radius: 50%; display: grid; place-items: center; color: var(--secondary-text-color); }' +
       '.pclose:hover { background: color-mix(in srgb, var(--secondary-text-color) 16%, transparent); }' +
+      '.pclose:focus-visible { outline: 2px solid var(--primary-color, #03a9f4); outline-offset: 1px; }' +
       '.pclose ha-icon { --mdc-icon-size: 18px; }' +
       '.prow { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--secondary-text-color); padding-left: 14px; }' +
       '.prow ha-icon { --mdc-icon-size: 16px; flex-shrink: 0; }' +
@@ -797,7 +847,8 @@ class CalendarAgendaCard extends HTMLElement {
       '.zoom:focus-visible { outline: 2px solid var(--primary-color, #03a9f4); outline-offset: 1px; }' +
       'ha-card.mini .logo { width: 32px; height: 32px; }' +
       '.st { display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0; padding: 1px 8px; border-radius: 12px; font-size: 11px; font-weight: 500;' +
-        ' white-space: nowrap; background: color-mix(in srgb, var(--cc-accent) 15%, transparent); color: var(--cc-accent); }' +
+        ' white-space: nowrap; background: color-mix(in srgb, var(--cc-accent) 15%, transparent);' +
+        ' color: color-mix(in srgb, var(--cc-accent) 45%, var(--primary-text-color)); }' +
       '.mnext { font-size: 12px; color: var(--secondary-text-color); display: flex; gap: 6px; align-items: center; min-width: 0; white-space: nowrap; overflow: hidden; }' +
       '.mnext b { font-weight: 500; color: var(--primary-text-color); overflow: hidden; text-overflow: ellipsis; }' +
       '.mallday { display: flex; align-items: center; gap: 6px; min-width: 0; padding: 4px 8px; border-radius: 10px; cursor: pointer; white-space: nowrap; overflow: hidden;' +
