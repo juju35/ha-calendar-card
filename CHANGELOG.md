@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.2.8 - 2026-11-01
+
+### Fixes
+- On a narrow card (a mini card at 6 columns of a section), the title stays visible and the fold button no longer slides out of the card: the "N events today" badge shortens with an ellipsis, and on the narrowest cards shows only its colored dot (the full text stays in its tooltip and is still read by screen readers).
+- In the mini card, the all-day lines and the "Next" line keep the event name visible on a narrow card; the date after it is shortened instead.
+- An event's time line that does not fit now ends with an ellipsis instead of being cut mid-character.
+- The full agenda card now asks for at least 8 columns in the sections view, where an event under way stays readable; the mini card still fits in 6.
+- Serbian: 21, 31… events now use the singular ("21 догађај"), and the Cyrillic countdown abbreviates hours as "ч".
+- Italian: the "1 more event" button reads "Ancora 1 evento".
+
 ## 1.2.7 - 2026-11-01
 
 ### Features
