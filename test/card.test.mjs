@@ -279,7 +279,7 @@ test("countdowns pad the minutes only in the clock-style languages", async () =>
   const e = { allDay: false, start: new Date(+now + 125 * 60000), end: new Date(+now + 185 * 60000) };
   const expect = {
     en: "in 2 h 05", fr: "dans 2 h 05", de: "in 2 Std. 5 Min.", es: "en 2 h 5 min",
-    it: "tra 2 h 5 min", nl: "over 2 u 5 min", pt: "daqui a 2 h 5 min", pl: "za 2 godz. 5 min",
+    it: "tra 2 h 5 min", nl: "over 2 u 5 min", pt: "daqui a 2 h 05", pl: "za 2 godz. 05",
   };
   for (const [language, text] of Object.entries(expect)) {
     const card = await render(CalendarAgendaCard, {}, { language });

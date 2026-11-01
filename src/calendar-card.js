@@ -345,7 +345,7 @@ var CcI18n = {
     all_day: 'Todo o dia',
     now: 'A decorrer',
     in_min: 'daqui a {n} min',
-    in_h: 'daqui a {h} h {m} min',
+    in_h: 'daqui a {h} h {m}',
     in_hours: 'daqui a {h} h',
     no_events: 'Sem eventos',
     no_upcoming: 'Sem eventos próximos',
@@ -387,7 +387,7 @@ var CcI18n = {
     all_day: 'Cały dzień',
     now: 'Trwa',
     in_min: 'za {n} min',
-    in_h: 'za {h} godz. {m} min',
+    in_h: 'za {h} godz. {m}',
     in_hours: 'za {h} godz.',
     no_events: 'Brak wydarzeń',
     no_upcoming: 'Brak nadchodzących wydarzeń',
@@ -732,7 +732,7 @@ class CalendarAgendaCard extends HTMLElement {
     if (mins < 60) return this._t('in_min').replace('{n}', Math.max(1, mins));
     var h = Math.floor(mins / 60), m = mins % 60;
     if (!m) return this._t('in_hours').replace('{h}', h);
-    // Clock-style "in 2 h 05" (fr/en, minutes last) pads the minutes; "in 2 Std. 5 Min." (de/es/it/nl/pt/pl) does not.
+    // Clock-style "in 2 h 05" (fr/en/pt/pl, minutes last) pads the minutes; "in 2 Std. 5 Min." (de/es/it/nl) does not.
     var tpl = this._t('in_h');
     return tpl.replace('{h}', h).replace('{m}', /\{m\}$/.test(tpl) ? String(m).padStart(2, '0') : m);
   }
