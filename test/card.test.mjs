@@ -391,11 +391,54 @@ test("French labels follow the language option", async () => {
 test("I18N parity: every language has exactly the English keys and placeholders", () => {
   const ph = (v) => (String(v).match(/\{\w+\}/g) || []).sort();
   const en = CcI18n.en;
-  assert.deepEqual(Object.keys(CcI18n).sort(), ["de", "en", "es", "fr"]);
+  assert.deepEqual(Object.keys(CcI18n).sort(), ["de", "en", "es", "fr", "sr", "sr-Latn"]);
   for (const [lang, strings] of Object.entries(CcI18n)) {
     assert.deepEqual(Object.keys(strings).sort(), Object.keys(en).sort(), lang);
     for (const k of Object.keys(en)) assert.deepEqual(ph(strings[k]), ph(en[k]), `${lang}.${k}`);
   }
+});
+
+test("Serbian has exactly the English keys, Cyrillic in sr and Latin in sr-Latn", () => {
+  const en = CcI18n.en;
+  // Placeholders and proper names / units kept as they are in both scripts.
+  const bare = (v) => String(v).replace(/\{\w+\}|Home Assistant|YAML|README/g, "");
+  for (const [lang, other] of [["sr", /[A-Za-z\u00C0-\u024F]/], ["sr-Latn", /[\u0400-\u04FF]/]]) {
+    const strings = CcI18n[lang];
+    assert.deepEqual(Object.keys(strings).sort(), Object.keys(en).sort(), lang);
+    for (const k of Object.keys(en)) {
+      assert.equal(Array.isArray(strings[k]), Array.isArray(en[k]), `${lang}.${k}`);
+      if (Array.isArray(en[k])) assert.equal(strings[k].length, en[k].length, `${lang}.${k}`);
+      assert.doesNotMatch(bare(strings[k]), other, `${lang}.${k}`);
+    }
+  }
+});
+
+test("language tags resolve to the full tag, then the part before the dash, then English", async () => {
+  const expect = { "fr-FR": "fr", "de-CH": "de", "sr-Latn": "sr-Latn", sr: "sr", "pt-BR": "en", toString: "en" };
+  for (const [language, lang] of Object.entries(expect)) {
+    assert.equal((await render(CalendarAgendaCard, {}, { language }))._lang(), lang, language);
+    assert.equal(editor({ language })._lang(), lang, language);
+  }
+  // Home Assistant set to sr-Latn picks the Latin strings without a language option.
+  const card = new CalendarAgendaCard();
+  card.setConfig({ entities: ["calendar.home"] });
+  card.hass = mockHass({}, { language: "sr-Latn" });
+  assert.equal(card._lang(), "sr-Latn");
+  const ed = editor({});
+  ed.hass = { language: "sr-Latn" };
+  assert.equal(ed._form.computeLabel({ name: "title" }), "Naslov");
+  // The config option still comes first.
+  card.setConfig({ entities: ["calendar.home"], language: "sr" });
+  assert.equal(card._lang(), "sr");
+});
+
+test("Serbian labels follow the language option, in both scripts", async () => {
+  const events = { "calendar.home": [{ summary: "Zubar", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }] };
+  assert.match((await render(CalendarAgendaCard, events, { language: "sr" })).shadowRoot.innerHTML, /Сутра/);
+  assert.match((await render(CalendarAgendaCard, events, { language: "sr-Latn" })).shadowRoot.innerHTML, /Sutra/);
+  assert.equal(editor({ language: "sr" })._form.computeLabel({ name: "title" }), "Наслов");
+  const options = editor({})._schema().find((s) => s.name === "language").selector.select.options;
+  assert.deepEqual(plain(options.slice(-2)), [{ value: "sr", label: "Српски" }, { value: "sr-Latn", label: "Srpski (latinica)" }]);
 });
 
 test("German and Spanish labels follow the language option", async () => {
