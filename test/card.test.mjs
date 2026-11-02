@@ -752,6 +752,9 @@ test("narrow header: the title keeps a few characters, the pill shrinks to its d
   }
   const card = await render(Mini, events);
   assert.match(cssRule(card.shadowRoot.innerHTML, ".zoom"), /flex: none/);
+  // The mini card keeps the full card's 40px logo: no mini-only size.
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /\.mini \.logo \{/);
+  assert.match(cssRule(card.shadowRoot.innerHTML, ".logo"), /width: 40px; height: 40px;/);
 });
 
 test("narrow mini card: an all-day line and the next-event line keep the event name, their date gives way", async () => {
