@@ -14,12 +14,12 @@ var CcI18n = {
     no_events: 'Aucun événement',
     no_upcoming: 'Aucun événement à venir',
     events_today: '{n} événements aujourd\'hui',
-    event_today: '1 événement aujourd\'hui',
+    event_today: '{n} événement aujourd\'hui',
     none_today: 'Rien aujourd\'hui',
     next: 'Ensuite',
     until: 'jusqu\'au {d}',
     more: '{n} événements de plus',
-    more_one: '1 événement de plus',
+    more_one: '{n} événement de plus',
     less: 'Réduire',
     close: 'Fermer',
     load_failed: 'Calendrier non chargé : {list}',
@@ -56,12 +56,12 @@ var CcI18n = {
     no_events: 'No events',
     no_upcoming: 'No upcoming events',
     events_today: '{n} events today',
-    event_today: '1 event today',
+    event_today: '{n} event today',
     none_today: 'Nothing today',
     next: 'Next',
     until: 'until {d}',
     more: '{n} more events',
-    more_one: '1 more event',
+    more_one: '{n} more event',
     less: 'Show less',
     close: 'Close',
     load_failed: 'Calendar not loaded: {list}',
@@ -98,12 +98,12 @@ var CcI18n = {
     no_events: 'Keine Termine',
     no_upcoming: 'Keine anstehenden Termine',
     events_today: '{n} Termine heute',
-    event_today: '1 Termin heute',
+    event_today: '{n} Termin heute',
     none_today: 'Heute nichts',
     next: 'Danach',
     until: 'bis {d}',
     more: '{n} weitere Termine',
-    more_one: '1 weiterer Termin',
+    more_one: '{n} weiterer Termin',
     less: 'Weniger anzeigen',
     close: 'Schließen',
     load_failed: 'Kalender nicht geladen: {list}',
@@ -140,12 +140,12 @@ var CcI18n = {
     no_events: 'Sin eventos',
     no_upcoming: 'No hay próximos eventos',
     events_today: '{n} eventos hoy',
-    event_today: '1 evento hoy',
+    event_today: '{n} evento hoy',
     none_today: 'Nada hoy',
     next: 'Después',
     until: 'hasta el {d}',
     more: '{n} eventos más',
-    more_one: '1 evento más',
+    more_one: '{n} evento más',
     less: 'Mostrar menos',
     close: 'Cerrar',
     load_failed: 'Calendario no cargado: {list}',
@@ -177,17 +177,17 @@ var CcI18n = {
     all_day: 'Цео дан',
     now: 'У току',
     in_min: 'за {n} мин',
-    in_h: 'за {h} х {m}',
-    in_hours: 'за {h} х',
+    in_h: 'за {h} ч {m}',
+    in_hours: 'за {h} ч',
     no_events: 'Нема догађаја',
     no_upcoming: 'Нема предстојећих догађаја',
     events_today: '{n} догађаја данас',
-    event_today: '1 догађај данас',
+    event_today: '{n} догађај данас',
     none_today: 'Ништа данас',
     next: 'Следеће',
     until: 'до {d}',
     more: 'још {n} догађаја',
-    more_one: 'још 1 догађај',
+    more_one: 'још {n} догађај',
     less: 'Мање',
     close: 'Затвори',
     load_failed: 'Календар није учитан: {list}',
@@ -224,12 +224,12 @@ var CcI18n = {
     no_events: 'Nema događaja',
     no_upcoming: 'Nema predstojećih događaja',
     events_today: '{n} događaja danas',
-    event_today: '1 događaj danas',
+    event_today: '{n} događaj danas',
     none_today: 'Ništa danas',
     next: 'Sledeće',
     until: 'do {d}',
     more: 'još {n} događaja',
-    more_one: 'još 1 događaj',
+    more_one: 'još {n} događaj',
     less: 'Manje',
     close: 'Zatvori',
     load_failed: 'Kalendar nije učitan: {list}',
@@ -266,12 +266,12 @@ var CcI18n = {
     no_events: 'Nessun evento',
     no_upcoming: 'Nessun evento in programma',
     events_today: '{n} eventi oggi',
-    event_today: '1 evento oggi',
+    event_today: '{n} evento oggi',
     none_today: 'Niente oggi',
     next: 'Dopo',
     until: 'fino a {d}',
     more: 'Altri {n} eventi',
-    more_one: 'Un altro evento',
+    more_one: 'Ancora {n} evento',
     less: 'Mostra meno',
     close: 'Chiudi',
     load_failed: 'Calendario non caricato: {list}',
@@ -308,12 +308,12 @@ var CcI18n = {
     no_events: 'Geen afspraken',
     no_upcoming: 'Geen komende afspraken',
     events_today: '{n} afspraken vandaag',
-    event_today: '1 afspraak vandaag',
+    event_today: '{n} afspraak vandaag',
     none_today: 'Niets vandaag',
     next: 'Daarna',
     until: 'tot {d}',
     more: 'Nog {n} afspraken',
-    more_one: 'Nog 1 afspraak',
+    more_one: 'Nog {n} afspraak',
     less: 'Minder tonen',
     close: 'Sluiten',
     load_failed: 'Agenda niet geladen: {list}',
@@ -350,12 +350,12 @@ var CcI18n = {
     no_events: 'Sem eventos',
     no_upcoming: 'Sem eventos próximos',
     events_today: '{n} eventos hoje',
-    event_today: '1 evento hoje',
+    event_today: '{n} evento hoje',
     none_today: 'Nada hoje',
     next: 'A seguir',
     until: 'até {d}',
     more: 'Mais {n} eventos',
-    more_one: 'Mais 1 evento',
+    more_one: 'Mais {n} evento',
     less: 'Mostrar menos',
     close: 'Fechar',
     load_failed: 'Calendário não carregado: {list}',
@@ -392,12 +392,12 @@ var CcI18n = {
     no_events: 'Brak wydarzeń',
     no_upcoming: 'Brak nadchodzących wydarzeń',
     events_today: 'Wydarzenia dzisiaj: {n}',
-    event_today: '1 wydarzenie dzisiaj',
+    event_today: '{n} wydarzenie dzisiaj',
     none_today: 'Nic dzisiaj',
     next: 'Następnie',
     until: 'do {d}',
     more: 'Więcej wydarzeń: {n}',
-    more_one: 'Jeszcze 1 wydarzenie',
+    more_one: 'Jeszcze {n} wydarzenie',
     less: 'Pokaż mniej',
     close: 'Zamknij',
     load_failed: 'Nie załadowano kalendarza: {list}',
@@ -444,6 +444,25 @@ function ccFmtLang(tag, lang) {
 function ccT(lang, key) {
   var strings = CcI18n[lang] || CcI18n.en;
   return strings[key] || CcI18n.en[key] || key;
+}
+
+// CLDR plural category of n in the card language, cached per language. 'one' covers 1 everywhere, and
+// also 21, 31… in Serbian (21 догађај); the other forms are one plural string ("{n} events", or a
+// "Label: {n}" counter in Polish, whose 2-4 and 5+ forms differ).
+var ccPlurals = {};
+function ccIsOne(lang, n) {
+  if (n === 1) return true;
+  try {
+    ccPlurals[lang] = ccPlurals[lang] || new Intl.PluralRules(lang);
+    return ccPlurals[lang].select(n) === 'one';
+  } catch {
+    return false;
+  }
+}
+
+// "{n} event(s)…" from a singular and a plural key.
+function ccCount(lang, one, many, n) {
+  return ccT(lang, ccIsOne(lang, n) ? one : many).replace('{n}', n);
 }
 
 function ccEsc(s) {
@@ -700,7 +719,9 @@ class CalendarAgendaCard extends HTMLElement {
     return 1 + Math.ceil(n * 0.8);
   }
 
-  getGridOptions() { return { columns: 12, min_columns: 6 }; }
+  // 8 columns at least: at 6 (about 160px in a section) an event under way lost its title and time to the
+  // date column and the countdown badge. The mini card keeps 6.
+  getGridOptions() { return { columns: 12, min_columns: 8 }; }
 
   _lang() {
     return ccLang((this._config?.language) || (this._hass?.language) || document.documentElement.lang);
@@ -809,7 +830,8 @@ class CalendarAgendaCard extends HTMLElement {
       var pop = this.shadowRoot.querySelector('.pop'); if (pop) pop.scrollTop = popScroll;
     }
     var at = focused != null ? this._evIndex(focused) : -1;
-    if (at >= 0) this.shadowRoot.querySelector(`[data-ev="${at}"]`)?.focus();
+    // preventScroll: a re-render from a hass update must not scroll the page to the card.
+    if (at >= 0) this.shadowRoot.querySelector(`[data-ev="${at}"]`)?.focus({ preventScroll: true });
   }
 
   // `_detail` holds the open event's key (ccEvKey); rows carry their index in `_flat`.
@@ -869,8 +891,8 @@ class CalendarAgendaCard extends HTMLElement {
 
   _eventHtml(e, now, idx, isToday) {
     var c = this._config, cal = this._cals[e.cal];
-    var meta = [ccEsc(this._when(e))];
-    if (c.show_location && e.location) meta.push(`<span class="loc"><ha-icon icon="mdi:map-marker-outline"></ha-icon>${ccEsc(e.location)}</span>`);
+    var meta = [`<span class="when">${ccEsc(this._when(e))}</span>`];
+    if (c.show_location && e.location) meta.push(`<span class="loc"><ha-icon icon="mdi:map-marker-outline"></ha-icon><span class="lt">${ccEsc(e.location)}</span></span>`);
     var ongoing = !e.allDay && e.start <= now && e.end > now;
     var cd = c.show_countdown && isToday ? this._countdown(e, now) : '';
     var prog = '';
@@ -905,13 +927,13 @@ class CalendarAgendaCard extends HTMLElement {
     var wd = this._dateFmt(now, { weekday: 'short' }).replace('.', '').toUpperCase();
     return '<div class="header">' + ccLogo(wd, now.getDate()) +
       `<div class="titles"><div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div></div>` +
-      `<span class="st">${ccEsc(sub)}</span>${this._zoomButton()}</div>`;
+      `<span class="st" title="${ccEsc(sub)}"><span class="dot"></span><span class="stt">${ccEsc(sub)}</span></span>${this._zoomButton()}</div>`;
   }
 
   _todaySub(days) {
     var n = days.length ? days[0].events.length : 0;
     if (!n) return this._t('none_today');
-    return n === 1 ? this._t('event_today') : this._t('events_today').replace('{n}', n);
+    return ccCount(this._lang(), 'event_today', 'events_today', n);
   }
 
   _errorHtml() {
@@ -973,7 +995,7 @@ class CalendarAgendaCard extends HTMLElement {
     var moreHtml = '';
     if (moreCount) {
       var open = !!this._expanded;
-      var label = open ? this._t('less') : (moreCount === 1 ? this._t('more_one') : this._t('more').replace('{n}', moreCount));
+      var label = open ? this._t('less') : ccCount(this._lang(), 'more_one', 'more', moreCount);
       moreHtml = `<div class="more-body${open ? ' open' : ''}">${open ? more.join('') : ''}</div>` +
         `<button class="more" data-action="more" aria-expanded="${open}"><ha-icon icon="${open ? 'mdi:chevron-down' : 'mdi:chevron-right'}"></ha-icon>${ccEsc(label)}</button>`;
     }
@@ -1019,7 +1041,7 @@ class CalendarAgendaCard extends HTMLElement {
         case 'zoom': this._zoomed = !this._zoomed; this._detail = null; break;
       }
       this._update();
-      if (btn.dataset.action === 'zoom' && ev.detail === 0) this.shadowRoot.querySelector('.zoom')?.focus();
+      if (btn.dataset.action === 'zoom' && ev.detail === 0) this.shadowRoot.querySelector('.zoom')?.focus({ preventScroll: true });
       return;
     }
     var row = path.find((n) => n.dataset?.ev != null);
@@ -1049,18 +1071,26 @@ class CalendarAgendaCard extends HTMLElement {
 
   _styles(accent) {
     return '<style>' +
-      `:host { display: block; height: 100%; --cc-accent: ${accent}; --cc-accent-on: ${ccOnColor(accent)}; }` +
+      // One minmax(0, 1fr) column: the card's min-content width is 0, so it shrinks in a shared grid (1fr 1fr,
+      // a stack) instead of pushing out of it, while an inline-block or an auto column still gets its content width.
+      `:host { display: grid; grid-template-columns: minmax(0, 1fr); height: 100%; --cc-accent: ${accent}; --cc-accent-on: ${ccOnColor(accent)}; }` +
+      // No size containment on the card: it would drop to its padding in a container sized by its content
+      // (inline-block, a grid's auto column). The header alone is the container of the narrow query below.
       'ha-card { position: relative; height: 100%; box-sizing: border-box; padding: 12px; display: flex; flex-direction: column; gap: 10px; }' +
       'ha-card.popped { min-height: 240px; }' +
       '.empty { display: flex; align-items: center; gap: 10px; color: var(--secondary-text-color); }' +
       // The body starts 8px under the header, like the other ha-* cards (the card's gap is 10px).
-      '.header { display: flex; align-items: center; gap: 10px; margin-bottom: -2px; }' +
+      '.header { display: flex; align-items: center; gap: 10px; margin-bottom: -2px; container-type: inline-size; }' +
       '.logo { width: 40px; height: 40px; flex-shrink: 0; font-family: inherit; }' +
-      '.titles { flex: 1; min-width: 0; }' +
+      // The counter pill gets its whole width first and the title the rest, down to a few characters
+      // (ellipsized); only then does the pill give way.
+      '.titles { flex: 1 1 0; min-width: 4.5ch; font-size: 16px; }' +
       '.name { font-size: 16px; font-weight: 500; line-height: 1.25; color: var(--primary-text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }' +
       '.list, .more-body { display: flex; flex-direction: column; gap: 10px; }' +
       '.more-body:not(.open) { display: none; }' +
-      '.day { display: flex; gap: 10px; }' +
+      // A full card squeezed into a narrow column (an unfolded mini card left at 6 columns): the events go
+      // under the date rather than keep less than 120px beside it.
+      '.day { display: flex; flex-wrap: wrap; gap: 10px; }' +
       '.day + .day { border-top: 1px solid var(--divider-color, rgba(128,128,128,0.15)); padding-top: 10px; }' +
       '.list .day.cont, .more-body .day.cont { border-top: none; padding-top: 0; }' +
       '.date { width: 40px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; line-height: 1.1; padding-top: 2px; }' +
@@ -1069,21 +1099,28 @@ class CalendarAgendaCard extends HTMLElement {
       // Accent text: mixed with the theme's text color so it reads at ≥ 4.5:1 in light and dark themes.
       '.date.today .wd { color: color-mix(in srgb, var(--cc-accent) 45%, var(--primary-text-color)); }' +
       '.date.today .dn { background: var(--cc-accent); color: var(--cc-accent-on); }' +
-      '.events { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }' +
+      '.events { flex: 1 1 0; min-width: min(100%, 120px); display: flex; flex-direction: column; gap: 4px; }' +
       '.dlabel { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; color: var(--secondary-text-color); margin: 2px 0 2px 2px; }' +
       '.none { font-size: 13px; color: var(--secondary-text-color); padding: 6px 2px; }' +
       '.none.big { display: flex; align-items: center; justify-content: center; padding: 18px 0; }' +
-      '.ev { display: flex; align-items: center; gap: 10px; padding: 6px 8px 6px 6px; border-radius: 10px; cursor: pointer; min-width: 0;' +
+      // The countdown pill drops under the event when the event would keep less than 120px beside it, so
+      // neither the title nor the time is cut down to a letter; the color bar spans both lines.
+      '.ev { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; padding: 6px 8px 6px 20px; border-radius: 10px; cursor: pointer; min-width: 0;' +
         ' background: color-mix(in srgb, var(--c) 9%, transparent); outline: none; }' +
       '.ev:hover { background: color-mix(in srgb, var(--c) 16%, transparent); }' +
       '.ev:focus-visible { box-shadow: 0 0 0 2px var(--c); }' +
       '.ev.past { opacity: 0.55; }' +
       '.cbar { width: 4px; align-self: stretch; min-height: 28px; border-radius: 2px; background: var(--c); flex-shrink: 0; }' +
-      '.emain { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }' +
+      '.ev .cbar { position: absolute; left: 6px; top: 6px; bottom: 6px; min-height: 0; }' +
+      '.emain { flex: 1 1 0; min-width: min(100%, 120px); display: flex; flex-direction: column; gap: 2px; }' +
       '.etitle { font-size: 14px; font-weight: 500; color: var(--primary-text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }' +
       '.emeta { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--secondary-text-color); min-width: 0; white-space: nowrap; overflow: hidden; }' +
       '.emeta .sep { opacity: 0.6; }' +
-      '.loc { display: inline-flex; align-items: center; gap: 2px; min-width: 0; overflow: hidden; text-overflow: ellipsis; }' +
+      // The time comes first: the location gives way before it (and ends with an ellipsis). A time line
+      // still too long (an all-day range) wraps rather than being cut.
+      '.emeta .when { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: normal; }' +
+      '.loc { display: inline-flex; align-items: center; gap: 2px; flex: 0 1000 auto; min-width: 0; overflow: hidden; }' +
+      '.loc .lt { min-width: 0; overflow: hidden; text-overflow: ellipsis; }' +
       '.loc ha-icon { --mdc-icon-size: 13px; flex-shrink: 0; }' +
       '.eprog { height: 3px; border-radius: 2px; margin-top: 3px; background: color-mix(in srgb, var(--c) 20%, transparent); overflow: hidden; }' +
       '.efill { height: 100%; background: var(--c); border-radius: 2px; }' +
@@ -1113,23 +1150,39 @@ class CalendarAgendaCard extends HTMLElement {
       '.pdot { width: 10px; height: 10px; margin: 0 3px; border-radius: 50%; flex-shrink: 0; }' +
       '.pdesc { font-size: 13px; line-height: 1.45; white-space: pre-wrap; word-break: break-word; color: var(--primary-text-color); padding: 8px 0 0 14px;' +
         ' border-top: 1px solid var(--divider-color, rgba(128,128,128,0.15)); }' +
-      '.zoom { all: unset; flex-shrink: 0; cursor: pointer; width: 24px; height: 24px; margin: -4px -4px -4px 0; border-radius: 50%;' +
+      '.zoom { all: unset; flex: none; cursor: pointer; width: 24px; height: 24px; margin: -4px -4px -4px 0; border-radius: 50%;' +
         ' display: grid; place-items: center; color: var(--secondary-text-color); }' +
       '.zoom ha-icon { --mdc-icon-size: 16px; }' +
       '.zoom:hover { background: color-mix(in srgb, var(--secondary-text-color) 16%, transparent); color: var(--primary-text-color); }' +
       '.zoom:focus-visible { outline: 2px solid var(--primary-color, #03a9f4); outline-offset: 1px; }' +
       'ha-card.mini .logo { width: 32px; height: 32px; }' +
-      '.st { display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0; padding: 1px 8px; border-radius: 12px; font-size: 11px; font-weight: 500;' +
+      // The counter pill shrinks before the title and ellipsizes its text; on a very narrow card only its dot is left.
+      '.st { display: inline-flex; align-items: center; gap: 4px; flex: 0 1 auto; min-width: 0; overflow: hidden; padding: 1px 8px; border-radius: 12px; font-size: 11px; font-weight: 500;' +
         ' white-space: nowrap; background: color-mix(in srgb, var(--cc-accent) 15%, transparent);' +
         ' color: color-mix(in srgb, var(--cc-accent) 45%, var(--primary-text-color)); }' +
+      '.st .stt { min-width: 0; overflow: hidden; text-overflow: ellipsis; }' +
+      '.st .dot { display: none; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--cc-accent); }' +
+      // Header under 240px (a phone's 6 to 8-column section card): the logo gives its room to the title and
+      // the counter, which then shows its whole text down to a 245px card in every language.
+      '@container (max-width: 240px) { .logo { display: none; } }' +
+      // Header under 200px: dot only, tighter gaps (the header is the container: its 10px gaps lose 4px
+      // through the items' margins). The text stays readable by screen readers, and in the pill's tooltip.
+      '@container (max-width: 200px) {' +
+        ' .st, .zoom { margin-left: -4px; }' +
+        ' .st { padding: 4px; }' +
+        ' .st .stt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }' +
+        ' .st .dot { display: block; }' +
+      ' }' +
       '.mnext { font-size: 12px; color: var(--secondary-text-color); display: flex; gap: 6px; align-items: center; min-width: 0; white-space: nowrap; overflow: hidden; }' +
-      '.mnext b { font-weight: 500; color: var(--primary-text-color); overflow: hidden; text-overflow: ellipsis; }' +
+      // The event name keeps at least 40px; the date or time after it gives way first.
+      '.mnext b { min-width: 40px; font-weight: 500; color: var(--primary-text-color); overflow: hidden; text-overflow: ellipsis; }' +
+      '.mnext span:last-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; }' +
       '.mallday { display: flex; align-items: center; gap: 6px; min-width: 0; padding: 4px 8px; border-radius: 10px; cursor: pointer; white-space: nowrap; overflow: hidden;' +
         ' font-size: 12px; color: var(--secondary-text-color); background: color-mix(in srgb, var(--c) 9%, transparent); outline: none; }' +
       '.mallday:hover { background: color-mix(in srgb, var(--c) 16%, transparent); }' +
       '.mallday:focus-visible { box-shadow: 0 0 0 2px var(--c); }' +
-      '.mallday b { font-weight: 500; color: var(--primary-text-color); overflow: hidden; text-overflow: ellipsis; }' +
-      '.mallday span:last-child { margin-left: auto; flex-shrink: 0; }' +
+      '.mallday b { min-width: 40px; font-weight: 500; color: var(--primary-text-color); overflow: hidden; text-overflow: ellipsis; }' +
+      '.mallday span:last-child { margin-left: auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }' +
       '.mallday .ndot, .mnext .ndot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: var(--c); }' +
     '</style>';
   }
@@ -1186,7 +1239,7 @@ class CalendarAgendaMiniCard extends CalendarAgendaCard {
       if (!isToday && !ccMultiDay(first.e)) {
         // A later day: its date goes in front of the time (a multi-day event already shows its dates).
         var d = ccKey(first.day) === ccKey(ccAddDays(now, 1)) ? this._t('tomorrow') : this._dateFmt(first.day, { weekday: 'short', day: 'numeric', month: 'short' });
-        html = html.replace('<div class="emeta">', `<div class="emeta">${ccEsc(d)}<span class="sep">·</span>`);
+        html = html.replace('<div class="emeta">', `<div class="emeta"><span class="when">${ccEsc(d)}</span><span class="sep">·</span>`);
       }
       body = allDayHtml + html;
       if (second) {

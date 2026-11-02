@@ -1,7 +1,7 @@
 // Renders the card with mock calendars and saves the README screenshots and GIFs.
-// Usage: npm run build && npm run screenshots  (CHROMIUM_PATH=/path/to/chrome to use an installed browser; GIFs need ffmpeg)
+// Usage: npm run build && npm run screenshots  (CHROMIUM_PATH=/path/to/chrome to use an installed browser; needs ffmpeg)
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { copyFileSync, existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -11,6 +11,20 @@ const root = fileURLToPath(new URL("..", import.meta.url));
 // Fixed clock and time zone: countdowns and dates in the captures do not depend on when they are taken.
 const NOW = Date.parse("2026-10-26T09:40:00Z");
 const cardJs = readFileSync(`${root}dist/calendar-card.js`, "utf8");
+
+// Captures are rendered into a scratch folder and only replace the committed file when their decoded pixels
+// (every frame of a GIF) differ: an encoder or metadata change alone never rewrites a screenshot.
+const scratch = mkdtempSync(join(tmpdir(), "cc-shots-"));
+const pixels = (file) => execFileSync("ffmpeg", ["-loglevel", "error", "-i", file, "-f", "rawvideo", "-pix_fmt", "rgba", "-"], { maxBuffer: 1 << 30 });
+function keep(fresh, name) {
+  const target = `${root}screenshots/${name}`;
+  if (existsSync(target) && pixels(fresh).equals(pixels(target))) {
+    console.log(`screenshots/${name} (unchanged)`);
+    return;
+  }
+  copyFileSync(fresh, target);
+  console.log(`screenshots/${name}`);
+}
 
 const THEMES = {
   light: {
@@ -217,11 +231,11 @@ for (const s of shots) {
   // The card on the theme background, with the body's 16px padding around it.
   const box = await page.locator("#root").boundingBox();
   await page.screenshot({
-    path: `${root}screenshots/${s.file}.png`,
+    path: join(scratch, `${s.file}.png`),
     clip: { x: 0, y: 0, width: s.width + 32, height: Math.ceil(box.height) + 32 },
     animations: "disabled",
   });
-  console.log(`screenshots/${s.file}.png`);
+  keep(join(scratch, `${s.file}.png`), `${s.file}.png`);
   await page.close();
 }
 
@@ -262,14 +276,15 @@ for (const s of gifs) {
     }
   }
   await page.close();
-  const out = `${root}screenshots/${s.file}.gif`;
+  const out = join(scratch, `${s.file}.gif`);
   execFileSync("ffmpeg", [
     "-y", "-loglevel", "error", "-framerate", String(FPS), "-i", join(dir, "f%03d.png"),
     "-vf", `scale=${clip.width}:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=128[p];[b][p]paletteuse=dither=bayer:bayer_scale=4`,
     "-loop", "0", out,
   ]);
   rmSync(dir, { recursive: true });
-  console.log(`screenshots/${s.file}.gif`);
+  keep(out, `${s.file}.gif`);
 }
 
 await browser.close();
+rmSync(scratch, { recursive: true });
