@@ -280,6 +280,9 @@ test("countdowns pad the minutes only in the clock-style languages", async () =>
   const expect = {
     en: "in 2 h 05", fr: "dans 2 h 05", de: "in 2 Std. 5 Min.", es: "en 2 h 5 min",
     it: "tra 2 h 5 min", nl: "over 2 u 5 min", pt: "daqui a 2 h 05", pl: "za 2 godz. 05",
+    ro: "în 2 h 05", da: "om 2 t. 5 min.", sv: "om 2 tim 5 min", bg: "след 2 ч 5 мин", ru: "через 2 ч 5 мин",
+    uk: "через 2 год 5 хв", hu: "2 óra 5 perc múlva", ga: "i gceann 2 u 5 nóim", sk: "o 2 h 5 min", cs: "za 2 h 5 min",
+    sl: "čez 2 h 5 min", mt: "fi żmien 2 h 5 min", lv: "pēc 2 st. 5 min", el: "σε 2 ώ. 5 λεπ.",
   };
   for (const [language, text] of Object.entries(expect)) {
     const card = await render(CalendarAgendaCard, {}, { language });
@@ -418,7 +421,10 @@ test("French labels follow the language option", async () => {
 test("I18N parity: every language has exactly the English keys, placeholders and array lengths", () => {
   const ph = (v) => (String(v).match(/\{\w+\}/g) || []).sort();
   const en = CcI18n.en;
-  assert.deepEqual(Object.keys(CcI18n).sort(), ["de", "en", "es", "fr", "it", "nl", "pl", "pt", "sr", "sr-Latn"]);
+  assert.deepEqual(Object.keys(CcI18n).sort(), [
+    "bg", "cs", "da", "de", "el", "en", "es", "fr", "ga", "hu", "it", "lv", "mt", "nl", "pl", "pt", "ro", "ru", "sk", "sl", "sr",
+    "sr-Latn", "sv", "uk",
+  ]);
   for (const [lang, strings] of Object.entries(CcI18n)) {
     assert.deepEqual(Object.keys(strings).sort(), Object.keys(en).sort(), lang);
     for (const k of Object.keys(en)) {
@@ -449,6 +455,8 @@ test("language tags resolve to the full tag, then the part before the dash, then
   const expect = {
     "fr-FR": "fr", "de-CH": "de", "sr-Latn": "sr-Latn", sr: "sr", toString: "en",
     "it-IT": "it", "nl-BE": "nl", pt: "pt", "pt-BR": "pt", "pl-PL": "pl", ja: "en",
+    "ro-RO": "ro", "da-DK": "da", "sv-SE": "sv", "bg-BG": "bg", "ru-RU": "ru", "uk-UA": "uk", "hu-HU": "hu",
+    "ga-IE": "ga", "sk-SK": "sk", "cs-CZ": "cs", "sl-SI": "sl", "mt-MT": "mt", "lv-LV": "lv", "el-GR": "el",
   };
   for (const [language, lang] of Object.entries(expect)) {
     assert.equal((await render(CalendarAgendaCard, {}, { language }))._lang(), lang, language);
@@ -484,11 +492,58 @@ test("Italian, Dutch, Portuguese and Polish labels follow the language option", 
     assert.equal(editor({ language })._form.computeLabel({ name: "title" }), title, language);
   }
   const options = editor({})._schema().find((s) => s.name === "language").selector.select.options;
-  assert.deepEqual(plain(options.slice(-4)), [
+  assert.deepEqual(plain(options.slice(6, 10)), [
     { value: "it", label: "Italiano" }, { value: "nl", label: "Nederlands" },
     { value: "pt", label: "Português (Portugal)" }, { value: "pl", label: "Polski" },
   ]);
   assert.deepEqual(plain(options.map((o) => o.value)).sort(), Object.keys(CcI18n).sort());
+});
+
+test("Romanian, Danish, Swedish, Bulgarian, Russian, Ukrainian, Hungarian, Irish, Slovak, Czech, Slovenian, Maltese, Latvian and Greek labels follow the language option", async () => {
+  const events = { "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }] };
+  const expect = {
+    ro: [/Mâine/, "Titlu"], da: [/I morgen/, "Titel"], sv: [/I morgon/, "Titel"], bg: [/Утре/, "Заглавие"],
+    ru: [/Завтра/, "Заголовок"], uk: [/Завтра/, "Заголовок"], hu: [/Holnap/, "Cím"], ga: [/Amárach/, "Teideal"],
+    sk: [/Zajtra/, "Názov"], cs: [/Zítra/, "Název"], sl: [/Jutri/, "Naslov"], mt: [/Għada/, "Titlu"],
+    lv: [/Rīt/, "Virsraksts"], el: [/Αύριο/, "Τίτλος"],
+  };
+  for (const [language, [tomorrow, title]] of Object.entries(expect)) {
+    assert.match((await render(CalendarAgendaCard, events, { language })).shadowRoot.innerHTML, tomorrow, language);
+    assert.equal(editor({ language })._form.computeLabel({ name: "title" }), title, language);
+  }
+  const options = editor({})._schema().find((s) => s.name === "language").selector.select.options;
+  assert.deepEqual(plain(options.slice(-14)), [
+    { value: "ro", label: "Română" }, { value: "da", label: "Dansk" }, { value: "sv", label: "Svenska" },
+    { value: "bg", label: "Български" }, { value: "ru", label: "Русский" }, { value: "uk", label: "Українська" },
+    { value: "hu", label: "Magyar" }, { value: "ga", label: "Gaeilge" }, { value: "sk", label: "Slovenčina" },
+    { value: "cs", label: "Čeština" }, { value: "sl", label: "Slovenščina" }, { value: "mt", label: "Malti" },
+    { value: "lv", label: "Latviešu" }, { value: "el", label: "Ελληνικά" },
+  ]);
+});
+
+test("the new languages are passed to Intl for dates, with a readable short month and Greek upper case", async () => {
+  const day = new Date(2026, 10, 4);
+  for (const language of ["ro", "da", "sv", "bg", "ru", "uk", "hu", "ga", "sk", "cs", "sl", "mt", "lv", "el"]) {
+    const card = await render(CalendarAgendaCard, {}, { language });
+    assert.equal(card._fmtLang(), language, language);
+    assert.equal(card._dateFmt(day, { weekday: "long" }), day.toLocaleDateString(language, { weekday: "long" }), language);
+    assert.match(card.shadowRoot.innerHTML, new RegExp(`<ha-card[^>]* lang="${language}"`), language);
+    assert.doesNotMatch(card._monthShort(day), /^\d+$/, language);
+  }
+  // Home Assistant's full locale is kept when its base matches (ru-RU), else the card language.
+  const card = new CalendarAgendaCard();
+  card.setConfig({ entities: ["calendar.home"] });
+  card.hass = mockHass({}, { language: "ru", locale: { language: "ru-RU" } });
+  assert.equal(card._fmtLang(), "ru-RU");
+  card.hass = mockHass({}, { language: "el", locale: { language: "en-GB" } });
+  assert.equal(card._fmtLang(), "el");
+  // Bulgarian: Intl gives "11" for a lone short month; the card shows the start of the month name.
+  assert.equal((await render(CalendarAgendaCard, {}, { language: "bg" }))._monthShort(day), "ное");
+  // Greek: the header weekday is upper-cased without accents (ΤΡΙ, not ΤΡΊ).
+  const el = await render(CalendarAgendaCard, {}, { language: "el" });
+  const wd = new Date().toLocaleDateString("el", { weekday: "short" }).replace(".", "").toLocaleUpperCase("el");
+  assert.doesNotMatch(wd, /[\u0386\u0388-\u038F]/);
+  assert.match(el.shadowRoot.innerHTML, new RegExp(`>${wd}<`));
 });
 
 test("German and Spanish labels follow the language option", async () => {
@@ -796,6 +851,8 @@ test("counters use the singular for 1 in every language, and Serbian's for 21", 
     sr: ["1 догађај данас", "2 догађаја данас", "5 догађаја данас", "21 догађај данас", "22 догађаја данас"],
     "sr-Latn": ["1 događaj danas", "2 događaja danas", "5 događaja danas", "21 događaj danas", "22 događaja danas"],
     pl: ["1 wydarzenie dzisiaj", "Wydarzenia dzisiaj: 2", "Wydarzenia dzisiaj: 5", "Wydarzenia dzisiaj: 21", "Wydarzenia dzisiaj: 22"],
+    ru: ["1 событие сегодня", "Событий сегодня: 2", "Событий сегодня: 5", "21 событие сегодня", "Событий сегодня: 22"],
+    cs: ["1 událost dnes", "Události dnes: 2", "Události dnes: 5", "Události dnes: 21", "Události dnes: 22"],
   };
   for (const [language, texts] of Object.entries(expect)) {
     assert.deepEqual([1, 2, 5, 21, 22].map((n) => sub(language, n)), texts, language);
