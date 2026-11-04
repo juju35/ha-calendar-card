@@ -539,13 +539,14 @@ test("the new languages are passed to Intl for dates, with a readable short mont
   assert.equal(card._fmtLang(), "el");
   // Bulgarian: Intl gives "11" for a lone short month; the card shows the start of the month name.
   assert.equal((await render(CalendarAgendaCard, {}, { language: "bg" }))._monthShort(day), "ное");
-  // Latvian and Portuguese: Intl's long "short" weekdays (Ceturtd, segunda) are cut to three letters for the
-  // whole week, so they fit the 40px date column; the other languages keep Intl's form (Polish niedz).
+  // Latvian: Intl's long "short" weekdays (Ceturtd) are cut to three letters for the whole week, so they fit
+  // the 40px date column; the other languages, Portuguese included, keep Intl's form (Polish niedz).
   const thu = new Date(2026, 9, 29), sun = new Date(2026, 10, 1);
   const short = async (language, d) => (await render(CalendarAgendaCard, {}, { language }))._wdShort(d);
   assert.equal(await short("lv", thu), "Cet");
   assert.equal(await short("lv", new Date(2026, 9, 31)), "Ses");
-  assert.equal(await short("pt", thu), "qui");
+  const pt = await render(CalendarAgendaCard, {}, { language: "pt" });
+  assert.equal(pt._wdShort(thu), pt._dateFmt(thu, { weekday: "short" }).replace(".", ""));
   assert.equal(await short("pl", sun), "niedz");
   assert.equal(await short("el", thu), thu.toLocaleDateString("el", { weekday: "short" }));
   // Greek: the header weekday is upper-cased without accents (ΤΡΙ, not ΤΡΊ).

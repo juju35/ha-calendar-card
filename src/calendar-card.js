@@ -1268,14 +1268,15 @@ class CalendarAgendaCard extends HTMLElement {
     return /^\d+$/.test(m) ? this._dateFmt(d, { month: 'long' }).slice(0, 3) : m;
   }
 
-  // Abbreviated weekday (date column, header logo, next-event line). Some languages get long ones from
-  // Intl (Latvian "Ceturtd", Portuguese "segunda") that overflow the 40px date column: there the whole
-  // week is cut to its first three letters (Cet, seg), so the days stay alike. Checked once per locale.
+  // Abbreviated weekday (date column, header logo, next-event line). Some of the newer languages
+  // get long ones from Intl (Latvian "Ceturtd") that overflow the 40px date column: there the whole week is
+  // cut to its first three letters (Cet), so the days stay alike. The earlier languages keep Intl's form.
+  // Checked once per locale.
   _wdShort(d) {
     var lang = this._fmtLang();
     if (this._wdCutLang !== lang) {
       this._wdCutLang = lang;
-      this._wdCut = [...Array(7)].some((_, i) => this._dateFmt(new Date(2026, 0, 5 + i), { weekday: 'short' }).replace('.', '').length > 5);
+      this._wdCut = !/^(en|fr|de|es|sr|it|nl|pt|pl)(-|$)/i.test(lang) && [...Array(7)].some((_, i) => this._dateFmt(new Date(2026, 0, 5 + i), { weekday: 'short' }).replace('.', '').length > 5);
     }
     var w = this._dateFmt(d, { weekday: 'short' }).replace('.', '');
     return this._wdCut ? w.slice(0, 3) : w;
