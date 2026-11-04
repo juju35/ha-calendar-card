@@ -502,7 +502,7 @@ test("Italian, Dutch, Portuguese and Polish labels follow the language option", 
 test("Romanian, Danish, Swedish, Bulgarian, Russian, Ukrainian, Hungarian, Slovak, Czech, Slovenian, Latvian and Greek labels follow the language option", async () => {
   const events = { "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }] };
   const expect = {
-    ro: [/Mâine/, "Titlu"], da: [/I morgen/, "Titel"], sv: [/I morgon/, "Titel"], bg: [/Утре/, "Заглавие"],
+    ro: [/Mâine/, "Titlu"], da: [/I\u00a0morgen/, "Titel"], sv: [/I\u00a0morgon/, "Titel"], bg: [/Утре/, "Заглавие"],
     ru: [/Завтра/, "Заголовок"], uk: [/Завтра/, "Заголовок"], hu: [/Holnap/, "Cím"],
     sk: [/Zajtra/, "Názov"], cs: [/Zítra/, "Název"], sl: [/Jutri/, "Naslov"],
     lv: [/Rīt/, "Virsraksts"], el: [/Αύριο/, "Τίτλος"],
@@ -539,6 +539,15 @@ test("the new languages are passed to Intl for dates, with a readable short mont
   assert.equal(card._fmtLang(), "el");
   // Bulgarian: Intl gives "11" for a lone short month; the card shows the start of the month name.
   assert.equal((await render(CalendarAgendaCard, {}, { language: "bg" }))._monthShort(day), "ное");
+  // Latvian and Portuguese: Intl's long "short" weekdays (Ceturtd, segunda) are cut to three letters for the
+  // whole week, so they fit the 40px date column; the other languages keep Intl's form (Polish niedz).
+  const thu = new Date(2026, 9, 29), sun = new Date(2026, 10, 1);
+  const short = async (language, d) => (await render(CalendarAgendaCard, {}, { language }))._wdShort(d);
+  assert.equal(await short("lv", thu), "Cet");
+  assert.equal(await short("lv", new Date(2026, 9, 31)), "Ses");
+  assert.equal(await short("pt", thu), "qui");
+  assert.equal(await short("pl", sun), "niedz");
+  assert.equal(await short("el", thu), thu.toLocaleDateString("el", { weekday: "short" }));
   // Greek: the header weekday is upper-cased without accents (ΤΡΙ, not ΤΡΊ).
   const el = await render(CalendarAgendaCard, {}, { language: "el" });
   const wd = new Date().toLocaleDateString("el", { weekday: "short" }).replace(".", "").toLocaleUpperCase("el");
@@ -851,7 +860,7 @@ test("counters use the singular for 1 in every language, and Serbian's for 21", 
     sr: ["1 догађај данас", "2 догађаја данас", "5 догађаја данас", "21 догађај данас", "22 догађаја данас"],
     "sr-Latn": ["1 događaj danas", "2 događaja danas", "5 događaja danas", "21 događaj danas", "22 događaja danas"],
     pl: ["1 wydarzenie dzisiaj", "Wydarzenia dzisiaj: 2", "Wydarzenia dzisiaj: 5", "Wydarzenia dzisiaj: 21", "Wydarzenia dzisiaj: 22"],
-    ru: ["1 событие сегодня", "Событий сегодня: 2", "Событий сегодня: 5", "21 событие сегодня", "Событий сегодня: 22"],
+    ru: ["Сегодня: 1", "Сегодня: 2", "Сегодня: 5", "Сегодня: 21", "Сегодня: 22"],
     cs: ["1 událost dnes", "Události dnes: 2", "Události dnes: 5", "Události dnes: 21", "Události dnes: 22"],
   };
   for (const [language, texts] of Object.entries(expect)) {

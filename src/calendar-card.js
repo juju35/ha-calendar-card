@@ -436,11 +436,11 @@ var CcI18n = {
     events_today: 'Evenimente azi: {n}',
     event_today: '{n} eveniment azi',
     none_today: 'Nimic azi',
-    next: 'Urmează',
+    next: 'Apoi',
     until: 'până pe {d}',
-    more: 'Mai multe evenimente: {n}',
+    more: 'Mai multe: {n}',
     more_one: 'Încă {n} eveniment',
-    less: 'Afișează mai puțin',
+    less: 'Mai puțin',
     close: 'Închide',
     load_failed: 'Calendar neîncărcat: {list}',
     no_calendar: 'Niciun calendar găsit',
@@ -451,7 +451,7 @@ var CcI18n = {
     ed_title: 'Titlu',
     ed_title_helper: 'Lăsați gol pentru „Agendă”',
     ed_days_to_show: 'Zile afișate',
-    ed_max_events: 'Evenimente înainte de „Mai multe”',
+    ed_max_events: 'Evenimente afișate',
     ed_max_events_helper: '0 pentru a afișa tot',
     ed_show_header: 'Antet',
     ed_show_location: 'Locație',
@@ -467,7 +467,7 @@ var CcI18n = {
   da: {
     agenda: 'Aftaler',
     today: 'I dag',
-    tomorrow: 'I morgen',
+    tomorrow: 'I\u00a0morgen',
     all_day: 'Hele dagen',
     now: 'I gang',
     in_min: 'om {n} min.',
@@ -478,7 +478,7 @@ var CcI18n = {
     events_today: '{n} aftaler i dag',
     event_today: '{n} aftale i dag',
     none_today: 'Intet i dag',
-    next: 'Derefter',
+    next: 'Næste',
     until: 'til {d}',
     more: '{n} aftaler mere',
     more_one: '{n} aftale mere',
@@ -509,7 +509,7 @@ var CcI18n = {
   sv: {
     agenda: 'Schema',
     today: 'I dag',
-    tomorrow: 'I morgon',
+    tomorrow: 'I\u00a0morgon',
     all_day: 'Heldag',
     now: 'Pågår',
     in_min: 'om {n} min',
@@ -520,7 +520,7 @@ var CcI18n = {
     events_today: '{n} händelser i dag',
     event_today: '{n} händelse i dag',
     none_today: 'Inget i dag',
-    next: 'Därefter',
+    next: 'Sedan',
     until: 'till {d}',
     more: '{n} händelser till',
     more_one: '{n} händelse till',
@@ -535,7 +535,7 @@ var CcI18n = {
     ed_title: 'Titel',
     ed_title_helper: 'Lämna tomt för ”Schema”',
     ed_days_to_show: 'Visade dagar',
-    ed_max_events: 'Händelser innan listan fälls ihop',
+    ed_max_events: 'Max antal händelser',
     ed_max_events_helper: '0 för att visa allt',
     ed_show_header: 'Rubrik',
     ed_show_location: 'Plats',
@@ -562,11 +562,11 @@ var CcI18n = {
     events_today: '{n} събития днес',
     event_today: '{n} събитие днес',
     none_today: 'Нищо днес',
-    next: 'След това',
+    next: 'После',
     until: 'до {d}',
     more: 'Още {n} събития',
     more_one: 'Още {n} събитие',
-    less: 'Покажи по-малко',
+    less: 'По-малко',
     close: 'Затвори',
     load_failed: 'Календарът не е зареден: {list}',
     no_calendar: 'Не е намерен календар',
@@ -591,18 +591,18 @@ var CcI18n = {
     ed_language_helper: 'Оставете празно, за да се използва езикът на Home Assistant',
   },
   ru: {
-    agenda: 'Расписание',
+    agenda: 'События',
     today: 'Сегодня',
     tomorrow: 'Завтра',
     all_day: 'Весь день',
-    now: 'Сейчас',
+    now: 'Идёт',
     in_min: 'через {n} мин',
     in_h: 'через {h} ч {m} мин',
     in_hours: 'через {h} ч',
     no_events: 'Нет событий',
     no_upcoming: 'Нет предстоящих событий',
-    events_today: 'Событий сегодня: {n}',
-    event_today: '{n} событие сегодня',
+    events_today: 'Сегодня: {n}',
+    event_today: 'Сегодня: {n}',
     none_today: 'Сегодня ничего',
     next: 'Далее',
     until: 'до {d}',
@@ -617,7 +617,7 @@ var CcI18n = {
     ed_entities: 'Календари',
     ed_entities_helper: 'Цвета и подписи для каждого календаря: в YAML (см. README)',
     ed_title: 'Заголовок',
-    ed_title_helper: 'Оставьте пустым для «Расписание»',
+    ed_title_helper: 'Оставьте пустым для «События»',
     ed_days_to_show: 'Количество дней',
     ed_max_events: 'Событий до «Ещё»',
     ed_max_events_helper: '0 — показать все',
@@ -690,8 +690,8 @@ var CcI18n = {
     none_today: 'Ma nincs semmi',
     next: 'Utána',
     until: 'eddig: {d}',
-    more: 'További {n} esemény',
-    more_one: 'További {n} esemény',
+    more: 'Még {n} esemény',
+    more_one: 'Még {n} esemény',
     less: 'Kevesebb',
     close: 'Bezárás',
     load_failed: 'Nem sikerült betölteni a naptárat: {list}',
@@ -721,7 +721,7 @@ var CcI18n = {
     today: 'Dnes',
     tomorrow: 'Zajtra',
     all_day: 'Celý deň',
-    now: 'Prebieha',
+    now: 'Teraz',
     in_min: 'o {n} min',
     in_h: 'o {h} h {m} min',
     in_hours: 'o {h} h',
@@ -763,7 +763,7 @@ var CcI18n = {
     today: 'Dnes',
     tomorrow: 'Zítra',
     all_day: 'Celý den',
-    now: 'Probíhá',
+    now: 'Nyní',
     in_min: 'za {n} min',
     in_h: 'za {h} h {m} min',
     in_hours: 'za {h} h',
@@ -805,14 +805,14 @@ var CcI18n = {
     today: 'Danes',
     tomorrow: 'Jutri',
     all_day: 'Ves dan',
-    now: 'Poteka',
+    now: 'Zdaj',
     in_min: 'čez {n} min',
     in_h: 'čez {h} h {m} min',
     in_hours: 'čez {h} h',
     no_events: 'Ni dogodkov',
     no_upcoming: 'Ni prihajajočih dogodkov',
-    events_today: 'Dogodki danes: {n}',
-    event_today: '{n} dogodek danes',
+    events_today: 'Danes: {n}',
+    event_today: 'Danes: {n}',
     none_today: 'Danes nič',
     next: 'Nato',
     until: 'do {d}',
@@ -856,7 +856,7 @@ var CcI18n = {
     events_today: 'Notikumi šodien: {n}',
     event_today: '{n} notikums šodien',
     none_today: 'Šodien nekā',
-    next: 'Pēc tam',
+    next: 'Tālāk',
     until: 'līdz {d}',
     more: 'Citi notikumi: {n}',
     more_one: 'Vēl {n} notikums',
@@ -885,7 +885,7 @@ var CcI18n = {
     ed_language_helper: 'Atstājiet tukšu, lai izmantotu Home Assistant valodu',
   },
   el: {
-    agenda: 'Πρόγραμμα',
+    agenda: 'Ατζέντα',
     today: 'Σήμερα',
     tomorrow: 'Αύριο',
     all_day: 'Ολοήμερο',
@@ -895,8 +895,8 @@ var CcI18n = {
     in_hours: 'σε {h} ώ.',
     no_events: 'Δεν υπάρχουν συμβάντα',
     no_upcoming: 'Δεν υπάρχουν επερχόμενα συμβάντα',
-    events_today: '{n} συμβάντα σήμερα',
-    event_today: '{n} συμβάν σήμερα',
+    events_today: 'Σήμερα: {n}',
+    event_today: 'Σήμερα: {n}',
     none_today: 'Τίποτα σήμερα',
     next: 'Μετά',
     until: 'έως {d}',
@@ -911,9 +911,9 @@ var CcI18n = {
     ed_entities: 'Ημερολόγια',
     ed_entities_helper: 'Χρώματα και ετικέτες ανά ημερολόγιο: σε YAML (δείτε το README)',
     ed_title: 'Τίτλος',
-    ed_title_helper: 'Αφήστε κενό για «Πρόγραμμα»',
+    ed_title_helper: 'Αφήστε κενό για «Ατζέντα»',
     ed_days_to_show: 'Εμφανιζόμενες ημέρες',
-    ed_max_events: 'Συμβάντα πριν από το «Άλλα»',
+    ed_max_events: 'Συμβάντα πριν το «Άλλα»',
     ed_max_events_helper: '0 για εμφάνιση όλων',
     ed_show_header: 'Κεφαλίδα',
     ed_show_location: 'Τοποθεσία',
@@ -1268,6 +1268,19 @@ class CalendarAgendaCard extends HTMLElement {
     return /^\d+$/.test(m) ? this._dateFmt(d, { month: 'long' }).slice(0, 3) : m;
   }
 
+  // Abbreviated weekday (date column, header logo, next-event line). Some languages get long ones from
+  // Intl (Latvian "Ceturtd", Portuguese "segunda") that overflow the 40px date column: there the whole
+  // week is cut to its first three letters (Cet, seg), so the days stay alike. Checked once per locale.
+  _wdShort(d) {
+    var lang = this._fmtLang();
+    if (this._wdCutLang !== lang) {
+      this._wdCutLang = lang;
+      this._wdCut = [...Array(7)].some((_, i) => this._dateFmt(new Date(2026, 0, 5 + i), { weekday: 'short' }).replace('.', '').length > 5);
+    }
+    var w = this._dateFmt(d, { weekday: 'short' }).replace('.', '');
+    return this._wdCut ? w.slice(0, 3) : w;
+  }
+
 
   // "in 25 min", "in 2 h 05", "Now": for today's events only.
   _countdown(e, now) {
@@ -1421,7 +1434,7 @@ class CalendarAgendaCard extends HTMLElement {
   _dayHtml(day, events, now, firstIdx, cont) {
     var isToday = ccKey(day.date) === ccKey(now);
     var isTomorrow = ccKey(day.date) === ccKey(ccAddDays(now, 1));
-    var wd = this._dateFmt(day.date, { weekday: 'short' }).replace('.', '');
+    var wd = this._wdShort(day.date);
     var label = isToday ? this._t('today') : (isTomorrow ? this._t('tomorrow') : '');
     var date = cont ? '<div class="date"></div>'
       : `<div class="date${isToday ? ' today' : ''}"><span class="wd">${ccEsc(wd)}</span><span class="dn">${day.date.getDate()}</span>` +
@@ -1436,7 +1449,7 @@ class CalendarAgendaCard extends HTMLElement {
   // of the header, like the other ha-* cards.
   _headerHtml(now, sub) {
     // Locale-aware upper case: Greek drops its accents (ΤΡΙ, not ΤΡΊ).
-    var wd = this._dateFmt(now, { weekday: 'short' }).replace('.', '').toLocaleUpperCase(this._fmtLang());
+    var wd = this._wdShort(now).toLocaleUpperCase(this._fmtLang());
     return '<div class="header">' + ccLogo(wd, now.getDate()) +
       `<div class="titles"><div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div></div>` +
       `<span class="st" title="${ccEsc(sub)}"><span class="dot"></span><span class="stt">${ccEsc(sub)}</span></span>${this._zoomButton()}</div>`;
@@ -1757,7 +1770,7 @@ class CalendarAgendaMiniCard extends CalendarAgendaCard {
       if (second) {
         var cal = this._cals[second.e.cal];
         var when = ccKey(second.day) === ccKey(now) ? this._when(second.e)
-          : `${this._dateFmt(second.day, { weekday: 'short' }).replace('.', '')} ${second.e.allDay ? '' : this._timeFmt(second.e.start)}`.trim();
+          : `${this._wdShort(second.day)} ${second.e.allDay ? '' : this._timeFmt(second.e.start)}`.trim();
         body += `<div class="mnext" style="--c:${ccEsc(cal.color)}"><span>${this._t('next')}</span><span class="ndot"></span><b>${ccEsc(second.e.summary)}</b><span>${ccEsc(when)}</span></div>`;
       }
     }
