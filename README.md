@@ -14,7 +14,7 @@ Custom Lovelace agenda card for Home Assistant [calendars](https://www.home-assi
 
 | Agenda | Mini card |
 |---|---|
-| ![Agenda card](https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda.png) | ![Mini card](https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini.png) |
+| <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda.png" alt="Agenda card" width="334"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini.png" alt="Mini card" width="400"> |
 
 ## Features
 
@@ -144,32 +144,32 @@ Calendar options:
 
 | Light | Dark |
 |---|---|
-| ![agenda](https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda.png) | ![agenda dark](https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-dark.png) |
-| ![mini card](https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini.png) | ![mini card dark](https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini-dark.png) |
+| <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda.png" alt="agenda" width="334"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-dark.png" alt="agenda dark" width="334"> |
+| <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini.png" alt="mini card" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini-dark.png" alt="mini card dark" width="400"> |
 
 | | Light | Dark |
 |---|---|---|
-| Folded events | ![agenda with folded events](https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-more.png) | ![agenda with folded events dark](https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-more-dark.png) |
-| Event details | ![event details](https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-details.png) | ![event details dark](https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-details-dark.png) |
-| Mini card unfolded | ![mini card unfolded](https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini-zoom.png) | ![mini card unfolded dark](https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini-zoom-dark.png) |
+| Folded events | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-more.png" alt="agenda with folded events" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-more-dark.png" alt="agenda with folded events dark" width="400"> |
+| Event details | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-details.png" alt="event details" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-details-dark.png" alt="event details dark" width="400"> |
+| Mini card unfolded | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini-zoom.png" alt="mini card unfolded" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini-zoom-dark.png" alt="mini card unfolded dark" width="400"> |
 
 ### Animations
 
 | Light | Dark |
 |---|---|
-| ![event details popup](https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-popup.gif) | ![event details popup dark](https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-popup-dark.gif) |
+| <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-popup.gif" alt="event details popup" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-popup-dark.gif" alt="event details popup dark" width="400"> |
 
 Clicking an event slides its details in at the top of the card; a second click (or the cross) closes them.
 
 | Light | Dark |
 |---|---|
-| ![folded events](https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-more.gif) | ![folded events dark](https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-more-dark.gif) |
+| <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-more.gif" alt="folded events" width="323"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-more-dark.gif" alt="folded events dark" width="323"> |
 
 The **more** button unfolds the events past `max_events`, and folds them back.
 
 | Light | Dark |
 |---|---|
-| ![mini card unfolding](https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini-zoom.gif) | ![mini card unfolding dark](https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini-zoom-dark.gif) |
+| <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini-zoom.gif" alt="mini card unfolding" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini-zoom-dark.gif" alt="mini card unfolding dark" width="400"> |
 
 The mini card's detail button unfolds the full agenda in place, and folds it back.
 
