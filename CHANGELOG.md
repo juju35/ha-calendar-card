@@ -3,7 +3,7 @@
 ## 1.2.10 - 2026-11-04
 
 ### Features
-- Added Romanian, Danish, Swedish, Bulgarian, Russian, Ukrainian, Hungarian, Irish, Slovak, Czech, Slovenian, Maltese, Latvian and Greek translations (`ro`, `da`, `sv`, `bg`, `ru`, `uk`, `hu`, `ga`, `sk`, `cs`, `sl`, `mt`, `lv`, `el`), also offered in the editor's language list. Dates and weekdays follow these languages through `Intl`.
+- Added Romanian, Danish, Swedish, Bulgarian, Russian, Ukrainian, Hungarian, Slovak, Czech, Slovenian, Latvian and Greek translations (`ro`, `da`, `sv`, `bg`, `ru`, `uk`, `hu`, `sk`, `cs`, `sl`, `lv`, `el`), also offered in the editor's language list. Dates and weekdays follow these languages through `Intl`.
 
 ### Fixes
 - The abbreviated month under each day stays a word in languages where `Intl` gives a number for it (Bulgarian).

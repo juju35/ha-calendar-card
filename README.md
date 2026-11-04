@@ -26,7 +26,7 @@ Custom Lovelace agenda card for Home Assistant [calendars](https://www.home-assi
 - Hide events by title with `exclude`
 - Refreshes when an event starts or ends and every 5 minutes
 - Visual editor in the dashboard UI
-- English, French, German, Spanish, Serbian (Cyrillic and Latin), Italian, Dutch, European Portuguese, Polish, Romanian, Danish, Swedish, Bulgarian, Russian, Ukrainian, Hungarian, Irish, Slovak, Czech, Slovenian, Maltese, Latvian and Greek, follows the Home Assistant language and 12 h / 24 h time format
+- English, French, German, Spanish, Serbian (Cyrillic and Latin), Italian, Dutch, European Portuguese, Polish, Romanian, Danish, Swedish, Bulgarian, Russian, Ukrainian, Hungarian, Slovak, Czech, Slovenian, Latvian and Greek, follows the Home Assistant language and 12 h / 24 h time format
 - Light and dark theme compatible
 - Single file, no dependencies, HACS-ready
 
@@ -129,7 +129,7 @@ language: en
 | `show_past_events` | ❌ | `false` | Keep today's finished events (greyed out) |
 | `exclude` | ❌ | — | Hide events whose title contains one of these texts (case-insensitive) |
 | `zoom` | ❌ | `true` | Mini card only: detail button at the top right that unfolds the full agenda (a click elsewhere folds it back) |
-| `language` | ❌ | Auto | Force language: `en`, `fr`, `de`, `es`, `sr`, `sr-Latn`, `it`, `nl`, `pt`, `pl`, `ro`, `da`, `sv`, `bg`, `ru`, `uk`, `hu`, `ga`, `sk`, `cs`, `sl`, `mt`, `lv` or `el` (auto-detects from HA settings) |
+| `language` | ❌ | Auto | Force language: `en`, `fr`, `de`, `es`, `sr`, `sr-Latn`, `it`, `nl`, `pt`, `pl`, `ro`, `da`, `sv`, `bg`, `ru`, `uk`, `hu`, `sk`, `cs`, `sl`, `lv` or `el` (auto-detects from HA settings) |
 
 Calendar options:
 
@@ -219,11 +219,9 @@ The card auto-detects the language from your Home Assistant settings. Currently 
 | Русский | `ru` |
 | Українська | `uk` |
 | Magyar | `hu` |
-| Gaeilge | `ga` |
 | Slovenčina | `sk` |
 | Čeština | `cs` |
 | Slovenščina | `sl` |
-| Malti | `mt` |
 | Latviešu | `lv` |
 | Ελληνικά | `el` |
 
