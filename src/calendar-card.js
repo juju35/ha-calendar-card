@@ -29,7 +29,6 @@ var CcI18n = {
     add_event: 'Nouvel événement',
     ev_title: 'Titre',
     ev_calendar: 'Calendrier',
-    ev_date: 'Date',
     ev_start: 'Début',
     ev_end: 'Fin',
     ev_location: 'Lieu',
@@ -38,8 +37,20 @@ var CcI18n = {
     ev_need_title: 'Donnez un titre à l\'événement',
     ev_bad_end: 'La fin doit être après le début',
     ev_failed: 'Impossible d\'ajouter l\'événement : {e}',
+    edit_event: 'Modifier l\'événement',
+    delete_event: 'Supprimer l\'événement',
+    ev_save: 'Enregistrer',
+    ev_delete: 'Supprimer',
+    ev_delete_confirm: 'Supprimer cet événement ?',
+    ev_this: 'Cet événement',
+    ev_future: 'Cet événement et les suivants',
+    ev_apply_to: 'Appliquer les modifications à',
+    ev_save_failed: 'Impossible d\'enregistrer l\'événement : {e}',
+    ev_delete_failed: 'Impossible de supprimer l\'événement : {e}',
     ed_add_button: 'Bouton d\'ajout',
     ed_add_button_helper: 'Bouton + dans l\'en-tête pour ajouter un événement à un calendrier qui l\'accepte',
+    ed_edit_buttons: 'Boutons de modification et de suppression',
+    ed_edit_buttons_helper: 'Boutons dans le détail d\'un événement pour le modifier ou le supprimer, sur un calendrier qui le permet',
     ed_entities: 'Calendriers',
     ed_entities_helper: 'Couleurs et libellés par calendrier : en YAML (voir le README)',
     ed_title: 'Titre',
@@ -85,7 +96,6 @@ var CcI18n = {
     add_event: 'New event',
     ev_title: 'Title',
     ev_calendar: 'Calendar',
-    ev_date: 'Date',
     ev_start: 'Start',
     ev_end: 'End',
     ev_location: 'Location',
@@ -94,8 +104,20 @@ var CcI18n = {
     ev_need_title: 'Give the event a title',
     ev_bad_end: 'The end must be after the start',
     ev_failed: 'Could not add the event: {e}',
+    edit_event: 'Edit event',
+    delete_event: 'Delete event',
+    ev_save: 'Save',
+    ev_delete: 'Delete',
+    ev_delete_confirm: 'Delete this event?',
+    ev_this: 'This event',
+    ev_future: 'This and following events',
+    ev_apply_to: 'Apply the changes to',
+    ev_save_failed: 'Could not save the event: {e}',
+    ev_delete_failed: 'Could not delete the event: {e}',
     ed_add_button: 'Add button',
     ed_add_button_helper: '+ button in the header to add an event to a calendar that accepts it',
+    ed_edit_buttons: 'Edit and delete buttons',
+    ed_edit_buttons_helper: 'Buttons in the event details to edit or delete an event of a calendar that allows it',
     ed_entities: 'Calendars',
     ed_entities_helper: 'Colors and labels per calendar: in YAML (see the README)',
     ed_title: 'Title',
@@ -141,7 +163,6 @@ var CcI18n = {
     add_event: 'Neuer Termin',
     ev_title: 'Titel',
     ev_calendar: 'Kalender',
-    ev_date: 'Datum',
     ev_start: 'Beginn',
     ev_end: 'Ende',
     ev_location: 'Ort',
@@ -150,8 +171,20 @@ var CcI18n = {
     ev_need_title: 'Gib dem Termin einen Titel',
     ev_bad_end: 'Das Ende muss nach dem Beginn liegen',
     ev_failed: 'Termin konnte nicht hinzugefügt werden: {e}',
+    edit_event: 'Termin bearbeiten',
+    delete_event: 'Termin löschen',
+    ev_save: 'Speichern',
+    ev_delete: 'Löschen',
+    ev_delete_confirm: 'Diesen Termin löschen?',
+    ev_this: 'Dieser Termin',
+    ev_future: 'Dieser und alle folgenden Termine',
+    ev_apply_to: 'Änderungen anwenden auf',
+    ev_save_failed: 'Termin konnte nicht gespeichert werden: {e}',
+    ev_delete_failed: 'Termin konnte nicht gelöscht werden: {e}',
     ed_add_button: 'Hinzufügen-Schaltfläche',
     ed_add_button_helper: '+-Schaltfläche in der Kopfzeile, um einem Kalender, der es erlaubt, einen Termin hinzuzufügen',
+    ed_edit_buttons: 'Schaltflächen Bearbeiten und Löschen',
+    ed_edit_buttons_helper: 'Schaltflächen in den Termindetails, um einen Termin eines Kalenders, der es erlaubt, zu bearbeiten oder zu löschen',
     ed_entities: 'Kalender',
     ed_entities_helper: 'Farben und Namen pro Kalender: in YAML (siehe README)',
     ed_title: 'Titel',
@@ -197,7 +230,6 @@ var CcI18n = {
     add_event: 'Nuevo evento',
     ev_title: 'Título',
     ev_calendar: 'Calendario',
-    ev_date: 'Fecha',
     ev_start: 'Inicio',
     ev_end: 'Fin',
     ev_location: 'Lugar',
@@ -206,8 +238,20 @@ var CcI18n = {
     ev_need_title: 'Pon un título al evento',
     ev_bad_end: 'El fin debe ser posterior al inicio',
     ev_failed: 'No se pudo añadir el evento: {e}',
+    edit_event: 'Editar evento',
+    delete_event: 'Eliminar evento',
+    ev_save: 'Guardar',
+    ev_delete: 'Eliminar',
+    ev_delete_confirm: '¿Eliminar este evento?',
+    ev_this: 'Este evento',
+    ev_future: 'Este y los siguientes eventos',
+    ev_apply_to: 'Aplicar los cambios a',
+    ev_save_failed: 'No se pudo guardar el evento: {e}',
+    ev_delete_failed: 'No se pudo eliminar el evento: {e}',
     ed_add_button: 'Botón de añadir',
     ed_add_button_helper: 'Botón + en la cabecera para añadir un evento a un calendario que lo admita',
+    ed_edit_buttons: 'Botones de editar y eliminar',
+    ed_edit_buttons_helper: 'Botones en los detalles del evento para editar o eliminar un evento de un calendario que lo admita',
     ed_entities: 'Calendarios',
     ed_entities_helper: 'Colores y nombres por calendario: en YAML (consulta el README)',
     ed_title: 'Título',
@@ -253,7 +297,6 @@ var CcI18n = {
     add_event: 'Нови догађај',
     ev_title: 'Наслов',
     ev_calendar: 'Календар',
-    ev_date: 'Датум',
     ev_start: 'Почетак',
     ev_end: 'Крај',
     ev_location: 'Место',
@@ -262,8 +305,20 @@ var CcI18n = {
     ev_need_title: 'Дајте наслов догађају',
     ev_bad_end: 'Крај мора бити после почетка',
     ev_failed: 'Догађај није могао да се дода: {e}',
+    edit_event: 'Измени догађај',
+    delete_event: 'Обриши догађај',
+    ev_save: 'Сачувај',
+    ev_delete: 'Обриши',
+    ev_delete_confirm: 'Обрисати овај догађај?',
+    ev_this: 'Овај догађај',
+    ev_future: 'Овај и следећи догађаји',
+    ev_apply_to: 'Примени измене на',
+    ev_save_failed: 'Није могуће сачувати догађај: {e}',
+    ev_delete_failed: 'Није могуће обрисати догађај: {e}',
     ed_add_button: 'Дугме за додавање',
     ed_add_button_helper: 'Дугме + у заглављу за додавање догађаја у календар који то дозвољава',
+    ed_edit_buttons: 'Дугмад за измену и брисање',
+    ed_edit_buttons_helper: 'Дугмад у детаљима догађаја за измену или брисање догађаја у календару који то дозвољава',
     ed_entities: 'Календари',
     ed_entities_helper: 'Боје и ознаке по календару: у YAML-у (погледајте README)',
     ed_title: 'Наслов',
@@ -309,7 +364,6 @@ var CcI18n = {
     add_event: 'Novi događaj',
     ev_title: 'Naslov',
     ev_calendar: 'Kalendar',
-    ev_date: 'Datum',
     ev_start: 'Početak',
     ev_end: 'Kraj',
     ev_location: 'Mesto',
@@ -318,8 +372,20 @@ var CcI18n = {
     ev_need_title: 'Dajte naslov događaju',
     ev_bad_end: 'Kraj mora biti posle početka',
     ev_failed: 'Događaj nije mogao da se doda: {e}',
+    edit_event: 'Izmeni događaj',
+    delete_event: 'Obriši događaj',
+    ev_save: 'Sačuvaj',
+    ev_delete: 'Obriši',
+    ev_delete_confirm: 'Obrisati ovaj događaj?',
+    ev_this: 'Ovaj događaj',
+    ev_future: 'Ovaj i sledeći događaji',
+    ev_apply_to: 'Primeni izmene na',
+    ev_save_failed: 'Nije moguće sačuvati događaj: {e}',
+    ev_delete_failed: 'Nije moguće obrisati događaj: {e}',
     ed_add_button: 'Dugme za dodavanje',
     ed_add_button_helper: 'Dugme + u zaglavlju za dodavanje događaja u kalendar koji to dozvoljava',
+    ed_edit_buttons: 'Dugmad za izmenu i brisanje',
+    ed_edit_buttons_helper: 'Dugmad u detaljima događaja za izmenu ili brisanje događaja u kalendaru koji to dozvoljava',
     ed_entities: 'Kalendari',
     ed_entities_helper: 'Boje i oznake po kalendaru: u YAML-u (pogledajte README)',
     ed_title: 'Naslov',
@@ -365,7 +431,6 @@ var CcI18n = {
     add_event: 'Nuovo evento',
     ev_title: 'Titolo',
     ev_calendar: 'Calendario',
-    ev_date: 'Data',
     ev_start: 'Inizio',
     ev_end: 'Fine',
     ev_location: 'Luogo',
@@ -374,8 +439,20 @@ var CcI18n = {
     ev_need_title: 'Dai un titolo all\'evento',
     ev_bad_end: 'La fine deve essere dopo l\'inizio',
     ev_failed: 'Impossibile aggiungere l\'evento: {e}',
+    edit_event: 'Modifica evento',
+    delete_event: 'Elimina evento',
+    ev_save: 'Salva',
+    ev_delete: 'Elimina',
+    ev_delete_confirm: 'Eliminare questo evento?',
+    ev_this: 'Questo evento',
+    ev_future: 'Questo evento e i successivi',
+    ev_apply_to: 'Applica le modifiche a',
+    ev_save_failed: 'Impossibile salvare l\'evento: {e}',
+    ev_delete_failed: 'Impossibile eliminare l\'evento: {e}',
     ed_add_button: 'Pulsante di aggiunta',
     ed_add_button_helper: 'Pulsante + nell\'intestazione per aggiungere un evento a un calendario che lo consente',
+    ed_edit_buttons: 'Pulsanti di modifica ed eliminazione',
+    ed_edit_buttons_helper: 'Pulsanti nei dettagli dell\'evento per modificare o eliminare un evento di un calendario che lo consente',
     ed_entities: 'Calendari',
     ed_entities_helper: 'Colori ed etichette per calendario: in YAML (vedi il README)',
     ed_title: 'Titolo',
@@ -421,7 +498,6 @@ var CcI18n = {
     add_event: 'Nieuwe afspraak',
     ev_title: 'Titel',
     ev_calendar: 'Agenda',
-    ev_date: 'Datum',
     ev_start: 'Begin',
     ev_end: 'Einde',
     ev_location: 'Locatie',
@@ -430,8 +506,20 @@ var CcI18n = {
     ev_need_title: 'Geef de afspraak een titel',
     ev_bad_end: 'Het einde moet na het begin liggen',
     ev_failed: 'Afspraak kon niet worden toegevoegd: {e}',
+    edit_event: 'Afspraak bewerken',
+    delete_event: 'Afspraak verwijderen',
+    ev_save: 'Opslaan',
+    ev_delete: 'Verwijderen',
+    ev_delete_confirm: 'Deze afspraak verwijderen?',
+    ev_this: 'Deze afspraak',
+    ev_future: 'Deze en volgende afspraken',
+    ev_apply_to: 'Wijzigingen toepassen op',
+    ev_save_failed: 'Kan de afspraak niet opslaan: {e}',
+    ev_delete_failed: 'Kan de afspraak niet verwijderen: {e}',
     ed_add_button: 'Knop toevoegen',
     ed_add_button_helper: '+-knop in de kop om een afspraak toe te voegen aan een agenda die dat toestaat',
+    ed_edit_buttons: 'Knoppen bewerken en verwijderen',
+    ed_edit_buttons_helper: 'Knoppen in de details van een afspraak om een afspraak te bewerken of te verwijderen in een agenda die dat toestaat',
     ed_entities: 'Agenda\'s',
     ed_entities_helper: 'Kleuren en labels per agenda: in YAML (zie de README)',
     ed_title: 'Titel',
@@ -477,7 +565,6 @@ var CcI18n = {
     add_event: 'Novo evento',
     ev_title: 'Título',
     ev_calendar: 'Calendário',
-    ev_date: 'Data',
     ev_start: 'Início',
     ev_end: 'Fim',
     ev_location: 'Local',
@@ -486,8 +573,20 @@ var CcI18n = {
     ev_need_title: 'Dê um título ao evento',
     ev_bad_end: 'O fim tem de ser depois do início',
     ev_failed: 'Não foi possível adicionar o evento: {e}',
+    edit_event: 'Editar evento',
+    delete_event: 'Eliminar evento',
+    ev_save: 'Guardar',
+    ev_delete: 'Eliminar',
+    ev_delete_confirm: 'Eliminar este evento?',
+    ev_this: 'Este evento',
+    ev_future: 'Este e os eventos seguintes',
+    ev_apply_to: 'Aplicar as alterações a',
+    ev_save_failed: 'Não foi possível guardar o evento: {e}',
+    ev_delete_failed: 'Não foi possível eliminar o evento: {e}',
     ed_add_button: 'Botão de adicionar',
     ed_add_button_helper: 'Botão + no cabeçalho para adicionar um evento a um calendário que o aceite',
+    ed_edit_buttons: 'Botões de editar e eliminar',
+    ed_edit_buttons_helper: 'Botões nos detalhes do evento para editar ou eliminar um evento de um calendário que o permita',
     ed_entities: 'Calendários',
     ed_entities_helper: 'Cores e etiquetas por calendário: em YAML (ver o README)',
     ed_title: 'Título',
@@ -533,7 +632,6 @@ var CcI18n = {
     add_event: 'Nowe wydarzenie',
     ev_title: 'Tytuł',
     ev_calendar: 'Kalendarz',
-    ev_date: 'Data',
     ev_start: 'Początek',
     ev_end: 'Koniec',
     ev_location: 'Miejsce',
@@ -542,8 +640,20 @@ var CcI18n = {
     ev_need_title: 'Nadaj wydarzeniu tytuł',
     ev_bad_end: 'Koniec musi być po początku',
     ev_failed: 'Nie udało się dodać wydarzenia: {e}',
+    edit_event: 'Edytuj wydarzenie',
+    delete_event: 'Usuń wydarzenie',
+    ev_save: 'Zapisz',
+    ev_delete: 'Usuń',
+    ev_delete_confirm: 'Usunąć to wydarzenie?',
+    ev_this: 'To wydarzenie',
+    ev_future: 'To i następne wydarzenia',
+    ev_apply_to: 'Zastosuj zmiany do',
+    ev_save_failed: 'Nie udało się zapisać wydarzenia: {e}',
+    ev_delete_failed: 'Nie udało się usunąć wydarzenia: {e}',
     ed_add_button: 'Przycisk dodawania',
     ed_add_button_helper: 'Przycisk + w nagłówku do dodawania wydarzenia do kalendarza, który na to pozwala',
+    ed_edit_buttons: 'Przyciski edycji i usuwania',
+    ed_edit_buttons_helper: 'Przyciski w szczegółach wydarzenia do edycji lub usuwania wydarzenia z kalendarza, który na to pozwala',
     ed_entities: 'Kalendarze',
     ed_entities_helper: 'Kolory i etykiety dla każdego kalendarza: w YAML (zobacz README)',
     ed_title: 'Tytuł',
@@ -589,7 +699,6 @@ var CcI18n = {
     add_event: 'Eveniment nou',
     ev_title: 'Titlu',
     ev_calendar: 'Calendar',
-    ev_date: 'Data',
     ev_start: 'Început',
     ev_end: 'Sfârșit',
     ev_location: 'Loc',
@@ -598,8 +707,20 @@ var CcI18n = {
     ev_need_title: 'Dați un titlu evenimentului',
     ev_bad_end: 'Sfârșitul trebuie să fie după început',
     ev_failed: 'Evenimentul nu a putut fi adăugat: {e}',
+    edit_event: 'Editează evenimentul',
+    delete_event: 'Șterge evenimentul',
+    ev_save: 'Salvează',
+    ev_delete: 'Șterge',
+    ev_delete_confirm: 'Ștergi acest eveniment?',
+    ev_this: 'Acest eveniment',
+    ev_future: 'Acesta și evenimentele următoare',
+    ev_apply_to: 'Aplică modificările la',
+    ev_save_failed: 'Evenimentul nu a putut fi salvat: {e}',
+    ev_delete_failed: 'Evenimentul nu a putut fi șters: {e}',
     ed_add_button: 'Buton de adăugare',
     ed_add_button_helper: 'Butonul + din antet pentru a adăuga un eveniment într-un calendar care permite',
+    ed_edit_buttons: 'Butoane de editare și ștergere',
+    ed_edit_buttons_helper: 'Butoane în detaliile evenimentului pentru a edita sau șterge un eveniment dintr-un calendar care permite',
     ed_entities: 'Calendare',
     ed_entities_helper: 'Culori și etichete pentru fiecare calendar: în YAML (vezi README)',
     ed_title: 'Titlu',
@@ -645,7 +766,6 @@ var CcI18n = {
     add_event: 'Ny begivenhed',
     ev_title: 'Titel',
     ev_calendar: 'Kalender',
-    ev_date: 'Dato',
     ev_start: 'Start',
     ev_end: 'Slut',
     ev_location: 'Sted',
@@ -654,8 +774,20 @@ var CcI18n = {
     ev_need_title: 'Giv begivenheden en titel',
     ev_bad_end: 'Slut skal være efter start',
     ev_failed: 'Begivenheden kunne ikke tilføjes: {e}',
+    edit_event: 'Rediger begivenhed',
+    delete_event: 'Slet begivenhed',
+    ev_save: 'Gem',
+    ev_delete: 'Slet',
+    ev_delete_confirm: 'Slet denne begivenhed?',
+    ev_this: 'Denne begivenhed',
+    ev_future: 'Denne og følgende begivenheder',
+    ev_apply_to: 'Anvend ændringerne på',
+    ev_save_failed: 'Kunne ikke gemme begivenheden: {e}',
+    ev_delete_failed: 'Kunne ikke slette begivenheden: {e}',
     ed_add_button: 'Tilføj-knap',
     ed_add_button_helper: '+-knap i overskriften til at tilføje en begivenhed til en kalender, der tillader det',
+    ed_edit_buttons: 'Knapper til redigering og sletning',
+    ed_edit_buttons_helper: 'Knapper i begivenhedens detaljer til at redigere eller slette en begivenhed i en kalender, der tillader det',
     ed_entities: 'Kalendere',
     ed_entities_helper: 'Farver og navne pr. kalender: i YAML (se README)',
     ed_title: 'Titel',
@@ -701,7 +833,6 @@ var CcI18n = {
     add_event: 'Ny händelse',
     ev_title: 'Titel',
     ev_calendar: 'Kalender',
-    ev_date: 'Datum',
     ev_start: 'Start',
     ev_end: 'Slut',
     ev_location: 'Plats',
@@ -710,8 +841,20 @@ var CcI18n = {
     ev_need_title: 'Ge händelsen en titel',
     ev_bad_end: 'Slutet måste vara efter starten',
     ev_failed: 'Händelsen kunde inte läggas till: {e}',
+    edit_event: 'Redigera händelse',
+    delete_event: 'Ta bort händelse',
+    ev_save: 'Spara',
+    ev_delete: 'Ta bort',
+    ev_delete_confirm: 'Ta bort den här händelsen?',
+    ev_this: 'Den här händelsen',
+    ev_future: 'Den här och följande händelser',
+    ev_apply_to: 'Tillämpa ändringarna på',
+    ev_save_failed: 'Det gick inte att spara händelsen: {e}',
+    ev_delete_failed: 'Det gick inte att ta bort händelsen: {e}',
     ed_add_button: 'Lägg till-knapp',
     ed_add_button_helper: '+-knapp i rubriken för att lägga till en händelse i en kalender som tillåter det',
+    ed_edit_buttons: 'Knappar för redigering och borttagning',
+    ed_edit_buttons_helper: 'Knappar i händelsens detaljer för att redigera eller ta bort en händelse i en kalender som tillåter det',
     ed_entities: 'Kalendrar',
     ed_entities_helper: 'Färger och namn per kalender: i YAML (se README)',
     ed_title: 'Titel',
@@ -757,7 +900,6 @@ var CcI18n = {
     add_event: 'Ново събитие',
     ev_title: 'Заглавие',
     ev_calendar: 'Календар',
-    ev_date: 'Дата',
     ev_start: 'Начало',
     ev_end: 'Край',
     ev_location: 'Място',
@@ -766,8 +908,20 @@ var CcI18n = {
     ev_need_title: 'Дайте заглавие на събитието',
     ev_bad_end: 'Краят трябва да е след началото',
     ev_failed: 'Събитието не можа да бъде добавено: {e}',
+    edit_event: 'Редактиране на събитието',
+    delete_event: 'Изтриване на събитието',
+    ev_save: 'Запази',
+    ev_delete: 'Изтрий',
+    ev_delete_confirm: 'Да се изтрие ли това събитие?',
+    ev_this: 'Това събитие',
+    ev_future: 'Това и следващите събития',
+    ev_apply_to: 'Приложи промените към',
+    ev_save_failed: 'Събитието не може да бъде запазено: {e}',
+    ev_delete_failed: 'Събитието не може да бъде изтрито: {e}',
     ed_add_button: 'Бутон за добавяне',
     ed_add_button_helper: 'Бутон + в заглавката за добавяне на събитие в календар, който го позволява',
+    ed_edit_buttons: 'Бутони за редактиране и изтриване',
+    ed_edit_buttons_helper: 'Бутони в подробностите за събитието за редактиране или изтриване на събитие от календар, който го позволява',
     ed_entities: 'Календари',
     ed_entities_helper: 'Цветове и етикети за всеки календар: в YAML (вижте README)',
     ed_title: 'Заглавие',
@@ -813,7 +967,6 @@ var CcI18n = {
     add_event: 'Новое событие',
     ev_title: 'Название',
     ev_calendar: 'Календарь',
-    ev_date: 'Дата',
     ev_start: 'Начало',
     ev_end: 'Конец',
     ev_location: 'Место',
@@ -822,8 +975,20 @@ var CcI18n = {
     ev_need_title: 'Укажите название события',
     ev_bad_end: 'Конец должен быть после начала',
     ev_failed: 'Не удалось добавить событие: {e}',
+    edit_event: 'Изменить событие',
+    delete_event: 'Удалить событие',
+    ev_save: 'Сохранить',
+    ev_delete: 'Удалить',
+    ev_delete_confirm: 'Удалить это событие?',
+    ev_this: 'Это событие',
+    ev_future: 'Это и последующие события',
+    ev_apply_to: 'Применить изменения к',
+    ev_save_failed: 'Не удалось сохранить событие: {e}',
+    ev_delete_failed: 'Не удалось удалить событие: {e}',
     ed_add_button: 'Кнопка добавления',
     ed_add_button_helper: 'Кнопка + в заголовке для добавления события в календарь, который это позволяет',
+    ed_edit_buttons: 'Кнопки изменения и удаления',
+    ed_edit_buttons_helper: 'Кнопки в подробностях события для изменения или удаления события в календаре, который это позволяет',
     ed_entities: 'Календари',
     ed_entities_helper: 'Цвета и подписи для каждого календаря: в YAML (см. README)',
     ed_title: 'Заголовок',
@@ -869,7 +1034,6 @@ var CcI18n = {
     add_event: 'Нова подія',
     ev_title: 'Назва',
     ev_calendar: 'Календар',
-    ev_date: 'Дата',
     ev_start: 'Початок',
     ev_end: 'Кінець',
     ev_location: 'Місце',
@@ -878,8 +1042,20 @@ var CcI18n = {
     ev_need_title: 'Вкажіть назву події',
     ev_bad_end: 'Кінець має бути після початку',
     ev_failed: 'Не вдалося додати подію: {e}',
+    edit_event: 'Змінити подію',
+    delete_event: 'Видалити подію',
+    ev_save: 'Зберегти',
+    ev_delete: 'Видалити',
+    ev_delete_confirm: 'Видалити цю подію?',
+    ev_this: 'Ця подія',
+    ev_future: 'Ця та наступні події',
+    ev_apply_to: 'Застосувати зміни до',
+    ev_save_failed: 'Не вдалося зберегти подію: {e}',
+    ev_delete_failed: 'Не вдалося видалити подію: {e}',
     ed_add_button: 'Кнопка додавання',
     ed_add_button_helper: 'Кнопка + у заголовку для додавання події до календаря, який це дозволяє',
+    ed_edit_buttons: 'Кнопки змінення та видалення',
+    ed_edit_buttons_helper: 'Кнопки в деталях події для змінення або видалення події в календарі, який це дозволяє',
     ed_entities: 'Календарі',
     ed_entities_helper: 'Кольори та підписи для кожного календаря: у YAML (див. README)',
     ed_title: 'Заголовок',
@@ -925,7 +1101,6 @@ var CcI18n = {
     add_event: 'Új esemény',
     ev_title: 'Cím',
     ev_calendar: 'Naptár',
-    ev_date: 'Dátum',
     ev_start: 'Kezdés',
     ev_end: 'Vége',
     ev_location: 'Helyszín',
@@ -934,8 +1109,20 @@ var CcI18n = {
     ev_need_title: 'Adjon címet az eseménynek',
     ev_bad_end: 'A végének a kezdés után kell lennie',
     ev_failed: 'Az esemény nem adható hozzá: {e}',
+    edit_event: 'Esemény szerkesztése',
+    delete_event: 'Esemény törlése',
+    ev_save: 'Mentés',
+    ev_delete: 'Törlés',
+    ev_delete_confirm: 'Törli ezt az eseményt?',
+    ev_this: 'Ez az esemény',
+    ev_future: 'Ez és a következő események',
+    ev_apply_to: 'Mire vonatkozzanak a módosítások?',
+    ev_save_failed: 'Nem sikerült menteni az eseményt: {e}',
+    ev_delete_failed: 'Nem sikerült törölni az eseményt: {e}',
     ed_add_button: 'Hozzáadás gomb',
     ed_add_button_helper: '+ gomb a fejlécben esemény hozzáadásához egy olyan naptárhoz, amely ezt engedi',
+    ed_edit_buttons: 'Szerkesztés és törlés gombok',
+    ed_edit_buttons_helper: 'Gombok az esemény részleteiben egy olyan naptár eseményének szerkesztéséhez vagy törléséhez, amely ezt engedi',
     ed_entities: 'Naptárak',
     ed_entities_helper: 'Naptáronkénti színek és címkék: YAML-ben (lásd a README-t)',
     ed_title: 'Cím',
@@ -981,7 +1168,6 @@ var CcI18n = {
     add_event: 'Nová udalosť',
     ev_title: 'Názov',
     ev_calendar: 'Kalendár',
-    ev_date: 'Dátum',
     ev_start: 'Začiatok',
     ev_end: 'Koniec',
     ev_location: 'Miesto',
@@ -990,8 +1176,20 @@ var CcI18n = {
     ev_need_title: 'Zadajte názov udalosti',
     ev_bad_end: 'Koniec musí byť po začiatku',
     ev_failed: 'Udalosť sa nepodarilo pridať: {e}',
+    edit_event: 'Upraviť udalosť',
+    delete_event: 'Odstrániť udalosť',
+    ev_save: 'Uložiť',
+    ev_delete: 'Odstrániť',
+    ev_delete_confirm: 'Odstrániť túto udalosť?',
+    ev_this: 'Táto udalosť',
+    ev_future: 'Táto a nasledujúce udalosti',
+    ev_apply_to: 'Použiť zmeny na',
+    ev_save_failed: 'Udalosť sa nepodarilo uložiť: {e}',
+    ev_delete_failed: 'Udalosť sa nepodarilo odstrániť: {e}',
     ed_add_button: 'Tlačidlo pridania',
     ed_add_button_helper: 'Tlačidlo + v hlavičke na pridanie udalosti do kalendára, ktorý to umožňuje',
+    ed_edit_buttons: 'Tlačidlá úpravy a odstránenia',
+    ed_edit_buttons_helper: 'Tlačidlá v podrobnostiach udalosti na úpravu alebo odstránenie udalosti v kalendári, ktorý to umožňuje',
     ed_entities: 'Kalendáre',
     ed_entities_helper: 'Farby a názvy pre každý kalendár: v YAML (pozri README)',
     ed_title: 'Názov',
@@ -1037,7 +1235,6 @@ var CcI18n = {
     add_event: 'Nová událost',
     ev_title: 'Název',
     ev_calendar: 'Kalendář',
-    ev_date: 'Datum',
     ev_start: 'Začátek',
     ev_end: 'Konec',
     ev_location: 'Místo',
@@ -1046,8 +1243,20 @@ var CcI18n = {
     ev_need_title: 'Zadejte název události',
     ev_bad_end: 'Konec musí být po začátku',
     ev_failed: 'Událost se nepodařilo přidat: {e}',
+    edit_event: 'Upravit událost',
+    delete_event: 'Smazat událost',
+    ev_save: 'Uložit',
+    ev_delete: 'Smazat',
+    ev_delete_confirm: 'Smazat tuto událost?',
+    ev_this: 'Tato událost',
+    ev_future: 'Tato a následující události',
+    ev_apply_to: 'Použít změny na',
+    ev_save_failed: 'Událost se nepodařilo uložit: {e}',
+    ev_delete_failed: 'Událost se nepodařilo smazat: {e}',
     ed_add_button: 'Tlačítko přidání',
     ed_add_button_helper: 'Tlačítko + v záhlaví pro přidání události do kalendáře, který to umožňuje',
+    ed_edit_buttons: 'Tlačítka úprav a smazání',
+    ed_edit_buttons_helper: 'Tlačítka v podrobnostech události pro úpravu nebo smazání události v kalendáři, který to umožňuje',
     ed_entities: 'Kalendáře',
     ed_entities_helper: 'Barvy a názvy pro každý kalendář: v YAML (viz README)',
     ed_title: 'Název',
@@ -1093,7 +1302,6 @@ var CcI18n = {
     add_event: 'Nov dogodek',
     ev_title: 'Naslov',
     ev_calendar: 'Koledar',
-    ev_date: 'Datum',
     ev_start: 'Začetek',
     ev_end: 'Konec',
     ev_location: 'Kraj',
@@ -1102,8 +1310,20 @@ var CcI18n = {
     ev_need_title: 'Dogodku dajte naslov',
     ev_bad_end: 'Konec mora biti po začetku',
     ev_failed: 'Dogodka ni bilo mogoče dodati: {e}',
+    edit_event: 'Uredi dogodek',
+    delete_event: 'Izbriši dogodek',
+    ev_save: 'Shrani',
+    ev_delete: 'Izbriši',
+    ev_delete_confirm: 'Želite izbrisati ta dogodek?',
+    ev_this: 'Ta dogodek',
+    ev_future: 'Ta in naslednji dogodki',
+    ev_apply_to: 'Uporabi spremembe za',
+    ev_save_failed: 'Dogodka ni bilo mogoče shraniti: {e}',
+    ev_delete_failed: 'Dogodka ni bilo mogoče izbrisati: {e}',
     ed_add_button: 'Gumb za dodajanje',
     ed_add_button_helper: 'Gumb + v glavi za dodajanje dogodka v koledar, ki to omogoča',
+    ed_edit_buttons: 'Gumba za urejanje in brisanje',
+    ed_edit_buttons_helper: 'Gumba v podrobnostih dogodka za urejanje ali brisanje dogodka v koledarju, ki to omogoča',
     ed_entities: 'Koledarji',
     ed_entities_helper: 'Barve in oznake za vsak koledar: v YAML (glejte README)',
     ed_title: 'Naslov',
@@ -1149,7 +1369,6 @@ var CcI18n = {
     add_event: 'Jauns notikums',
     ev_title: 'Nosaukums',
     ev_calendar: 'Kalendārs',
-    ev_date: 'Datums',
     ev_start: 'Sākums',
     ev_end: 'Beigas',
     ev_location: 'Vieta',
@@ -1158,8 +1377,20 @@ var CcI18n = {
     ev_need_title: 'Piešķiriet notikumam nosaukumu',
     ev_bad_end: 'Beigām jābūt pēc sākuma',
     ev_failed: 'Notikumu neizdevās pievienot: {e}',
+    edit_event: 'Rediģēt notikumu',
+    delete_event: 'Dzēst notikumu',
+    ev_save: 'Saglabāt',
+    ev_delete: 'Dzēst',
+    ev_delete_confirm: 'Dzēst šo notikumu?',
+    ev_this: 'Šis notikums',
+    ev_future: 'Šis un nākamie notikumi',
+    ev_apply_to: 'Piemērot izmaiņas',
+    ev_save_failed: 'Neizdevās saglabāt notikumu: {e}',
+    ev_delete_failed: 'Neizdevās dzēst notikumu: {e}',
     ed_add_button: 'Pievienošanas poga',
     ed_add_button_helper: 'Poga + galvenē, lai pievienotu notikumu kalendāram, kas to atļauj',
+    ed_edit_buttons: 'Rediģēšanas un dzēšanas pogas',
+    ed_edit_buttons_helper: 'Pogas notikuma informācijā, lai rediģētu vai dzēstu notikumu kalendārā, kas to atļauj',
     ed_entities: 'Kalendāri',
     ed_entities_helper: 'Krāsas un nosaukumi katram kalendāram: YAML (skatīt README)',
     ed_title: 'Virsraksts',
@@ -1205,7 +1436,6 @@ var CcI18n = {
     add_event: 'Νέο συμβάν',
     ev_title: 'Τίτλος',
     ev_calendar: 'Ημερολόγιο',
-    ev_date: 'Ημερομηνία',
     ev_start: 'Έναρξη',
     ev_end: 'Λήξη',
     ev_location: 'Τοποθεσία',
@@ -1214,8 +1444,20 @@ var CcI18n = {
     ev_need_title: 'Δώστε τίτλο στο συμβάν',
     ev_bad_end: 'Η λήξη πρέπει να είναι μετά την έναρξη',
     ev_failed: 'Δεν ήταν δυνατή η προσθήκη του συμβάντος: {e}',
+    edit_event: 'Επεξεργασία συμβάντος',
+    delete_event: 'Διαγραφή συμβάντος',
+    ev_save: 'Αποθήκευση',
+    ev_delete: 'Διαγραφή',
+    ev_delete_confirm: 'Διαγραφή αυτού του συμβάντος;',
+    ev_this: 'Αυτό το συμβάν',
+    ev_future: 'Αυτό και τα επόμενα συμβάντα',
+    ev_apply_to: 'Εφαρμογή των αλλαγών σε',
+    ev_save_failed: 'Δεν ήταν δυνατή η αποθήκευση του συμβάντος: {e}',
+    ev_delete_failed: 'Δεν ήταν δυνατή η διαγραφή του συμβάντος: {e}',
     ed_add_button: 'Κουμπί προσθήκης',
     ed_add_button_helper: 'Κουμπί + στην κεφαλίδα για προσθήκη συμβάντος σε ημερολόγιο που το επιτρέπει',
+    ed_edit_buttons: 'Κουμπιά επεξεργασίας και διαγραφής',
+    ed_edit_buttons_helper: 'Κουμπιά στις λεπτομέρειες του συμβάντος για επεξεργασία ή διαγραφή συμβάντος σε ημερολόγιο που το επιτρέπει',
     ed_entities: 'Ημερολόγια',
     ed_entities_helper: 'Χρώματα και ετικέτες ανά ημερολόγιο: σε YAML (δείτε το README)',
     ed_title: 'Τίτλος',
@@ -1286,11 +1528,16 @@ var CC_COLORS = ['#039be5', '#e67c73', '#33b679', '#f6bf26', '#8e24aa', '#f4511e
 var CC_REFRESH = 5 * 60000;
 var CC_DEFAULTS = {
   days_to_show: 7, max_events: 5, show_header: true, show_location: true, show_end_time: true,
-  show_countdown: true, show_empty_days: false, show_past_events: false, add_button: true,
+  show_countdown: true, show_empty_days: false, show_past_events: false, add_button: true, edit_buttons: true,
 };
 
-// calendar.create_event support (CalendarEntityFeature.CREATE_EVENT).
+// Calendar features (CalendarEntityFeature): calendar.create_event, calendar/event/delete and
+// calendar/event/update.
 var CC_CREATE = 1;
+var CC_DELETE = 2;
+var CC_UPDATE = 4;
+// recurrence_range of a change to an instance of a recurring event and the ones after it.
+var CC_FUTURE = 'THISANDFUTURE';
 // "2026-11-07" in local time, for a date input and the create_event action.
 function ccIso(d) {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -1300,8 +1547,8 @@ function ccHm(d) {
   return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
 }
 
-// New event form defaults: the next round hour, for an hour. The form has a single date, so the end
-// stays on the start's day (23:59 at most): opened at 22:30, 23:00 to 23:59, not 23:00 to 00:00.
+// New event form defaults: the next round hour, for an hour. The end date defaults to the start's, so
+// the end stays on that day (23:59 at most): opened at 22:30, 23:00 to 23:59, not 23:00 to 00:00.
 function ccFormTimes(now) {
   var start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours() + 1);
   var end = new Date(Math.min(start.getTime() + 3600000, new Date(start.getFullYear(), start.getMonth(), start.getDate(), 23, 59).getTime()));
@@ -1312,6 +1559,11 @@ function ccFormTimes(now) {
 // events, as an absolute UTC time for create_event. A naive time would be read in the Home Assistant
 // server's time zone; UTC for both ends also keeps them in one zone across a daylight saving change,
 // as Home Assistant requires.
+// Days from one form date to another ("2026-11-20" to "2026-11-22": 2).
+function ccDaysBetween(from, to) {
+  return Math.round((ccLocalDate(to) - ccLocalDate(from)) / 86400000);
+}
+
 function ccUtc(date, hm) {
   var p = `${date}-${hm}`.split(/[-:]/).map(Number);
   return `${new Date(p[0], p[1] - 1, p[2], p[3], p[4]).toISOString().slice(0, 19)}+00:00`;
@@ -1421,7 +1673,7 @@ function ccParse(raw, cal) {
     summary: String(raw.summary || raw.message || ''),
     start: s.d, end: end, allDay: s.allDay,
     location: raw.location || '', description: raw.description || '',
-    uid: raw.uid || '', cal: cal,
+    uid: raw.uid || '', recurrence_id: raw.recurrence_id || '', rrule: raw.rrule || '', cal: cal,
   };
 }
 
@@ -1668,7 +1920,7 @@ class CalendarAgendaCard extends HTMLElement {
     // update after a minute change does not re-render (and reset the popup's scroll) underneath it.
     var minute = this._detail != null ? '' : Math.floor(Date.now() / 60000);
     var loc = this._hass.locale || {};
-    var tick = `${cals.map((c) => this._hass.states[c.entity]?.last_updated || '').join('|')}|${minute}|${this._detail}|${this._expanded}|${this._zoomed}|${!!this._adding}` +
+    var tick = `${cals.map((c) => this._hass.states[c.entity]?.last_updated || '').join('|')}|${minute}|${this._detail}|${this._expanded}|${this._zoomed}|${!!this._adding}|${this._confirm}` +
       `|${this._hass.language}|${loc.language}|${loc.time_format}`;
     if (this._sig != null && tick === this._tick) return;
     this._tick = tick;
@@ -1680,7 +1932,8 @@ class CalendarAgendaCard extends HTMLElement {
       this._fetchKey = key;
       this._fetch(cals);
     }
-    var sig = JSON.stringify([this._lang(), this._fmtLang(), this._fetchedAt, this._detail, this._expanded, this._zoomed, !!this._adding, this._form?.error, this._form?.busy,
+    var sig = JSON.stringify([this._lang(), this._fmtLang(), this._fetchedAt, this._detail, this._expanded, this._zoomed, !!this._adding, this._form?.error, this._form?.busy, this._form?.confirm,
+      this._confirm, this._popErr, this._popBusy,
       minute, cals.map((c) => [c.entity, c.color, c.name]), this._hass.locale?.time_format]);
     if (sig === this._sig) return;
     this._sig = sig;
@@ -1820,9 +2073,15 @@ class CalendarAgendaCard extends HTMLElement {
   }
 
   // Overridden by the mini card.
+  // Whether the calendar at index i in this._cals has a feature (CC_CREATE, CC_DELETE, CC_UPDATE).
+  _supports(i, flag) {
+    var c = this._cals?.[i];
+    return !!c && (Number(this._hass?.states[c.entity]?.attributes?.supported_features) & flag) === flag;
+  }
+
   // Calendars of the card that accept new events (Local Calendar, CalDAV, Google…), by index in this._cals.
   _writable() {
-    return (this._cals || []).map((c, i) => ({ c, i })).filter(({ c }) => (Number(this._hass?.states[c.entity]?.attributes?.supported_features) & CC_CREATE) === CC_CREATE);
+    return (this._cals || []).map((c, i) => ({ c, i })).filter(({ i }) => this._supports(i, CC_CREATE));
   }
 
   _addButton() {
@@ -1831,10 +2090,27 @@ class CalendarAgendaCard extends HTMLElement {
     return `<button class="addb" data-action="add" title="${label}" aria-label="${label}"><ha-icon icon="mdi:plus"></ha-icon></button>`;
   }
 
-  _openForm() {
-    this._form = {
-      summary: '', cal: this._writable()[0]?.i ?? 0, all_day: false, ...ccFormTimes(new Date()), location: '', error: '', busy: false,
+  // Edit / delete buttons of the details popup: full card, an event with a uid, a calendar that allows it.
+  _canChange(e, flag) {
+    return this._config.edit_buttons !== false && !this._compact() && !!e.uid && this._supports(e.cal, flag);
+  }
+
+  // The new event form, or the edit form of an event (pre-filled, saved with calendar/event/update).
+  // `span` is the number of days from the start date to the end date: the end date follows the start's.
+  _openForm(e) {
+    var f = {
+      summary: '', cal: this._writable()[0]?.i ?? 0, all_day: false, ...ccFormTimes(new Date()), span: 0, location: '', error: '', busy: false,
     };
+    if (e) {
+      // An all-day event's end is the day after its last day.
+      var last = e.allDay ? ccAddDays(e.end, -1) : e.end;
+      Object.assign(f, {
+        summary: e.summary, cal: e.cal, all_day: e.allDay, date: ccIso(e.start), span: Math.max(0, ccDaysBetween(ccIso(e.start), ccIso(last))),
+        location: e.location, edit: { uid: e.uid, recurrence_id: e.recurrence_id, rrule: e.rrule, description: e.description },
+      });
+      if (!e.allDay) Object.assign(f, { start: ccHm(e.start), end: ccHm(e.end) });
+    }
+    this._form = f;
     this._adding = true;
     this._detail = null;
     this._formShown = false;
@@ -1851,6 +2127,10 @@ class CalendarAgendaCard extends HTMLElement {
     var key = ev.target?.dataset?.f;
     if (!key || !this._form) return;
     var t = ev.target;
+    if (key === 'end_date') {
+      if (t.value && this._form.date) this._form.span = ccDaysBetween(this._form.date, t.value);
+      return;
+    }
     this._form[key] = t.type === 'checkbox' ? t.checked : key === 'cal' ? Number(t.value) : t.value;
     // All day hides the times: redraw the form (its values come from this._form).
     if (key === 'all_day') this._redrawForm();
@@ -1862,68 +2142,157 @@ class CalendarAgendaCard extends HTMLElement {
     this._update();
   }
 
-  // The action's data: start/end dates (the end the day after, exclusive) or start/end date-times.
+  // Read the calendars again: a new, changed or deleted event shows at once.
+  _refetch() {
+    this._fetchKey = null;
+    this._sig = null;
+    this._update();
+  }
+
+  _endDate() {
+    var f = this._form;
+    return f.date ? ccIso(ccAddDays(ccLocalDate(f.date), f.span)) : '';
+  }
+
+  // The action's data: start/end dates (the end the day after the end date, exclusive) or start/end
+  // date-times.
   _eventData() {
     var f = this._form;
     var data = { summary: f.summary.trim() };
     if (f.location.trim()) data.location = f.location.trim();
     if (f.all_day) {
-      var day = new Date(`${f.date}T00:00:00`);
       data.start_date = f.date;
-      data.end_date = ccIso(ccAddDays(day, 1));
+      data.end_date = ccIso(ccAddDays(ccLocalDate(f.date), f.span + 1));
     } else {
       data.start_date_time = ccUtc(f.date, f.start);
-      data.end_date_time = ccUtc(f.date, f.end);
+      data.end_date_time = ccUtc(this._endDate(), f.end);
     }
     return data;
   }
 
-  async _saveForm() {
+  // calendar/event/update message of the edited event. A change to one instance of a recurring event
+  // cannot carry the recurrence rule; a change to it and the following ones keeps it, like the Home
+  // Assistant calendar panel. The description, not in the form, is kept as it was.
+  _updateMsg(entity, range) {
+    var f = this._form, ed = f.edit, d = this._eventData();
+    var event = { summary: d.summary, dtstart: d.start_date || d.start_date_time, dtend: d.end_date || d.end_date_time };
+    if (d.location) event.location = d.location;
+    if (ed.description) event.description = ed.description;
+    if (ed.rrule && (range === CC_FUTURE || !ed.recurrence_id)) event.rrule = ed.rrule;
+    var msg = { type: 'calendar/event/update', entity_id: entity, uid: ed.uid };
+    if (ed.recurrence_id) {
+      msg.recurrence_id = ed.recurrence_id;
+      if (range) msg.recurrence_range = range;
+    }
+    msg.event = event;
+    return msg;
+  }
+
+  // `range` answers "this event or this and the following ones?" for an instance of a recurring event
+  // ('' or CC_FUTURE); the form asks it first.
+  async _saveForm(range) {
     var f = this._form;
     if (!f || f.busy) return;
     if (!f.summary.trim()) f.error = this._t('ev_need_title');
-    else if (!f.all_day && f.end <= f.start) f.error = this._t('ev_bad_end');
+    else if (!(f.span >= 0) || (!f.all_day && !f.span && f.end <= f.start)) f.error = this._t('ev_bad_end');
     else f.error = '';
-    if (f.error) return this._redrawForm();
+    f.confirm = !f.error && !!f.edit?.recurrence_id && range == null;
+    if (f.error || f.confirm) return this._redrawForm();
     var cal = this._cals[f.cal];
     f.busy = true;
     this._redrawForm();
     try {
-      await this._hass.callService('calendar', 'create_event', this._eventData(), { entity_id: cal.entity });
+      if (f.edit) await this._hass.callWS(this._updateMsg(cal.entity, range));
+      else await this._hass.callService('calendar', 'create_event', this._eventData(), { entity_id: cal.entity });
       this._closeForm();
-      // Read the calendars again: the new event shows at once.
-      this._fetchKey = null;
-      this._sig = null;
-      this._update();
+      this._refetch();
     } catch (err) {
       f.busy = false;
-      f.error = this._t('ev_failed').replace('{e}', err?.message || String(err));
+      f.error = this._t(f.edit ? 'ev_save_failed' : 'ev_failed').replace('{e}', err?.message || String(err));
       this._redrawForm();
     }
+  }
+
+  // Buttons at the bottom of a form or a confirmation: Cancel, then the actions (no filled button).
+  _btnsHtml(cancel, actions, busy) {
+    return `<div class="fbtns"><button class="fbtn" data-action="${cancel}">${ccEsc(this._t('ev_cancel'))}</button>` +
+      actions.map(([action, label, icon, cls]) => `<button class="fbtn ${cls}" data-action="${action}"${busy ? ' disabled' : ''}>` +
+        `<ha-icon icon="${busy ? 'mdi:loading' : icon}"></ha-icon>${ccEsc(this._t(label))}</button>`).join('') + '</div>';
   }
 
   _formHtml() {
     var f = this._form;
     var cals = this._writable();
     var cal = this._cals[f.cal] || cals[0]?.c;
+    var title = ccEsc(this._t(f.edit ? 'edit_event' : 'add_event'));
     var field = (key, label, input) => `<label class="ff ff-${key}"><span>${ccEsc(this._t(label))}</span>${input}</label>`;
+    // Start and end: a date and, unless all day, a time.
+    var when = (key, label, dateKey, date, timeKey, time) => {
+      var l = ccEsc(this._t(label));
+      return `<div class="ff ff-${key}" role="group" aria-label="${l}"><span>${l}</span><div class="fdt">` +
+        `<input type="date" data-f="${dateKey}" value="${ccEsc(date)}" aria-label="${l}">` +
+        (f.all_day ? '' : `<input type="time" data-f="${timeKey}" value="${ccEsc(time)}" aria-label="${l}">`) + '</div></div>';
+    };
     var options = cals.map(({ c, i }) => `<option value="${i}"${i === f.cal ? ' selected' : ''}>${ccEsc(c.name)}</option>`).join('');
-    var times = f.all_day ? '' :
-      `<div class="frow">${field('start', 'ev_start', `<input type="time" data-f="start" value="${ccEsc(f.start)}">`)}` +
-      `${field('end', 'ev_end', `<input type="time" data-f="end" value="${ccEsc(f.end)}">`)}</div>`;
-    return `<div class="pop form" role="dialog" aria-label="${ccEsc(this._t('add_event'))}" style="--c:${ccEsc(cal?.color || CC_COLORS[0])}">` +
-      `<div class="phead"><span class="cbar"></span><div class="ptitle">${ccEsc(this._t('add_event'))}</div>` +
+    var btns = f.confirm
+      ? `<div class="fask">${ccEsc(this._t('ev_apply_to'))}</div>` +
+        this._btnsHtml('back-edit', [['save-one', 'ev_this', 'mdi:check', 'primary'], ['save-future', 'ev_future', 'mdi:check-all', 'primary']], f.busy)
+      : this._btnsHtml('cancel-add', [['save-add', f.edit ? 'ev_save' : 'ev_add', 'mdi:check', 'primary']], f.busy);
+    return `<div class="pop form" role="dialog" aria-label="${title}" style="--c:${ccEsc(cal?.color || CC_COLORS[0])}">` +
+      `<div class="phead"><span class="cbar"></span><div class="ptitle">${title}</div>` +
       `<button class="pclose" data-action="cancel-add" title="${ccEsc(this._t('ev_cancel'))}" aria-label="${ccEsc(this._t('ev_cancel'))}"><ha-icon icon="mdi:close"></ha-icon></button></div>` +
       field('summary', 'ev_title', `<input type="text" data-f="summary" value="${ccEsc(f.summary)}" maxlength="200" autocomplete="off">`) +
-      (cals.length > 1 ? field('cal', 'ev_calendar', `<select data-f="cal">${options}</select>`) : '') +
-      `<div class="frow">${field('date', 'ev_date', `<input type="date" data-f="date" value="${ccEsc(f.date)}">`)}` +
-      `<label class="fcheck"><input type="checkbox" data-f="all_day"${f.all_day ? ' checked' : ''}><span>${ccEsc(this._t('all_day'))}</span></label></div>` +
-      times +
+      // An edited event stays in its calendar.
+      (cals.length > 1 && !f.edit ? field('cal', 'ev_calendar', `<select data-f="cal">${options}</select>`) : '') +
+      `<label class="fcheck"><input type="checkbox" data-f="all_day"${f.all_day ? ' checked' : ''}><span>${ccEsc(this._t('all_day'))}</span></label>` +
+      when('start', 'ev_start', 'date', f.date, 'start', f.start) +
+      when('end', 'ev_end', 'end_date', this._endDate(), 'end', f.end) +
       field('location', 'ev_location', `<input type="text" data-f="location" value="${ccEsc(f.location)}" maxlength="200" autocomplete="off">`) +
       (f.error ? `<div class="ferr" role="alert">${ccEsc(f.error)}</div>` : '') +
-      `<div class="fbtns"><button class="fbtn" data-action="cancel-add">${ccEsc(this._t('ev_cancel'))}</button>` +
-      `<button class="fbtn primary" data-action="save-add"${f.busy ? ' disabled' : ''}><ha-icon icon="${f.busy ? 'mdi:loading' : 'mdi:check'}"></ha-icon>${ccEsc(this._t('ev_add'))}</button></div>` +
-      '</div>';
+      btns + '</div>';
+  }
+
+  // Delete confirmation of the event in the details popup, under its title: an instance of a recurring
+  // event offers this event only, or this one and the following ones.
+  _confirmHtml(e) {
+    if (this._confirm == null || this._confirm !== this._detail) return '';
+    var actions = e.recurrence_id
+      ? [['delete-one', 'ev_this', 'mdi:delete-outline', 'danger'], ['delete-future', 'ev_future', 'mdi:delete-sweep-outline', 'danger']]
+      : [['delete-one', 'ev_delete', 'mdi:delete-outline', 'danger']];
+    return `<div class="pconf"><div class="fask">${ccEsc(this._t('ev_delete_confirm'))}</div>` +
+      (this._popErr ? `<div class="ferr" role="alert">${ccEsc(this._popErr)}</div>` : '') +
+      this._btnsHtml('cancel-delete', actions, this._popBusy) + '</div>';
+  }
+
+  _detailEvent() {
+    var item = this._detail != null && this._flat?.[this._evIndex(this._detail)];
+    return item ? item.e : null;
+  }
+
+  async _deleteEvent(range) {
+    var e = this._detailEvent();
+    if (!e || this._popBusy) return;
+    var msg = { type: 'calendar/event/delete', entity_id: this._cals[e.cal].entity, uid: e.uid };
+    if (e.recurrence_id) {
+      msg.recurrence_id = e.recurrence_id;
+      if (range) msg.recurrence_range = range;
+    }
+    this._popBusy = true;
+    this._popErr = '';
+    this._sig = null;
+    this._update();
+    try {
+      await this._hass.callWS(msg);
+      this._popBusy = false;
+      this._confirm = null;
+      this._detail = null;
+      this._refetch();
+    } catch (err) {
+      this._popBusy = false;
+      this._popErr = this._t('ev_delete_failed').replace('{e}', err?.message || String(err));
+      this._sig = null;
+      this._update();
+    }
   }
 
   _compact() { return false; }
@@ -1992,9 +2361,9 @@ class CalendarAgendaCard extends HTMLElement {
   // Event details, at the top of the card.
   _popupHtml() {
     if (this._adding && this._form) return this._formHtml();
-    var item = this._detail != null && this._flat[this._evIndex(this._detail)];
-    if (!item) return '';
-    var e = item.e, cal = this._cals[e.cal];
+    var e = this._detailEvent();
+    if (!e) return '';
+    var cal = this._cals[e.cal];
     var date = this._dateFmt(e.start, { weekday: 'long', day: 'numeric', month: 'long' });
     var when;
     if (e.allDay) {
@@ -2009,10 +2378,12 @@ class CalendarAgendaCard extends HTMLElement {
     if (e.location) rows.push(`<div class="prow"><ha-icon icon="mdi:map-marker-outline"></ha-icon><span>${ccEsc(e.location)}</span></div>`);
     rows.push(`<div class="prow"><span class="pdot" style="background:${ccEsc(cal.color)}"></span><span>${ccEsc(cal.name)}</span></div>`);
     if (e.description) rows.push(`<div class="pdesc">${ccEsc(String(e.description).slice(0, 1200))}</div>`);
+    var btn = (action, label, icon) => `<button class="pclose" data-action="${action}" title="${ccEsc(this._t(label))}" aria-label="${ccEsc(this._t(label))}"><ha-icon icon="${icon}"></ha-icon></button>`;
     return `<div class="pop" role="dialog" aria-label="${ccEsc(e.summary)}" style="--c:${ccEsc(cal.color)}">` +
       `<div class="phead"><span class="cbar"></span><div class="ptitle">${ccEsc(e.summary)}</div>` +
-      `<button class="pclose" data-action="close" title="${ccEsc(this._t('close'))}" aria-label="${ccEsc(this._t('close'))}"><ha-icon icon="mdi:close"></ha-icon></button></div>` +
-      rows.join('') + '</div>';
+      (this._canChange(e, CC_UPDATE) ? btn('edit', 'edit_event', 'mdi:pencil-outline') : '') +
+      (this._canChange(e, CC_DELETE) ? btn('delete', 'delete_event', 'mdi:delete-outline') : '') +
+      `${btn('close', 'close', 'mdi:close')}</div>${this._confirmHtml(e)}${rows.join('')}</div>`;
   }
 
   _onClick(ev) {
@@ -2026,6 +2397,14 @@ class CalendarAgendaCard extends HTMLElement {
         case 'add': this._openForm(); break;
         case 'cancel-add': this._closeForm(); break;
         case 'save-add': this._saveForm(); return;
+        case 'save-one': this._saveForm(''); return;
+        case 'save-future': this._saveForm(CC_FUTURE); return;
+        case 'back-edit': this._form.confirm = false; this._redrawForm(); return;
+        case 'edit': { var e = this._detailEvent(); if (e) this._openForm(e); break; }
+        case 'delete': this._confirm = this._detail; this._popErr = ''; break;
+        case 'cancel-delete': this._confirm = null; break;
+        case 'delete-one': this._deleteEvent(''); return;
+        case 'delete-future': this._deleteEvent(CC_FUTURE); return;
       }
       this._update();
       if (btn.dataset.action === 'zoom' && ev.detail === 0) this.shadowRoot.querySelector('.zoom')?.focus({ preventScroll: true });
@@ -2159,15 +2538,22 @@ class CalendarAgendaCard extends HTMLElement {
       '.form .frow { display: flex; gap: 8px; align-items: flex-end; flex-wrap: wrap; }' +
       '.form .fcheck { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--primary-text-color); padding: 8px 0; white-space: nowrap; }' +
       '.form .fcheck input { accent-color: var(--c); }' +
-      '.form .ferr { font-size: 12px; color: var(--error-color, #db4437); }' +
-      '.form .fbtns { display: flex; justify-content: flex-end; gap: 8px; margin-top: 2px; }' +
-      // No filled button: outlined, the main one in the calendar's colour.
-      '.form .fbtn { display: inline-flex; align-items: center; gap: 4px; padding: 6px 14px; border-radius: 10px; font-size: 13px; font-weight: 500; background: none;' +
+      // Start and end: the date, then the time, on one line.
+      '.form .fdt { display: flex; gap: 8px; }' +
+      '.form .fdt input { flex: 1 1 0; }' +
+      '.pop .ferr { font-size: 12px; color: var(--error-color, #db4437); }' +
+      '.pop .fask { font-size: 13px; font-weight: 500; color: var(--primary-text-color); }' +
+      '.pop .fbtns { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 2px; }' +
+      // Delete confirmation, under the popup's title.
+      '.pconf { display: flex; flex-direction: column; gap: 8px; padding: 0 0 8px 14px; border-bottom: 1px solid var(--divider-color, rgba(128,128,128,0.15)); }' +
+      // No filled button: outlined, the main one in the calendar's colour, a delete in the error colour.
+      '.pop .fbtn { display: inline-flex; align-items: center; gap: 4px; padding: 6px 14px; border-radius: 10px; font-size: 13px; font-weight: 500; background: none;' +
         ' color: var(--secondary-text-color); border: 1px solid color-mix(in srgb, var(--secondary-text-color) 35%, transparent); }' +
-      '.form .fbtn.primary { color: color-mix(in srgb, var(--c) 55%, var(--primary-text-color)); border-color: color-mix(in srgb, var(--c) 55%, transparent); }' +
-      '.form .fbtn:hover:not([disabled]) { background: color-mix(in srgb, var(--c) 10%, transparent); }' +
-      '.form .fbtn[disabled] { opacity: 0.6; cursor: default; }' +
-      '.form .fbtn ha-icon { --mdc-icon-size: 16px; }' +
+      '.pop .fbtn.primary { color: color-mix(in srgb, var(--c) 55%, var(--primary-text-color)); border-color: color-mix(in srgb, var(--c) 55%, transparent); }' +
+      '.pop .fbtn.danger { --c: var(--error-color, #db4437); color: color-mix(in srgb, var(--c) 70%, var(--primary-text-color)); border-color: color-mix(in srgb, var(--c) 55%, transparent); }' +
+      '.pop .fbtn:hover:not([disabled]) { background: color-mix(in srgb, var(--c) 10%, transparent); }' +
+      '.pop .fbtn[disabled] { opacity: 0.6; cursor: default; }' +
+      '.pop .fbtn ha-icon { --mdc-icon-size: 16px; }' +
       '.pdesc { font-size: 13px; line-height: 1.45; white-space: pre-wrap; word-break: break-word; color: var(--primary-text-color); padding: 8px 0 0 14px;' +
         ' border-top: 1px solid var(--divider-color, rgba(128,128,128,0.15)); }' +
       '.zoom { all: unset; flex: none; cursor: pointer; width: 24px; height: 24px; margin: -4px -4px -4px 0; border-radius: 50%;' +
@@ -2317,7 +2703,7 @@ class CalendarAgendaCardEditor extends HTMLElement {
           { name: 'show_countdown', selector: { boolean: {} } },
           { name: 'show_empty_days', selector: { boolean: {} } },
           { name: 'show_past_events', selector: { boolean: {} } },
-        ].concat(mini ? [{ name: 'zoom', selector: { boolean: {} } }] : [{ name: 'add_button', selector: { boolean: {} } }]),
+        ].concat(mini ? [{ name: 'zoom', selector: { boolean: {} } }] : [{ name: 'add_button', selector: { boolean: {} } }, { name: 'edit_buttons', selector: { boolean: {} } }]),
       },
       {
         name: 'language',

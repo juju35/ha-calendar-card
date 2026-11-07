@@ -1101,3 +1101,221 @@ test("new event: no + button without a writable calendar, nor with add_button: f
   await new Promise((r) => setTimeout(r, 0));
   assert.doesNotMatch(card.shadowRoot.innerHTML, /data-action="add"/);
 });
+
+// A card whose "home" calendar has the given features, with callWS recorded (or failing with `fail`).
+async function editable(events, features = 7, config = {}, fail = null) {
+  const card = new CalendarAgendaCard();
+  card.setConfig({ entities: ["calendar.home"], ...config });
+  const hass = mockHass({ "calendar.home": events });
+  hass.states["calendar.home"].attributes.supported_features = features;
+  hass.ws = [];
+  hass.callWS = async (msg) => {
+    hass.ws.push(msg);
+    if (fail) throw new Error(fail);
+  };
+  card.hass = hass;
+  await new Promise((r) => setTimeout(r, 0));
+  card._onClick({ composedPath: () => [{ dataset: { ev: "0" } }] });
+  return card;
+}
+const click = (card, action) => card._onClick({ composedPath: () => [{ dataset: { action } }] });
+const flush = () => new Promise((r) => setTimeout(r, 0));
+const utc = (days, h, m = 0) => `${at(days, h, m).slice(0, 19)}+00:00`;
+
+test("edit and delete: buttons in the details for a calendar that allows it, hidden otherwise", async () => {
+  const ev = [{ uid: "a1", summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }];
+  let html = (await editable(ev)).shadowRoot.innerHTML;
+  assert.match(html, /data-action="edit" title="Edit event"/);
+  assert.match(html, /data-action="delete" title="Delete event"/);
+  // DELETE_EVENT only: no edit button.
+  html = (await editable(ev, 2)).shadowRoot.innerHTML;
+  assert.doesNotMatch(html, /data-action="edit"/);
+  assert.match(html, /data-action="delete"/);
+  // UPDATE_EVENT only: no delete button.
+  html = (await editable(ev, 5)).shadowRoot.innerHTML;
+  assert.match(html, /data-action="edit"/);
+  assert.doesNotMatch(html, /data-action="delete"/);
+  // Read-only calendar, an event without uid, or edit_buttons: false.
+  for (const card of [await editable(ev, 1), await editable([{ ...ev[0], uid: undefined }]), await editable(ev, 7, { edit_buttons: false })]) {
+    html = card.shadowRoot.innerHTML;
+    assert.match(html, /class="pop"/);
+    assert.doesNotMatch(html, /data-action="(edit|delete)"/);
+  }
+});
+
+test("delete: confirmation in the popup, then calendar/event/delete and a refetch", async () => {
+  const card = await editable([{ uid: "a1", summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }]);
+  const hass = card._hass;
+  click(card, "delete");
+  const html = card.shadowRoot.innerHTML;
+  assert.match(html, /class="pop"[\s\S]*Delete this event\?/);
+  assert.match(html, /data-action="delete-one"[^>]*>.*Delete</);
+  assert.doesNotMatch(html, /delete-future/);
+  // Cancel keeps the details open, without the confirmation.
+  click(card, "cancel-delete");
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /Delete this event\?/);
+  assert.match(card.shadowRoot.innerHTML, /class="pop"/);
+  click(card, "delete");
+  const fetches = hass.calls.length;
+  click(card, "delete-one");
+  await flush();
+  assert.deepEqual(plain(hass.ws), [{ type: "calendar/event/delete", entity_id: "calendar.home", uid: "a1" }]);
+  assert.equal(card._detail, null);
+  assert.ok(hass.calls.length > fetches, "the agenda is fetched again");
+});
+
+test("delete: a recurring event offers this event or this and the following ones", async () => {
+  const ev = [{ uid: "r1", recurrence_id: "20261108T090000", rrule: "FREQ=WEEKLY", summary: "Yoga", start: { dateTime: at(1, 9) }, end: { dateTime: at(1, 10) } }];
+  let card = await editable(ev);
+  click(card, "delete");
+  const html = card.shadowRoot.innerHTML;
+  assert.match(html, /data-action="delete-one"[^>]*>.*This event</);
+  assert.match(html, /data-action="delete-future"[^>]*>.*This and following events</);
+  click(card, "delete-future");
+  await flush();
+  assert.deepEqual(plain(card._hass.ws), [
+    { type: "calendar/event/delete", entity_id: "calendar.home", uid: "r1", recurrence_id: "20261108T090000", recurrence_range: "THISANDFUTURE" },
+  ]);
+  card = await editable(ev);
+  click(card, "delete");
+  click(card, "delete-one");
+  await flush();
+  assert.deepEqual(plain(card._hass.ws), [{ type: "calendar/event/delete", entity_id: "calendar.home", uid: "r1", recurrence_id: "20261108T090000" }]);
+});
+
+test("delete: an error is shown in the popup", async () => {
+  const card = await editable([{ uid: "a1", summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }], 7, {}, "Read-only");
+  click(card, "delete");
+  click(card, "delete-one");
+  await flush();
+  assert.match(card.shadowRoot.innerHTML, /class="pop"[\s\S]*Could not delete the event: Read-only/);
+  assert.notEqual(card._detail, null);
+});
+
+test("edit: the form is pre-filled and saved with calendar/event/update, times in UTC", async () => {
+  const card = await editable([{
+    uid: "a1", summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12, 30) }, location: "High Street", description: "Bring the card",
+  }]);
+  const fetches = card._hass.calls.length;
+  click(card, "edit");
+  const html = card.shadowRoot.innerHTML;
+  assert.match(html, /class="pop form" role="dialog" aria-label="Edit event"/);
+  assert.match(html, /data-f="summary" value="Dentist"/);
+  assert.match(html, new RegExp(`data-f="date" value="${day(1)}"`));
+  assert.match(html, new RegExp(`data-f="end_date" value="${day(1)}"`));
+  assert.match(html, /data-f="start" value="11:00"/);
+  assert.match(html, /data-f="end" value="12:30"/);
+  assert.match(html, /data-f="location" value="High Street"/);
+  assert.match(html, /data-action="save-add"[^>]*>.*Save</);
+  card._form.summary = "Dentist (moved)";
+  card._form.start = "15:00";
+  card._form.end = "16:00";
+  await card._saveForm();
+  assert.deepEqual(plain(card._hass.ws), [{
+    type: "calendar/event/update", entity_id: "calendar.home", uid: "a1",
+    // The description is not in the form: it is kept.
+    event: { summary: "Dentist (moved)", dtstart: utc(1, 15), dtend: utc(1, 16), location: "High Street", description: "Bring the card" },
+  }]);
+  assert.equal(card._adding, false);
+  assert.ok(card._hass.calls.length > fetches, "the agenda is fetched again");
+});
+
+test("edit: a multi-day all-day event keeps its dates, the end sent as the day after", async () => {
+  const card = await editable([{ uid: "h1", summary: "Holidays", start: { date: day(1) }, end: { date: day(4) } }]);
+  click(card, "edit");
+  assert.match(card.shadowRoot.innerHTML, new RegExp(`data-f="end_date" value="${day(3)}"`));
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /type="time"/);
+  await card._saveForm();
+  assert.deepEqual(plain(card._hass.ws[0].event), { summary: "Holidays", dtstart: day(1), dtend: day(4) });
+});
+
+test("edit: a recurring event asks this event or this and the following ones", async () => {
+  const ev = [{ uid: "r1", recurrence_id: "20261108T090000", rrule: "FREQ=WEEKLY", summary: "Yoga", start: { dateTime: at(1, 9) }, end: { dateTime: at(1, 10) } }];
+  let card = await editable(ev);
+  click(card, "edit");
+  await card._saveForm();
+  assert.equal(card._hass.ws.length, 0);
+  let html = card.shadowRoot.innerHTML;
+  assert.match(html, /Apply the changes to/);
+  assert.match(html, /data-action="save-one"/);
+  assert.match(html, /data-action="save-future"/);
+  click(card, "save-future");
+  await flush();
+  // This and the following ones: the recurrence rule goes with the change.
+  assert.deepEqual(plain(card._hass.ws), [{
+    type: "calendar/event/update", entity_id: "calendar.home", uid: "r1", recurrence_id: "20261108T090000", recurrence_range: "THISANDFUTURE",
+    event: { summary: "Yoga", dtstart: utc(1, 9), dtend: utc(1, 10), rrule: "FREQ=WEEKLY" },
+  }]);
+  // This event only: no recurrence rule, no range.
+  card = await editable(ev);
+  click(card, "edit");
+  await card._saveForm();
+  click(card, "save-one");
+  await flush();
+  assert.deepEqual(plain(card._hass.ws), [{
+    type: "calendar/event/update", entity_id: "calendar.home", uid: "r1", recurrence_id: "20261108T090000",
+    event: { summary: "Yoga", dtstart: utc(1, 9), dtend: utc(1, 10) },
+  }]);
+  // Back to the form, and an error from Home Assistant shown in it.
+  card = await editable(ev, 7, {}, "Bad rule");
+  click(card, "edit");
+  await card._saveForm();
+  click(card, "back-edit");
+  html = card.shadowRoot.innerHTML;
+  assert.doesNotMatch(html, /Apply the changes to/);
+  assert.match(html, /data-action="save-add"/);
+  await card._saveForm("");
+  assert.match(card.shadowRoot.innerHTML, /class="pop form"[\s\S]*Could not save the event: Bad rule/);
+  assert.notEqual(card._form, null);
+});
+
+test("new event: an end date for overnight and multi-day events, the end after the start across dates", async () => {
+  const card = new CalendarAgendaCard();
+  card.setConfig({ entity: "calendar.home" });
+  const hass = mockHass({});
+  hass.states["calendar.home"].attributes.supported_features = 1;
+  const services = [];
+  hass.callService = async (...args) => {
+    services.push(args);
+  };
+  card.hass = hass;
+  click(card, "add");
+  // The end date defaults to the start date, and follows it.
+  assert.equal(card._form.span, 0);
+  assert.match(card.shadowRoot.innerHTML, new RegExp(`data-f="end_date" value="${card._form.date}"`));
+  Object.assign(card._form, { summary: "Night shift", date: "2026-11-20", start: "22:00", end: "06:00" });
+  // The same day, 06:00 is before 22:00.
+  await card._saveForm();
+  assert.match(card.shadowRoot.innerHTML, /The end must be after the start/);
+  assert.equal(services.length, 0);
+  // An end date before the start date is refused, all day too.
+  card._onField({ target: { dataset: { f: "end_date" }, value: "2026-11-19" } });
+  assert.equal(card._form.span, -1);
+  card._form.all_day = true;
+  await card._saveForm();
+  assert.match(card.shadowRoot.innerHTML, /The end must be after the start/);
+  card._form.all_day = false;
+  // The next day: 22:00 to 06:00 overnight.
+  card._onField({ target: { dataset: { f: "end_date" }, value: "2026-11-21" } });
+  await card._saveForm();
+  assert.deepEqual(plain(services[0][2]), {
+    summary: "Night shift",
+    start_date_time: `${new Date(2026, 10, 20, 22).toISOString().slice(0, 19)}+00:00`,
+    end_date_time: `${new Date(2026, 10, 21, 6).toISOString().slice(0, 19)}+00:00`,
+  });
+  // All day over three days: the end date is the last day, sent as the day after.
+  card._openForm();
+  Object.assign(card._form, { summary: "Trip", date: "2026-12-30", all_day: true });
+  card._onField({ target: { dataset: { f: "end_date" }, value: "2027-01-01" } });
+  await card._saveForm();
+  assert.deepEqual(plain(services[1][2]), { summary: "Trip", start_date: "2026-12-30", end_date: "2027-01-02" });
+});
+
+test("editor offers the edit and delete buttons option on the full card", () => {
+  const ed = new CalendarAgendaCardEditor();
+  ed.setConfig({ type: "custom:calendar-agenda-card" });
+  const names = JSON.stringify(ed._schema());
+  assert.match(names, /"edit_buttons"/);
+  ed.setConfig({ type: "custom:calendar-agenda-mini-card" });
+  assert.doesNotMatch(JSON.stringify(ed._schema()), /"edit_buttons"/);
+});

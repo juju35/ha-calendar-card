@@ -84,11 +84,15 @@ const icons = {
   "arrow-collapse": "M19.5,3.09L15,7.59V4H13V11H20V9H16.41L20.91,4.5L19.5,3.09M4,13V15H7.59L3.09,19.5L4.5,20.91L9,16.41V20H11V13H4Z",
   "arrow-expand": "M10,21V19H6.41L10.91,14.5L9.5,13.09L5,17.59V14H3V21H10M14.5,10.91L19,6.41V10H21V3H14V5H17.59L13.09,9.5L14.5,10.91Z",
   "check": "M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z",
+  "check-all": "M0.41,13.41L6,19L7.41,17.58L1.83,12M22.24,5.58L11.66,16.17L7.5,12L6.07,13.41L11.66,19L23.66,7M18,7L16.59,5.58L10.24,11.93L11.66,13.34L18,7Z",
   "chevron-down": "M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z",
   "chevron-right": "M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z",
   "clock-outline": "M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z",
+  "delete-outline": "M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8,9H16V19H8V9M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5Z",
+  "delete-sweep-outline": "M15,16H19V18H15V16M15,8H22V10H15V8M15,12H21V14H15V12M11,10V18H5V10H11M13,8H3V18A2,2 0 0,0 5,20H11A2,2 0 0,0 13,18V8M14,5H11L10,4H6L5,5H2V7H14V5Z",
   "close": "M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z",
   "map-marker-outline": "M12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5M12,2A7,7 0 0,1 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9A7,7 0 0,1 12,2M12,4A5,5 0 0,0 7,9C7,10 7,12 12,18.71C17,12 17,10 17,9A5,5 0 0,0 12,4Z",
+  "pencil-outline": "M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z",
   "plus": "M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z",
 };
 
@@ -114,9 +118,12 @@ const EVENTS = {
     { summary: "All Saints' Day", start: { date: "2026-11-01" }, end: { date: "2026-11-02" } },
   ],
 };
+// Each event has a uid, like the events of a Local Calendar: the details popup offers edit and delete.
+for (const [id, list] of Object.entries(EVENTS)) list.forEach((e, i) => { e.uid = `${id}-${i}`; });
 
 const states = {
-  // Home and Work accept new events (CREATE_EVENT), like a Local Calendar or CalDAV: the + button shows.
+  // Home and Work accept new, changed and deleted events (CREATE_EVENT | DELETE_EVENT | UPDATE_EVENT),
+  // like a Local Calendar or CalDAV: the + button and the edit and delete buttons show.
   "calendar.home": { entity_id: "calendar.home", state: "on", attributes: { friendly_name: "Home", supported_features: 7 }, last_changed: "x" },
   "calendar.work": { entity_id: "calendar.work", state: "on", attributes: { friendly_name: "Work", supported_features: 7 }, last_changed: "x" },
   "calendar.holidays": { entity_id: "calendar.holidays", state: "off", attributes: { friendly_name: "Public holidays" }, last_changed: "x" },
@@ -143,6 +150,24 @@ const shots = [
       await page.locator("calendar-agenda-card .addb").click();
       await page.locator("calendar-agenda-card input[data-f=summary]").fill("Dentist");
       await page.locator("calendar-agenda-card input[data-f=location]").fill("12 High Street");
+      await page.mouse.move(0, 0);
+    },
+  })),
+  // The edit form of an event, opened from its details.
+  ...["light", "dark"].map((theme) => ({
+    file: theme === "dark" ? "agenda-edit-dark" : "agenda-edit", type: "calendar-agenda-card", theme, width: 460, config: {},
+    after: async (page) => {
+      await page.locator("calendar-agenda-card .ev", { hasText: "Project review" }).click();
+      await page.locator("calendar-agenda-card .pclose[data-action=edit]").click();
+      await page.mouse.move(0, 0);
+    },
+  })),
+  // The delete confirmation in the details popup.
+  ...["light", "dark"].map((theme) => ({
+    file: theme === "dark" ? "agenda-delete-dark" : "agenda-delete", type: "calendar-agenda-card", theme, width: 460, config: {},
+    after: async (page) => {
+      await page.locator("calendar-agenda-card .ev", { hasText: "Project review" }).click();
+      await page.locator("calendar-agenda-card .pclose[data-action=delete]").click();
       await page.mouse.move(0, 0);
     },
   })),
