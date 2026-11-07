@@ -792,34 +792,40 @@ test("the popup close button shows a keyboard focus ring", async () => {
 });
 
 test("narrow header: the title keeps a few characters, the pill shrinks to its dot, the buttons never shrink", async () => {
-  const Mini = customElements.get("calendar-agenda-mini-card");
-  const events = { "calendar.home": [{ summary: "Stand-up", start: { dateTime: at(0, 23) }, end: { dateTime: at(0, 23, 30) } }] };
-  for (const card of [await render(Mini, events, { language: "fr" }), await render(CalendarAgendaCard, events, { language: "fr" })]) {
-    const html = card.shadowRoot.innerHTML;
-    assert.match(cssRule(html, ".header"), /container-type: inline-size/);
-    // The title block starts from 0 and takes what the pill leaves: the pill is cut only when it has to be.
-    assert.match(cssRule(html, ".titles"), /flex: 1 1 0;/);
-    assert.match(cssRule(html, ".titles"), /min-width: \d+(\.\d+)?ch/);
-    const st = cssRule(html, ".st");
-    for (const re of [/flex: 0 1 auto/, /min-width: 0/, /overflow: hidden/]) assert.match(st, re);
-    assert.doesNotMatch(st, /max-width/);
-    assert.doesNotMatch(st, /flex-shrink: 0/);
-    assert.match(cssRule(html, ".st .stt"), /text-overflow: ellipsis/);
-    // The counter text sits in its own ellipsized span; the whole text stays in the pill's tooltip.
-    assert.match(html, /<span class="st" title="1 événement aujourd&#39;hui"><span class="dot"><\/span><span class="stt">1 événement aujourd&#39;hui<\/span><\/span>/);
-    // Under the threshold only the dot is shown; the text is visually hidden but still read out.
-    const narrow = html.match(/@container \(max-width: 200px\) \{([\s\S]*?)\}\s*\}/)?.[1] || "";
-    assert.match(narrow, /\.st \.stt \{[^}]*clip-path: inset\(50%\)/);
-    assert.match(narrow, /\.st \.dot \{[^}]*display: block/);
-    // A little wider, the logo gives way so the counter keeps its whole text; the title, first then, keeps its place.
-    assert.match(html, /@container \(max-width: 240px\) \{ \.logo \{ display: none; \} \}/);
-    assert.doesNotMatch(narrow, /\.titles[^{]*\{[^}]*margin-left: -/);
+  // At 09:40, so the 23:00 event is still ahead whatever the hour the tests run at.
+  mock.timers.enable({ apis: ["Date"], now: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9, 40) });
+  try {
+    const Mini = customElements.get("calendar-agenda-mini-card");
+    const events = { "calendar.home": [{ summary: "Stand-up", start: { dateTime: at(0, 23) }, end: { dateTime: at(0, 23, 30) } }] };
+    for (const card of [await render(Mini, events, { language: "fr" }), await render(CalendarAgendaCard, events, { language: "fr" })]) {
+      const html = card.shadowRoot.innerHTML;
+      assert.match(cssRule(html, ".header"), /container-type: inline-size/);
+      // The title block starts from 0 and takes what the pill leaves: the pill is cut only when it has to be.
+      assert.match(cssRule(html, ".titles"), /flex: 1 1 0;/);
+      assert.match(cssRule(html, ".titles"), /min-width: \d+(\.\d+)?ch/);
+      const st = cssRule(html, ".st");
+      for (const re of [/flex: 0 1 auto/, /min-width: 0/, /overflow: hidden/]) assert.match(st, re);
+      assert.doesNotMatch(st, /max-width/);
+      assert.doesNotMatch(st, /flex-shrink: 0/);
+      assert.match(cssRule(html, ".st .stt"), /text-overflow: ellipsis/);
+      // The counter text sits in its own ellipsized span; the whole text stays in the pill's tooltip.
+      assert.match(html, /<span class="st" title="1 événement aujourd&#39;hui"><span class="dot"><\/span><span class="stt">1 événement aujourd&#39;hui<\/span><\/span>/);
+      // Under the threshold only the dot is shown; the text is visually hidden but still read out.
+      const narrow = html.match(/@container \(max-width: 200px\) \{([\s\S]*?)\}\s*\}/)?.[1] || "";
+      assert.match(narrow, /\.st \.stt \{[^}]*clip-path: inset\(50%\)/);
+      assert.match(narrow, /\.st \.dot \{[^}]*display: block/);
+      // A little wider, the logo gives way so the counter keeps its whole text; the title, first then, keeps its place.
+      assert.match(html, /@container \(max-width: 240px\) \{ \.logo \{ display: none; \} \}/);
+      assert.doesNotMatch(narrow, /\.titles[^{]*\{[^}]*margin-left: -/);
+    }
+    const card = await render(Mini, events);
+    assert.match(cssRule(card.shadowRoot.innerHTML, ".zoom"), /flex: none/);
+    // The mini card keeps the full card's 40px logo: no mini-only size.
+    assert.doesNotMatch(card.shadowRoot.innerHTML, /\.mini \.logo \{/);
+    assert.match(cssRule(card.shadowRoot.innerHTML, ".logo"), /width: 40px; height: 40px;/);
+  } finally {
+    mock.timers.reset();
   }
-  const card = await render(Mini, events);
-  assert.match(cssRule(card.shadowRoot.innerHTML, ".zoom"), /flex: none/);
-  // The mini card keeps the full card's 40px logo: no mini-only size.
-  assert.doesNotMatch(card.shadowRoot.innerHTML, /\.mini \.logo \{/);
-  assert.match(cssRule(card.shadowRoot.innerHTML, ".logo"), /width: 40px; height: 40px;/);
 });
 
 test("narrow mini card: an all-day line and the next-event line keep the event name, their date gives way", async () => {
@@ -946,29 +952,35 @@ test("the card gives way in a shared grid (1fr 1fr) and keeps its content width 
 });
 
 test("a narrow event row: the time wins over the location, the countdown drops under the event", async () => {
-  const Mini = customElements.get("calendar-agenda-mini-card");
-  const events = { "calendar.home": [{ summary: "Dentist", start: { dateTime: at(0, 23) }, end: { dateTime: at(0, 23, 30) }, location: "12 High Street" }] };
-  for (const card of [await render(CalendarAgendaCard, events), await render(Mini, events)]) {
-    const html = card.shadowRoot.innerHTML;
-    const shrink = (sel) => Number(cssRule(html, sel).match(/flex: \d+ (\d+) /)?.[1]);
-    assert.ok(shrink(".loc") >= 100 * shrink(".emeta .when"), "the location shrinks long before the time");
-    assert.match(html, /<span class="loc"><ha-icon[^>]*><\/ha-icon><span class="lt">12 High Street<\/span><\/span>/);
-    assert.match(cssRule(html, ".loc .lt"), /text-overflow: ellipsis/);
-    // A time line too long for the row (an all-day range) wraps instead of being cut.
-    assert.match(cssRule(html, ".emeta .when"), /white-space: normal/);
-    // The countdown keeps its whole text and wraps instead of squeezing the event.
-    assert.match(html, /<span class="cd">/);
-    assert.match(cssRule(html, ".ev"), /flex-wrap: wrap/);
-    assert.match(cssRule(html, ".emain"), /min-width: min\(100%, \d+px\)/);
-    assert.match(cssRule(html, ".cd"), /flex-shrink: 0/);
-    // The color bar is out of the flow, so it spans the wrapped line too.
-    assert.match(cssRule(html, ".ev .cbar"), /position: absolute/);
-    assert.match(cssRule(html, ".ev"), /position: relative/);
+  // At 09:40, so the 23:00 event is still ahead whatever the hour the tests run at.
+  mock.timers.enable({ apis: ["Date"], now: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9, 40) });
+  try {
+    const Mini = customElements.get("calendar-agenda-mini-card");
+    const events = { "calendar.home": [{ summary: "Dentist", start: { dateTime: at(0, 23) }, end: { dateTime: at(0, 23, 30) }, location: "12 High Street" }] };
+    for (const card of [await render(CalendarAgendaCard, events), await render(Mini, events)]) {
+      const html = card.shadowRoot.innerHTML;
+      const shrink = (sel) => Number(cssRule(html, sel).match(/flex: \d+ (\d+) /)?.[1]);
+      assert.ok(shrink(".loc") >= 100 * shrink(".emeta .when"), "the location shrinks long before the time");
+      assert.match(html, /<span class="loc"><ha-icon[^>]*><\/ha-icon><span class="lt">12 High Street<\/span><\/span>/);
+      assert.match(cssRule(html, ".loc .lt"), /text-overflow: ellipsis/);
+      // A time line too long for the row (an all-day range) wraps instead of being cut.
+      assert.match(cssRule(html, ".emeta .when"), /white-space: normal/);
+      // The countdown keeps its whole text and wraps instead of squeezing the event.
+      assert.match(html, /<span class="cd">/);
+      assert.match(cssRule(html, ".ev"), /flex-wrap: wrap/);
+      assert.match(cssRule(html, ".emain"), /min-width: min\(100%, \d+px\)/);
+      assert.match(cssRule(html, ".cd"), /flex-shrink: 0/);
+      // The color bar is out of the flow, so it spans the wrapped line too.
+      assert.match(cssRule(html, ".ev .cbar"), /position: absolute/);
+      assert.match(cssRule(html, ".ev"), /position: relative/);
+    }
+    // On a full card squeezed into a narrow column, the events go under the date.
+    const html = (await render(CalendarAgendaCard, events)).shadowRoot.innerHTML;
+    assert.match(cssRule(html, ".day"), /flex-wrap: wrap/);
+    assert.match(cssRule(html, ".events"), /min-width: min\(100%, \d+px\)/);
+  } finally {
+    mock.timers.reset();
   }
-  // On a full card squeezed into a narrow column, the events go under the date.
-  const html = (await render(CalendarAgendaCard, events)).shadowRoot.innerHTML;
-  assert.match(cssRule(html, ".day"), /flex-wrap: wrap/);
-  assert.match(cssRule(html, ".events"), /min-width: min\(100%, \d+px\)/);
 });
 
 test("new event: + button for calendars that accept events, form at the top, create_event with the right data", async () => {
