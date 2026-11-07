@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.1 - 2026-11-07
+
+### Fixes
+- New event form: opened between 22:00 and 22:59, the default end is 23:59 instead of 00:00, which the form refused as before the start.
+- New event form: start and end times are sent with their time zone (in UTC), so the event lands at the time entered even when the Home Assistant server is in another time zone than the browser.
+
 ## 1.3.0 - 2026-11-07
 
 ### Features
