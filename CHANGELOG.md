@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.0 - 2026-11-07
+
+### Features
+- Full card: a **+** button in the header opens a **New event** form (title, calendar, date, all day or start and end time, location) that adds the event through `calendar.create_event`. Shown when a calendar accepts new events; `add_button: false` hides it (also in the visual editor).
+
 ## 1.2.11 - 2026-11-04
 
 ### Documentation

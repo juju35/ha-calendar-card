@@ -26,6 +26,20 @@ var CcI18n = {
     no_calendar: 'Aucun calendrier trouvé',
     zoom_in: 'Afficher la carte complète',
     zoom_out: 'Revenir à la vue compacte',
+    add_event: 'Nouvel événement',
+    ev_title: 'Titre',
+    ev_calendar: 'Calendrier',
+    ev_date: 'Date',
+    ev_start: 'Début',
+    ev_end: 'Fin',
+    ev_location: 'Lieu',
+    ev_add: 'Ajouter',
+    ev_cancel: 'Annuler',
+    ev_need_title: 'Donnez un titre à l\'événement',
+    ev_bad_end: 'La fin doit être après le début',
+    ev_failed: 'Impossible d\'ajouter l\'événement : {e}',
+    ed_add_button: 'Bouton d\'ajout',
+    ed_add_button_helper: 'Bouton + dans l\'en-tête pour ajouter un événement à un calendrier qui l\'accepte',
     ed_entities: 'Calendriers',
     ed_entities_helper: 'Couleurs et libellés par calendrier : en YAML (voir le README)',
     ed_title: 'Titre',
@@ -68,6 +82,20 @@ var CcI18n = {
     no_calendar: 'No calendar found',
     zoom_in: 'Show the full card',
     zoom_out: 'Back to the compact view',
+    add_event: 'New event',
+    ev_title: 'Title',
+    ev_calendar: 'Calendar',
+    ev_date: 'Date',
+    ev_start: 'Start',
+    ev_end: 'End',
+    ev_location: 'Location',
+    ev_add: 'Add',
+    ev_cancel: 'Cancel',
+    ev_need_title: 'Give the event a title',
+    ev_bad_end: 'The end must be after the start',
+    ev_failed: 'Could not add the event: {e}',
+    ed_add_button: 'Add button',
+    ed_add_button_helper: '+ button in the header to add an event to a calendar that accepts it',
     ed_entities: 'Calendars',
     ed_entities_helper: 'Colors and labels per calendar: in YAML (see the README)',
     ed_title: 'Title',
@@ -110,6 +138,20 @@ var CcI18n = {
     no_calendar: 'Kein Kalender gefunden',
     zoom_in: 'Vollständige Karte anzeigen',
     zoom_out: 'Zurück zur kompakten Ansicht',
+    add_event: 'Neuer Termin',
+    ev_title: 'Titel',
+    ev_calendar: 'Kalender',
+    ev_date: 'Datum',
+    ev_start: 'Beginn',
+    ev_end: 'Ende',
+    ev_location: 'Ort',
+    ev_add: 'Hinzufügen',
+    ev_cancel: 'Abbrechen',
+    ev_need_title: 'Gib dem Termin einen Titel',
+    ev_bad_end: 'Das Ende muss nach dem Beginn liegen',
+    ev_failed: 'Termin konnte nicht hinzugefügt werden: {e}',
+    ed_add_button: 'Hinzufügen-Schaltfläche',
+    ed_add_button_helper: '+-Schaltfläche in der Kopfzeile, um einem Kalender, der es erlaubt, einen Termin hinzuzufügen',
     ed_entities: 'Kalender',
     ed_entities_helper: 'Farben und Namen pro Kalender: in YAML (siehe README)',
     ed_title: 'Titel',
@@ -152,6 +194,20 @@ var CcI18n = {
     no_calendar: 'No se ha encontrado ningún calendario',
     zoom_in: 'Mostrar la tarjeta completa',
     zoom_out: 'Volver a la vista compacta',
+    add_event: 'Nuevo evento',
+    ev_title: 'Título',
+    ev_calendar: 'Calendario',
+    ev_date: 'Fecha',
+    ev_start: 'Inicio',
+    ev_end: 'Fin',
+    ev_location: 'Lugar',
+    ev_add: 'Añadir',
+    ev_cancel: 'Cancelar',
+    ev_need_title: 'Pon un título al evento',
+    ev_bad_end: 'El fin debe ser posterior al inicio',
+    ev_failed: 'No se pudo añadir el evento: {e}',
+    ed_add_button: 'Botón de añadir',
+    ed_add_button_helper: 'Botón + en la cabecera para añadir un evento a un calendario que lo admita',
     ed_entities: 'Calendarios',
     ed_entities_helper: 'Colores y nombres por calendario: en YAML (consulta el README)',
     ed_title: 'Título',
@@ -194,6 +250,20 @@ var CcI18n = {
     no_calendar: 'Није пронађен ниједан календар',
     zoom_in: 'Прикажи пуну картицу',
     zoom_out: 'Назад на компактан приказ',
+    add_event: 'Нови догађај',
+    ev_title: 'Наслов',
+    ev_calendar: 'Календар',
+    ev_date: 'Датум',
+    ev_start: 'Почетак',
+    ev_end: 'Крај',
+    ev_location: 'Место',
+    ev_add: 'Додај',
+    ev_cancel: 'Откажи',
+    ev_need_title: 'Дајте наслов догађају',
+    ev_bad_end: 'Крај мора бити после почетка',
+    ev_failed: 'Догађај није могао да се дода: {e}',
+    ed_add_button: 'Дугме за додавање',
+    ed_add_button_helper: 'Дугме + у заглављу за додавање догађаја у календар који то дозвољава',
     ed_entities: 'Календари',
     ed_entities_helper: 'Боје и ознаке по календару: у YAML-у (погледајте README)',
     ed_title: 'Наслов',
@@ -236,6 +306,20 @@ var CcI18n = {
     no_calendar: 'Nije pronađen nijedan kalendar',
     zoom_in: 'Prikaži punu karticu',
     zoom_out: 'Nazad na kompaktan prikaz',
+    add_event: 'Novi događaj',
+    ev_title: 'Naslov',
+    ev_calendar: 'Kalendar',
+    ev_date: 'Datum',
+    ev_start: 'Početak',
+    ev_end: 'Kraj',
+    ev_location: 'Mesto',
+    ev_add: 'Dodaj',
+    ev_cancel: 'Otkaži',
+    ev_need_title: 'Dajte naslov događaju',
+    ev_bad_end: 'Kraj mora biti posle početka',
+    ev_failed: 'Događaj nije mogao da se doda: {e}',
+    ed_add_button: 'Dugme za dodavanje',
+    ed_add_button_helper: 'Dugme + u zaglavlju za dodavanje događaja u kalendar koji to dozvoljava',
     ed_entities: 'Kalendari',
     ed_entities_helper: 'Boje i oznake po kalendaru: u YAML-u (pogledajte README)',
     ed_title: 'Naslov',
@@ -278,6 +362,20 @@ var CcI18n = {
     no_calendar: 'Nessun calendario trovato',
     zoom_in: 'Mostra la scheda completa',
     zoom_out: 'Torna alla vista compatta',
+    add_event: 'Nuovo evento',
+    ev_title: 'Titolo',
+    ev_calendar: 'Calendario',
+    ev_date: 'Data',
+    ev_start: 'Inizio',
+    ev_end: 'Fine',
+    ev_location: 'Luogo',
+    ev_add: 'Aggiungi',
+    ev_cancel: 'Annulla',
+    ev_need_title: 'Dai un titolo all\'evento',
+    ev_bad_end: 'La fine deve essere dopo l\'inizio',
+    ev_failed: 'Impossibile aggiungere l\'evento: {e}',
+    ed_add_button: 'Pulsante di aggiunta',
+    ed_add_button_helper: 'Pulsante + nell\'intestazione per aggiungere un evento a un calendario che lo consente',
     ed_entities: 'Calendari',
     ed_entities_helper: 'Colori ed etichette per calendario: in YAML (vedi il README)',
     ed_title: 'Titolo',
@@ -320,6 +418,20 @@ var CcI18n = {
     no_calendar: 'Geen agenda gevonden',
     zoom_in: 'Volledige kaart tonen',
     zoom_out: 'Terug naar de compacte weergave',
+    add_event: 'Nieuwe afspraak',
+    ev_title: 'Titel',
+    ev_calendar: 'Agenda',
+    ev_date: 'Datum',
+    ev_start: 'Begin',
+    ev_end: 'Einde',
+    ev_location: 'Locatie',
+    ev_add: 'Toevoegen',
+    ev_cancel: 'Annuleren',
+    ev_need_title: 'Geef de afspraak een titel',
+    ev_bad_end: 'Het einde moet na het begin liggen',
+    ev_failed: 'Afspraak kon niet worden toegevoegd: {e}',
+    ed_add_button: 'Knop toevoegen',
+    ed_add_button_helper: '+-knop in de kop om een afspraak toe te voegen aan een agenda die dat toestaat',
     ed_entities: 'Agenda\'s',
     ed_entities_helper: 'Kleuren en labels per agenda: in YAML (zie de README)',
     ed_title: 'Titel',
@@ -362,6 +474,20 @@ var CcI18n = {
     no_calendar: 'Nenhum calendário encontrado',
     zoom_in: 'Mostrar o cartão completo',
     zoom_out: 'Voltar à vista compacta',
+    add_event: 'Novo evento',
+    ev_title: 'Título',
+    ev_calendar: 'Calendário',
+    ev_date: 'Data',
+    ev_start: 'Início',
+    ev_end: 'Fim',
+    ev_location: 'Local',
+    ev_add: 'Adicionar',
+    ev_cancel: 'Cancelar',
+    ev_need_title: 'Dê um título ao evento',
+    ev_bad_end: 'O fim tem de ser depois do início',
+    ev_failed: 'Não foi possível adicionar o evento: {e}',
+    ed_add_button: 'Botão de adicionar',
+    ed_add_button_helper: 'Botão + no cabeçalho para adicionar um evento a um calendário que o aceite',
     ed_entities: 'Calendários',
     ed_entities_helper: 'Cores e etiquetas por calendário: em YAML (ver o README)',
     ed_title: 'Título',
@@ -404,6 +530,20 @@ var CcI18n = {
     no_calendar: 'Nie znaleziono kalendarza',
     zoom_in: 'Pokaż pełną kartę',
     zoom_out: 'Wróć do widoku kompaktowego',
+    add_event: 'Nowe wydarzenie',
+    ev_title: 'Tytuł',
+    ev_calendar: 'Kalendarz',
+    ev_date: 'Data',
+    ev_start: 'Początek',
+    ev_end: 'Koniec',
+    ev_location: 'Miejsce',
+    ev_add: 'Dodaj',
+    ev_cancel: 'Anuluj',
+    ev_need_title: 'Nadaj wydarzeniu tytuł',
+    ev_bad_end: 'Koniec musi być po początku',
+    ev_failed: 'Nie udało się dodać wydarzenia: {e}',
+    ed_add_button: 'Przycisk dodawania',
+    ed_add_button_helper: 'Przycisk + w nagłówku do dodawania wydarzenia do kalendarza, który na to pozwala',
     ed_entities: 'Kalendarze',
     ed_entities_helper: 'Kolory i etykiety dla każdego kalendarza: w YAML (zobacz README)',
     ed_title: 'Tytuł',
@@ -446,6 +586,20 @@ var CcI18n = {
     no_calendar: 'Niciun calendar găsit',
     zoom_in: 'Afișează cardul complet',
     zoom_out: 'Înapoi la vizualizarea compactă',
+    add_event: 'Eveniment nou',
+    ev_title: 'Titlu',
+    ev_calendar: 'Calendar',
+    ev_date: 'Data',
+    ev_start: 'Început',
+    ev_end: 'Sfârșit',
+    ev_location: 'Loc',
+    ev_add: 'Adaugă',
+    ev_cancel: 'Anulează',
+    ev_need_title: 'Dați un titlu evenimentului',
+    ev_bad_end: 'Sfârșitul trebuie să fie după început',
+    ev_failed: 'Evenimentul nu a putut fi adăugat: {e}',
+    ed_add_button: 'Buton de adăugare',
+    ed_add_button_helper: 'Butonul + din antet pentru a adăuga un eveniment într-un calendar care permite',
     ed_entities: 'Calendare',
     ed_entities_helper: 'Culori și etichete pentru fiecare calendar: în YAML (vezi README)',
     ed_title: 'Titlu',
@@ -488,6 +642,20 @@ var CcI18n = {
     no_calendar: 'Ingen kalender fundet',
     zoom_in: 'Vis hele kortet',
     zoom_out: 'Tilbage til kompakt visning',
+    add_event: 'Ny begivenhed',
+    ev_title: 'Titel',
+    ev_calendar: 'Kalender',
+    ev_date: 'Dato',
+    ev_start: 'Start',
+    ev_end: 'Slut',
+    ev_location: 'Sted',
+    ev_add: 'Tilføj',
+    ev_cancel: 'Annuller',
+    ev_need_title: 'Giv begivenheden en titel',
+    ev_bad_end: 'Slut skal være efter start',
+    ev_failed: 'Begivenheden kunne ikke tilføjes: {e}',
+    ed_add_button: 'Tilføj-knap',
+    ed_add_button_helper: '+-knap i overskriften til at tilføje en begivenhed til en kalender, der tillader det',
     ed_entities: 'Kalendere',
     ed_entities_helper: 'Farver og navne pr. kalender: i YAML (se README)',
     ed_title: 'Titel',
@@ -530,6 +698,20 @@ var CcI18n = {
     no_calendar: 'Ingen kalender hittades',
     zoom_in: 'Visa hela kortet',
     zoom_out: 'Tillbaka till kompakt vy',
+    add_event: 'Ny händelse',
+    ev_title: 'Titel',
+    ev_calendar: 'Kalender',
+    ev_date: 'Datum',
+    ev_start: 'Start',
+    ev_end: 'Slut',
+    ev_location: 'Plats',
+    ev_add: 'Lägg till',
+    ev_cancel: 'Avbryt',
+    ev_need_title: 'Ge händelsen en titel',
+    ev_bad_end: 'Slutet måste vara efter starten',
+    ev_failed: 'Händelsen kunde inte läggas till: {e}',
+    ed_add_button: 'Lägg till-knapp',
+    ed_add_button_helper: '+-knapp i rubriken för att lägga till en händelse i en kalender som tillåter det',
     ed_entities: 'Kalendrar',
     ed_entities_helper: 'Färger och namn per kalender: i YAML (se README)',
     ed_title: 'Titel',
@@ -572,6 +754,20 @@ var CcI18n = {
     no_calendar: 'Не е намерен календар',
     zoom_in: 'Покажи цялата карта',
     zoom_out: 'Обратно към компактния изглед',
+    add_event: 'Ново събитие',
+    ev_title: 'Заглавие',
+    ev_calendar: 'Календар',
+    ev_date: 'Дата',
+    ev_start: 'Начало',
+    ev_end: 'Край',
+    ev_location: 'Място',
+    ev_add: 'Добави',
+    ev_cancel: 'Отказ',
+    ev_need_title: 'Дайте заглавие на събитието',
+    ev_bad_end: 'Краят трябва да е след началото',
+    ev_failed: 'Събитието не можа да бъде добавено: {e}',
+    ed_add_button: 'Бутон за добавяне',
+    ed_add_button_helper: 'Бутон + в заглавката за добавяне на събитие в календар, който го позволява',
     ed_entities: 'Календари',
     ed_entities_helper: 'Цветове и етикети за всеки календар: в YAML (вижте README)',
     ed_title: 'Заглавие',
@@ -614,6 +810,20 @@ var CcI18n = {
     no_calendar: 'Календари не найдены',
     zoom_in: 'Показать полную карточку',
     zoom_out: 'Вернуться к компактному виду',
+    add_event: 'Новое событие',
+    ev_title: 'Название',
+    ev_calendar: 'Календарь',
+    ev_date: 'Дата',
+    ev_start: 'Начало',
+    ev_end: 'Конец',
+    ev_location: 'Место',
+    ev_add: 'Добавить',
+    ev_cancel: 'Отмена',
+    ev_need_title: 'Укажите название события',
+    ev_bad_end: 'Конец должен быть после начала',
+    ev_failed: 'Не удалось добавить событие: {e}',
+    ed_add_button: 'Кнопка добавления',
+    ed_add_button_helper: 'Кнопка + в заголовке для добавления события в календарь, который это позволяет',
     ed_entities: 'Календари',
     ed_entities_helper: 'Цвета и подписи для каждого календаря: в YAML (см. README)',
     ed_title: 'Заголовок',
@@ -656,6 +866,20 @@ var CcI18n = {
     no_calendar: 'Календарів не знайдено',
     zoom_in: 'Показати повну картку',
     zoom_out: 'Повернутися до компактного вигляду',
+    add_event: 'Нова подія',
+    ev_title: 'Назва',
+    ev_calendar: 'Календар',
+    ev_date: 'Дата',
+    ev_start: 'Початок',
+    ev_end: 'Кінець',
+    ev_location: 'Місце',
+    ev_add: 'Додати',
+    ev_cancel: 'Скасувати',
+    ev_need_title: 'Вкажіть назву події',
+    ev_bad_end: 'Кінець має бути після початку',
+    ev_failed: 'Не вдалося додати подію: {e}',
+    ed_add_button: 'Кнопка додавання',
+    ed_add_button_helper: 'Кнопка + у заголовку для додавання події до календаря, який це дозволяє',
     ed_entities: 'Календарі',
     ed_entities_helper: 'Кольори та підписи для кожного календаря: у YAML (див. README)',
     ed_title: 'Заголовок',
@@ -698,6 +922,20 @@ var CcI18n = {
     no_calendar: 'Nem található naptár',
     zoom_in: 'A teljes kártya megjelenítése',
     zoom_out: 'Vissza a kompakt nézethez',
+    add_event: 'Új esemény',
+    ev_title: 'Cím',
+    ev_calendar: 'Naptár',
+    ev_date: 'Dátum',
+    ev_start: 'Kezdés',
+    ev_end: 'Vége',
+    ev_location: 'Helyszín',
+    ev_add: 'Hozzáadás',
+    ev_cancel: 'Mégse',
+    ev_need_title: 'Adjon címet az eseménynek',
+    ev_bad_end: 'A végének a kezdés után kell lennie',
+    ev_failed: 'Az esemény nem adható hozzá: {e}',
+    ed_add_button: 'Hozzáadás gomb',
+    ed_add_button_helper: '+ gomb a fejlécben esemény hozzáadásához egy olyan naptárhoz, amely ezt engedi',
     ed_entities: 'Naptárak',
     ed_entities_helper: 'Naptáronkénti színek és címkék: YAML-ben (lásd a README-t)',
     ed_title: 'Cím',
@@ -740,6 +978,20 @@ var CcI18n = {
     no_calendar: 'Nenašiel sa žiadny kalendár',
     zoom_in: 'Zobraziť celú kartu',
     zoom_out: 'Späť na kompaktné zobrazenie',
+    add_event: 'Nová udalosť',
+    ev_title: 'Názov',
+    ev_calendar: 'Kalendár',
+    ev_date: 'Dátum',
+    ev_start: 'Začiatok',
+    ev_end: 'Koniec',
+    ev_location: 'Miesto',
+    ev_add: 'Pridať',
+    ev_cancel: 'Zrušiť',
+    ev_need_title: 'Zadajte názov udalosti',
+    ev_bad_end: 'Koniec musí byť po začiatku',
+    ev_failed: 'Udalosť sa nepodarilo pridať: {e}',
+    ed_add_button: 'Tlačidlo pridania',
+    ed_add_button_helper: 'Tlačidlo + v hlavičke na pridanie udalosti do kalendára, ktorý to umožňuje',
     ed_entities: 'Kalendáre',
     ed_entities_helper: 'Farby a názvy pre každý kalendár: v YAML (pozri README)',
     ed_title: 'Názov',
@@ -782,6 +1034,20 @@ var CcI18n = {
     no_calendar: 'Nebyl nalezen žádný kalendář',
     zoom_in: 'Zobrazit celou kartu',
     zoom_out: 'Zpět na kompaktní zobrazení',
+    add_event: 'Nová událost',
+    ev_title: 'Název',
+    ev_calendar: 'Kalendář',
+    ev_date: 'Datum',
+    ev_start: 'Začátek',
+    ev_end: 'Konec',
+    ev_location: 'Místo',
+    ev_add: 'Přidat',
+    ev_cancel: 'Zrušit',
+    ev_need_title: 'Zadejte název události',
+    ev_bad_end: 'Konec musí být po začátku',
+    ev_failed: 'Událost se nepodařilo přidat: {e}',
+    ed_add_button: 'Tlačítko přidání',
+    ed_add_button_helper: 'Tlačítko + v záhlaví pro přidání události do kalendáře, který to umožňuje',
     ed_entities: 'Kalendáře',
     ed_entities_helper: 'Barvy a názvy pro každý kalendář: v YAML (viz README)',
     ed_title: 'Název',
@@ -824,6 +1090,20 @@ var CcI18n = {
     no_calendar: 'Ni bilo najdenega koledarja',
     zoom_in: 'Prikaži celotno kartico',
     zoom_out: 'Nazaj na strnjen pogled',
+    add_event: 'Nov dogodek',
+    ev_title: 'Naslov',
+    ev_calendar: 'Koledar',
+    ev_date: 'Datum',
+    ev_start: 'Začetek',
+    ev_end: 'Konec',
+    ev_location: 'Kraj',
+    ev_add: 'Dodaj',
+    ev_cancel: 'Prekliči',
+    ev_need_title: 'Dogodku dajte naslov',
+    ev_bad_end: 'Konec mora biti po začetku',
+    ev_failed: 'Dogodka ni bilo mogoče dodati: {e}',
+    ed_add_button: 'Gumb za dodajanje',
+    ed_add_button_helper: 'Gumb + v glavi za dodajanje dogodka v koledar, ki to omogoča',
     ed_entities: 'Koledarji',
     ed_entities_helper: 'Barve in oznake za vsak koledar: v YAML (glejte README)',
     ed_title: 'Naslov',
@@ -866,6 +1146,20 @@ var CcI18n = {
     no_calendar: 'Nav atrasts neviens kalendārs',
     zoom_in: 'Rādīt pilno karti',
     zoom_out: 'Atpakaļ uz kompakto skatu',
+    add_event: 'Jauns notikums',
+    ev_title: 'Nosaukums',
+    ev_calendar: 'Kalendārs',
+    ev_date: 'Datums',
+    ev_start: 'Sākums',
+    ev_end: 'Beigas',
+    ev_location: 'Vieta',
+    ev_add: 'Pievienot',
+    ev_cancel: 'Atcelt',
+    ev_need_title: 'Piešķiriet notikumam nosaukumu',
+    ev_bad_end: 'Beigām jābūt pēc sākuma',
+    ev_failed: 'Notikumu neizdevās pievienot: {e}',
+    ed_add_button: 'Pievienošanas poga',
+    ed_add_button_helper: 'Poga + galvenē, lai pievienotu notikumu kalendāram, kas to atļauj',
     ed_entities: 'Kalendāri',
     ed_entities_helper: 'Krāsas un nosaukumi katram kalendāram: YAML (skatīt README)',
     ed_title: 'Virsraksts',
@@ -908,6 +1202,20 @@ var CcI18n = {
     no_calendar: 'Δεν βρέθηκε ημερολόγιο',
     zoom_in: 'Εμφάνιση πλήρους κάρτας',
     zoom_out: 'Επιστροφή στη συμπαγή προβολή',
+    add_event: 'Νέο συμβάν',
+    ev_title: 'Τίτλος',
+    ev_calendar: 'Ημερολόγιο',
+    ev_date: 'Ημερομηνία',
+    ev_start: 'Έναρξη',
+    ev_end: 'Λήξη',
+    ev_location: 'Τοποθεσία',
+    ev_add: 'Προσθήκη',
+    ev_cancel: 'Ακύρωση',
+    ev_need_title: 'Δώστε τίτλο στο συμβάν',
+    ev_bad_end: 'Η λήξη πρέπει να είναι μετά την έναρξη',
+    ev_failed: 'Δεν ήταν δυνατή η προσθήκη του συμβάντος: {e}',
+    ed_add_button: 'Κουμπί προσθήκης',
+    ed_add_button_helper: 'Κουμπί + στην κεφαλίδα για προσθήκη συμβάντος σε ημερολόγιο που το επιτρέπει',
     ed_entities: 'Ημερολόγια',
     ed_entities_helper: 'Χρώματα και ετικέτες ανά ημερολόγιο: σε YAML (δείτε το README)',
     ed_title: 'Τίτλος',
@@ -978,8 +1286,15 @@ var CC_COLORS = ['#039be5', '#e67c73', '#33b679', '#f6bf26', '#8e24aa', '#f4511e
 var CC_REFRESH = 5 * 60000;
 var CC_DEFAULTS = {
   days_to_show: 7, max_events: 5, show_header: true, show_location: true, show_end_time: true,
-  show_countdown: true, show_empty_days: false, show_past_events: false,
+  show_countdown: true, show_empty_days: false, show_past_events: false, add_button: true,
 };
+
+// calendar.create_event support (CalendarEntityFeature.CREATE_EVENT).
+var CC_CREATE = 1;
+// "2026-11-07" in local time, for a date input and the create_event action.
+function ccIso(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
 
 // A YAML scalar where a list is expected (`entities: calendar.home`, `exclude: Private`) is a one-item list.
 function ccList(v) {
@@ -1171,6 +1486,8 @@ class CalendarAgendaCard extends HTMLElement {
     // Popup, "more" section and mini card fold back on a click anywhere else on the page.
     this._onOutside = (ev) => {
       if (ev.composedPath().includes(this) || ccInDialog(ev)) return;
+      // The new event form stays open: a click elsewhere would lose what was typed.
+      if (this._adding) return;
       if (this._detail != null || this._expanded || this._zoomed) {
         this._detail = null;
         this._expanded = false;
@@ -1194,6 +1511,9 @@ class CalendarAgendaCard extends HTMLElement {
       this.attachShadow({ mode: 'open' });
       this.shadowRoot.addEventListener('click', (ev) => this._onClick(ev));
       this.shadowRoot.addEventListener('keydown', (ev) => this._onKey(ev));
+      // The form's fields are kept on the card as they are typed: a render puts them back.
+      this.shadowRoot.addEventListener('input', (ev) => this._onField(ev));
+      this.shadowRoot.addEventListener('change', (ev) => this._onField(ev));
     }
     this._sig = null;
     this._fetchKey = null;
@@ -1315,6 +1635,8 @@ class CalendarAgendaCard extends HTMLElement {
 
   _update() {
     if (!this._config || !this._hass || !this.shadowRoot) return;
+    // The new event form is open: nothing redraws under it (inputs, caret and focus stay as they are).
+    if (this._adding && this._formShown) return;
     var cals = ccCalendars(this._config, this._hass);
     this._cals = cals;
     var now = new Date();
@@ -1325,7 +1647,7 @@ class CalendarAgendaCard extends HTMLElement {
     // update after a minute change does not re-render (and reset the popup's scroll) underneath it.
     var minute = this._detail != null ? '' : Math.floor(Date.now() / 60000);
     var loc = this._hass.locale || {};
-    var tick = `${cals.map((c) => this._hass.states[c.entity]?.last_updated || '').join('|')}|${minute}|${this._detail}|${this._expanded}|${this._zoomed}` +
+    var tick = `${cals.map((c) => this._hass.states[c.entity]?.last_updated || '').join('|')}|${minute}|${this._detail}|${this._expanded}|${this._zoomed}|${!!this._adding}` +
       `|${this._hass.language}|${loc.language}|${loc.time_format}`;
     if (this._sig != null && tick === this._tick) return;
     this._tick = tick;
@@ -1337,7 +1659,7 @@ class CalendarAgendaCard extends HTMLElement {
       this._fetchKey = key;
       this._fetch(cals);
     }
-    var sig = JSON.stringify([this._lang(), this._fmtLang(), this._fetchedAt, this._detail, this._expanded, this._zoomed,
+    var sig = JSON.stringify([this._lang(), this._fmtLang(), this._fetchedAt, this._detail, this._expanded, this._zoomed, !!this._adding, this._form?.error, this._form?.busy,
       minute, cals.map((c) => [c.entity, c.color, c.name]), this._hass.locale?.time_format]);
     if (sig === this._sig) return;
     this._sig = sig;
@@ -1351,6 +1673,14 @@ class CalendarAgendaCard extends HTMLElement {
     var popShown = this._popShown;
     this._render(cals, now);
     this._popShown = this._detail;
+    this._formShown = !!this._adding;
+    // The form is taller than a short agenda: the card grows to hold it, so its buttons are never cut.
+    var formPop = this._adding && this.shadowRoot.querySelector('.pop.form');
+    if (formPop) formPop.parentNode.style.minHeight = `${formPop.scrollHeight + 16}px`;
+    if (this._adding && this._focusForm) {
+      this._focusForm = false;
+      this.shadowRoot.querySelector('[data-f="summary"]')?.focus({ preventScroll: true });
+    }
     if (popScroll && popShown != null && popShown === this._detail) {
       var pop = this.shadowRoot.querySelector('.pop'); if (pop) pop.scrollTop = popScroll;
     }
@@ -1453,7 +1783,7 @@ class CalendarAgendaCard extends HTMLElement {
     var wd = this._wdShort(now).toLocaleUpperCase(this._fmtLang());
     return '<div class="header">' + ccLogo(wd, now.getDate()) +
       `<div class="titles"><div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div></div>` +
-      `<span class="st" title="${ccEsc(sub)}"><span class="dot"></span><span class="stt">${ccEsc(sub)}</span></span>${this._zoomButton()}</div>`;
+      `<span class="st" title="${ccEsc(sub)}"><span class="dot"></span><span class="stt">${ccEsc(sub)}</span></span>${this._addButton()}${this._zoomButton()}</div>`;
   }
 
   _todaySub(days) {
@@ -1469,6 +1799,117 @@ class CalendarAgendaCard extends HTMLElement {
   }
 
   // Overridden by the mini card.
+  // Calendars of the card that accept new events (Local Calendar, CalDAV, Google…), by index in this._cals.
+  _writable() {
+    return (this._cals || []).map((c, i) => ({ c, i })).filter(({ c }) => (Number(this._hass?.states[c.entity]?.attributes?.supported_features) & CC_CREATE) === CC_CREATE);
+  }
+
+  _addButton() {
+    if (this._config.add_button === false || this._compact() || !this._writable().length) return '';
+    var label = ccEsc(this._t('add_event'));
+    return `<button class="addb" data-action="add" title="${label}" aria-label="${label}"><ha-icon icon="mdi:plus"></ha-icon></button>`;
+  }
+
+  _openForm() {
+    var now = new Date();
+    // The next round hour, for an hour.
+    var start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours() + 1);
+    var hm = (d) => `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+    this._form = {
+      summary: '', cal: this._writable()[0]?.i ?? 0, date: ccIso(start), all_day: false,
+      start: hm(start), end: hm(new Date(start.getTime() + 3600000)), location: '', error: '', busy: false,
+    };
+    this._adding = true;
+    this._detail = null;
+    this._formShown = false;
+    this._focusForm = true;
+  }
+
+  _closeForm() {
+    this._adding = false;
+    this._form = null;
+    this._formShown = false;
+  }
+
+  _onField(ev) {
+    var key = ev.target?.dataset?.f;
+    if (!key || !this._form) return;
+    var t = ev.target;
+    this._form[key] = t.type === 'checkbox' ? t.checked : key === 'cal' ? Number(t.value) : t.value;
+    // All day hides the times: redraw the form (its values come from this._form).
+    if (key === 'all_day') this._redrawForm();
+  }
+
+  _redrawForm() {
+    this._formShown = false;
+    this._sig = null;
+    this._update();
+  }
+
+  // The action's data: start/end dates (the end the day after, exclusive) or start/end date-times.
+  _eventData() {
+    var f = this._form;
+    var data = { summary: f.summary.trim() };
+    if (f.location.trim()) data.location = f.location.trim();
+    if (f.all_day) {
+      var day = new Date(`${f.date}T00:00:00`);
+      data.start_date = f.date;
+      data.end_date = ccIso(ccAddDays(day, 1));
+    } else {
+      data.start_date_time = `${f.date} ${f.start}:00`;
+      data.end_date_time = `${f.date} ${f.end}:00`;
+    }
+    return data;
+  }
+
+  async _saveForm() {
+    var f = this._form;
+    if (!f || f.busy) return;
+    if (!f.summary.trim()) f.error = this._t('ev_need_title');
+    else if (!f.all_day && f.end <= f.start) f.error = this._t('ev_bad_end');
+    else f.error = '';
+    if (f.error) return this._redrawForm();
+    var cal = this._cals[f.cal];
+    f.busy = true;
+    this._redrawForm();
+    try {
+      await this._hass.callService('calendar', 'create_event', this._eventData(), { entity_id: cal.entity });
+      this._closeForm();
+      // Read the calendars again: the new event shows at once.
+      this._fetchKey = null;
+      this._sig = null;
+      this._update();
+    } catch (err) {
+      f.busy = false;
+      f.error = this._t('ev_failed').replace('{e}', err?.message || String(err));
+      this._redrawForm();
+    }
+  }
+
+  _formHtml() {
+    var f = this._form;
+    var cals = this._writable();
+    var cal = this._cals[f.cal] || cals[0]?.c;
+    var field = (key, label, input) => `<label class="ff ff-${key}"><span>${ccEsc(this._t(label))}</span>${input}</label>`;
+    var options = cals.map(({ c, i }) => `<option value="${i}"${i === f.cal ? ' selected' : ''}>${ccEsc(c.name)}</option>`).join('');
+    var times = f.all_day ? '' :
+      `<div class="frow">${field('start', 'ev_start', `<input type="time" data-f="start" value="${ccEsc(f.start)}">`)}` +
+      `${field('end', 'ev_end', `<input type="time" data-f="end" value="${ccEsc(f.end)}">`)}</div>`;
+    return `<div class="pop form" role="dialog" aria-label="${ccEsc(this._t('add_event'))}" style="--c:${ccEsc(cal?.color || CC_COLORS[0])}">` +
+      `<div class="phead"><span class="cbar"></span><div class="ptitle">${ccEsc(this._t('add_event'))}</div>` +
+      `<button class="pclose" data-action="cancel-add" title="${ccEsc(this._t('ev_cancel'))}" aria-label="${ccEsc(this._t('ev_cancel'))}"><ha-icon icon="mdi:close"></ha-icon></button></div>` +
+      field('summary', 'ev_title', `<input type="text" data-f="summary" value="${ccEsc(f.summary)}" maxlength="200" autocomplete="off">`) +
+      (cals.length > 1 ? field('cal', 'ev_calendar', `<select data-f="cal">${options}</select>`) : '') +
+      `<div class="frow">${field('date', 'ev_date', `<input type="date" data-f="date" value="${ccEsc(f.date)}">`)}` +
+      `<label class="fcheck"><input type="checkbox" data-f="all_day"${f.all_day ? ' checked' : ''}><span>${ccEsc(this._t('all_day'))}</span></label></div>` +
+      times +
+      field('location', 'ev_location', `<input type="text" data-f="location" value="${ccEsc(f.location)}" maxlength="200" autocomplete="off">`) +
+      (f.error ? `<div class="ferr" role="alert">${ccEsc(f.error)}</div>` : '') +
+      `<div class="fbtns"><button class="fbtn" data-action="cancel-add">${ccEsc(this._t('ev_cancel'))}</button>` +
+      `<button class="fbtn primary" data-action="save-add"${f.busy ? ' disabled' : ''}><ha-icon icon="${f.busy ? 'mdi:loading' : 'mdi:check'}"></ha-icon>${ccEsc(this._t('ev_add'))}</button></div>` +
+      '</div>';
+  }
+
   _compact() { return false; }
 
   _zoomButton() { return ''; }
@@ -1526,7 +1967,7 @@ class CalendarAgendaCard extends HTMLElement {
         `<button class="more" data-action="more" aria-expanded="${open}"><ha-icon icon="${open ? 'mdi:chevron-down' : 'mdi:chevron-right'}"></ha-icon>${ccEsc(label)}</button>`;
     }
 
-    this.shadowRoot.innerHTML = this._styles(accent) + `<ha-card class="${this._detail != null ? 'popped' : ''}" lang="${ccEsc(this._fmtLang())}">` +
+    this.shadowRoot.innerHTML = this._styles(accent) + `<ha-card class="${this._detail != null || this._adding ? 'popped' : ''}" lang="${ccEsc(this._fmtLang())}">` +
       // An unfolded mini card keeps its header whatever show_header says: it holds the fold button.
       (c.show_header || this._zoomed ? this._headerHtml(now, this._todaySub(days)) : '') +
       `<div class="list">${list}</div>${moreHtml}${this._errorHtml()}${this._popupHtml()}</ha-card>`;
@@ -1534,6 +1975,7 @@ class CalendarAgendaCard extends HTMLElement {
 
   // Event details, at the top of the card.
   _popupHtml() {
+    if (this._adding && this._form) return this._formHtml();
     var item = this._detail != null && this._flat[this._evIndex(this._detail)];
     if (!item) return '';
     var e = item.e, cal = this._cals[e.cal];
@@ -1565,6 +2007,9 @@ class CalendarAgendaCard extends HTMLElement {
         case 'more': this._expanded = !this._expanded; break;
         case 'close': this._detail = null; break;
         case 'zoom': this._zoomed = !this._zoomed; this._detail = null; break;
+        case 'add': this._openForm(); break;
+        case 'cancel-add': this._closeForm(); break;
+        case 'save-add': this._saveForm(); return;
       }
       this._update();
       if (btn.dataset.action === 'zoom' && ev.detail === 0) this.shadowRoot.querySelector('.zoom')?.focus({ preventScroll: true });
@@ -1575,6 +2020,7 @@ class CalendarAgendaCard extends HTMLElement {
       this._toggleDetail(row.dataset.ev);
       return;
     }
+    if (this._adding) return;
     // A click on the card outside the popup closes it.
     if (this._detail != null && !path.some((n) => n.classList?.contains('pop'))) {
       this._detail = null;
@@ -1583,6 +2029,16 @@ class CalendarAgendaCard extends HTMLElement {
   }
 
   _onKey(ev) {
+    if (this._adding) {
+      if (ev.key === 'Escape') {
+        this._closeForm();
+        this._update();
+      } else if (ev.key === 'Enter' && ev.target?.tagName === 'INPUT' && ev.target.type !== 'checkbox') {
+        ev.preventDefault();
+        this._saveForm();
+      }
+      return;
+    }
     if (ev.key === 'Escape' && this._detail != null) {
       this._detail = null;
       this._update();
@@ -1675,6 +2131,27 @@ class CalendarAgendaCard extends HTMLElement {
       '.prow { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--secondary-text-color); padding-left: 14px; }' +
       '.prow ha-icon { --mdc-icon-size: 16px; flex-shrink: 0; }' +
       '.pdot { width: 10px; height: 10px; margin: 0 3px; border-radius: 50%; flex-shrink: 0; }' +
+      // + button of the header, like the zoom button; the new event form uses the popup's frame.
+      '.addb { all: unset; flex: none; cursor: pointer; width: 28px; height: 28px; margin: -4px -2px; border-radius: 50%; display: grid; place-items: center; color: var(--secondary-text-color); }' +
+      '.addb ha-icon { --mdc-icon-size: 20px; }' +
+      '.addb:hover { background: color-mix(in srgb, var(--secondary-text-color) 16%, transparent); color: var(--primary-text-color); }' +
+      '.addb:focus-visible { outline: 2px solid var(--primary-color, #03a9f4); outline-offset: 1px; }' +
+      '.form .ff { display: flex; flex-direction: column; gap: 3px; flex: 1 1 0; min-width: 0; font-size: 12px; color: var(--secondary-text-color); }' +
+      '.form input[type=text], .form input[type=date], .form input[type=time], .form select { box-sizing: border-box; width: 100%; min-width: 0; padding: 7px 9px; border-radius: 8px; font: inherit; font-size: 14px;' +
+        ' color: var(--primary-text-color); background: var(--secondary-background-color, rgba(128,128,128,0.12)); border: 1px solid var(--divider-color, rgba(128,128,128,0.3)); outline: none; color-scheme: light dark; }' +
+      '.form input:focus, .form select:focus { border-color: var(--c); }' +
+      '.form .frow { display: flex; gap: 8px; align-items: flex-end; flex-wrap: wrap; }' +
+      '.form .fcheck { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--primary-text-color); padding: 8px 0; white-space: nowrap; }' +
+      '.form .fcheck input { accent-color: var(--c); }' +
+      '.form .ferr { font-size: 12px; color: var(--error-color, #db4437); }' +
+      '.form .fbtns { display: flex; justify-content: flex-end; gap: 8px; margin-top: 2px; }' +
+      // No filled button: outlined, the main one in the calendar's colour.
+      '.form .fbtn { display: inline-flex; align-items: center; gap: 4px; padding: 6px 14px; border-radius: 10px; font-size: 13px; font-weight: 500; background: none;' +
+        ' color: var(--secondary-text-color); border: 1px solid color-mix(in srgb, var(--secondary-text-color) 35%, transparent); }' +
+      '.form .fbtn.primary { color: color-mix(in srgb, var(--c) 55%, var(--primary-text-color)); border-color: color-mix(in srgb, var(--c) 55%, transparent); }' +
+      '.form .fbtn:hover:not([disabled]) { background: color-mix(in srgb, var(--c) 10%, transparent); }' +
+      '.form .fbtn[disabled] { opacity: 0.6; cursor: default; }' +
+      '.form .fbtn ha-icon { --mdc-icon-size: 16px; }' +
       '.pdesc { font-size: 13px; line-height: 1.45; white-space: pre-wrap; word-break: break-word; color: var(--primary-text-color); padding: 8px 0 0 14px;' +
         ' border-top: 1px solid var(--divider-color, rgba(128,128,128,0.15)); }' +
       '.zoom { all: unset; flex: none; cursor: pointer; width: 24px; height: 24px; margin: -4px -4px -4px 0; border-radius: 50%;' +
@@ -1824,7 +2301,7 @@ class CalendarAgendaCardEditor extends HTMLElement {
           { name: 'show_countdown', selector: { boolean: {} } },
           { name: 'show_empty_days', selector: { boolean: {} } },
           { name: 'show_past_events', selector: { boolean: {} } },
-        ].concat(mini ? [{ name: 'zoom', selector: { boolean: {} } }] : []),
+        ].concat(mini ? [{ name: 'zoom', selector: { boolean: {} } }] : [{ name: 'add_button', selector: { boolean: {} } }]),
       },
       {
         name: 'language',

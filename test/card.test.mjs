@@ -970,3 +970,60 @@ test("a narrow event row: the time wins over the location, the countdown drops u
   assert.match(cssRule(html, ".day"), /flex-wrap: wrap/);
   assert.match(cssRule(html, ".events"), /min-width: min\(100%, \d+px\)/);
 });
+
+test("new event: + button for calendars that accept events, form at the top, create_event with the right data", async () => {
+  const card = new CalendarAgendaCard();
+  card.setConfig({ entities: ["calendar.home", "calendar.work"] });
+  const hass = mockHass({});
+  // Only "home" accepts new events (CREATE_EVENT = 1).
+  hass.states["calendar.home"].attributes.supported_features = 7;
+  const services = [];
+  hass.callService = async (...args) => {
+    services.push(args);
+  };
+  card.hass = hass;
+  await new Promise((r) => setTimeout(r, 0));
+  let html = card.shadowRoot.innerHTML;
+  assert.match(html, /class="addb" data-action="add"/);
+  card._onClick({ composedPath: () => [{ dataset: { action: "add" } }] });
+  html = card.shadowRoot.innerHTML;
+  assert.match(html, /class="pop form"/);
+  assert.match(html, /New event/);
+  // A single writable calendar: no calendar picker.
+  assert.doesNotMatch(html, /data-f="cal"/);
+  // No title: refused with a message, nothing sent.
+  await card._saveForm();
+  assert.match(card.shadowRoot.innerHTML, /Give the event a title/);
+  assert.equal(services.length, 0);
+  card._form.summary = "Dentist";
+  card._form.date = "2026-11-20";
+  card._form.start = "14:00";
+  card._form.end = "15:00";
+  card._form.location = "12 High Street";
+  await card._saveForm();
+  assert.deepEqual(plain(services[0]), [
+    "calendar",
+    "create_event",
+    { summary: "Dentist", location: "12 High Street", start_date_time: "2026-11-20 14:00:00", end_date_time: "2026-11-20 15:00:00" },
+    { entity_id: "calendar.home" },
+  ]);
+  assert.equal(card._adding, false);
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /class="pop form"/);
+
+  // All day: start and end dates, the end the day after.
+  card._openForm();
+  Object.assign(card._form, { summary: "Holiday", date: "2026-12-31", all_day: true });
+  await card._saveForm();
+  assert.deepEqual(plain(services[1][2]), { summary: "Holiday", start_date: "2026-12-31", end_date: "2027-01-01" });
+});
+
+test("new event: no + button without a writable calendar, nor with add_button: false", async () => {
+  assert.doesNotMatch((await render(CalendarAgendaCard, {})).shadowRoot.innerHTML, /data-action="add"/);
+  const card = new CalendarAgendaCard();
+  card.setConfig({ entities: ["calendar.home"], add_button: false });
+  const hass = mockHass({});
+  hass.states["calendar.home"].attributes.supported_features = 1;
+  card.hass = hass;
+  await new Promise((r) => setTimeout(r, 0));
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /data-action="add"/);
+});
