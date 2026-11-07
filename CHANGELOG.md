@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.0 - 2026-11-07
+
+### Features
+- Event details: **Edit** and **Delete** buttons for an event of a calendar that allows it. Edit opens the event form pre-filled and saves through `calendar/event/update`; delete asks for a confirmation in the popup and uses `calendar/event/delete`. A recurring event can be changed or deleted for this event only, or for this one and the following ones. `edit_buttons: false` hides them (also in the visual editor).
+- Event form: an end date, for overnight and multi-day events; it follows the start date and must not end before the start.
+
 ## 1.3.1 - 2026-11-07
 
 ### Fixes

@@ -24,7 +24,8 @@ Custom Lovelace agenda card for Home Assistant [calendars](https://www.home-assi
 - Countdown for today's events (*in 25 min*, *in 2 h 05*), **Now** badge and progress bar for the event under way; finished events go away
 - Events past `max_events` fold into a **N more events** section (chevron right folded, down unfolded, folds back on a click elsewhere)
 - Click an event for its details (date and time, location, calendar, description) in a popup at the top of the card
-- **+** button in the header: a **New event** form (title, calendar, date, all day or start and end time, location) adds the event to a calendar that accepts new events (local calendar, CalDAV, Google…)
+- **+** button in the header: a **New event** form (title, calendar, all day, start and end date and time, location) adds the event to a calendar that accepts new events (local calendar, CalDAV, Google…); the end date allows overnight and multi-day events
+- **Edit** and **Delete** buttons in the event details, for a calendar that allows it: edit opens the same form pre-filled, delete asks for a confirmation in the popup; for a recurring event, the change applies to this event only or to this one and the following ones
 - Hide events by title with `exclude`
 - Refreshes when an event starts or ends and every 5 minutes
 - Visual editor in the dashboard UI
@@ -131,6 +132,7 @@ language: en
 | `show_past_events` | ❌ | `false` | Keep today's finished events (greyed out) |
 | `exclude` | ❌ | — | Hide events whose title contains one of these texts (case-insensitive) |
 | `add_button` | ❌ | `true` | Full card only: **+** button in the header that opens the new event form (shown only when a calendar accepts new events) |
+| `edit_buttons` | ❌ | `true` | Full card only: **Edit** and **Delete** buttons in the event details (shown only when the event's calendar allows changing or deleting events) |
 | `zoom` | ❌ | `true` | Mini card only: detail button at the top right that unfolds the full agenda (a click elsewhere folds it back) |
 | `language` | ❌ | Auto | Force language: `en`, `fr`, `de`, `es`, `sr`, `sr-Latn`, `it`, `nl`, `pt`, `pl`, `ro`, `da`, `sv`, `bg`, `ru`, `uk`, `hu`, `sk`, `cs`, `sl`, `lv` or `el` (auto-detects from HA settings) |
 
@@ -154,6 +156,8 @@ Calendar options:
 | Folded events | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-more.png" alt="agenda with folded events" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-more-dark.png" alt="agenda with folded events dark" width="400"> |
 | Event details | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-details.png" alt="event details" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-details-dark.png" alt="event details dark" width="400"> |
 | New event | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-add.png" alt="new event form" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-add-dark.png" alt="new event form dark" width="400"> |
+| Edit event | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-edit.png" alt="edit event form" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-edit-dark.png" alt="edit event form dark" width="400"> |
+| Delete event | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-delete.png" alt="delete confirmation" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-delete-dark.png" alt="delete confirmation dark" width="400"> |
 | Mini card unfolded | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini-zoom.png" alt="mini card unfolded" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini-zoom-dark.png" alt="mini card unfolded dark" width="400"> |
 
 ### Animations
@@ -181,6 +185,8 @@ The mini card's detail button unfolds the full agenda in place, and folds it bac
 The card asks Home Assistant for the events of each calendar between today midnight and `days_to_show` days later (the `/api/calendars/<entity>` endpoint the built-in calendar uses). It fetches again when a calendar entity changes state (an event starts or ends), when the day changes and every 5 minutes; countdowns move on every minute. A calendar that fails to load is named under the list and the others are still shown.
 
 The **+** button appears when at least one calendar supports creating events. The form calls the `calendar.create_event` action (all-day events end the next day, as Home Assistant expects) and the agenda fetches again once it is saved; an error from the calendar is shown in the form.
+
+The **Edit** and **Delete** buttons appear in the details of an event that has a uid, when its calendar supports updating or deleting events. They use the `calendar/event/update` and `calendar/event/delete` WebSocket commands, like the calendar panel of Home Assistant: times are sent in UTC, all-day events as dates ending the next day, and the description, not in the form, is kept. For a recurring event, the card asks whether the change applies to this event only or to this one and the following ones (`recurrence_range: THISANDFUTURE`, the recurrence rule kept). The agenda fetches again once the event is saved or deleted; an error is shown in the form or the popup.
 
 A multi-day event is listed once, on the first day shown (its start day, or today when it started earlier), with its date range. Today's timed events that are over are hidden unless `show_past_events` is on.
 
