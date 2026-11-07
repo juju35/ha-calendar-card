@@ -83,11 +83,13 @@ const icons = {
   "alert-circle-outline": "M11,15H13V17H11V15M11,7H13V13H11V7M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z",
   "arrow-collapse": "M19.5,3.09L15,7.59V4H13V11H20V9H16.41L20.91,4.5L19.5,3.09M4,13V15H7.59L3.09,19.5L4.5,20.91L9,16.41V20H11V13H4Z",
   "arrow-expand": "M10,21V19H6.41L10.91,14.5L9.5,13.09L5,17.59V14H3V21H10M14.5,10.91L19,6.41V10H21V3H14V5H17.59L13.09,9.5L14.5,10.91Z",
+  "check": "M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z",
   "chevron-down": "M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z",
   "chevron-right": "M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z",
   "clock-outline": "M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z",
   "close": "M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z",
   "map-marker-outline": "M12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5M12,2A7,7 0 0,1 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9A7,7 0 0,1 12,2M12,4A5,5 0 0,0 7,9C7,10 7,12 12,18.71C17,12 17,10 17,9A5,5 0 0,0 12,4Z",
+  "plus": "M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z",
 };
 
 // Mock calendars, neutral data. Times are UTC, like the page's time zone.
@@ -114,8 +116,9 @@ const EVENTS = {
 };
 
 const states = {
-  "calendar.home": { entity_id: "calendar.home", state: "on", attributes: { friendly_name: "Home" }, last_changed: "x" },
-  "calendar.work": { entity_id: "calendar.work", state: "on", attributes: { friendly_name: "Work" }, last_changed: "x" },
+  // Home and Work accept new events (CREATE_EVENT), like a Local Calendar or CalDAV: the + button shows.
+  "calendar.home": { entity_id: "calendar.home", state: "on", attributes: { friendly_name: "Home", supported_features: 7 }, last_changed: "x" },
+  "calendar.work": { entity_id: "calendar.work", state: "on", attributes: { friendly_name: "Work", supported_features: 7 }, last_changed: "x" },
   "calendar.holidays": { entity_id: "calendar.holidays", state: "off", attributes: { friendly_name: "Public holidays" }, last_changed: "x" },
 };
 const entities = ["calendar.home", { entity: "calendar.work", color: "#33b679" }, { entity: "calendar.holidays", color: "#8e24aa" }];
@@ -133,6 +136,16 @@ const shots = [
     file: "agenda-details-dark", type: "calendar-agenda-card", theme: "dark", width: 460, config: {},
     after: (page) => page.locator("calendar-agenda-card .ev", { hasText: "Project review" }).click(),
   },
+  // The new event form, a title typed in.
+  ...["light", "dark"].map((theme) => ({
+    file: theme === "dark" ? "agenda-add-dark" : "agenda-add", type: "calendar-agenda-card", theme, width: 460, config: {},
+    after: async (page) => {
+      await page.locator("calendar-agenda-card .addb").click();
+      await page.locator("calendar-agenda-card input[data-f=summary]").fill("Dentist");
+      await page.locator("calendar-agenda-card input[data-f=location]").fill("12 High Street");
+      await page.mouse.move(0, 0);
+    },
+  })),
   { file: "mini", type: "calendar-agenda-mini-card", theme: "light", width: 380, config: {} },
   { file: "mini-dark", type: "calendar-agenda-mini-card", theme: "dark", width: 380, config: {} },
   {
