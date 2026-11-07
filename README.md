@@ -19,12 +19,12 @@ Custom Lovelace agenda card for Home Assistant [calendars](https://www.home-assi
 ## Features
 
 - Two cards: `calendar-agenda-card` and its mini version `calendar-agenda-mini-card` (next event and the one after; a detail button unfolds the full agenda)
-- Several calendars merged in one list, each with its own color and name; an event shared by several calendars is listed once
+- Several calendars merged in one list, each with its own color and name; an event shared by several calendars (same uid) is listed once, distinct events with the same title and times are all kept
 - Days with today and tomorrow labelled, all-day events, time range and location; a multi-day event is listed once with its date range
 - Countdown for today's events (*in 25 min*, *in 2 h 05*), **Now** badge and progress bar for the event under way; finished events go away
 - Events past `max_events` fold into a **N more events** section (chevron right folded, down unfolded, folds back on a click elsewhere)
-- Click an event for its details (date and time, location, calendar, description) in a popup at the top of the card
-- **+** button in the header: a **New event** form (title, calendar, all day, start and end date and time, location) adds the event to a calendar that accepts new events (local calendar, CalDAV, Google…); the end date allows overnight and multi-day events
+- Click an event for its details (date and time, location, calendar, description) in a popup at the top of the card; the keyboard focus moves into the popup or the form and back to the event when it closes
+- **+** button in the header: a **New event** form (title, calendar, all day, start and end date and time, location, description) adds the event to a calendar that accepts new events (local calendar, CalDAV, Google…); the end date allows overnight and multi-day events
 - **Edit** and **Delete** buttons in the event details, for a calendar that allows it: edit opens the same form pre-filled, delete asks for a confirmation in the popup; for a recurring event, the change applies to this event only or to this one and the following ones
 - Hide events by title with `exclude`
 - Refreshes when an event starts or ends and every 5 minutes
@@ -186,7 +186,7 @@ The card asks Home Assistant for the events of each calendar between today midni
 
 The **+** button appears when at least one calendar supports creating events. The form calls the `calendar.create_event` action (all-day events end the next day, as Home Assistant expects) and the agenda fetches again once it is saved; an error from the calendar is shown in the form.
 
-The **Edit** and **Delete** buttons appear in the details of an event that has a uid, when its calendar supports updating or deleting events. They use the `calendar/event/update` and `calendar/event/delete` WebSocket commands, like the calendar panel of Home Assistant: times are sent in UTC, all-day events as dates ending the next day, and the description, not in the form, is kept. For a recurring event, the card asks whether the change applies to this event only or to this one and the following ones (`recurrence_range: THISANDFUTURE`, the recurrence rule kept). The agenda fetches again once the event is saved or deleted; an error is shown in the form or the popup.
+The **Edit** and **Delete** buttons appear in the details of an event that has a uid, when its calendar supports updating or deleting events. They use the `calendar/event/update` and `calendar/event/delete` WebSocket commands, like the calendar panel of Home Assistant: times are sent in UTC, all-day events as dates ending the next day, the description edited in the form like the other fields. For a recurring event, the card asks whether the change applies to this event only or to this one and the following ones (`recurrence_range: THISANDFUTURE`, the recurrence rule kept). The agenda fetches again once the event is saved or deleted; an error is shown in the form or the popup.
 
 A multi-day event is listed once, on the first day shown (its start day, or today when it started earlier), with its date range. Today's timed events that are over are hidden unless `show_past_events` is on.
 

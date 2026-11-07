@@ -32,6 +32,7 @@ var CcI18n = {
     ev_start: 'Début',
     ev_end: 'Fin',
     ev_location: 'Lieu',
+    ev_description: 'Description',
     ev_add: 'Ajouter',
     ev_cancel: 'Annuler',
     ev_need_title: 'Donnez un titre à l\'événement',
@@ -99,6 +100,7 @@ var CcI18n = {
     ev_start: 'Start',
     ev_end: 'End',
     ev_location: 'Location',
+    ev_description: 'Description',
     ev_add: 'Add',
     ev_cancel: 'Cancel',
     ev_need_title: 'Give the event a title',
@@ -166,6 +168,7 @@ var CcI18n = {
     ev_start: 'Beginn',
     ev_end: 'Ende',
     ev_location: 'Ort',
+    ev_description: 'Beschreibung',
     ev_add: 'Hinzufügen',
     ev_cancel: 'Abbrechen',
     ev_need_title: 'Gib dem Termin einen Titel',
@@ -233,6 +236,7 @@ var CcI18n = {
     ev_start: 'Inicio',
     ev_end: 'Fin',
     ev_location: 'Lugar',
+    ev_description: 'Descripción',
     ev_add: 'Añadir',
     ev_cancel: 'Cancelar',
     ev_need_title: 'Pon un título al evento',
@@ -300,6 +304,7 @@ var CcI18n = {
     ev_start: 'Почетак',
     ev_end: 'Крај',
     ev_location: 'Место',
+    ev_description: 'Опис',
     ev_add: 'Додај',
     ev_cancel: 'Откажи',
     ev_need_title: 'Дајте наслов догађају',
@@ -367,6 +372,7 @@ var CcI18n = {
     ev_start: 'Početak',
     ev_end: 'Kraj',
     ev_location: 'Mesto',
+    ev_description: 'Opis',
     ev_add: 'Dodaj',
     ev_cancel: 'Otkaži',
     ev_need_title: 'Dajte naslov događaju',
@@ -434,6 +440,7 @@ var CcI18n = {
     ev_start: 'Inizio',
     ev_end: 'Fine',
     ev_location: 'Luogo',
+    ev_description: 'Descrizione',
     ev_add: 'Aggiungi',
     ev_cancel: 'Annulla',
     ev_need_title: 'Dai un titolo all\'evento',
@@ -501,6 +508,7 @@ var CcI18n = {
     ev_start: 'Begin',
     ev_end: 'Einde',
     ev_location: 'Locatie',
+    ev_description: 'Beschrijving',
     ev_add: 'Toevoegen',
     ev_cancel: 'Annuleren',
     ev_need_title: 'Geef de afspraak een titel',
@@ -568,6 +576,7 @@ var CcI18n = {
     ev_start: 'Início',
     ev_end: 'Fim',
     ev_location: 'Local',
+    ev_description: 'Descrição',
     ev_add: 'Adicionar',
     ev_cancel: 'Cancelar',
     ev_need_title: 'Dê um título ao evento',
@@ -635,6 +644,7 @@ var CcI18n = {
     ev_start: 'Początek',
     ev_end: 'Koniec',
     ev_location: 'Miejsce',
+    ev_description: 'Opis',
     ev_add: 'Dodaj',
     ev_cancel: 'Anuluj',
     ev_need_title: 'Nadaj wydarzeniu tytuł',
@@ -702,6 +712,7 @@ var CcI18n = {
     ev_start: 'Început',
     ev_end: 'Sfârșit',
     ev_location: 'Loc',
+    ev_description: 'Descriere',
     ev_add: 'Adaugă',
     ev_cancel: 'Anulează',
     ev_need_title: 'Dați un titlu evenimentului',
@@ -769,6 +780,7 @@ var CcI18n = {
     ev_start: 'Start',
     ev_end: 'Slut',
     ev_location: 'Sted',
+    ev_description: 'Beskrivelse',
     ev_add: 'Tilføj',
     ev_cancel: 'Annuller',
     ev_need_title: 'Giv begivenheden en titel',
@@ -836,6 +848,7 @@ var CcI18n = {
     ev_start: 'Start',
     ev_end: 'Slut',
     ev_location: 'Plats',
+    ev_description: 'Beskrivning',
     ev_add: 'Lägg till',
     ev_cancel: 'Avbryt',
     ev_need_title: 'Ge händelsen en titel',
@@ -903,6 +916,7 @@ var CcI18n = {
     ev_start: 'Начало',
     ev_end: 'Край',
     ev_location: 'Място',
+    ev_description: 'Описание',
     ev_add: 'Добави',
     ev_cancel: 'Отказ',
     ev_need_title: 'Дайте заглавие на събитието',
@@ -970,6 +984,7 @@ var CcI18n = {
     ev_start: 'Начало',
     ev_end: 'Конец',
     ev_location: 'Место',
+    ev_description: 'Описание',
     ev_add: 'Добавить',
     ev_cancel: 'Отмена',
     ev_need_title: 'Укажите название события',
@@ -1037,6 +1052,7 @@ var CcI18n = {
     ev_start: 'Початок',
     ev_end: 'Кінець',
     ev_location: 'Місце',
+    ev_description: 'Опис',
     ev_add: 'Додати',
     ev_cancel: 'Скасувати',
     ev_need_title: 'Вкажіть назву події',
@@ -1104,6 +1120,7 @@ var CcI18n = {
     ev_start: 'Kezdés',
     ev_end: 'Vége',
     ev_location: 'Helyszín',
+    ev_description: 'Leírás',
     ev_add: 'Hozzáadás',
     ev_cancel: 'Mégse',
     ev_need_title: 'Adjon címet az eseménynek',
@@ -1171,6 +1188,7 @@ var CcI18n = {
     ev_start: 'Začiatok',
     ev_end: 'Koniec',
     ev_location: 'Miesto',
+    ev_description: 'Popis',
     ev_add: 'Pridať',
     ev_cancel: 'Zrušiť',
     ev_need_title: 'Zadajte názov udalosti',
@@ -1238,6 +1256,7 @@ var CcI18n = {
     ev_start: 'Začátek',
     ev_end: 'Konec',
     ev_location: 'Místo',
+    ev_description: 'Popis',
     ev_add: 'Přidat',
     ev_cancel: 'Zrušit',
     ev_need_title: 'Zadejte název události',
@@ -1305,6 +1324,7 @@ var CcI18n = {
     ev_start: 'Začetek',
     ev_end: 'Konec',
     ev_location: 'Kraj',
+    ev_description: 'Opis',
     ev_add: 'Dodaj',
     ev_cancel: 'Prekliči',
     ev_need_title: 'Dogodku dajte naslov',
@@ -1372,6 +1392,7 @@ var CcI18n = {
     ev_start: 'Sākums',
     ev_end: 'Beigas',
     ev_location: 'Vieta',
+    ev_description: 'Apraksts',
     ev_add: 'Pievienot',
     ev_cancel: 'Atcelt',
     ev_need_title: 'Piešķiriet notikumam nosaukumu',
@@ -1439,6 +1460,7 @@ var CcI18n = {
     ev_start: 'Έναρξη',
     ev_end: 'Λήξη',
     ev_location: 'Τοποθεσία',
+    ev_description: 'Περιγραφή',
     ev_add: 'Προσθήκη',
     ev_cancel: 'Ακύρωση',
     ev_need_title: 'Δώστε τίτλο στο συμβάν',
@@ -1677,11 +1699,14 @@ function ccParse(raw, cal) {
   };
 }
 
-// The same event in several calendars (a shared invitation) is listed once.
+// The same event in several calendars (a shared invitation, same uid) is listed once, from the first
+// calendar. Events without a uid, or with different uids, are all kept even when their title and times
+// match: they are distinct events (each can be changed or deleted in its own calendar).
 function ccDedupe(events) {
   var seen = new Set();
   return events.filter((e) => {
-    var k = `${e.summary}|${+e.start}|${+e.end}`;
+    if (!e.uid) return true;
+    var k = `${e.uid}|${e.recurrence_id}|${+e.start}|${+e.end}`;
     if (seen.has(k)) return false;
     seen.add(k);
     return true;
@@ -1690,7 +1715,7 @@ function ccDedupe(events) {
 
 // Stable identity of an event across fetches and re-renders (row indexes shift as events end or change).
 function ccEvKey(e) {
-  return `${e.uid}|${e.summary}|${+e.start}|${+e.end}`;
+  return `${e.cal}|${e.uid}|${e.summary}|${+e.start}|${+e.end}`;
 }
 
 function ccSort(a, b) {
@@ -1945,8 +1970,10 @@ class CalendarAgendaCard extends HTMLElement {
     var focused = focusedIdx != null ? this._evKeyAt(focusedIdx) : null;
     var popScroll = this.shadowRoot.querySelector('.pop')?.scrollTop;
     var popShown = this._popShown;
+    var wasAdding = !!this._formWas;
     this._render(cals, now);
     this._popShown = this._detail;
+    this._formWas = !!this._adding;
     this._formShown = !!this._adding;
     // The form is taller than a short agenda: the card grows to hold it, so its buttons are never cut.
     var formPop = this._adding && this.shadowRoot.querySelector('.pop.form');
@@ -1961,6 +1988,31 @@ class CalendarAgendaCard extends HTMLElement {
     var at = focused != null ? this._evIndex(focused) : -1;
     // preventScroll: a re-render from a hass update must not scroll the page to the card.
     if (at >= 0) this.shadowRoot.querySelector(`[data-ev="${at}"]`)?.focus({ preventScroll: true });
+    this._moveFocus(popShown, wasAdding);
+  }
+
+  // Dialog focus: a details popup that opens (or shows another event) takes the focus on its close
+  // button; when the popup or the form closes, the focus goes back to the event row it was opened from
+  // (or to the + button for a new event), so a keyboard user does not lose their place.
+  _moveFocus(popShown, wasAdding) {
+    var q = (sel) => this.shadowRoot.querySelector(sel);
+    var focus = (el) => el?.focus({ preventScroll: true });
+    if (this._detail != null && popShown !== this._detail) {
+      this._returnTo = this._detail;
+      focus(q('.pop [data-action="close"]'));
+      return;
+    }
+    if (this._adding) {
+      // Opened from the details popup (Edit): back to that event's row on close.
+      if (!wasAdding && popShown != null) this._returnTo = popShown;
+      else if (!wasAdding) this._returnTo = null;
+      return;
+    }
+    if (popShown == null && !wasAdding) return;
+    var key = this._returnTo;
+    this._returnTo = null;
+    var at = key != null ? this._evIndex(key) : -1;
+    focus(at >= 0 ? q(`[data-ev="${at}"]`) : wasAdding ? q('.addb') : null);
   }
 
   // `_detail` holds the open event's key (ccEvKey); rows carry their index in `_flat`.
@@ -2099,14 +2151,14 @@ class CalendarAgendaCard extends HTMLElement {
   // `span` is the number of days from the start date to the end date: the end date follows the start's.
   _openForm(e) {
     var f = {
-      summary: '', cal: this._writable()[0]?.i ?? 0, all_day: false, ...ccFormTimes(new Date()), span: 0, location: '', error: '', busy: false,
+      summary: '', cal: this._writable()[0]?.i ?? 0, all_day: false, ...ccFormTimes(new Date()), span: 0, location: '', description: '', error: '', busy: false,
     };
     if (e) {
       // An all-day event's end is the day after its last day.
       var last = e.allDay ? ccAddDays(e.end, -1) : e.end;
       Object.assign(f, {
         summary: e.summary, cal: e.cal, all_day: e.allDay, date: ccIso(e.start), span: Math.max(0, ccDaysBetween(ccIso(e.start), ccIso(last))),
-        location: e.location, edit: { uid: e.uid, recurrence_id: e.recurrence_id, rrule: e.rrule, description: e.description },
+        location: e.location, description: e.description, edit: { uid: e.uid, recurrence_id: e.recurrence_id, rrule: e.rrule },
       });
       if (!e.allDay) Object.assign(f, { start: ccHm(e.start), end: ccHm(e.end) });
     }
@@ -2160,6 +2212,7 @@ class CalendarAgendaCard extends HTMLElement {
     var f = this._form;
     var data = { summary: f.summary.trim() };
     if (f.location.trim()) data.location = f.location.trim();
+    if (f.description.trim()) data.description = f.description.trim();
     if (f.all_day) {
       data.start_date = f.date;
       data.end_date = ccIso(ccAddDays(ccLocalDate(f.date), f.span + 1));
@@ -2172,12 +2225,12 @@ class CalendarAgendaCard extends HTMLElement {
 
   // calendar/event/update message of the edited event. A change to one instance of a recurring event
   // cannot carry the recurrence rule; a change to it and the following ones keeps it, like the Home
-  // Assistant calendar panel. The description, not in the form, is kept as it was.
+  // Assistant calendar panel.
   _updateMsg(entity, range) {
     var f = this._form, ed = f.edit, d = this._eventData();
     var event = { summary: d.summary, dtstart: d.start_date || d.start_date_time, dtend: d.end_date || d.end_date_time };
     if (d.location) event.location = d.location;
-    if (ed.description) event.description = ed.description;
+    if (d.description) event.description = d.description;
     if (ed.rrule && (range === CC_FUTURE || !ed.recurrence_id)) event.rrule = ed.rrule;
     var msg = { type: 'calendar/event/update', entity_id: entity, uid: ed.uid };
     if (ed.recurrence_id) {
@@ -2238,7 +2291,7 @@ class CalendarAgendaCard extends HTMLElement {
       ? `<div class="fask">${ccEsc(this._t('ev_apply_to'))}</div>` +
         this._btnsHtml('back-edit', [['save-one', 'ev_this', 'mdi:check', 'primary'], ['save-future', 'ev_future', 'mdi:check-all', 'primary']], f.busy)
       : this._btnsHtml('cancel-add', [['save-add', f.edit ? 'ev_save' : 'ev_add', 'mdi:check', 'primary']], f.busy);
-    return `<div class="pop form" role="dialog" aria-label="${title}" style="--c:${ccEsc(cal?.color || CC_COLORS[0])}">` +
+    return `<div class="pop form" role="dialog" aria-modal="true" aria-label="${title}" style="--c:${ccEsc(cal?.color || CC_COLORS[0])}">` +
       `<div class="phead"><span class="cbar"></span><div class="ptitle">${title}</div>` +
       `<button class="pclose" data-action="cancel-add" title="${ccEsc(this._t('ev_cancel'))}" aria-label="${ccEsc(this._t('ev_cancel'))}"><ha-icon icon="mdi:close"></ha-icon></button></div>` +
       field('summary', 'ev_title', `<input type="text" data-f="summary" value="${ccEsc(f.summary)}" maxlength="200" autocomplete="off">`) +
@@ -2248,6 +2301,7 @@ class CalendarAgendaCard extends HTMLElement {
       when('start', 'ev_start', 'date', f.date, 'start', f.start) +
       when('end', 'ev_end', 'end_date', this._endDate(), 'end', f.end) +
       field('location', 'ev_location', `<input type="text" data-f="location" value="${ccEsc(f.location)}" maxlength="200" autocomplete="off">`) +
+      field('description', 'ev_description', `<textarea data-f="description" rows="3" maxlength="2000">${ccEsc(f.description)}</textarea>`) +
       (f.error ? `<div class="ferr" role="alert">${ccEsc(f.error)}</div>` : '') +
       btns + '</div>';
   }
@@ -2379,7 +2433,7 @@ class CalendarAgendaCard extends HTMLElement {
     rows.push(`<div class="prow"><span class="pdot" style="background:${ccEsc(cal.color)}"></span><span>${ccEsc(cal.name)}</span></div>`);
     if (e.description) rows.push(`<div class="pdesc">${ccEsc(String(e.description).slice(0, 1200))}</div>`);
     var btn = (action, label, icon) => `<button class="pclose" data-action="${action}" title="${ccEsc(this._t(label))}" aria-label="${ccEsc(this._t(label))}"><ha-icon icon="${icon}"></ha-icon></button>`;
-    return `<div class="pop" role="dialog" aria-label="${ccEsc(e.summary)}" style="--c:${ccEsc(cal.color)}">` +
+    return `<div class="pop" role="dialog" aria-modal="true" aria-label="${ccEsc(e.summary)}" style="--c:${ccEsc(cal.color)}">` +
       `<div class="phead"><span class="cbar"></span><div class="ptitle">${ccEsc(e.summary)}</div>` +
       (this._canChange(e, CC_UPDATE) ? btn('edit', 'edit_event', 'mdi:pencil-outline') : '') +
       (this._canChange(e, CC_DELETE) ? btn('delete', 'delete_event', 'mdi:delete-outline') : '') +
@@ -2532,9 +2586,10 @@ class CalendarAgendaCard extends HTMLElement {
       '.addb:hover { background: color-mix(in srgb, var(--secondary-text-color) 16%, transparent); color: var(--primary-text-color); }' +
       '.addb:focus-visible { outline: 2px solid var(--primary-color, #03a9f4); outline-offset: 1px; }' +
       '.form .ff { display: flex; flex-direction: column; gap: 3px; flex: 1 1 0; min-width: 0; font-size: 12px; color: var(--secondary-text-color); }' +
-      '.form input[type=text], .form input[type=date], .form input[type=time], .form select { box-sizing: border-box; width: 100%; min-width: 0; padding: 7px 9px; border-radius: 8px; font: inherit; font-size: 14px;' +
+      '.form input[type=text], .form input[type=date], .form input[type=time], .form select, .form textarea { box-sizing: border-box; width: 100%; min-width: 0; padding: 7px 9px; border-radius: 8px; font: inherit; font-size: 14px;' +
         ' color: var(--primary-text-color); background: var(--secondary-background-color, rgba(128,128,128,0.12)); border: 1px solid var(--divider-color, rgba(128,128,128,0.3)); outline: none; color-scheme: light dark; }' +
-      '.form input:focus, .form select:focus { border-color: var(--c); }' +
+      '.form input:focus, .form select:focus, .form textarea:focus { border-color: var(--c); }' +
+      '.form textarea { resize: vertical; min-height: 54px; line-height: 1.35; }' +
       '.form .frow { display: flex; gap: 8px; align-items: flex-end; flex-wrap: wrap; }' +
       '.form .fcheck { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--primary-text-color); padding: 8px 0; white-space: nowrap; }' +
       '.form .fcheck input { accent-color: var(--c); }' +

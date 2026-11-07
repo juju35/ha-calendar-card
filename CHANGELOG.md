@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.5.0 - 2026-11-07
+
+### Features
+- Event form: a **Description** field, sent when the event is created or saved.
+- Keyboard: the details popup and the event form are modal dialogs; the focus moves into them when they open and back to the event row (or the **+** button) when they close.
+
+### Fixes
+- Events with the same title and times in different calendars are no longer merged into one: only the same event (same uid) shared by several calendars is listed once, and edit or delete acts on the right calendar.
+
 ## 1.4.0 - 2026-11-07
 
 ### Features
