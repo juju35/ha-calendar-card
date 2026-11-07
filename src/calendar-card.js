@@ -1296,6 +1296,27 @@ function ccIso(d) {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }
 
+function ccHm(d) {
+  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+}
+
+// New event form defaults: the next round hour, for an hour. The form has a single date, so the end
+// stays on the start's day (23:59 at most): opened at 22:30, 23:00 to 23:59, not 23:00 to 00:00.
+function ccFormTimes(now) {
+  var start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours() + 1);
+  var end = new Date(Math.min(start.getTime() + 3600000, new Date(start.getFullYear(), start.getMonth(), start.getDate(), 23, 59).getTime()));
+  return { date: ccIso(start), start: ccHm(start), end: ccHm(end) };
+}
+
+// A form date and time ("2026-11-20", "14:00"), in the browser's time zone like the agenda shows the
+// events, as an absolute UTC time for create_event. A naive time would be read in the Home Assistant
+// server's time zone; UTC for both ends also keeps them in one zone across a daylight saving change,
+// as Home Assistant requires.
+function ccUtc(date, hm) {
+  var p = `${date}-${hm}`.split(/[-:]/).map(Number);
+  return `${new Date(p[0], p[1] - 1, p[2], p[3], p[4]).toISOString().slice(0, 19)}+00:00`;
+}
+
 // A YAML scalar where a list is expected (`entities: calendar.home`, `exclude: Private`) is a one-item list.
 function ccList(v) {
   if (Array.isArray(v)) return v;
@@ -1811,13 +1832,8 @@ class CalendarAgendaCard extends HTMLElement {
   }
 
   _openForm() {
-    var now = new Date();
-    // The next round hour, for an hour.
-    var start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours() + 1);
-    var hm = (d) => `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
     this._form = {
-      summary: '', cal: this._writable()[0]?.i ?? 0, date: ccIso(start), all_day: false,
-      start: hm(start), end: hm(new Date(start.getTime() + 3600000)), location: '', error: '', busy: false,
+      summary: '', cal: this._writable()[0]?.i ?? 0, all_day: false, ...ccFormTimes(new Date()), location: '', error: '', busy: false,
     };
     this._adding = true;
     this._detail = null;
@@ -1856,8 +1872,8 @@ class CalendarAgendaCard extends HTMLElement {
       data.start_date = f.date;
       data.end_date = ccIso(ccAddDays(day, 1));
     } else {
-      data.start_date_time = `${f.date} ${f.start}:00`;
-      data.end_date_time = `${f.date} ${f.end}:00`;
+      data.start_date_time = ccUtc(f.date, f.start);
+      data.end_date_time = ccUtc(f.date, f.end);
     }
     return data;
   }

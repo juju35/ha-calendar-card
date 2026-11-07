@@ -1,13 +1,13 @@
 import assert from "node:assert/strict";
-import { test } from "node:test";
+import { mock, test } from "node:test";
 import { loadCard } from "./load.mjs";
 
 // Values from the card's sandbox come from another realm: compare them as plain JSON.
 const plain = (v) => JSON.parse(JSON.stringify(v));
 
-const { CalendarAgendaCard, CalendarAgendaCardEditor, CcI18n, ccParse, ccByDay, ccCalendars, ccDayStart, ccEsc, ccOnColor, customElements } = loadCard(
+const { CalendarAgendaCard, CalendarAgendaCardEditor, CcI18n, ccParse, ccByDay, ccCalendars, ccDayStart, ccEsc, ccOnColor, ccFormTimes, ccUtc, customElements } = loadCard(
   "calendar-card.js",
-  ["CalendarAgendaCard", "CalendarAgendaCardEditor", "CcI18n", "ccParse", "ccByDay", "ccCalendars", "ccDayStart", "ccEsc", "ccOnColor"]
+  ["CalendarAgendaCard", "CalendarAgendaCardEditor", "CcI18n", "ccParse", "ccByDay", "ccCalendars", "ccDayStart", "ccEsc", "ccOnColor", "ccFormTimes", "ccUtc"]
 );
 
 // Today at 09:40 local time, events around it.
@@ -1004,7 +1004,12 @@ test("new event: + button for calendars that accept events, form at the top, cre
   assert.deepEqual(plain(services[0]), [
     "calendar",
     "create_event",
-    { summary: "Dentist", location: "12 High Street", start_date_time: "2026-11-20 14:00:00", end_date_time: "2026-11-20 15:00:00" },
+    {
+      summary: "Dentist",
+      location: "12 High Street",
+      start_date_time: `${new Date(2026, 10, 20, 14).toISOString().slice(0, 19)}+00:00`,
+      end_date_time: `${new Date(2026, 10, 20, 15).toISOString().slice(0, 19)}+00:00`,
+    },
     { entity_id: "calendar.home" },
   ]);
   assert.equal(card._adding, false);
@@ -1015,6 +1020,75 @@ test("new event: + button for calendars that accept events, form at the top, cre
   Object.assign(card._form, { summary: "Holiday", date: "2026-12-31", all_day: true });
   await card._saveForm();
   assert.deepEqual(plain(services[1][2]), { summary: "Holiday", start_date: "2026-12-31", end_date: "2027-01-01" });
+});
+
+test("new event: default times stay valid late in the evening", async () => {
+  assert.deepEqual(plain(ccFormTimes(new Date(2026, 10, 7, 9, 10))), { date: "2026-11-07", start: "10:00", end: "11:00" });
+  // 22:30: the end stays on the same day instead of 00:00, which the form refused as before the start.
+  assert.deepEqual(plain(ccFormTimes(new Date(2026, 10, 7, 22, 30))), { date: "2026-11-07", start: "23:00", end: "23:59" });
+  assert.deepEqual(plain(ccFormTimes(new Date(2026, 10, 7, 23, 30))), { date: "2026-11-08", start: "00:00", end: "01:00" });
+
+  // Opened at 22:30 and saved as is: the event is created, no "end before start".
+  mock.timers.enable({ apis: ["Date"], now: new Date(2026, 10, 7, 22, 30) });
+  try {
+    const card = new CalendarAgendaCard();
+    card.setConfig({ entity: "calendar.home" });
+    const hass = mockHass({});
+    hass.states["calendar.home"].attributes.supported_features = 1;
+    const services = [];
+    hass.callService = async (...args) => {
+      services.push(args);
+    };
+    card.hass = hass;
+    card._openForm();
+    card._form.summary = "Late call";
+    await card._saveForm();
+    assert.equal(card._form, null);
+    assert.equal(services.length, 1);
+    assert.deepEqual(plain(services[0][2]), {
+      summary: "Late call",
+      start_date_time: `${new Date(2026, 10, 7, 23).toISOString().slice(0, 19)}+00:00`,
+      end_date_time: `${new Date(2026, 10, 7, 23, 59).toISOString().slice(0, 19)}+00:00`,
+    });
+  } finally {
+    mock.timers.reset();
+  }
+});
+
+test("new event: times entered in the browser's time zone are sent as UTC, whatever the server's zone", async () => {
+  const tz = process.env.TZ;
+  // Browser in Paris, Home Assistant server in New York.
+  process.env.TZ = "Europe/Paris";
+  try {
+    assert.equal(ccUtc("2026-11-20", "14:00"), "2026-11-20T13:00:00+00:00");
+    assert.equal(ccUtc("2026-07-14", "14:00"), "2026-07-14T12:00:00+00:00");
+    // Daylight saving change in Paris (29 March 2026, 02:00 -> 03:00): each end gets its own offset,
+    // and both are sent in UTC, so Home Assistant sees one zone. New York changed on 8 March.
+    assert.equal(ccUtc("2026-03-29", "01:30"), "2026-03-29T00:30:00+00:00");
+    assert.equal(ccUtc("2026-03-29", "04:00"), "2026-03-29T02:00:00+00:00");
+
+    const card = new CalendarAgendaCard();
+    card.setConfig({ entity: "calendar.home" });
+    const hass = mockHass({});
+    hass.config = { time_zone: "America/New_York" };
+    hass.states["calendar.home"].attributes.supported_features = 1;
+    const services = [];
+    hass.callService = async (...args) => {
+      services.push(args);
+    };
+    card.hass = hass;
+    card._openForm();
+    Object.assign(card._form, { summary: "Night", date: "2026-03-29", start: "01:30", end: "04:00" });
+    await card._saveForm();
+    assert.deepEqual(plain(services[0][2]), {
+      summary: "Night",
+      start_date_time: "2026-03-29T00:30:00+00:00",
+      end_date_time: "2026-03-29T02:00:00+00:00",
+    });
+  } finally {
+    if (tz === undefined) delete process.env.TZ;
+    else process.env.TZ = tz;
+  }
 });
 
 test("new event: no + button without a writable calendar, nor with add_button: false", async () => {
