@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.6.0 - 2026-11-08
+
+### Features
+- Mini card: the "Next" line opens the event's details, by click or with the keyboard (Enter or Space), like the other lines.
+- Times follow the server time zone when the Home Assistant user profile is set to use it: the days, the event times and the event form use the server's zone instead of the browser's.
+
+### Fixes
+- Reopening an event after closing its details no longer shows the old delete confirmation or its error.
+- A delete still pending when its popup is closed cannot be sent twice, and its outcome no longer closes or shows an error in another event's popup.
+- Event form: an empty date or time is refused with a message, instead of an "Invalid time value" error from the browser.
+
 ## 1.5.0 - 2026-11-07
 
 ### Features

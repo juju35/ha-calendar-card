@@ -1399,3 +1399,150 @@ test("new event: a description, sent with create_event", async () => {
   await card._saveForm();
   assert.deepEqual(plain(services[0][2]), { summary: "Dentist", description: "Bring the card", start_date: "2026-11-20", end_date: "2026-11-21" });
 });
+
+test("delete: closing the details drops the confirmation, reopening the event shows its details", async () => {
+  const ev = [{ uid: "a1", summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }];
+  const reopen = (card) => card._onClick({ composedPath: () => [{ dataset: { ev: "0" } }] });
+  // Closed with the close button, Escape, a click outside, or another event: no stale confirmation.
+  for (const close of [(c) => click(c, "close"), (c) => c._onKey({ key: "Escape" }), (c) => c._onOutside({ composedPath: () => [] })]) {
+    const card = await editable(ev, 7, {}, "Read-only");
+    click(card, "delete");
+    click(card, "delete-one");
+    await flush();
+    assert.match(card.shadowRoot.innerHTML, /Could not delete the event/);
+    close(card);
+    assert.equal(card._detail, null);
+    reopen(card);
+    const html = card.shadowRoot.innerHTML;
+    assert.match(html, /class="pop"/);
+    assert.doesNotMatch(html, /Delete this event\?|Could not delete/);
+    assert.equal(card._popBusy, false);
+  }
+});
+
+test("new event: an empty date or time is refused with a translated message", async () => {
+  for (const [lang, msg] of [["en", "Enter the date and times"], ["fr", "Indiquez la date et les heures"]]) {
+    const card = await editable([], 7, { language: lang });
+    const services = [];
+    card._hass.callService = async (...args) => { services.push(args); };
+    click(card, "add");
+    for (const blank of [{ date: "" }, { start: "" }, { end: "" }, { start: "1" }]) {
+      Object.assign(card._form, { summary: "Dentist", date: "2026-11-20", start: "10:00", end: "11:00", all_day: false }, blank);
+      await card._saveForm();
+      assert.equal(card._form.error, msg);
+      assert.match(card.shadowRoot.innerHTML, new RegExp(`class="ferr" role="alert">${msg}<`));
+    }
+    // All day: only the date is needed.
+    Object.assign(card._form, { date: "", start: "", end: "", all_day: true });
+    await card._saveForm();
+    assert.equal(card._form.error, msg);
+    card._form.date = "2026-11-20";
+    await card._saveForm();
+    assert.equal(services.length, 1);
+  }
+});
+
+test("mini card: the next-event line opens its details, by click or keyboard", async () => {
+  const Mini = customElements.get("calendar-agenda-mini-card");
+  const card = await render(Mini, {
+    "calendar.home": [
+      { summary: "First", start: { dateTime: at(1, 9) }, end: { dateTime: at(1, 10) } },
+      { summary: "Second", start: { dateTime: at(2, 9) }, end: { dateTime: at(2, 10) } },
+    ],
+  });
+  const m = card.shadowRoot.innerHTML.match(/<div class="mnext"[^>]*data-ev="(\d+)" role="button" tabindex="0">/);
+  assert.ok(m, "the next-event line is a focusable button");
+  card._onKey({ key: "Enter", preventDefault() {}, target: { dataset: { ev: m[1] } } });
+  assert.match(card.shadowRoot.innerHTML, /class="pop"[^>]*aria-label="Second"/);
+  card._onKey({ key: "Escape" });
+  card._onClick({ composedPath: () => [{ dataset: { ev: m[1] } }] });
+  assert.match(card.shadowRoot.innerHTML, /class="pop"[^>]*aria-label="Second"/);
+});
+
+test("server time zone setting: events shown and entered in the Home Assistant server's zone", async () => {
+  const tz = process.env.TZ;
+  // Browser in Paris, server in New York (UTC-5 in November).
+  process.env.TZ = "Europe/Paris";
+  mock.timers.enable({ apis: ["Date"], now: new Date("2026-11-20T08:00:00Z") });
+  try {
+    const card = new CalendarAgendaCard();
+    card.setConfig({ entity: "calendar.home" });
+    const hass = mockHass({
+      // 22:30 in Paris on the 20th is 16:30 in New York, on the same day.
+      "calendar.home": [{ summary: "Call", start: { dateTime: "2026-11-20T21:30:00Z" }, end: { dateTime: "2026-11-20T22:00:00Z" } }],
+    });
+    hass.locale = { time_format: "24", time_zone: "server" };
+    hass.config = { time_zone: "America/New_York" };
+    hass.states["calendar.home"].attributes.supported_features = 1;
+    const services = [];
+    hass.callService = async (...args) => { services.push(args); };
+    card.hass = hass;
+    await flush();
+    // The agenda starts at midnight in New York (05:00 UTC), not in Paris.
+    assert.match(hass.calls[0][1], /start=2026-11-20T05%3A00%3A00.000Z&end=2026-11-27T05%3A00%3A00.000Z/);
+    assert.match(card.shadowRoot.innerHTML, /16:30 – 17:00/);
+    // New event: default times from the server's clock (03:00 there), sent from the server's zone.
+    card._openForm();
+    assert.equal(card._form.start, "04:00");
+    Object.assign(card._form, { summary: "Night", date: "2026-11-21", start: "09:00", end: "10:00" });
+    await card._saveForm();
+    assert.deepEqual(plain(services[0][2]), { summary: "Night", start_date_time: "2026-11-21T14:00:00+00:00", end_date_time: "2026-11-21T15:00:00+00:00" });
+
+    // "Local" (the default) keeps the browser's zone.
+    hass.locale = { time_format: "24", time_zone: "local" };
+    card.hass = { ...hass };
+    await flush();
+    assert.match(card.shadowRoot.innerHTML, /22:30 – 23:00/);
+  } finally {
+    mock.timers.reset();
+    if (tz === undefined) delete process.env.TZ;
+    else process.env.TZ = tz;
+  }
+});
+
+test("server time zone: wall-clock times convert to UTC across daylight saving changes", () => {
+  // New York: 8 March 2026 02:00 -> 03:00, 1 November 2026 02:00 -> 01:00.
+  assert.equal(ccUtc("2026-03-08", "01:30", "America/New_York"), "2026-03-08T06:30:00+00:00");
+  assert.equal(ccUtc("2026-03-08", "03:30", "America/New_York"), "2026-03-08T07:30:00+00:00");
+  // 02:30 does not exist there: an hour later.
+  assert.equal(ccUtc("2026-03-08", "02:30", "America/New_York"), "2026-03-08T07:30:00+00:00");
+  // 01:30 comes twice: the first one.
+  assert.equal(ccUtc("2026-11-01", "01:30", "America/New_York"), "2026-11-01T05:30:00+00:00");
+  assert.equal(ccUtc("2026-11-01", "00:30", "America/New_York"), "2026-11-01T04:30:00+00:00");
+  assert.equal(ccUtc("2026-11-01", "03:00", "America/New_York"), "2026-11-01T08:00:00+00:00");
+  assert.equal(ccUtc("2026-07-14", "14:00", "Asia/Kolkata"), "2026-07-14T08:30:00+00:00");
+});
+
+test("delete: closing the popup while a delete is pending neither allows a second delete nor touches another popup", async () => {
+  const ev = [
+    { uid: "a1", summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } },
+    { uid: "b2", summary: "Gym", start: { dateTime: at(1, 13) }, end: { dateTime: at(1, 14) } },
+  ];
+  for (const fails of [false, true]) {
+    const card = await editable(ev);
+    const hass = card._hass;
+    let answer;
+    hass.callWS = (msg) => {
+      hass.ws.push(msg);
+      return new Promise((res, rej) => { answer = fails ? () => rej(new Error("Read-only")) : res; });
+    };
+    click(card, "delete");
+    click(card, "delete-one");
+    // Closed and reopened while pending: still busy, a second delete sends nothing.
+    click(card, "close");
+    card._onClick({ composedPath: () => [{ dataset: { ev: "0" } }] });
+    assert.equal(card._popBusy, true);
+    click(card, "delete");
+    click(card, "delete-one");
+    assert.equal(hass.ws.length, 1);
+    // Another event's popup is open when the answer comes: it stays open, without the error.
+    card._onClick({ composedPath: () => [{ dataset: { ev: "1" } }] });
+    assert.equal(card._popBusy, false);
+    const other = card._detail;
+    answer();
+    await flush();
+    assert.equal(card._detail, other);
+    assert.equal(card._popErr, "");
+    assert.doesNotMatch(card.shadowRoot.innerHTML, /Could not delete/);
+  }
+});
