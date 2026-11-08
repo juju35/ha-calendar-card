@@ -109,7 +109,7 @@ test("card fetches each calendar over the window and lists events by day", async
 });
 
 test("shared events are listed once and exclude hides by title", async () => {
-  const ev = { summary: "Meeting", start: { dateTime: at(1, 9) }, end: { dateTime: at(1, 10) } };
+  const ev = { uid: "inv-1", summary: "Meeting", start: { dateTime: at(1, 9) }, end: { dateTime: at(1, 10) } };
   const card = await render(CalendarAgendaCard, {
     "calendar.home": [ev, { summary: "Private stuff", start: { dateTime: at(1, 12) }, end: { dateTime: at(1, 13) } }],
     "calendar.work": [ev],
@@ -188,12 +188,12 @@ test("the open details follow their event when the rows before it change, and cl
   };
   const card = await render(CalendarAgendaCard, events);
   card._onClick({ composedPath: () => [{ dataset: { ev: "1" } }] });
-  assert.match(card.shadowRoot.innerHTML, /class="pop" role="dialog" aria-label="Review"/);
+  assert.match(card.shadowRoot.innerHTML, /class="pop" role="dialog" aria-modal="true" aria-label="Review"/);
   // A refetch drops the event listed before the open one: the popup keeps showing "Review".
   events["calendar.home"].shift();
   card._fetch(card._cals);
   await new Promise((r) => setTimeout(r, 0));
-  assert.match(card.shadowRoot.innerHTML, /class="pop" role="dialog" aria-label="Review"/);
+  assert.match(card.shadowRoot.innerHTML, /class="pop" role="dialog" aria-modal="true" aria-label="Review"/);
   // The open event itself disappears: its details close instead of showing another event.
   events["calendar.home"] = [{ summary: "Other", start: { dateTime: at(3, 9) }, end: { dateTime: at(3, 10) } }];
   card._fetch(card._cals);
@@ -792,34 +792,40 @@ test("the popup close button shows a keyboard focus ring", async () => {
 });
 
 test("narrow header: the title keeps a few characters, the pill shrinks to its dot, the buttons never shrink", async () => {
-  const Mini = customElements.get("calendar-agenda-mini-card");
-  const events = { "calendar.home": [{ summary: "Stand-up", start: { dateTime: at(0, 23) }, end: { dateTime: at(0, 23, 30) } }] };
-  for (const card of [await render(Mini, events, { language: "fr" }), await render(CalendarAgendaCard, events, { language: "fr" })]) {
-    const html = card.shadowRoot.innerHTML;
-    assert.match(cssRule(html, ".header"), /container-type: inline-size/);
-    // The title block starts from 0 and takes what the pill leaves: the pill is cut only when it has to be.
-    assert.match(cssRule(html, ".titles"), /flex: 1 1 0;/);
-    assert.match(cssRule(html, ".titles"), /min-width: \d+(\.\d+)?ch/);
-    const st = cssRule(html, ".st");
-    for (const re of [/flex: 0 1 auto/, /min-width: 0/, /overflow: hidden/]) assert.match(st, re);
-    assert.doesNotMatch(st, /max-width/);
-    assert.doesNotMatch(st, /flex-shrink: 0/);
-    assert.match(cssRule(html, ".st .stt"), /text-overflow: ellipsis/);
-    // The counter text sits in its own ellipsized span; the whole text stays in the pill's tooltip.
-    assert.match(html, /<span class="st" title="1 événement aujourd&#39;hui"><span class="dot"><\/span><span class="stt">1 événement aujourd&#39;hui<\/span><\/span>/);
-    // Under the threshold only the dot is shown; the text is visually hidden but still read out.
-    const narrow = html.match(/@container \(max-width: 200px\) \{([\s\S]*?)\}\s*\}/)?.[1] || "";
-    assert.match(narrow, /\.st \.stt \{[^}]*clip-path: inset\(50%\)/);
-    assert.match(narrow, /\.st \.dot \{[^}]*display: block/);
-    // A little wider, the logo gives way so the counter keeps its whole text; the title, first then, keeps its place.
-    assert.match(html, /@container \(max-width: 240px\) \{ \.logo \{ display: none; \} \}/);
-    assert.doesNotMatch(narrow, /\.titles[^{]*\{[^}]*margin-left: -/);
+  // At 09:40, so the 23:00 event is still ahead whatever the hour the tests run at.
+  mock.timers.enable({ apis: ["Date"], now: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9, 40) });
+  try {
+    const Mini = customElements.get("calendar-agenda-mini-card");
+    const events = { "calendar.home": [{ summary: "Stand-up", start: { dateTime: at(0, 23) }, end: { dateTime: at(0, 23, 30) } }] };
+    for (const card of [await render(Mini, events, { language: "fr" }), await render(CalendarAgendaCard, events, { language: "fr" })]) {
+      const html = card.shadowRoot.innerHTML;
+      assert.match(cssRule(html, ".header"), /container-type: inline-size/);
+      // The title block starts from 0 and takes what the pill leaves: the pill is cut only when it has to be.
+      assert.match(cssRule(html, ".titles"), /flex: 1 1 0;/);
+      assert.match(cssRule(html, ".titles"), /min-width: \d+(\.\d+)?ch/);
+      const st = cssRule(html, ".st");
+      for (const re of [/flex: 0 1 auto/, /min-width: 0/, /overflow: hidden/]) assert.match(st, re);
+      assert.doesNotMatch(st, /max-width/);
+      assert.doesNotMatch(st, /flex-shrink: 0/);
+      assert.match(cssRule(html, ".st .stt"), /text-overflow: ellipsis/);
+      // The counter text sits in its own ellipsized span; the whole text stays in the pill's tooltip.
+      assert.match(html, /<span class="st" title="1 événement aujourd&#39;hui"><span class="dot"><\/span><span class="stt">1 événement aujourd&#39;hui<\/span><\/span>/);
+      // Under the threshold only the dot is shown; the text is visually hidden but still read out.
+      const narrow = html.match(/@container \(max-width: 200px\) \{([\s\S]*?)\}\s*\}/)?.[1] || "";
+      assert.match(narrow, /\.st \.stt \{[^}]*clip-path: inset\(50%\)/);
+      assert.match(narrow, /\.st \.dot \{[^}]*display: block/);
+      // A little wider, the logo gives way so the counter keeps its whole text; the title, first then, keeps its place.
+      assert.match(html, /@container \(max-width: 240px\) \{ \.logo \{ display: none; \} \}/);
+      assert.doesNotMatch(narrow, /\.titles[^{]*\{[^}]*margin-left: -/);
+    }
+    const card = await render(Mini, events);
+    assert.match(cssRule(card.shadowRoot.innerHTML, ".zoom"), /flex: none/);
+    // The mini card keeps the full card's 40px logo: no mini-only size.
+    assert.doesNotMatch(card.shadowRoot.innerHTML, /\.mini \.logo \{/);
+    assert.match(cssRule(card.shadowRoot.innerHTML, ".logo"), /width: 40px; height: 40px;/);
+  } finally {
+    mock.timers.reset();
   }
-  const card = await render(Mini, events);
-  assert.match(cssRule(card.shadowRoot.innerHTML, ".zoom"), /flex: none/);
-  // The mini card keeps the full card's 40px logo: no mini-only size.
-  assert.doesNotMatch(card.shadowRoot.innerHTML, /\.mini \.logo \{/);
-  assert.match(cssRule(card.shadowRoot.innerHTML, ".logo"), /width: 40px; height: 40px;/);
 });
 
 test("narrow mini card: an all-day line and the next-event line keep the event name, their date gives way", async () => {
@@ -946,29 +952,35 @@ test("the card gives way in a shared grid (1fr 1fr) and keeps its content width 
 });
 
 test("a narrow event row: the time wins over the location, the countdown drops under the event", async () => {
-  const Mini = customElements.get("calendar-agenda-mini-card");
-  const events = { "calendar.home": [{ summary: "Dentist", start: { dateTime: at(0, 23) }, end: { dateTime: at(0, 23, 30) }, location: "12 High Street" }] };
-  for (const card of [await render(CalendarAgendaCard, events), await render(Mini, events)]) {
-    const html = card.shadowRoot.innerHTML;
-    const shrink = (sel) => Number(cssRule(html, sel).match(/flex: \d+ (\d+) /)?.[1]);
-    assert.ok(shrink(".loc") >= 100 * shrink(".emeta .when"), "the location shrinks long before the time");
-    assert.match(html, /<span class="loc"><ha-icon[^>]*><\/ha-icon><span class="lt">12 High Street<\/span><\/span>/);
-    assert.match(cssRule(html, ".loc .lt"), /text-overflow: ellipsis/);
-    // A time line too long for the row (an all-day range) wraps instead of being cut.
-    assert.match(cssRule(html, ".emeta .when"), /white-space: normal/);
-    // The countdown keeps its whole text and wraps instead of squeezing the event.
-    assert.match(html, /<span class="cd">/);
-    assert.match(cssRule(html, ".ev"), /flex-wrap: wrap/);
-    assert.match(cssRule(html, ".emain"), /min-width: min\(100%, \d+px\)/);
-    assert.match(cssRule(html, ".cd"), /flex-shrink: 0/);
-    // The color bar is out of the flow, so it spans the wrapped line too.
-    assert.match(cssRule(html, ".ev .cbar"), /position: absolute/);
-    assert.match(cssRule(html, ".ev"), /position: relative/);
+  // At 09:40, so the 23:00 event is still ahead whatever the hour the tests run at.
+  mock.timers.enable({ apis: ["Date"], now: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9, 40) });
+  try {
+    const Mini = customElements.get("calendar-agenda-mini-card");
+    const events = { "calendar.home": [{ summary: "Dentist", start: { dateTime: at(0, 23) }, end: { dateTime: at(0, 23, 30) }, location: "12 High Street" }] };
+    for (const card of [await render(CalendarAgendaCard, events), await render(Mini, events)]) {
+      const html = card.shadowRoot.innerHTML;
+      const shrink = (sel) => Number(cssRule(html, sel).match(/flex: \d+ (\d+) /)?.[1]);
+      assert.ok(shrink(".loc") >= 100 * shrink(".emeta .when"), "the location shrinks long before the time");
+      assert.match(html, /<span class="loc"><ha-icon[^>]*><\/ha-icon><span class="lt">12 High Street<\/span><\/span>/);
+      assert.match(cssRule(html, ".loc .lt"), /text-overflow: ellipsis/);
+      // A time line too long for the row (an all-day range) wraps instead of being cut.
+      assert.match(cssRule(html, ".emeta .when"), /white-space: normal/);
+      // The countdown keeps its whole text and wraps instead of squeezing the event.
+      assert.match(html, /<span class="cd">/);
+      assert.match(cssRule(html, ".ev"), /flex-wrap: wrap/);
+      assert.match(cssRule(html, ".emain"), /min-width: min\(100%, \d+px\)/);
+      assert.match(cssRule(html, ".cd"), /flex-shrink: 0/);
+      // The color bar is out of the flow, so it spans the wrapped line too.
+      assert.match(cssRule(html, ".ev .cbar"), /position: absolute/);
+      assert.match(cssRule(html, ".ev"), /position: relative/);
+    }
+    // On a full card squeezed into a narrow column, the events go under the date.
+    const html = (await render(CalendarAgendaCard, events)).shadowRoot.innerHTML;
+    assert.match(cssRule(html, ".day"), /flex-wrap: wrap/);
+    assert.match(cssRule(html, ".events"), /min-width: min\(100%, \d+px\)/);
+  } finally {
+    mock.timers.reset();
   }
-  // On a full card squeezed into a narrow column, the events go under the date.
-  const html = (await render(CalendarAgendaCard, events)).shadowRoot.innerHTML;
-  assert.match(cssRule(html, ".day"), /flex-wrap: wrap/);
-  assert.match(cssRule(html, ".events"), /min-width: min\(100%, \d+px\)/);
 });
 
 test("new event: + button for calendars that accept events, form at the top, create_event with the right data", async () => {
@@ -1199,13 +1211,14 @@ test("edit: the form is pre-filled and saved with calendar/event/update, times i
   const fetches = card._hass.calls.length;
   click(card, "edit");
   const html = card.shadowRoot.innerHTML;
-  assert.match(html, /class="pop form" role="dialog" aria-label="Edit event"/);
+  assert.match(html, /class="pop form" role="dialog" aria-modal="true" aria-label="Edit event"/);
   assert.match(html, /data-f="summary" value="Dentist"/);
   assert.match(html, new RegExp(`data-f="date" value="${day(1)}"`));
   assert.match(html, new RegExp(`data-f="end_date" value="${day(1)}"`));
   assert.match(html, /data-f="start" value="11:00"/);
   assert.match(html, /data-f="end" value="12:30"/);
   assert.match(html, /data-f="location" value="High Street"/);
+  assert.match(html, /<textarea data-f="description"[^>]*>Bring the card<\/textarea>/);
   assert.match(html, /data-action="save-add"[^>]*>.*Save</);
   card._form.summary = "Dentist (moved)";
   card._form.start = "15:00";
@@ -1213,7 +1226,6 @@ test("edit: the form is pre-filled and saved with calendar/event/update, times i
   await card._saveForm();
   assert.deepEqual(plain(card._hass.ws), [{
     type: "calendar/event/update", entity_id: "calendar.home", uid: "a1",
-    // The description is not in the form: it is kept.
     event: { summary: "Dentist (moved)", dtstart: utc(1, 15), dtend: utc(1, 16), location: "High Street", description: "Bring the card" },
   }]);
   assert.equal(card._adding, false);
@@ -1318,4 +1330,72 @@ test("editor offers the edit and delete buttons option on the full card", () => 
   assert.match(names, /"edit_buttons"/);
   ed.setConfig({ type: "custom:calendar-agenda-mini-card" });
   assert.doesNotMatch(JSON.stringify(ed._schema()), /"edit_buttons"/);
+});
+
+test("distinct events with the same title and times in two calendars are both listed, each changed in its own calendar", async () => {
+  const card = new CalendarAgendaCard();
+  card.setConfig({ entities: ["calendar.home", "calendar.work"] });
+  const ev = { summary: "Meeting", start: { dateTime: at(1, 9) }, end: { dateTime: at(1, 10) } };
+  const hass = mockHass({
+    "calendar.home": [{ ...ev, uid: "h1" }, { summary: "Lunch", start: { dateTime: at(1, 12) }, end: { dateTime: at(1, 13) } }],
+    "calendar.work": [{ ...ev, uid: "w1" }, { summary: "Lunch", start: { dateTime: at(1, 12) }, end: { dateTime: at(1, 13) } }],
+  });
+  hass.states["calendar.home"].attributes.supported_features = 7;
+  hass.states["calendar.work"].attributes.supported_features = 7;
+  hass.ws = [];
+  hass.callWS = async (msg) => { hass.ws.push(msg); };
+  card.hass = hass;
+  await new Promise((r) => setTimeout(r, 0));
+  const html = card.shadowRoot.innerHTML;
+  assert.equal(html.match(/class="etitle">Meeting</g).length, 2);
+  // Without a uid, same title and times: still two events.
+  assert.equal(html.match(/class="etitle">Lunch</g).length, 2);
+  // The second Meeting row is the work one: its details and delete go to calendar.work.
+  const rows = card._flat.map((x) => [x.e.summary, card._cals[x.e.cal].entity]);
+  const i = rows.findIndex(([s, c]) => s === "Meeting" && c === "calendar.work");
+  card._onClick({ composedPath: () => [{ dataset: { ev: String(i) } }] });
+  assert.match(card.shadowRoot.innerHTML, /class="pdot"[^>]*><\/span><span>Work</);
+  card._onClick({ composedPath: () => [{ dataset: { action: "delete" } }] });
+  await card._deleteEvent("");
+  assert.deepEqual(plain(hass.ws), [{ type: "calendar/event/delete", entity_id: "calendar.work", uid: "w1" }]);
+});
+
+test("dialogs: aria-modal, the focus moves to the popup's close button and back to the event row", async () => {
+  const card = await render(CalendarAgendaCard, {
+    "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }],
+  });
+  const focused = [];
+  card.shadowRoot.querySelector = (sel) => (sel.startsWith(".pop.") ? null : { focus: () => focused.push(sel) });
+  card._onClick({ composedPath: () => [{ dataset: { ev: "0" } }] });
+  assert.match(card.shadowRoot.innerHTML, /class="pop" role="dialog" aria-modal="true"/);
+  assert.equal(focused.at(-1), '.pop [data-action="close"]');
+  card._onKey({ key: "Escape" });
+  assert.equal(focused.at(-1), '[data-ev="0"]');
+  // The new event form: aria-modal, focus on the title, back to the + button on close.
+  card._onClick({ composedPath: () => [{ dataset: { action: "add" } }] });
+  assert.match(card.shadowRoot.innerHTML, /class="pop form" role="dialog" aria-modal="true"/);
+  assert.equal(focused.at(-1), '[data-f="summary"]');
+  card._onKey({ key: "Escape" });
+  assert.equal(focused.at(-1), ".addb");
+});
+
+test("edit form: closing it puts the focus back on the edited event's row", async () => {
+  const card = await editable([{ uid: "a1", summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }]);
+  const focused = [];
+  card.shadowRoot.querySelector = (sel) => (sel.startsWith(".pop.") ? null : { focus: () => focused.push(sel) });
+  click(card, "edit");
+  click(card, "cancel-add");
+  assert.equal(focused.at(-1), '[data-ev="0"]');
+});
+
+test("new event: a description, sent with create_event", async () => {
+  const card = await editable([]);
+  const services = [];
+  card._hass.callService = async (...args) => { services.push(args); };
+  click(card, "add");
+  assert.match(card.shadowRoot.innerHTML, /<label class="ff ff-description"><span>Description<\/span><textarea data-f="description"/);
+  Object.assign(card._form, { summary: "Dentist", date: "2026-11-20", all_day: true });
+  card._onField({ target: { dataset: { f: "description" }, value: "  Bring the card  " } });
+  await card._saveForm();
+  assert.deepEqual(plain(services[0][2]), { summary: "Dentist", description: "Bring the card", start_date: "2026-11-20", end_date: "2026-11-21" });
 });
