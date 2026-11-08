@@ -1905,14 +1905,15 @@ class CalendarAgendaCard extends HTMLElement {
   }
 
   // The open event's key (see _evKeyAt). Another event, or none, drops the delete confirmation and its
-  // error or pending state: reopening the event shows its details, not the old confirmation.
+  // error: reopening the event shows its details, not the old confirmation. The popup stays busy only
+  // for an event whose delete is still pending (`_deleting`), so it cannot be deleted twice.
   get _detail() { return this._detailKey; }
 
   set _detail(key) {
     if (key !== this._detailKey) {
       this._confirm = null;
       this._popErr = '';
-      this._popBusy = false;
+      this._popBusy = key != null && key === this._deleting;
     }
     this._detailKey = key;
   }
@@ -2432,25 +2433,31 @@ class CalendarAgendaCard extends HTMLElement {
 
   async _deleteEvent(range) {
     var e = this._detailEvent();
-    if (!e || this._popBusy) return;
+    var key = this._detail;
+    if (!e || this._popBusy || this._deleting === key) return;
     var msg = { type: 'calendar/event/delete', entity_id: this._cals[e.cal].entity, uid: e.uid };
     if (e.recurrence_id) {
       msg.recurrence_id = e.recurrence_id;
       if (range) msg.recurrence_range = range;
     }
+    this._deleting = key;
     this._popBusy = true;
     this._popErr = '';
     this._sig = null;
     this._update();
+    // The popup may have been closed, or show another event, by the time the answer comes: the
+    // outcome only touches the popup when it still shows the deleted event.
     try {
       await this._hass.callWS(msg);
-      this._popBusy = false;
-      this._confirm = null;
-      this._detail = null;
+      this._deleting = null;
+      if (this._detail === key) this._detail = null;
       this._refetch();
     } catch (err) {
-      this._popBusy = false;
-      this._popErr = this._t('ev_delete_failed').replace('{e}', err?.message || String(err));
+      this._deleting = null;
+      if (this._detail === key) {
+        this._popBusy = false;
+        this._popErr = this._t('ev_delete_failed').replace('{e}', err?.message || String(err));
+      }
       this._sig = null;
       this._update();
     }

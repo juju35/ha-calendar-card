@@ -8,6 +8,7 @@
 
 ### Fixes
 - Reopening an event after closing its details no longer shows the old delete confirmation or its error.
+- A delete still pending when its popup is closed cannot be sent twice, and its outcome no longer closes or shows an error in another event's popup.
 - Event form: an empty date or time is refused with a message, instead of an "Invalid time value" error from the browser.
 
 ## 1.5.0 - 2026-11-07

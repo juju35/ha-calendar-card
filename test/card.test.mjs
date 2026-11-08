@@ -1512,3 +1512,37 @@ test("server time zone: wall-clock times convert to UTC across daylight saving c
   assert.equal(ccUtc("2026-11-01", "03:00", "America/New_York"), "2026-11-01T08:00:00+00:00");
   assert.equal(ccUtc("2026-07-14", "14:00", "Asia/Kolkata"), "2026-07-14T08:30:00+00:00");
 });
+
+test("delete: closing the popup while a delete is pending neither allows a second delete nor touches another popup", async () => {
+  const ev = [
+    { uid: "a1", summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } },
+    { uid: "b2", summary: "Gym", start: { dateTime: at(1, 13) }, end: { dateTime: at(1, 14) } },
+  ];
+  for (const fails of [false, true]) {
+    const card = await editable(ev);
+    const hass = card._hass;
+    let answer;
+    hass.callWS = (msg) => {
+      hass.ws.push(msg);
+      return new Promise((res, rej) => { answer = fails ? () => rej(new Error("Read-only")) : res; });
+    };
+    click(card, "delete");
+    click(card, "delete-one");
+    // Closed and reopened while pending: still busy, a second delete sends nothing.
+    click(card, "close");
+    card._onClick({ composedPath: () => [{ dataset: { ev: "0" } }] });
+    assert.equal(card._popBusy, true);
+    click(card, "delete");
+    click(card, "delete-one");
+    assert.equal(hass.ws.length, 1);
+    // Another event's popup is open when the answer comes: it stays open, without the error.
+    card._onClick({ composedPath: () => [{ dataset: { ev: "1" } }] });
+    assert.equal(card._popBusy, false);
+    const other = card._detail;
+    answer();
+    await flush();
+    assert.equal(card._detail, other);
+    assert.equal(card._popErr, "");
+    assert.doesNotMatch(card.shadowRoot.innerHTML, /Could not delete/);
+  }
+});
