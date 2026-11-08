@@ -29,7 +29,7 @@ Custom Lovelace agenda card for Home Assistant [calendars](https://www.home-assi
 - Hide events by title with `exclude`
 - Refreshes when an event starts or ends and every 5 minutes
 - Visual editor in the dashboard UI
-- English, French, German, Spanish, Serbian (Cyrillic and Latin), Italian, Dutch, European Portuguese, Polish, Romanian, Danish, Swedish, Bulgarian, Russian, Ukrainian, Hungarian, Slovak, Czech, Slovenian, Latvian and Greek, follows the Home Assistant language and 12 h / 24 h time format
+- English, French, German, Spanish, Serbian (Cyrillic and Latin), Italian, Dutch, European Portuguese, Polish, Romanian, Danish, Swedish, Bulgarian, Russian, Ukrainian, Hungarian, Slovak, Czech, Slovenian, Latvian and Greek, follows the Home Assistant language, 12 h / 24 h time format and time zone setting (the browser's or the server's)
 - Light and dark theme compatible
 - Single file, no dependencies, ready for the Marketplace
 
@@ -87,7 +87,7 @@ entities:
   - calendar.work
 ```
 
-The mini card shows today's all-day events under way (school holidays, a public holiday…) on a compact line each, with the day they end, then the event under way or the next one (with its countdown), then the one after. The detail button (top right) unfolds the full agenda; a click anywhere else on the page folds it back. It takes the same options as the full card, which apply once unfolded, plus `zoom`.
+The mini card shows today's all-day events under way (school holidays, a public holiday…) on a compact line each, with the day they end, then the event under way or the next one (with its countdown), then the one after. A click (or Enter) on any of these lines opens the event's details. The detail button (top right) unfolds the full agenda; a click anywhere else on the page folds it back. It takes the same options as the full card, which apply once unfolded, plus `zoom`.
 
 ### Full options
 
@@ -184,7 +184,9 @@ The mini card's detail button unfolds the full agenda in place, and folds it bac
 
 The card asks Home Assistant for the events of each calendar between today midnight and `days_to_show` days later (the `/api/calendars/<entity>` endpoint the built-in calendar uses). It fetches again when a calendar entity changes state (an event starts or ends), when the day changes and every 5 minutes; countdowns move on every minute. A calendar that fails to load is named under the list and the others are still shown.
 
-The **+** button appears when at least one calendar supports creating events. The form calls the `calendar.create_event` action (all-day events end the next day, as Home Assistant expects) and the agenda fetches again once it is saved; an error from the calendar is shown in the form.
+Times follow the **Time zone** setting of the Home Assistant user profile: the browser's zone by default, or the server's zone (`hass.config.time_zone`) when the profile is set to use it. The days, the times and the event form all use that zone.
+
+The **+** button appears when at least one calendar supports creating events. The form needs a title, a date and, unless all day, a start and an end time. It calls the `calendar.create_event` action (all-day events end the next day, as Home Assistant expects) and the agenda fetches again once it is saved; an error from the calendar is shown in the form.
 
 The **Edit** and **Delete** buttons appear in the details of an event that has a uid, when its calendar supports updating or deleting events. They use the `calendar/event/update` and `calendar/event/delete` WebSocket commands, like the calendar panel of Home Assistant: times are sent in UTC, all-day events as dates ending the next day, the description edited in the form like the other fields. For a recurring event, the card asks whether the change applies to this event only or to this one and the following ones (`recurrence_range: THISANDFUTURE`, the recurrence rule kept). The agenda fetches again once the event is saved or deleted; an error is shown in the form or the popup.
 

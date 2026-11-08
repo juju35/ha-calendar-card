@@ -37,6 +37,7 @@ var CcI18n = {
     ev_cancel: 'Annuler',
     ev_need_title: 'Donnez un titre à l\'événement',
     ev_bad_end: 'La fin doit être après le début',
+    ev_bad_when: 'Indiquez la date et les heures',
     ev_failed: 'Impossible d\'ajouter l\'événement : {e}',
     edit_event: 'Modifier l\'événement',
     delete_event: 'Supprimer l\'événement',
@@ -105,6 +106,7 @@ var CcI18n = {
     ev_cancel: 'Cancel',
     ev_need_title: 'Give the event a title',
     ev_bad_end: 'The end must be after the start',
+    ev_bad_when: 'Enter the date and times',
     ev_failed: 'Could not add the event: {e}',
     edit_event: 'Edit event',
     delete_event: 'Delete event',
@@ -173,6 +175,7 @@ var CcI18n = {
     ev_cancel: 'Abbrechen',
     ev_need_title: 'Gib dem Termin einen Titel',
     ev_bad_end: 'Das Ende muss nach dem Beginn liegen',
+    ev_bad_when: 'Gib das Datum und die Uhrzeiten ein',
     ev_failed: 'Termin konnte nicht hinzugefügt werden: {e}',
     edit_event: 'Termin bearbeiten',
     delete_event: 'Termin löschen',
@@ -241,6 +244,7 @@ var CcI18n = {
     ev_cancel: 'Cancelar',
     ev_need_title: 'Pon un título al evento',
     ev_bad_end: 'El fin debe ser posterior al inicio',
+    ev_bad_when: 'Indica la fecha y las horas',
     ev_failed: 'No se pudo añadir el evento: {e}',
     edit_event: 'Editar evento',
     delete_event: 'Eliminar evento',
@@ -309,6 +313,7 @@ var CcI18n = {
     ev_cancel: 'Откажи',
     ev_need_title: 'Дајте наслов догађају',
     ev_bad_end: 'Крај мора бити после почетка',
+    ev_bad_when: 'Унесите датум и време',
     ev_failed: 'Догађај није могао да се дода: {e}',
     edit_event: 'Измени догађај',
     delete_event: 'Обриши догађај',
@@ -377,6 +382,7 @@ var CcI18n = {
     ev_cancel: 'Otkaži',
     ev_need_title: 'Dajte naslov događaju',
     ev_bad_end: 'Kraj mora biti posle početka',
+    ev_bad_when: 'Unesite datum i vreme',
     ev_failed: 'Događaj nije mogao da se doda: {e}',
     edit_event: 'Izmeni događaj',
     delete_event: 'Obriši događaj',
@@ -445,6 +451,7 @@ var CcI18n = {
     ev_cancel: 'Annulla',
     ev_need_title: 'Dai un titolo all\'evento',
     ev_bad_end: 'La fine deve essere dopo l\'inizio',
+    ev_bad_when: 'Inserisci la data e gli orari',
     ev_failed: 'Impossibile aggiungere l\'evento: {e}',
     edit_event: 'Modifica evento',
     delete_event: 'Elimina evento',
@@ -513,6 +520,7 @@ var CcI18n = {
     ev_cancel: 'Annuleren',
     ev_need_title: 'Geef de afspraak een titel',
     ev_bad_end: 'Het einde moet na het begin liggen',
+    ev_bad_when: 'Vul de datum en de tijden in',
     ev_failed: 'Afspraak kon niet worden toegevoegd: {e}',
     edit_event: 'Afspraak bewerken',
     delete_event: 'Afspraak verwijderen',
@@ -581,6 +589,7 @@ var CcI18n = {
     ev_cancel: 'Cancelar',
     ev_need_title: 'Dê um título ao evento',
     ev_bad_end: 'O fim tem de ser depois do início',
+    ev_bad_when: 'Indique a data e as horas',
     ev_failed: 'Não foi possível adicionar o evento: {e}',
     edit_event: 'Editar evento',
     delete_event: 'Eliminar evento',
@@ -649,6 +658,7 @@ var CcI18n = {
     ev_cancel: 'Anuluj',
     ev_need_title: 'Nadaj wydarzeniu tytuł',
     ev_bad_end: 'Koniec musi być po początku',
+    ev_bad_when: 'Podaj datę i godziny',
     ev_failed: 'Nie udało się dodać wydarzenia: {e}',
     edit_event: 'Edytuj wydarzenie',
     delete_event: 'Usuń wydarzenie',
@@ -717,6 +727,7 @@ var CcI18n = {
     ev_cancel: 'Anulează',
     ev_need_title: 'Dați un titlu evenimentului',
     ev_bad_end: 'Sfârșitul trebuie să fie după început',
+    ev_bad_when: 'Introduceți data și orele',
     ev_failed: 'Evenimentul nu a putut fi adăugat: {e}',
     edit_event: 'Editează evenimentul',
     delete_event: 'Șterge evenimentul',
@@ -785,6 +796,7 @@ var CcI18n = {
     ev_cancel: 'Annuller',
     ev_need_title: 'Giv begivenheden en titel',
     ev_bad_end: 'Slut skal være efter start',
+    ev_bad_when: 'Angiv dato og tidspunkter',
     ev_failed: 'Begivenheden kunne ikke tilføjes: {e}',
     edit_event: 'Rediger begivenhed',
     delete_event: 'Slet begivenhed',
@@ -853,6 +865,7 @@ var CcI18n = {
     ev_cancel: 'Avbryt',
     ev_need_title: 'Ge händelsen en titel',
     ev_bad_end: 'Slutet måste vara efter starten',
+    ev_bad_when: 'Ange datum och tider',
     ev_failed: 'Händelsen kunde inte läggas till: {e}',
     edit_event: 'Redigera händelse',
     delete_event: 'Ta bort händelse',
@@ -921,6 +934,7 @@ var CcI18n = {
     ev_cancel: 'Отказ',
     ev_need_title: 'Дайте заглавие на събитието',
     ev_bad_end: 'Краят трябва да е след началото',
+    ev_bad_when: 'Въведете датата и часовете',
     ev_failed: 'Събитието не можа да бъде добавено: {e}',
     edit_event: 'Редактиране на събитието',
     delete_event: 'Изтриване на събитието',
@@ -989,6 +1003,7 @@ var CcI18n = {
     ev_cancel: 'Отмена',
     ev_need_title: 'Укажите название события',
     ev_bad_end: 'Конец должен быть после начала',
+    ev_bad_when: 'Укажите дату и время',
     ev_failed: 'Не удалось добавить событие: {e}',
     edit_event: 'Изменить событие',
     delete_event: 'Удалить событие',
@@ -1057,6 +1072,7 @@ var CcI18n = {
     ev_cancel: 'Скасувати',
     ev_need_title: 'Вкажіть назву події',
     ev_bad_end: 'Кінець має бути після початку',
+    ev_bad_when: 'Вкажіть дату й час',
     ev_failed: 'Не вдалося додати подію: {e}',
     edit_event: 'Змінити подію',
     delete_event: 'Видалити подію',
@@ -1125,6 +1141,7 @@ var CcI18n = {
     ev_cancel: 'Mégse',
     ev_need_title: 'Adjon címet az eseménynek',
     ev_bad_end: 'A végének a kezdés után kell lennie',
+    ev_bad_when: 'Adja meg a dátumot és az időpontokat',
     ev_failed: 'Az esemény nem adható hozzá: {e}',
     edit_event: 'Esemény szerkesztése',
     delete_event: 'Esemény törlése',
@@ -1193,6 +1210,7 @@ var CcI18n = {
     ev_cancel: 'Zrušiť',
     ev_need_title: 'Zadajte názov udalosti',
     ev_bad_end: 'Koniec musí byť po začiatku',
+    ev_bad_when: 'Zadajte dátum a časy',
     ev_failed: 'Udalosť sa nepodarilo pridať: {e}',
     edit_event: 'Upraviť udalosť',
     delete_event: 'Odstrániť udalosť',
@@ -1261,6 +1279,7 @@ var CcI18n = {
     ev_cancel: 'Zrušit',
     ev_need_title: 'Zadejte název události',
     ev_bad_end: 'Konec musí být po začátku',
+    ev_bad_when: 'Zadejte datum a časy',
     ev_failed: 'Událost se nepodařilo přidat: {e}',
     edit_event: 'Upravit událost',
     delete_event: 'Smazat událost',
@@ -1329,6 +1348,7 @@ var CcI18n = {
     ev_cancel: 'Prekliči',
     ev_need_title: 'Dogodku dajte naslov',
     ev_bad_end: 'Konec mora biti po začetku',
+    ev_bad_when: 'Vnesite datum in ure',
     ev_failed: 'Dogodka ni bilo mogoče dodati: {e}',
     edit_event: 'Uredi dogodek',
     delete_event: 'Izbriši dogodek',
@@ -1397,6 +1417,7 @@ var CcI18n = {
     ev_cancel: 'Atcelt',
     ev_need_title: 'Piešķiriet notikumam nosaukumu',
     ev_bad_end: 'Beigām jābūt pēc sākuma',
+    ev_bad_when: 'Ievadiet datumu un laikus',
     ev_failed: 'Notikumu neizdevās pievienot: {e}',
     edit_event: 'Rediģēt notikumu',
     delete_event: 'Dzēst notikumu',
@@ -1465,6 +1486,7 @@ var CcI18n = {
     ev_cancel: 'Ακύρωση',
     ev_need_title: 'Δώστε τίτλο στο συμβάν',
     ev_bad_end: 'Η λήξη πρέπει να είναι μετά την έναρξη',
+    ev_bad_when: 'Εισαγάγετε την ημερομηνία και τις ώρες',
     ev_failed: 'Δεν ήταν δυνατή η προσθήκη του συμβάντος: {e}',
     edit_event: 'Επεξεργασία συμβάντος',
     delete_event: 'Διαγραφή συμβάντος',
@@ -1565,6 +1587,11 @@ function ccIso(d) {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }
 
+// A form's date ("2026-11-20") and time ("14:00") as the inputs give them; empty when cleared.
+function ccDateOk(v) { return /^\d{4}-\d{2}-\d{2}$/.test(v || '') && !Number.isNaN(ccLocalDate(v).getTime()); }
+
+function ccTimeOk(v) { return /^([01]\d|2[0-3]):[0-5]\d/.test(v || ''); }
+
 function ccHm(d) {
   return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
 }
@@ -1577,18 +1604,72 @@ function ccFormTimes(now) {
   return { date: ccIso(start), start: ccHm(start), end: ccHm(end) };
 }
 
-// A form date and time ("2026-11-20", "14:00"), in the browser's time zone like the agenda shows the
-// events, as an absolute UTC time for create_event. A naive time would be read in the Home Assistant
-// server's time zone; UTC for both ends also keeps them in one zone across a daylight saving change,
-// as Home Assistant requires.
 // Days from one form date to another ("2026-11-20" to "2026-11-22": 2).
 function ccDaysBetween(from, to) {
   return Math.round((ccLocalDate(to) - ccLocalDate(from)) / 86400000);
 }
 
-function ccUtc(date, hm) {
+// A form date and time ("2026-11-20", "14:00"), in the zone the agenda shows the events in (the
+// browser's, or the server's `tz` with the profile's server time zone setting), as an absolute UTC time
+// for create_event. A naive time would be read in the Home Assistant server's time zone; UTC for both
+// ends also keeps them in one zone across a daylight saving change, as Home Assistant requires.
+function ccUtc(date, hm, tz) {
   var p = `${date}-${hm}`.split(/[-:]/).map(Number);
-  return `${new Date(p[0], p[1] - 1, p[2], p[3], p[4]).toISOString().slice(0, 19)}+00:00`;
+  var d = tz ? ccFromZone(p[0], p[1] - 1, p[2], p[3], p[4], tz) : new Date(p[0], p[1] - 1, p[2], p[3], p[4]);
+  return `${d.toISOString().slice(0, 19)}+00:00`;
+}
+
+// Time zone of the profile's "server" setting (hass.locale.time_zone === 'server'): the agenda then shows
+// and enters times in the Home Assistant server's zone. The card keeps working on browser-local Date
+// objects: an instant is turned into a Date whose local fields are its wall-clock time in that zone
+// (ccInZone), and back (ccFromZone). Null, so nothing is shifted, when the setting is "local", the zone
+// is unknown, or it is the browser's own.
+var ccZoneFmts = {};
+function ccZoneFmt(tz) {
+  if (!Object.hasOwn(ccZoneFmts, tz)) {
+    try {
+      ccZoneFmts[tz] = new Intl.DateTimeFormat('en-US', {
+        timeZone: tz, hourCycle: 'h23', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric',
+      });
+    } catch {
+      ccZoneFmts[tz] = null;
+    }
+  }
+  return ccZoneFmts[tz];
+}
+
+function ccServerZone(hass) {
+  var tz = hass?.locale?.time_zone === 'server' ? hass?.config?.time_zone : null;
+  if (!tz || !ccZoneFmt(tz)) return null;
+  try {
+    if (Intl.DateTimeFormat().resolvedOptions().timeZone === tz) return null;
+  } catch { /* unknown browser zone: shift */ }
+  return tz;
+}
+
+function ccInZone(d, tz) {
+  if (!tz) return d;
+  var p = {};
+  ccZoneFmt(tz).formatToParts(d).forEach((x) => { p[x.type] = Number(x.value); });
+  return new Date(p.year, p.month - 1, p.day, p.hour % 24, p.minute, p.second, d.getMilliseconds());
+}
+
+// The instant of a wall-clock time in `tz` (month from 0). A time skipped by a daylight saving change
+// lands an hour later, one repeated by it on its first occurrence.
+function ccFromZone(y, mo, day, h, mi, tz) {
+  var wall = Date.UTC(y, mo, day, h, mi);
+  var offset = (t) => {
+    var w = ccInZone(new Date(t), tz);
+    return Date.UTC(w.getFullYear(), w.getMonth(), w.getDate(), w.getHours(), w.getMinutes(), w.getSeconds()) - Math.floor(t / 1000) * 1000;
+  };
+  var t = wall - offset(wall);
+  var t2 = wall - offset(t);
+  return new Date(offset(t2) === wall - t2 ? t2 : t);
+}
+
+// A shifted Date (see ccInZone) back to its instant.
+function ccOutZone(d, tz) {
+  return tz ? ccFromZone(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), tz) : d;
 }
 
 // A YAML scalar where a list is expected (`entities: calendar.home`, `exclude: Private`) is a one-item list.
@@ -1823,6 +1904,19 @@ class CalendarAgendaCard extends HTMLElement {
     this._update();
   }
 
+  // The open event's key (see _evKeyAt). Another event, or none, drops the delete confirmation and its
+  // error or pending state: reopening the event shows its details, not the old confirmation.
+  get _detail() { return this._detailKey; }
+
+  set _detail(key) {
+    if (key !== this._detailKey) {
+      this._confirm = null;
+      this._popErr = '';
+      this._popBusy = false;
+    }
+    this._detailKey = key;
+  }
+
   connectedCallback() {
     // Every minute: countdowns move on, finished events go, and the events are fetched again every 5 min.
     // The tick is skipped while the details popup is open: re-rendering would reset its scroll position.
@@ -1866,6 +1960,12 @@ class CalendarAgendaCard extends HTMLElement {
     try { new Intl.DateTimeFormat(l); this._fmtOk = l; } catch { this._fmtBad = l; l = this._lang(); }
     return l;
   }
+
+  // Server time zone to show and enter times in, or null for the browser's (see ccServerZone).
+  _tz() { return ccServerZone(this._hass); }
+
+  // Now, as a Date in the zone the agenda is shown in.
+  _now() { return ccInZone(new Date(), this._tz()); }
 
   _days() { return Math.max(1, Math.min(62, Number(this._config.days_to_show) || CC_DEFAULTS.days_to_show)); }
 
@@ -1937,7 +2037,8 @@ class CalendarAgendaCard extends HTMLElement {
     if (this._adding && this._formShown) return;
     var cals = ccCalendars(this._config, this._hass);
     this._cals = cals;
-    var now = new Date();
+    var tz = this._tz();
+    var now = ccInZone(new Date(), tz);
     // Cheap pre-check: a hass update that touches neither the calendar entities, the minute, the
     // language / time format nor the card state cannot change the fetch key or the render — skip the
     // two JSON.stringify below. `_sig = null` (set by setConfig, the minute timer and a resolved fetch)
@@ -1946,12 +2047,12 @@ class CalendarAgendaCard extends HTMLElement {
     var minute = this._detail != null ? '' : Math.floor(Date.now() / 60000);
     var loc = this._hass.locale || {};
     var tick = `${cals.map((c) => this._hass.states[c.entity]?.last_updated || '').join('|')}|${minute}|${this._detail}|${this._expanded}|${this._zoomed}|${!!this._adding}|${this._confirm}` +
-      `|${this._hass.language}|${loc.language}|${loc.time_format}`;
+      `|${this._hass.language}|${loc.language}|${loc.time_format}|${tz}`;
     if (this._sig != null && tick === this._tick) return;
     this._tick = tick;
     // Fetch again when the calendars, the range or the day change, when a calendar entity changes
     // (an event starts or ends) and every 5 minutes.
-    var key = JSON.stringify([cals.map((c) => c.entity), this._days(), ccKey(now),
+    var key = JSON.stringify([cals.map((c) => c.entity), this._days(), ccKey(now), tz,
       cals.map((c) => this._hass.states[c.entity]?.last_changed || '')]);
     if (cals.length && (key !== this._fetchKey || Date.now() - this._fetchedAt > CC_REFRESH)) {
       this._fetchKey = key;
@@ -1959,7 +2060,7 @@ class CalendarAgendaCard extends HTMLElement {
     }
     var sig = JSON.stringify([this._lang(), this._fmtLang(), this._fetchedAt, this._detail, this._expanded, this._zoomed, !!this._adding, this._form?.error, this._form?.busy, this._form?.confirm,
       this._confirm, this._popErr, this._popBusy,
-      minute, cals.map((c) => [c.entity, c.color, c.name]), this._hass.locale?.time_format]);
+      minute, cals.map((c) => [c.entity, c.color, c.name]), this._hass.locale?.time_format, tz]);
     if (sig === this._sig) return;
     this._sig = sig;
     // Re-rendering replaces the whole shadow DOM: put the keyboard focus back on the same event (found
@@ -2033,9 +2134,10 @@ class CalendarAgendaCard extends HTMLElement {
 
   async _fetch(cals) {
     var seq = ++this._fetchSeq;
-    var from = ccDayStart(new Date());
+    var tz = this._tz();
+    var from = ccDayStart(ccInZone(new Date(), tz));
     var to = ccAddDays(from, this._days());
-    var q = `?start=${encodeURIComponent(from.toISOString())}&end=${encodeURIComponent(to.toISOString())}`;
+    var q = `?start=${encodeURIComponent(ccOutZone(from, tz).toISOString())}&end=${encodeURIComponent(ccOutZone(to, tz).toISOString())}`;
     // Set before the await, so a `set hass` while the request is pending does not refetch.
     this._fetchedAt = Date.now();
     var res = await Promise.allSettled(cals.map((c) => this._hass.callApi('GET', `calendars/${c.entity}${q}`)));
@@ -2051,7 +2153,10 @@ class CalendarAgendaCard extends HTMLElement {
       }
       (Array.isArray(r.value) ? r.value : []).forEach((raw) => {
         var e = ccParse(raw, i);
-        if (e) events.push(e);
+        if (!e) return;
+        // Timed events in the server's zone (all-day ones are dates, in no zone).
+        if (tz && !e.allDay) Object.assign(e, { start: ccInZone(e.start, tz), end: ccInZone(e.end, tz) });
+        events.push(e);
       });
     });
     this._events = ccDedupe(events.sort(ccSort));
@@ -2151,7 +2256,7 @@ class CalendarAgendaCard extends HTMLElement {
   // `span` is the number of days from the start date to the end date: the end date follows the start's.
   _openForm(e) {
     var f = {
-      summary: '', cal: this._writable()[0]?.i ?? 0, all_day: false, ...ccFormTimes(new Date()), span: 0, location: '', description: '', error: '', busy: false,
+      summary: '', cal: this._writable()[0]?.i ?? 0, all_day: false, ...ccFormTimes(this._now()), span: 0, location: '', description: '', error: '', busy: false,
     };
     if (e) {
       // An all-day event's end is the day after its last day.
@@ -2217,8 +2322,8 @@ class CalendarAgendaCard extends HTMLElement {
       data.start_date = f.date;
       data.end_date = ccIso(ccAddDays(ccLocalDate(f.date), f.span + 1));
     } else {
-      data.start_date_time = ccUtc(f.date, f.start);
-      data.end_date_time = ccUtc(this._endDate(), f.end);
+      data.start_date_time = ccUtc(f.date, f.start, this._tz());
+      data.end_date_time = ccUtc(this._endDate(), f.end, this._tz());
     }
     return data;
   }
@@ -2247,6 +2352,8 @@ class CalendarAgendaCard extends HTMLElement {
     var f = this._form;
     if (!f || f.busy) return;
     if (!f.summary.trim()) f.error = this._t('ev_need_title');
+    // A date or time field left empty (or half typed: the input's value is then '').
+    else if (!ccDateOk(f.date) || (!f.all_day && !(ccTimeOk(f.start) && ccTimeOk(f.end)))) f.error = this._t('ev_bad_when');
     else if (!(f.span >= 0) || (!f.all_day && !f.span && f.end <= f.start)) f.error = this._t('ev_bad_end');
     else f.error = '';
     f.confirm = !f.error && !!f.edit?.recurrence_id && range == null;
@@ -2633,7 +2740,9 @@ class CalendarAgendaCard extends HTMLElement {
         ' .st .stt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }' +
         ' .st .dot { display: block; }' +
       ' }' +
-      '.mnext { font-size: 12px; color: var(--secondary-text-color); display: flex; gap: 6px; align-items: center; min-width: 0; white-space: nowrap; overflow: hidden; }' +
+      '.mnext { font-size: 12px; color: var(--secondary-text-color); display: flex; gap: 6px; align-items: center; min-width: 0; white-space: nowrap; overflow: hidden; border-radius: 6px; cursor: pointer; }' +
+      '.mnext:hover { background: color-mix(in srgb, var(--c) 16%, transparent); }' +
+      '.mnext:focus-visible { box-shadow: 0 0 0 2px var(--c); outline: none; }' +
       // The event name keeps at least 40px; the date or time after it gives way first.
       '.mnext b { min-width: 40px; font-weight: 500; color: var(--primary-text-color); overflow: hidden; text-overflow: ellipsis; }' +
       '.mnext span:last-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; }' +
@@ -2706,7 +2815,7 @@ class CalendarAgendaMiniCard extends CalendarAgendaCard {
         var cal = this._cals[second.e.cal];
         var when = ccKey(second.day) === ccKey(now) ? this._when(second.e)
           : `${this._wdShort(second.day)} ${second.e.allDay ? '' : this._timeFmt(second.e.start)}`.trim();
-        body += `<div class="mnext" style="--c:${ccEsc(cal.color)}"><span>${this._t('next')}</span><span class="ndot"></span><b>${ccEsc(second.e.summary)}</b><span>${ccEsc(when)}</span></div>`;
+        body += `<div class="mnext" style="--c:${ccEsc(cal.color)}" data-ev="${this._flat.indexOf(second)}" role="button" tabindex="0"><span>${this._t('next')}</span><span class="ndot"></span><b>${ccEsc(second.e.summary)}</b><span>${ccEsc(when)}</span></div>`;
       }
     }
     return `<ha-card class="mini${this._detail != null ? ' popped' : ''}" lang="${ccEsc(this._fmtLang())}">` +
