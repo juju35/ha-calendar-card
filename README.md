@@ -22,6 +22,7 @@ Custom Lovelace agenda card for Home Assistant [calendars](https://www.home-assi
 - Several calendars merged in one list, each with its own color and name; an event shared by several calendars (same uid) is listed once, distinct events with the same title and times are all kept
 - Days with today and tomorrow labelled, all-day events, time range and location; a multi-day event is listed once with its date range
 - Countdown for today's events (*in 25 min*, *in 2 h 05*), **Now** badge and progress bar for the event under way; finished events go away
+- **Week view** (`view: week`): the 7 days from today side by side, each event a tile in its calendar's color (time and title); one day per row on a narrow card
 - Events past `max_events` fold into a **N more events** section (chevron right folded, down unfolded, folds back on a click elsewhere)
 - Click an event for its details (date and time, location, calendar, description) in a popup at the top of the card; the keyboard focus moves into the popup or the form and back to the event when it closes
 - **+** button in the header: a **New event** form (title, calendar, all day, start and end date and time, location, description) adds the event to a calendar that accepts new events (local calendar, CalDAV, Google…); the end date allows overnight and multi-day events
@@ -103,6 +104,7 @@ entities:
   - entity: calendar.public_holidays
     color: "#8e24aa"
     name: Holidays
+view: agenda
 days_to_show: 7
 max_events: 5
 show_header: true
@@ -122,6 +124,7 @@ language: en
 |---|---|---|---|
 | `entities` | ✅ | — | Calendars: entity IDs, or objects `{ entity, color, name }` |
 | `title` | ❌ | `Agenda` (translated) | Card title |
+| `view` | ❌ | `agenda` | `agenda` (list by day) or `week` (7 columns from today; `days_to_show` and `max_events` don't apply). Full card only, the mini card keeps its list |
 | `days_to_show` | ❌ | `7` | Number of days from today (1 to 62) |
 | `max_events` | ❌ | `5` | Events shown before the folded **more** section (`0` shows everything) |
 | `show_header` | ❌ | `true` | Header with today's date and the number of events today |
@@ -150,6 +153,7 @@ Calendar options:
 |---|---|
 | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda.png" alt="agenda" width="334"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-dark.png" alt="agenda dark" width="334"> |
 | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini.png" alt="mini card" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini-dark.png" alt="mini card dark" width="400"> |
+| <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/week.png" alt="week view" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/week-dark.png" alt="week view dark" width="400"> |
 
 | | Light | Dark |
 |---|---|---|

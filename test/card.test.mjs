@@ -1546,3 +1546,45 @@ test("delete: closing the popup while a delete is pending neither allows a secon
     assert.doesNotMatch(card.shadowRoot.innerHTML, /Could not delete/);
   }
 });
+
+test("week view: 7 columns from today, every event as a tile that opens its details, max_events ignored", async () => {
+  const card = await render(CalendarAgendaCard, {
+    "calendar.home": [
+      { summary: "Dentist", start: { dateTime: at(1, 11, 30) }, end: { dateTime: at(1, 12) } },
+      { summary: "Holidays", start: { date: day(3) }, end: { date: day(5) } },
+    ],
+    "calendar.work": [
+      { summary: "Review", start: { dateTime: at(2, 14) }, end: { dateTime: at(2, 15) } },
+      { summary: "Late", start: { dateTime: at(9, 14) }, end: { dateTime: at(9, 15) } },
+    ],
+  }, { view: "week", days_to_show: 14, max_events: 1 });
+  // The window is the 7 days, whatever days_to_show says.
+  const end = new Date(decodeURIComponent(card._hass.calls[0][1].match(/end=([^&]+)/)[1]));
+  assert.equal(Math.round((end - today) / 86400000), 7);
+  const html = card.shadowRoot.innerHTML;
+  assert.equal(html.match(/class="wcol/g).length, 7);
+  assert.match(html, /class="wcol today"/);
+  assert.match(html, /<span class="wt">11:30<\/span><span class="ws">Dentist</);
+  assert.match(html, /class="wev allday"[^>]*><span class="wt">All day<\/span><span class="ws">Holidays</);
+  assert.match(html, /Review/);
+  assert.doesNotMatch(html, /Late/);
+  assert.doesNotMatch(html, /data-action="more"/);
+  // A click on a tile opens its details, as in the list.
+  assert.match(html, /data-ev="0"[^>]*><span class="wt">11:30/);
+  card._toggleDetail(0);
+  assert.match(card.shadowRoot.innerHTML, /<ha-card class="popped"/);
+  assert.match(card.shadowRoot.innerHTML, /11:30 – 12:00/);
+});
+
+test("week view: the editor offers it on the full card only; the mini card keeps its list", async () => {
+  const ed = new CalendarAgendaCardEditor();
+  ed._config = { type: "custom:calendar-agenda-card" };
+  ed._hass = mockHass({});
+  const view = ed._schema().find((f) => f.name === "view");
+  assert.deepEqual(plain(view.selector.select.options.map((o) => o.value)), ["agenda", "week"]);
+  ed._config = { type: "custom:calendar-agenda-mini-card" };
+  assert.equal(ed._schema().find((f) => f.name === "view"), undefined);
+  const Mini = customElements.get("calendar-agenda-mini-card");
+  const mini = await render(Mini, { "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }] }, { view: "week" });
+  assert.doesNotMatch(mini.shadowRoot.innerHTML, /class="week"/);
+});

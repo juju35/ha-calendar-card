@@ -171,6 +171,8 @@ const shots = [
       await page.mouse.move(0, 0);
     },
   })),
+  { file: "week", type: "calendar-agenda-card", theme: "light", width: 760, config: { view: "week" } },
+  { file: "week-dark", type: "calendar-agenda-card", theme: "dark", width: 760, config: { view: "week" } },
   { file: "mini", type: "calendar-agenda-mini-card", theme: "light", width: 380, config: {} },
   { file: "mini-dark", type: "calendar-agenda-mini-card", theme: "dark", width: 380, config: {} },
   {
