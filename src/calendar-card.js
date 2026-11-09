@@ -5,6 +5,8 @@ var CcI18n = {
   fr: {
     agenda: 'Agenda',
     today: 'Aujourd\'hui',
+    prev_week: 'Semaine précédente',
+    next_week: 'Semaine suivante',
     tomorrow: 'Demain',
     all_day: 'Toute la journée',
     now: 'En cours',
@@ -78,6 +80,8 @@ var CcI18n = {
   en: {
     agenda: 'Agenda',
     today: 'Today',
+    prev_week: 'Previous week',
+    next_week: 'Next week',
     tomorrow: 'Tomorrow',
     all_day: 'All day',
     now: 'Now',
@@ -151,6 +155,8 @@ var CcI18n = {
   de: {
     agenda: 'Termine',
     today: 'Heute',
+    prev_week: 'Vorherige Woche',
+    next_week: 'Nächste Woche',
     tomorrow: 'Morgen',
     all_day: 'Ganztägig',
     now: 'Jetzt',
@@ -224,6 +230,8 @@ var CcI18n = {
   es: {
     agenda: 'Agenda',
     today: 'Hoy',
+    prev_week: 'Semana anterior',
+    next_week: 'Semana siguiente',
     tomorrow: 'Mañana',
     all_day: 'Todo el día',
     now: 'En curso',
@@ -297,6 +305,8 @@ var CcI18n = {
   sr: {
     agenda: 'Агенда',
     today: 'Данас',
+    prev_week: 'Претходна недеља',
+    next_week: 'Следећа недеља',
     tomorrow: 'Сутра',
     all_day: 'Цео дан',
     now: 'У току',
@@ -370,6 +380,8 @@ var CcI18n = {
   'sr-Latn': {
     agenda: 'Agenda',
     today: 'Danas',
+    prev_week: 'Prethodna nedelja',
+    next_week: 'Sledeća nedelja',
     tomorrow: 'Sutra',
     all_day: 'Ceo dan',
     now: 'U toku',
@@ -443,6 +455,8 @@ var CcI18n = {
   it: {
     agenda: 'Agenda',
     today: 'Oggi',
+    prev_week: 'Settimana precedente',
+    next_week: 'Settimana successiva',
     tomorrow: 'Domani',
     all_day: 'Tutto il giorno',
     now: 'In corso',
@@ -516,6 +530,8 @@ var CcI18n = {
   nl: {
     agenda: 'Agenda',
     today: 'Vandaag',
+    prev_week: 'Vorige week',
+    next_week: 'Volgende week',
     tomorrow: 'Morgen',
     all_day: 'Hele dag',
     now: 'Nu bezig',
@@ -589,6 +605,8 @@ var CcI18n = {
   pt: {
     agenda: 'Agenda',
     today: 'Hoje',
+    prev_week: 'Semana anterior',
+    next_week: 'Semana seguinte',
     tomorrow: 'Amanhã',
     all_day: 'Todo o dia',
     now: 'A decorrer',
@@ -662,6 +680,8 @@ var CcI18n = {
   pl: {
     agenda: 'Terminarz',
     today: 'Dzisiaj',
+    prev_week: 'Poprzedni tydzień',
+    next_week: 'Następny tydzień',
     tomorrow: 'Jutro',
     all_day: 'Cały dzień',
     now: 'Trwa',
@@ -735,6 +755,8 @@ var CcI18n = {
   ro: {
     agenda: 'Agendă',
     today: 'Astăzi',
+    prev_week: 'Săptămâna anterioară',
+    next_week: 'Săptămâna următoare',
     tomorrow: 'Mâine',
     all_day: 'Toată ziua',
     now: 'În desfășurare',
@@ -808,6 +830,8 @@ var CcI18n = {
   da: {
     agenda: 'Aftaler',
     today: 'I dag',
+    prev_week: 'Forrige uge',
+    next_week: 'Næste uge',
     tomorrow: 'I\u00a0morgen',
     all_day: 'Hele dagen',
     now: 'I gang',
@@ -881,6 +905,8 @@ var CcI18n = {
   sv: {
     agenda: 'Schema',
     today: 'I dag',
+    prev_week: 'Föregående vecka',
+    next_week: 'Nästa vecka',
     tomorrow: 'I\u00a0morgon',
     all_day: 'Heldag',
     now: 'Pågår',
@@ -954,6 +980,8 @@ var CcI18n = {
   bg: {
     agenda: 'График',
     today: 'Днес',
+    prev_week: 'Предишна седмица',
+    next_week: 'Следваща седмица',
     tomorrow: 'Утре',
     all_day: 'Цял ден',
     now: 'В момента',
@@ -1027,6 +1055,8 @@ var CcI18n = {
   ru: {
     agenda: 'События',
     today: 'Сегодня',
+    prev_week: 'Предыдущая неделя',
+    next_week: 'Следующая неделя',
     tomorrow: 'Завтра',
     all_day: 'Весь день',
     now: 'Идёт',
@@ -1100,6 +1130,8 @@ var CcI18n = {
   uk: {
     agenda: 'Розклад',
     today: 'Сьогодні',
+    prev_week: 'Попередній тиждень',
+    next_week: 'Наступний тиждень',
     tomorrow: 'Завтра',
     all_day: 'Увесь день',
     now: 'Зараз',
@@ -1173,6 +1205,8 @@ var CcI18n = {
   hu: {
     agenda: 'Napirend',
     today: 'Ma',
+    prev_week: 'Előző hét',
+    next_week: 'Következő hét',
     tomorrow: 'Holnap',
     all_day: 'Egész nap',
     now: 'Folyamatban',
@@ -1246,6 +1280,8 @@ var CcI18n = {
   sk: {
     agenda: 'Program',
     today: 'Dnes',
+    prev_week: 'Predchádzajúci týždeň',
+    next_week: 'Nasledujúci týždeň',
     tomorrow: 'Zajtra',
     all_day: 'Celý deň',
     now: 'Teraz',
@@ -1319,6 +1355,8 @@ var CcI18n = {
   cs: {
     agenda: 'Program',
     today: 'Dnes',
+    prev_week: 'Předchozí týden',
+    next_week: 'Následující týden',
     tomorrow: 'Zítra',
     all_day: 'Celý den',
     now: 'Nyní',
@@ -1392,6 +1430,8 @@ var CcI18n = {
   sl: {
     agenda: 'Razpored',
     today: 'Danes',
+    prev_week: 'Prejšnji teden',
+    next_week: 'Naslednji teden',
     tomorrow: 'Jutri',
     all_day: 'Ves dan',
     now: 'Zdaj',
@@ -1465,6 +1505,8 @@ var CcI18n = {
   lv: {
     agenda: 'Grafiks',
     today: 'Šodien',
+    prev_week: 'Iepriekšējā nedēļa',
+    next_week: 'Nākamā nedēļa',
     tomorrow: 'Rīt',
     all_day: 'Visu dienu',
     now: 'Notiek',
@@ -1538,6 +1580,8 @@ var CcI18n = {
   el: {
     agenda: 'Ατζέντα',
     today: 'Σήμερα',
+    prev_week: 'Προηγούμενη εβδομάδα',
+    next_week: 'Επόμενη εβδομάδα',
     tomorrow: 'Αύριο',
     all_day: 'Ολοήμερο',
     now: 'Σε εξέλιξη',
@@ -1657,6 +1701,8 @@ function ccEsc(s) {
 
 // ── Calendars and events ─────────────────────────────────────────────────────
 var CC_COLORS = ['#039be5', '#e67c73', '#33b679', '#f6bf26', '#8e24aa', '#f4511e', '#3f51b5', '#0b8043', '#d81b60', '#616161'];
+// Least horizontal move (px) read as a swipe over the week.
+var CC_SWIPE = 50;
 var CC_REFRESH = 5 * 60000;
 var CC_DEFAULTS = {
   view: 'agenda', days_to_show: 7, max_events: 5, show_header: true, show_location: true, show_end_time: true,
@@ -1981,6 +2027,11 @@ class CalendarAgendaCard extends HTMLElement {
       // The form's fields are kept on the card as they are typed: a render puts them back.
       this.shadowRoot.addEventListener('input', (ev) => this._onField(ev));
       this.shadowRoot.addEventListener('change', (ev) => this._onField(ev));
+      // Week view: a horizontal swipe over the days shows the previous or the next week.
+      this.shadowRoot.addEventListener('pointerdown', (ev) => {
+        this._swipe = ev.composedPath().some((n) => n.classList?.contains('weekwrap')) ? { x: ev.clientX, y: ev.clientY } : null;
+      });
+      this.shadowRoot.addEventListener('pointerup', (ev) => this._onSwipe(ev));
     }
     this._sig = null;
     this._fetchKey = null;
@@ -2064,6 +2115,12 @@ class CalendarAgendaCard extends HTMLElement {
   // `view: week`: the full card lays the 7 days from today side by side (the mini card keeps its list).
   _week() { return this._config.view === 'week' && !this._compact(); }
 
+  // First day shown: today, or a whole number of weeks before / after it in the week view (the arrows, a swipe).
+  _from(now) {
+    var off = this._week() ? this._weekOff || 0 : 0;
+    return ccAddDays(ccDayStart(now), 7 * off);
+  }
+
   _timeFmt(d) {
     var o = { hour: '2-digit', minute: '2-digit' };
     var tf = this._hass?.locale?.time_format;
@@ -2142,18 +2199,18 @@ class CalendarAgendaCard extends HTMLElement {
     var minute = this._detail != null ? '' : Math.floor(Date.now() / 60000);
     var loc = this._hass.locale || {};
     var tick = `${cals.map((c) => this._hass.states[c.entity]?.last_updated || '').join('|')}|${minute}|${this._detail}|${this._expanded}|${this._zoomed}|${!!this._adding}|${this._confirm}` +
-      `|${this._hass.language}|${loc.language}|${loc.time_format}|${tz}`;
+      `|${this._hass.language}|${loc.language}|${loc.time_format}|${tz}|${this._weekOff || 0}`;
     if (this._sig != null && tick === this._tick) return;
     this._tick = tick;
     // Fetch again when the calendars, the range or the day change, when a calendar entity changes
     // (an event starts or ends) and every 5 minutes.
-    var key = JSON.stringify([cals.map((c) => c.entity), this._days(), ccKey(now), tz,
+    var key = JSON.stringify([cals.map((c) => c.entity), this._days(), ccKey(now), tz, this._weekOff || 0,
       cals.map((c) => this._hass.states[c.entity]?.last_changed || '')]);
     if (cals.length && (key !== this._fetchKey || Date.now() - this._fetchedAt > CC_REFRESH)) {
       this._fetchKey = key;
       this._fetch(cals);
     }
-    var sig = JSON.stringify([this._lang(), this._fmtLang(), this._fetchedAt, this._detail, this._expanded, this._zoomed, !!this._adding, this._form?.error, this._form?.busy, this._form?.confirm,
+    var sig = JSON.stringify([this._lang(), this._fmtLang(), this._fetchedAt, this._weekOff || 0, this._detail, this._expanded, this._zoomed, !!this._adding, this._form?.error, this._form?.busy, this._form?.confirm,
       this._confirm, this._popErr, this._popBusy,
       minute, cals.map((c) => [c.entity, c.color, c.name]), this._hass.locale?.time_format, tz]);
     if (sig === this._sig) return;
@@ -2230,7 +2287,7 @@ class CalendarAgendaCard extends HTMLElement {
   async _fetch(cals) {
     var seq = ++this._fetchSeq;
     var tz = this._tz();
-    var from = ccDayStart(ccInZone(new Date(), tz));
+    var from = this._from(ccInZone(new Date(), tz));
     var to = ccAddDays(from, this._days());
     var q = `?start=${encodeURIComponent(ccOutZone(from, tz).toISOString())}&end=${encodeURIComponent(ccOutZone(to, tz).toISOString())}`;
     // Set before the await, so a `set hass` while the request is pending does not refetch.
@@ -2267,7 +2324,8 @@ class CalendarAgendaCard extends HTMLElement {
   _visibleDays(now) {
     var c = this._config;
     var events = this._events.filter((e) => !ccExcluded(e, c.exclude) && this._cals[e.cal]);
-    return ccByDay(events, ccDayStart(now), this._days(), now, c.show_past_events);
+    // A past week shows its events, whatever show_past_events says (it only trims today's agenda).
+    return ccByDay(events, this._from(now), this._days(), now, c.show_past_events || (this._week() && (this._weekOff || 0) < 0));
   }
 
   _eventHtml(e, now, idx, isToday) {
@@ -2324,6 +2382,18 @@ class CalendarAgendaCard extends HTMLElement {
     return '<div class="header">' + ccLogo(wd, now.getDate()) +
       `<div class="titles"><div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div></div>` +
       `<span class="st" title="${ccEsc(sub)}"><span class="dot"></span><span class="stt">${ccEsc(sub)}</span></span>${this._addButton()}${this._zoomButton()}</div>`;
+  }
+
+  // Above the week: the arrows, its dates, and Today when another week is shown.
+  _weekNavHtml(days) {
+    if (!days.length) return '';
+    var fmt = new Intl.DateTimeFormat(this._fmtLang(), { day: 'numeric', month: 'short' });
+    var off = this._weekOff || 0;
+    var btn = (action, label, icon) => `<button class="wbtn" data-action="${action}" title="${ccEsc(this._t(label))}" aria-label="${ccEsc(this._t(label))}"><ha-icon icon="${icon}"></ha-icon></button>`;
+    return `<div class="wnav">${btn('week-prev', 'prev_week', 'mdi:chevron-left')}` +
+      `<span class="wrange" aria-live="polite">${ccEsc(fmt.format(days[0].date))} – ${ccEsc(fmt.format(days[days.length - 1].date))}</span>` +
+      (off ? `<button class="wtoday" data-action="week-today">${ccEsc(this._t('today'))}</button>` : '') +
+      `${btn('week-next', 'next_week', 'mdi:chevron-right')}</div>`;
   }
 
   _todaySub(days) {
@@ -2604,6 +2674,7 @@ class CalendarAgendaCard extends HTMLElement {
       this._shown = this._flat.length;
       this.shadowRoot.innerHTML = this._styles(accent) + `<ha-card class="${this._detail != null || this._adding ? 'popped' : ''}" lang="${ccEsc(this._fmtLang())}">` +
         (c.show_header ? this._headerHtml(now, this._todaySub(days)) : '') +
+        this._weekNavHtml(days) +
         `<div class="weekwrap"><div class="week">${cols.join('')}</div></div>${this._errorHtml()}${this._popupHtml()}</ha-card>`;
       return;
     }
@@ -2676,12 +2747,32 @@ class CalendarAgendaCard extends HTMLElement {
       `${btn('close', 'close', 'mdi:close')}</div>${this._confirmHtml(e)}${rows.join('')}</div>`;
   }
 
+  _onSwipe(ev) {
+    var start = this._swipe;
+    this._swipe = null;
+    if (!start || !this._week()) return;
+    var dx = ev.clientX - start.x, dy = ev.clientY - start.y;
+    if (Math.abs(dx) < CC_SWIPE || Math.abs(dx) < 2 * Math.abs(dy)) return;
+    this._weekOff = (this._weekOff || 0) + (dx < 0 ? 1 : -1);
+    this._detail = null;
+    // The click that follows the swipe must not open the event under the finger.
+    this._swiped = Date.now();
+    this._update();
+  }
+
   _onClick(ev) {
+    if (this._swiped && Date.now() - this._swiped < 400) {
+      this._swiped = 0;
+      return;
+    }
     var path = ev.composedPath();
     var btn = path.find((n) => n.dataset?.action);
     if (btn) {
       switch (btn.dataset.action) {
         case 'more': this._expanded = !this._expanded; break;
+        case 'week-prev': this._weekOff = (this._weekOff || 0) - 1; this._detail = null; break;
+        case 'week-next': this._weekOff = (this._weekOff || 0) + 1; this._detail = null; break;
+        case 'week-today': this._weekOff = 0; this._detail = null; break;
         case 'close': this._detail = null; break;
         case 'zoom': this._zoomed = !this._zoomed; this._detail = null; break;
         case 'add': this._openForm(); break;
@@ -2755,7 +2846,13 @@ class CalendarAgendaCard extends HTMLElement {
       '.name { font-size: 16px; font-weight: 500; line-height: 1.25; color: var(--primary-text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }' +
       '.list, .more-body { display: flex; flex-direction: column; gap: 10px; }' +
       // Week view: 7 columns, each day on top of its events; on a narrow card (under 7 × 72px), one day per row.
-      '.weekwrap { container-type: inline-size; }' +
+      '.weekwrap { container-type: inline-size; touch-action: pan-y; }' +
+      '.wnav { display: flex; align-items: center; gap: 4px; margin: 0 0 6px; }' +
+      '.wrange { flex: 1; text-align: center; font-size: 13px; font-weight: 500; color: var(--secondary-text-color); }' +
+      '.wbtn { all: unset; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; color: var(--secondary-text-color); --mdc-icon-size: 20px; }' +
+      '.wbtn:hover { background: color-mix(in srgb, var(--primary-text-color) 8%, transparent); }' +
+      '.wtoday { all: unset; cursor: pointer; font-size: 12px; font-weight: 500; padding: 2px 10px; border-radius: 12px; color: var(--cc-accent); border: 1px solid color-mix(in srgb, var(--cc-accent) 50%, transparent); }' +
+      '.wbtn:focus-visible, .wtoday:focus-visible { outline: 2px solid var(--cc-accent); outline-offset: 1px; }' +
       '.week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }' +
       '.wcol { display: flex; flex-direction: column; gap: 4px; min-width: 0; padding: 4px 3px; border-radius: 8px; }' +
       '.wcol.today { background: color-mix(in srgb, var(--cc-accent) 10%, transparent); }' +

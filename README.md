@@ -22,7 +22,7 @@ Custom Lovelace agenda card for Home Assistant [calendars](https://www.home-assi
 - Several calendars merged in one list, each with its own color and name; an event shared by several calendars (same uid) is listed once, distinct events with the same title and times are all kept
 - Days with today and tomorrow labelled, all-day events, time range and location; a multi-day event is listed once with its date range
 - Countdown for today's events (*in 25 min*, *in 2 h 05*), **Now** badge and progress bar for the event under way; finished events go away
-- **Week view** (`view: week`): the 7 days from today side by side, each event a tile in its calendar's color (time and title); one day per row on a narrow card
+- **Week view** (`view: week`): the 7 days from today side by side, each event a tile in its calendar's color (time and title); one day per row on a narrow card; arrows (or a swipe) to the previous or next week, and **Today** to come back
 - Events past `max_events` fold into a **N more events** section (chevron right folded, down unfolded, folds back on a click elsewhere)
 - Click an event for its details (date and time, location, calendar, description) in a popup at the top of the card; the keyboard focus moves into the popup or the form and back to the event when it closes
 - **+** button in the header: a **New event** form (title, calendar, all day, start and end date and time, location, description) adds the event to a calendar that accepts new events (local calendar, CalDAV, Google…); the end date allows overnight and multi-day events
