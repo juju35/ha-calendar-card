@@ -58,6 +58,10 @@ var CcI18n = {
     ed_title: 'Titre',
     ed_title_helper: 'Laisser vide pour « Agenda »',
     ed_days_to_show: 'Jours affichés',
+    ed_view: 'Vue',
+    ed_view_helper: 'Semaine : 7 jours côte à côte à partir d\'aujourd\'hui (liste sur une carte étroite)',
+    view_agenda: 'Liste',
+    view_week: 'Semaine',
     ed_max_events: 'Événements avant « de plus »',
     ed_max_events_helper: '0 pour tout afficher',
     ed_show_header: 'En-tête',
@@ -127,6 +131,10 @@ var CcI18n = {
     ed_title: 'Title',
     ed_title_helper: 'Leave empty for "Agenda"',
     ed_days_to_show: 'Days shown',
+    ed_view: 'View',
+    ed_view_helper: 'Week: 7 days side by side from today (a list on a narrow card)',
+    view_agenda: 'Agenda',
+    view_week: 'Week',
     ed_max_events: 'Events before "more"',
     ed_max_events_helper: '0 to show everything',
     ed_show_header: 'Header',
@@ -196,6 +204,10 @@ var CcI18n = {
     ed_title: 'Titel',
     ed_title_helper: 'Leer lassen für „Termine“',
     ed_days_to_show: 'Angezeigte Tage',
+    ed_view: 'Ansicht',
+    ed_view_helper: 'Woche: 7 Tage nebeneinander ab heute (Liste auf einer schmalen Karte)',
+    view_agenda: 'Agenda',
+    view_week: 'Woche',
     ed_max_events: 'Termine vor „weitere“',
     ed_max_events_helper: '0, um alles anzuzeigen',
     ed_show_header: 'Kopfzeile',
@@ -265,6 +277,10 @@ var CcI18n = {
     ed_title: 'Título',
     ed_title_helper: 'Déjalo vacío para «Agenda»',
     ed_days_to_show: 'Días mostrados',
+    ed_view: 'Vista',
+    ed_view_helper: 'Semana: 7 días uno al lado del otro desde hoy (lista en una tarjeta estrecha)',
+    view_agenda: 'Agenda',
+    view_week: 'Semana',
     ed_max_events: 'Eventos antes de «más»',
     ed_max_events_helper: '0 para mostrarlo todo',
     ed_show_header: 'Encabezado',
@@ -334,6 +350,10 @@ var CcI18n = {
     ed_title: 'Наслов',
     ed_title_helper: 'Оставите празно за „Агенда“',
     ed_days_to_show: 'Број приказаних дана',
+    ed_view: 'Приказ',
+    ed_view_helper: 'Недеља: 7 дана један поред другог од данас (листа на уској картици)',
+    view_agenda: 'Агенда',
+    view_week: 'Недеља',
     ed_max_events: 'Догађаји пре „још“',
     ed_max_events_helper: '0 за приказ свих догађаја',
     ed_show_header: 'Заглавље',
@@ -403,6 +423,10 @@ var CcI18n = {
     ed_title: 'Naslov',
     ed_title_helper: 'Ostavite prazno za „Agenda“',
     ed_days_to_show: 'Broj prikazanih dana',
+    ed_view: 'Prikaz',
+    ed_view_helper: 'Nedelja: 7 dana jedan pored drugog od danas (lista na uskoj kartici)',
+    view_agenda: 'Agenda',
+    view_week: 'Nedelja',
     ed_max_events: 'Događaji pre „još“',
     ed_max_events_helper: '0 za prikaz svih događaja',
     ed_show_header: 'Zaglavlje',
@@ -472,6 +496,10 @@ var CcI18n = {
     ed_title: 'Titolo',
     ed_title_helper: 'Lascia vuoto per «Agenda»',
     ed_days_to_show: 'Giorni mostrati',
+    ed_view: 'Vista',
+    ed_view_helper: 'Settimana: 7 giorni affiancati da oggi (elenco su una scheda stretta)',
+    view_agenda: 'Agenda',
+    view_week: 'Settimana',
     ed_max_events: 'Eventi prima di «altri»',
     ed_max_events_helper: '0 per mostrare tutto',
     ed_show_header: 'Intestazione',
@@ -541,6 +569,10 @@ var CcI18n = {
     ed_title: 'Titel',
     ed_title_helper: 'Leeg laten voor ‘Agenda’',
     ed_days_to_show: 'Getoonde dagen',
+    ed_view: 'Weergave',
+    ed_view_helper: 'Week: 7 dagen naast elkaar vanaf vandaag (lijst op een smalle kaart)',
+    view_agenda: 'Agenda',
+    view_week: 'Week',
     ed_max_events: 'Afspraken vóór ‘nog’',
     ed_max_events_helper: '0 om alles te tonen',
     ed_show_header: 'Koptekst',
@@ -610,6 +642,10 @@ var CcI18n = {
     ed_title: 'Título',
     ed_title_helper: 'Deixar vazio para «Agenda»',
     ed_days_to_show: 'Dias mostrados',
+    ed_view: 'Vista',
+    ed_view_helper: 'Semana: 7 dias lado a lado a partir de hoje (lista num cartão estreito)',
+    view_agenda: 'Agenda',
+    view_week: 'Semana',
     ed_max_events: 'Eventos antes de «mais»',
     ed_max_events_helper: '0 para mostrar tudo',
     ed_show_header: 'Cabeçalho',
@@ -679,6 +715,10 @@ var CcI18n = {
     ed_title: 'Tytuł',
     ed_title_helper: 'Pozostaw puste dla „Terminarz”',
     ed_days_to_show: 'Wyświetlane dni',
+    ed_view: 'Widok',
+    ed_view_helper: 'Tydzień: 7 dni obok siebie od dziś (lista na wąskiej karcie)',
+    view_agenda: 'Agenda',
+    view_week: 'Tydzień',
     ed_max_events: 'Wydarzenia przed „Więcej”',
     ed_max_events_helper: '0, aby pokazać wszystko',
     ed_show_header: 'Nagłówek',
@@ -748,6 +788,10 @@ var CcI18n = {
     ed_title: 'Titlu',
     ed_title_helper: 'Lăsați gol pentru „Agendă”',
     ed_days_to_show: 'Zile afișate',
+    ed_view: 'Vizualizare',
+    ed_view_helper: 'Săptămână: 7 zile alăturate de azi (listă pe un card îngust)',
+    view_agenda: 'Agendă',
+    view_week: 'Săptămână',
     ed_max_events: 'Evenimente afișate',
     ed_max_events_helper: '0 pentru a afișa tot',
     ed_show_header: 'Antet',
@@ -817,6 +861,10 @@ var CcI18n = {
     ed_title: 'Titel',
     ed_title_helper: 'Lad stå tomt for »Aftaler«',
     ed_days_to_show: 'Viste dage',
+    ed_view: 'Visning',
+    ed_view_helper: 'Uge: 7 dage side om side fra i dag (liste på et smalt kort)',
+    view_agenda: 'Dagsorden',
+    view_week: 'Uge',
     ed_max_events: 'Aftaler før »mere«',
     ed_max_events_helper: '0 for at vise alt',
     ed_show_header: 'Overskrift',
@@ -886,6 +934,10 @@ var CcI18n = {
     ed_title: 'Titel',
     ed_title_helper: 'Lämna tomt för ”Schema”',
     ed_days_to_show: 'Visade dagar',
+    ed_view: 'Vy',
+    ed_view_helper: 'Vecka: 7 dagar sida vid sida från i dag (lista på ett smalt kort)',
+    view_agenda: 'Agenda',
+    view_week: 'Vecka',
     ed_max_events: 'Max antal händelser',
     ed_max_events_helper: '0 för att visa allt',
     ed_show_header: 'Rubrik',
@@ -955,6 +1007,10 @@ var CcI18n = {
     ed_title: 'Заглавие',
     ed_title_helper: 'Оставете празно за „График“',
     ed_days_to_show: 'Показани дни',
+    ed_view: 'Изглед',
+    ed_view_helper: 'Седмица: 7 дни един до друг от днес (списък на тясна карта)',
+    view_agenda: 'Програма',
+    view_week: 'Седмица',
     ed_max_events: 'Събития преди „Още“',
     ed_max_events_helper: '0, за да се покаже всичко',
     ed_show_header: 'Заглавна част',
@@ -1024,6 +1080,10 @@ var CcI18n = {
     ed_title: 'Заголовок',
     ed_title_helper: 'Оставьте пустым для «События»',
     ed_days_to_show: 'Количество дней',
+    ed_view: 'Вид',
+    ed_view_helper: 'Неделя: 7 дней рядом, начиная с сегодня (список на узкой карточке)',
+    view_agenda: 'Повестка',
+    view_week: 'Неделя',
     ed_max_events: 'Событий до «Ещё»',
     ed_max_events_helper: '0 — показать все',
     ed_show_header: 'Шапка',
@@ -1093,6 +1153,10 @@ var CcI18n = {
     ed_title: 'Заголовок',
     ed_title_helper: 'Залиште порожнім для «Розклад»',
     ed_days_to_show: 'Кількість днів',
+    ed_view: 'Вигляд',
+    ed_view_helper: 'Тиждень: 7 днів поруч, починаючи з сьогодні (список на вузькій картці)',
+    view_agenda: 'Порядок денний',
+    view_week: 'Тиждень',
     ed_max_events: 'Подій до «Ще»',
     ed_max_events_helper: '0 — показати все',
     ed_show_header: 'Шапка',
@@ -1162,6 +1226,10 @@ var CcI18n = {
     ed_title: 'Cím',
     ed_title_helper: 'Hagyja üresen a „Napirend” címhez',
     ed_days_to_show: 'Megjelenített napok',
+    ed_view: 'Nézet',
+    ed_view_helper: 'Hét: 7 nap egymás mellett mától (lista keskeny kártyán)',
+    view_agenda: 'Napirend',
+    view_week: 'Hét',
     ed_max_events: 'Események a „További” előtt',
     ed_max_events_helper: '0 esetén minden megjelenik',
     ed_show_header: 'Fejléc',
@@ -1231,6 +1299,10 @@ var CcI18n = {
     ed_title: 'Názov',
     ed_title_helper: 'Nechajte prázdne pre „Program“',
     ed_days_to_show: 'Zobrazené dni',
+    ed_view: 'Zobrazenie',
+    ed_view_helper: 'Týždeň: 7 dní vedľa seba od dnes (zoznam na úzkej karte)',
+    view_agenda: 'Agenda',
+    view_week: 'Týždeň',
     ed_max_events: 'Udalosti pred „Ďalšie“',
     ed_max_events_helper: '0 na zobrazenie všetkého',
     ed_show_header: 'Hlavička',
@@ -1300,6 +1372,10 @@ var CcI18n = {
     ed_title: 'Název',
     ed_title_helper: 'Ponechte prázdné pro „Program“',
     ed_days_to_show: 'Zobrazené dny',
+    ed_view: 'Zobrazení',
+    ed_view_helper: 'Týden: 7 dní vedle sebe od dneška (seznam na úzké kartě)',
+    view_agenda: 'Agenda',
+    view_week: 'Týden',
     ed_max_events: 'Události před „Další“',
     ed_max_events_helper: '0 pro zobrazení všeho',
     ed_show_header: 'Záhlaví',
@@ -1369,6 +1445,10 @@ var CcI18n = {
     ed_title: 'Naslov',
     ed_title_helper: 'Pustite prazno za »Razpored«',
     ed_days_to_show: 'Prikazani dnevi',
+    ed_view: 'Pogled',
+    ed_view_helper: 'Teden: 7 dni drug ob drugem od danes (seznam na ozki kartici)',
+    view_agenda: 'Dnevni red',
+    view_week: 'Teden',
     ed_max_events: 'Dogodki pred »Več«',
     ed_max_events_helper: '0 za prikaz vsega',
     ed_show_header: 'Glava',
@@ -1438,6 +1518,10 @@ var CcI18n = {
     ed_title: 'Virsraksts',
     ed_title_helper: 'Atstājiet tukšu, lai rādītu „Grafiks”',
     ed_days_to_show: 'Rādītās dienas',
+    ed_view: 'Skats',
+    ed_view_helper: 'Nedēļa: 7 dienas blakus no šodienas (saraksts uz šauras kartītes)',
+    view_agenda: 'Darba kārtība',
+    view_week: 'Nedēļa',
     ed_max_events: 'Notikumi pirms „Citi notikumi”',
     ed_max_events_helper: '0, lai rādītu visu',
     ed_show_header: 'Galvene',
@@ -1507,6 +1591,10 @@ var CcI18n = {
     ed_title: 'Τίτλος',
     ed_title_helper: 'Αφήστε κενό για «Ατζέντα»',
     ed_days_to_show: 'Εμφανιζόμενες ημέρες',
+    ed_view: 'Προβολή',
+    ed_view_helper: 'Εβδομάδα: 7 ημέρες δίπλα-δίπλα από σήμερα (λίστα σε στενή κάρτα)',
+    view_agenda: 'Ατζέντα',
+    view_week: 'Εβδομάδα',
     ed_max_events: 'Συμβάντα πριν το «Άλλα»',
     ed_max_events_helper: '0 για εμφάνιση όλων',
     ed_show_header: 'Κεφαλίδα',
@@ -1571,7 +1659,7 @@ function ccEsc(s) {
 var CC_COLORS = ['#039be5', '#e67c73', '#33b679', '#f6bf26', '#8e24aa', '#f4511e', '#3f51b5', '#0b8043', '#d81b60', '#616161'];
 var CC_REFRESH = 5 * 60000;
 var CC_DEFAULTS = {
-  days_to_show: 7, max_events: 5, show_header: true, show_location: true, show_end_time: true,
+  view: 'agenda', days_to_show: 7, max_events: 5, show_header: true, show_location: true, show_end_time: true,
   show_countdown: true, show_empty_days: false, show_past_events: false, add_button: true, edit_buttons: true,
 };
 
@@ -1968,7 +2056,13 @@ class CalendarAgendaCard extends HTMLElement {
   // Now, as a Date in the zone the agenda is shown in.
   _now() { return ccInZone(new Date(), this._tz()); }
 
-  _days() { return Math.max(1, Math.min(62, Number(this._config.days_to_show) || CC_DEFAULTS.days_to_show)); }
+  _days() {
+    if (this._week()) return 7;
+    return Math.max(1, Math.min(62, Number(this._config.days_to_show) || CC_DEFAULTS.days_to_show));
+  }
+
+  // `view: week`: the full card lays the 7 days from today side by side (the mini card keeps its list).
+  _week() { return this._config.view === 'week' && !this._compact(); }
 
   _timeFmt(d) {
     var o = { hour: '2-digit', minute: '2-digit' };
@@ -2192,6 +2286,20 @@ class CalendarAgendaCard extends HTMLElement {
       `<div class="emain"><div class="etitle">${ccEsc(e.summary)}</div><div class="emeta">${meta.join('<span class="sep">·</span>')}</div>${prog}</div>` +
       (cd ? `<span class="cd${ongoing ? ' live' : ''}">${ccEsc(cd)}</span>` : '') +
     '</div>';
+  }
+
+  // One column of the week view: the day, then its events as short tiles (time and title, the calendar's color).
+  _weekColHtml(day, events, now, firstIdx) {
+    var isToday = ccKey(day.date) === ccKey(now);
+    var evs = events.map((e, i) => {
+      var cal = this._cals[e.cal];
+      var ongoing = !e.allDay && e.start <= now && e.end > now;
+      var when = e.allDay ? this._t('all_day') : (ccKey(e.start) === ccKey(day.date) ? this._timeFmt(e.start) : '…');
+      return `<div class="wev${ongoing ? ' ongoing' : ''}${e.end <= now && !e.allDay ? ' past' : ''}${e.allDay ? ' allday' : ''}" style="--c:${ccEsc(cal.color)};--c-on:${ccEsc(ccOnColor(cal.color))}" data-ev="${firstIdx + i}" role="button" tabindex="0" title="${ccEsc(`${this._when(e)} · ${e.summary}`)}">` +
+        `<span class="wt">${ccEsc(when)}</span><span class="ws">${ccEsc(e.summary)}</span></div>`;
+    }).join('');
+    return `<div class="wcol${isToday ? ' today' : ''}"><div class="whead"><span class="wd">${ccEsc(this._wdShort(day.date))}</span><span class="dn">${day.date.getDate()}</span></div>` +
+      `<div class="wevs">${evs || '<div class="none">–</div>'}</div></div>`;
   }
 
   _dayHtml(day, events, now, firstIdx, cont) {
@@ -2486,6 +2594,20 @@ class CalendarAgendaCard extends HTMLElement {
       return;
     }
 
+    if (this._week()) {
+      var at = 0;
+      var cols = days.map((d) => {
+        var html = this._weekColHtml(d, d.events, now, at);
+        at += d.events.length;
+        return html;
+      });
+      this._shown = this._flat.length;
+      this.shadowRoot.innerHTML = this._styles(accent) + `<ha-card class="${this._detail != null || this._adding ? 'popped' : ''}" lang="${ccEsc(this._fmtLang())}">` +
+        (c.show_header ? this._headerHtml(now, this._todaySub(days)) : '') +
+        `<div class="weekwrap"><div class="week">${cols.join('')}</div></div>${this._errorHtml()}${this._popupHtml()}</ha-card>`;
+      return;
+    }
+
     var max = Math.max(0, Number(c.max_events) || 0);
     var shown = [], more = [], count = 0, idx = 0;
     days.forEach((d) => {
@@ -2632,6 +2754,33 @@ class CalendarAgendaCard extends HTMLElement {
       '.titles { flex: 1 1 0; min-width: 4.5ch; font-size: 16px; }' +
       '.name { font-size: 16px; font-weight: 500; line-height: 1.25; color: var(--primary-text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }' +
       '.list, .more-body { display: flex; flex-direction: column; gap: 10px; }' +
+      // Week view: 7 columns, each day on top of its events; on a narrow card (under 7 × 72px), one day per row.
+      '.weekwrap { container-type: inline-size; }' +
+      '.week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }' +
+      '.wcol { display: flex; flex-direction: column; gap: 4px; min-width: 0; padding: 4px 3px; border-radius: 8px; }' +
+      '.wcol.today { background: color-mix(in srgb, var(--cc-accent) 10%, transparent); }' +
+      '.whead { display: flex; flex-direction: column; align-items: center; line-height: 1.15; color: var(--secondary-text-color); font-size: 11px; text-transform: uppercase; }' +
+      '.whead .dn { font-size: 18px; font-weight: 500; color: var(--primary-text-color); text-transform: none; }' +
+      '.wcol.today .whead .dn { color: var(--cc-accent); }' +
+      '.wevs { display: flex; flex-direction: column; gap: 3px; min-width: 0; }' +
+      '.wevs .none { text-align: center; font-size: 12px; }' +
+      '.wev { display: flex; flex-direction: column; min-width: 0; padding: 2px 5px; border-radius: 5px; cursor: pointer; font-size: 11px; line-height: 1.3;' +
+        ' border-left: 3px solid var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); color: var(--primary-text-color); }' +
+      '.wev.allday { background: var(--c); color: var(--c-on); border-left-color: transparent; }' +
+      '.wev.past { opacity: .55; }' +
+      '.wev.ongoing { box-shadow: inset 0 0 0 1px var(--c); }' +
+      '.wev:focus-visible { outline: 2px solid var(--cc-accent); outline-offset: 1px; }' +
+      '.wt { font-variant-numeric: tabular-nums; color: var(--secondary-text-color); white-space: nowrap; }' +
+      '.wev.allday .wt { color: inherit; opacity: .85; }' +
+      '.ws { font-weight: 500; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow-wrap: anywhere; }' +
+      '@container (max-width: 504px) {' +
+        ' .week { grid-template-columns: minmax(0, 1fr); gap: 2px; }' +
+        ' .wcol { flex-direction: row; align-items: flex-start; gap: 10px; }' +
+        ' .whead { width: 40px; flex: none; }' +
+        ' .wevs { flex: 1; }' +
+        ' .wev { flex-direction: row; gap: 6px; font-size: 13px; }' +
+        ' .wevs .none { text-align: start; }' +
+      ' }' +
       '.more-body:not(.open) { display: none; }' +
       // A full card squeezed into a narrow column (an unfolded mini card left at 6 columns): the events go
       // under the date rather than keep less than 120px beside it.
@@ -2860,6 +3009,9 @@ class CalendarAgendaCardEditor extends HTMLElement {
     return [
       { name: 'entities', selector: { entity: { domain: 'calendar', multiple: true } } },
       { name: 'title', selector: { text: {} } },
+    ].concat(mini ? [] : [
+      { name: 'view', selector: { select: { mode: 'dropdown', options: [{ value: 'agenda', label: ccT(this._lang(), 'view_agenda') }, { value: 'week', label: ccT(this._lang(), 'view_week') }] } } },
+    ], [
       {
         type: 'grid', name: '', schema: [
           { name: 'days_to_show', selector: { number: { min: 1, max: 62, mode: 'box' } } },
@@ -2880,7 +3032,7 @@ class CalendarAgendaCardEditor extends HTMLElement {
         name: 'language',
         selector: { select: { mode: 'dropdown', options: [{ value: 'fr', label: 'Français' }, { value: 'en', label: 'English' }, { value: 'de', label: 'Deutsch' }, { value: 'es', label: 'Español' }, { value: 'sr', label: 'Српски' }, { value: 'sr-Latn', label: 'Srpski (latinica)' }, { value: 'it', label: 'Italiano' }, { value: 'nl', label: 'Nederlands' }, { value: 'pt', label: 'Português (Portugal)' }, { value: 'pl', label: 'Polski' }, { value: 'ro', label: 'Română' }, { value: 'da', label: 'Dansk' }, { value: 'sv', label: 'Svenska' }, { value: 'bg', label: 'Български' }, { value: 'ru', label: 'Русский' }, { value: 'uk', label: 'Українська' }, { value: 'hu', label: 'Magyar' }, { value: 'sk', label: 'Slovenčina' }, { value: 'cs', label: 'Čeština' }, { value: 'sl', label: 'Slovenščina' }, { value: 'lv', label: 'Latviešu' }, { value: 'el', label: 'Ελληνικά' }] } },
       },
-    ];
+    ]);
   }
 
   _render() {

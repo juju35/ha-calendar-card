@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.8.0 - 2026-11-09
+
+### Features
+- **Week view** (`view: week`, *View* in the editor): the full card lays the 7 days from today side by side, today highlighted, each event a tile in its calendar's color with its start time (or *All day*) and title; a click opens its details as in the list. Under 504 px wide, one day per row. The mini card keeps its list. 22 languages.
+
 ## 1.7.1 - 2026-11-09
 
 ### Fixes
