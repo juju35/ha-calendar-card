@@ -18,6 +18,7 @@
   "license": "MIT",
   "devDependencies": {
     "acorn": "^8.19.0",
+    "css-tree": "^3.2.1",
     "playwright": "^1.56.1"
   }
 }
