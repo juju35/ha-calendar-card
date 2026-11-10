@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.8.2 - 2026-11-09
+
+### Improvements
+- Week view: arrows to show the previous or the next week, its dates between them, and **Today** to come back; a horizontal swipe over the days does the same on a phone. A past week shows its past events.
+
 ## 1.8.1 - 2026-11-09
 
 ### Maintenance

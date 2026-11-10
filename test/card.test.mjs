@@ -1588,3 +1588,37 @@ test("week view: the editor offers it on the full card only; the mini card keeps
   const mini = await render(Mini, { "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }] }, { view: "week" });
   assert.doesNotMatch(mini.shadowRoot.innerHTML, /class="week"/);
 });
+
+test("week view: arrows and swipes move a week at a time, Today comes back", async () => {
+  const card = await render(CalendarAgendaCard, {
+    "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }],
+  }, { view: "week" });
+  const startOf = (call) => new Date(decodeURIComponent(call[1].match(/start=([^&]+)/)[1]));
+  const days = (d) => Math.round((d - today) / 86400000);
+  assert.match(card.shadowRoot.innerHTML, /class="wnav"/);
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /data-action="week-today"/);
+  const click = (action) => card._onClick({ composedPath: () => [{ dataset: { action } }] });
+  click("week-next");
+  await new Promise((r) => setTimeout(r, 0));
+  assert.equal(days(startOf(card._hass.calls.at(-1))), 7);
+  assert.match(card.shadowRoot.innerHTML, /data-action="week-today"/);
+  click("week-prev");
+  click("week-prev");
+  await new Promise((r) => setTimeout(r, 0));
+  assert.equal(days(startOf(card._hass.calls.at(-1))), -7);
+  click("week-today");
+  await new Promise((r) => setTimeout(r, 0));
+  assert.equal(days(startOf(card._hass.calls.at(-1))), 0);
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /data-action="week-today"/);
+  // A swipe left over the days: the next week; the click after it doesn't open an event.
+  card._swipe = { x: 300, y: 100 };
+  card._onSwipe({ clientX: 180, clientY: 110 });
+  await new Promise((r) => setTimeout(r, 0));
+  assert.equal(days(startOf(card._hass.calls.at(-1))), 7);
+  card._onClick({ composedPath: () => [{ dataset: { ev: "0" } }] });
+  assert.equal(card._detail, null);
+  // A mostly vertical move (scrolling) is not a swipe.
+  card._swipe = { x: 300, y: 100 };
+  card._onSwipe({ clientX: 230, clientY: 260 });
+  assert.equal(card._weekOff, 1);
+});
