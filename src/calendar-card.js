@@ -67,6 +67,7 @@ var CcI18n = {
     ed_max_events: 'Événements avant « de plus »',
     ed_max_events_helper: '0 pour tout afficher',
     ed_show_header: 'En-tête',
+    ed_show_title: 'Afficher le titre',
     ed_show_location: 'Lieu',
     ed_show_end_time: 'Heure de fin',
     ed_show_countdown: 'Compte à rebours',
@@ -142,6 +143,7 @@ var CcI18n = {
     ed_max_events: 'Events before "more"',
     ed_max_events_helper: '0 to show everything',
     ed_show_header: 'Header',
+    ed_show_title: 'Show title',
     ed_show_location: 'Location',
     ed_show_end_time: 'End time',
     ed_show_countdown: 'Countdown',
@@ -217,6 +219,7 @@ var CcI18n = {
     ed_max_events: 'Termine vor „weitere“',
     ed_max_events_helper: '0, um alles anzuzeigen',
     ed_show_header: 'Kopfzeile',
+    ed_show_title: 'Titel anzeigen',
     ed_show_location: 'Ort',
     ed_show_end_time: 'Endzeit',
     ed_show_countdown: 'Countdown',
@@ -292,6 +295,7 @@ var CcI18n = {
     ed_max_events: 'Eventos antes de «más»',
     ed_max_events_helper: '0 para mostrarlo todo',
     ed_show_header: 'Encabezado',
+    ed_show_title: 'Mostrar el título',
     ed_show_location: 'Ubicación',
     ed_show_end_time: 'Hora de fin',
     ed_show_countdown: 'Cuenta atrás',
@@ -367,6 +371,7 @@ var CcI18n = {
     ed_max_events: 'Догађаји пре „још“',
     ed_max_events_helper: '0 за приказ свих догађаја',
     ed_show_header: 'Заглавље',
+    ed_show_title: 'Прикажи наслов',
     ed_show_location: 'Локација',
     ed_show_end_time: 'Време завршетка',
     ed_show_countdown: 'Одбројавање',
@@ -442,6 +447,7 @@ var CcI18n = {
     ed_max_events: 'Događaji pre „još“',
     ed_max_events_helper: '0 za prikaz svih događaja',
     ed_show_header: 'Zaglavlje',
+    ed_show_title: 'Prikaži naslov',
     ed_show_location: 'Lokacija',
     ed_show_end_time: 'Vreme završetka',
     ed_show_countdown: 'Odbrojavanje',
@@ -517,6 +523,7 @@ var CcI18n = {
     ed_max_events: 'Eventi prima di «altri»',
     ed_max_events_helper: '0 per mostrare tutto',
     ed_show_header: 'Intestazione',
+    ed_show_title: 'Mostra il titolo',
     ed_show_location: 'Luogo',
     ed_show_end_time: 'Ora di fine',
     ed_show_countdown: 'Conto alla rovescia',
@@ -592,6 +599,7 @@ var CcI18n = {
     ed_max_events: 'Afspraken vóór ‘nog’',
     ed_max_events_helper: '0 om alles te tonen',
     ed_show_header: 'Koptekst',
+    ed_show_title: 'Titel tonen',
     ed_show_location: 'Locatie',
     ed_show_end_time: 'Eindtijd',
     ed_show_countdown: 'Aftellen',
@@ -667,6 +675,7 @@ var CcI18n = {
     ed_max_events: 'Eventos antes de «mais»',
     ed_max_events_helper: '0 para mostrar tudo',
     ed_show_header: 'Cabeçalho',
+    ed_show_title: 'Mostrar o título',
     ed_show_location: 'Local',
     ed_show_end_time: 'Hora de fim',
     ed_show_countdown: 'Contagem decrescente',
@@ -742,6 +751,7 @@ var CcI18n = {
     ed_max_events: 'Wydarzenia przed „Więcej”',
     ed_max_events_helper: '0, aby pokazać wszystko',
     ed_show_header: 'Nagłówek',
+    ed_show_title: 'Pokaż tytuł',
     ed_show_location: 'Lokalizacja',
     ed_show_end_time: 'Godzina zakończenia',
     ed_show_countdown: 'Odliczanie',
@@ -817,6 +827,7 @@ var CcI18n = {
     ed_max_events: 'Evenimente afișate',
     ed_max_events_helper: '0 pentru a afișa tot',
     ed_show_header: 'Antet',
+    ed_show_title: 'Afișează titlul',
     ed_show_location: 'Locație',
     ed_show_end_time: 'Ora de sfârșit',
     ed_show_countdown: 'Numărătoare inversă',
@@ -892,6 +903,7 @@ var CcI18n = {
     ed_max_events: 'Aftaler før »mere«',
     ed_max_events_helper: '0 for at vise alt',
     ed_show_header: 'Overskrift',
+    ed_show_title: 'Vis titel',
     ed_show_location: 'Sted',
     ed_show_end_time: 'Sluttidspunkt',
     ed_show_countdown: 'Nedtælling',
@@ -967,6 +979,7 @@ var CcI18n = {
     ed_max_events: 'Max antal händelser',
     ed_max_events_helper: '0 för att visa allt',
     ed_show_header: 'Rubrik',
+    ed_show_title: 'Visa rubrik',
     ed_show_location: 'Plats',
     ed_show_end_time: 'Sluttid',
     ed_show_countdown: 'Nedräkning',
@@ -1042,6 +1055,7 @@ var CcI18n = {
     ed_max_events: 'Събития преди „Още“',
     ed_max_events_helper: '0, за да се покаже всичко',
     ed_show_header: 'Заглавна част',
+    ed_show_title: 'Показване на заглавието',
     ed_show_location: 'Местоположение',
     ed_show_end_time: 'Час на приключване',
     ed_show_countdown: 'Обратно отброяване',
@@ -1117,6 +1131,7 @@ var CcI18n = {
     ed_max_events: 'Событий до «Ещё»',
     ed_max_events_helper: '0 — показать все',
     ed_show_header: 'Шапка',
+    ed_show_title: 'Показывать заголовок',
     ed_show_location: 'Место',
     ed_show_end_time: 'Время окончания',
     ed_show_countdown: 'Обратный отсчёт',
@@ -1192,6 +1207,7 @@ var CcI18n = {
     ed_max_events: 'Подій до «Ще»',
     ed_max_events_helper: '0 — показати все',
     ed_show_header: 'Шапка',
+    ed_show_title: 'Показувати заголовок',
     ed_show_location: 'Місце',
     ed_show_end_time: 'Час завершення',
     ed_show_countdown: 'Зворотний відлік',
@@ -1267,6 +1283,7 @@ var CcI18n = {
     ed_max_events: 'Események a „További” előtt',
     ed_max_events_helper: '0 esetén minden megjelenik',
     ed_show_header: 'Fejléc',
+    ed_show_title: 'Cím megjelenítése',
     ed_show_location: 'Helyszín',
     ed_show_end_time: 'Befejezés ideje',
     ed_show_countdown: 'Visszaszámlálás',
@@ -1342,6 +1359,7 @@ var CcI18n = {
     ed_max_events: 'Udalosti pred „Ďalšie“',
     ed_max_events_helper: '0 na zobrazenie všetkého',
     ed_show_header: 'Hlavička',
+    ed_show_title: 'Zobraziť názov',
     ed_show_location: 'Miesto',
     ed_show_end_time: 'Čas ukončenia',
     ed_show_countdown: 'Odpočítavanie',
@@ -1417,6 +1435,7 @@ var CcI18n = {
     ed_max_events: 'Události před „Další“',
     ed_max_events_helper: '0 pro zobrazení všeho',
     ed_show_header: 'Záhlaví',
+    ed_show_title: 'Zobrazit název',
     ed_show_location: 'Místo',
     ed_show_end_time: 'Čas konce',
     ed_show_countdown: 'Odpočet',
@@ -1492,6 +1511,7 @@ var CcI18n = {
     ed_max_events: 'Dogodki pred »Več«',
     ed_max_events_helper: '0 za prikaz vsega',
     ed_show_header: 'Glava',
+    ed_show_title: 'Prikaži naslov',
     ed_show_location: 'Lokacija',
     ed_show_end_time: 'Čas konca',
     ed_show_countdown: 'Odštevanje',
@@ -1567,6 +1587,7 @@ var CcI18n = {
     ed_max_events: 'Notikumi pirms „Citi notikumi”',
     ed_max_events_helper: '0, lai rādītu visu',
     ed_show_header: 'Galvene',
+    ed_show_title: 'Rādīt virsrakstu',
     ed_show_location: 'Vieta',
     ed_show_end_time: 'Beigu laiks',
     ed_show_countdown: 'Atpakaļskaitīšana',
@@ -1642,6 +1663,7 @@ var CcI18n = {
     ed_max_events: 'Συμβάντα πριν το «Άλλα»',
     ed_max_events_helper: '0 για εμφάνιση όλων',
     ed_show_header: 'Κεφαλίδα',
+    ed_show_title: 'Εμφάνιση τίτλου',
     ed_show_location: 'Τοποθεσία',
     ed_show_end_time: 'Ώρα λήξης',
     ed_show_countdown: 'Αντίστροφη μέτρηση',
@@ -1705,7 +1727,7 @@ var CC_COLORS = ['#039be5', '#e67c73', '#33b679', '#f6bf26', '#8e24aa', '#f4511e
 var CC_SWIPE = 50;
 var CC_REFRESH = 5 * 60000;
 var CC_DEFAULTS = {
-  view: 'agenda', days_to_show: 7, max_events: 5, show_header: true, show_location: true, show_end_time: true,
+  view: 'agenda', days_to_show: 7, max_events: 5, show_header: true, show_title: true, show_location: true, show_end_time: true,
   show_countdown: true, show_empty_days: false, show_past_events: false, add_button: true, edit_buttons: true,
 };
 
@@ -2380,7 +2402,7 @@ class CalendarAgendaCard extends HTMLElement {
     // Locale-aware upper case: Greek drops its accents (ΤΡΙ, not ΤΡΊ).
     var wd = this._wdShort(now).toLocaleUpperCase(this._fmtLang());
     return '<div class="header">' + ccLogo(wd, now.getDate()) +
-      `<div class="titles"><div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div></div>` +
+      `<div class="titles">${this._config.show_title !== false ? `<div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div>` : ''}</div>` +
       `<span class="st" title="${ccEsc(sub)}"><span class="dot"></span><span class="stt">${ccEsc(sub)}</span></span>${this._addButton()}${this._zoomButton()}</div>`;
   }
 
@@ -3118,6 +3140,7 @@ class CalendarAgendaCardEditor extends HTMLElement {
       {
         type: 'grid', name: '', schema: [
           { name: 'show_header', selector: { boolean: {} } },
+          { name: 'show_title', selector: { boolean: {} } },
           { name: 'show_location', selector: { boolean: {} } },
           { name: 'show_end_time', selector: { boolean: {} } },
           { name: 'show_countdown', selector: { boolean: {} } },
