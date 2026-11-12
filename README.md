@@ -124,6 +124,7 @@ language: en
 |---|---|---|---|
 | `entities` | ✅ | — | Calendars: entity IDs, or objects `{ entity, color, name }` |
 | `title` | ❌ | `Agenda` (translated) | Card title |
+| `show_title` | ❌ | `true` | Show the title in the header (e.g. `false` under a section heading of your own) |
 | `view` | ❌ | `agenda` | `agenda` (list by day) or `week` (7 columns from today; `days_to_show` and `max_events` don't apply). Full card only, the mini card keeps its list |
 | `days_to_show` | ❌ | `7` | Number of days from today (1 to 62) |
 | `max_events` | ❌ | `5` | Events shown before the folded **more** section (`0` shows everything) |

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.9.0 - 2026-11-12
+
+### Features
+- `show_title` option (also in the visual editor) hides the header's title, keeping its date and today's count, for a card placed under a section heading of its own (asked in juju35/ha-vehicle-card#72).
+
 ## 1.8.2 - 2026-11-09
 
 ### Improvements
