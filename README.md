@@ -83,7 +83,7 @@ The Marketplace registers the dashboard resource for you.
 
 ### Visual editor
 
-Add the card from the dashboard (**Add card** → **Calendar Agenda Card** or **Calendar Agenda Mini Card**). The first calendars found are picked; change them with the **Calendars** field, then set the title, the number of days and the sections to show. Colors and names per calendar are set in YAML; the editor keeps them. Options left at their default are not written to the YAML.
+Add the card from the dashboard (**Add card** → **Calendar Agenda Card** or **Calendar Agenda Mini Card**). The first calendars found are picked; change them with the **Calendars** field, then set the title, the number of days, the sections to show and the texts of the events to hide (`exclude`). Colors and names per calendar are set in YAML; the editor keeps them. Options left at their default are not written to the YAML.
 
 ### Minimal
 
@@ -103,7 +103,7 @@ entities:
   - calendar.work
 ```
 
-The mini card shows today's all-day events under way (school holidays, a public holiday…) on a compact line each, with the day they end, then the event under way or the next one (with its countdown), then the one after. A click (or Enter) on any of these lines opens the event's details. The detail button (top right) unfolds the full agenda; a click anywhere else on the page folds it back. It takes the same options as the full card, which apply once unfolded, plus `zoom`.
+The mini card shows today's all-day events under way (school holidays, a public holiday…) on a compact line each, with the day they end, then the event under way or the next one (with its countdown), then the one after. A click (or Enter) on any of these lines opens the event's details. The detail button (top right) unfolds the full agenda; a click anywhere else on the page folds it back. It takes the same options as the full card, which apply once unfolded, plus `zoom`; they can all be set in its visual editor too (`view`, `add_button`, `edit_buttons`…).
 
 ### Full options
 
@@ -145,7 +145,7 @@ language: en
 | `entities` | ✅ | — | Calendars: entity IDs, or objects `{ entity, color, name }` |
 | `title` | ❌ | `Agenda` (translated) | Card title |
 | `show_title` | ❌ | `true` | Show the title in the header (e.g. `false` under a section heading of your own) |
-| `view` | ❌ | `agenda` | `agenda` (list by day) or `week` (7 columns from today; `days_to_show` and `max_events` don't apply). Full card only, the mini card keeps its list |
+| `view` | ❌ | `agenda` | `agenda` (list by day) or `week` (7 columns from today; `days_to_show` and `max_events` don't apply). On the mini card, once unfolded (folded, it keeps its list) |
 | `days_to_show` | ❌ | `7` | Number of days from today (1 to 62) |
 | `max_events` | ❌ | `5` | Events shown before the folded **more** section (`0` shows everything) |
 | `show_header` | ❌ | `true` | Header with today's date and the number of events today |
@@ -155,8 +155,8 @@ language: en
 | `show_empty_days` | ❌ | `false` | List days without events |
 | `show_past_events` | ❌ | `false` | Keep today's finished events (greyed out) |
 | `exclude` | ❌ | — | Hide events whose title contains one of these texts (case-insensitive) |
-| `add_button` | ❌ | `true` | Full card only: **+** button in the header that opens the new event form (shown only when a calendar accepts new events) |
-| `edit_buttons` | ❌ | `true` | Full card only: **Edit** and **Delete** buttons in the event details (shown only when the event's calendar allows changing or deleting events) |
+| `add_button` | ❌ | `true` | Full card and unfolded mini card: **+** button in the header that opens the new event form (shown only when a calendar accepts new events) |
+| `edit_buttons` | ❌ | `true` | Full card and unfolded mini card: **Edit** and **Delete** buttons in the event details (shown only when the event's calendar allows changing or deleting events) |
 | `workday_entity` | ❌ | Auto | `binary_sensor` of the Workday integration for the *Working day* / *Day off* badge under the title; the first one found by default, `false` to hide the badge |
 | `school_holidays_calendar` | ❌ | — | Calendar whose events are school holidays: the days they cover are marked in the agenda and the week (not listed as events), today's shows under the title |
 | `todo_entities` | ❌ | — | To-do lists (entity IDs, or objects `{ entity, name }`) whose open items show under the agenda, each checked off with a tap; the folded mini card shows a line per list with its number of open items, a tap unfolds it |

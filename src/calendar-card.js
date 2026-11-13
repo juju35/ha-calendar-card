@@ -73,6 +73,8 @@ var CcI18n = {
     ed_show_countdown: 'Compte à rebours',
     ed_show_empty_days: 'Jours sans événement',
     ed_show_past_events: 'Événements terminés du jour',
+    ed_exclude: 'Événements masqués',
+    ed_exclude_helper: 'Masque les événements dont le titre contient l\'un de ces textes (sans tenir compte de la casse)',
     ed_zoom: 'Bouton détail',
     ed_zoom_helper: 'Bouton en haut à droite qui passe la mini-carte en carte complète et inversement',
     ed_language: 'Langue',
@@ -160,6 +162,8 @@ var CcI18n = {
     ed_show_countdown: 'Countdown',
     ed_show_empty_days: 'Days without events',
     ed_show_past_events: 'Today\'s finished events',
+    ed_exclude: 'Hidden events',
+    ed_exclude_helper: 'Hides events whose title contains one of these texts (case-insensitive)',
     ed_zoom: 'Detail button',
     ed_zoom_helper: 'Button at the top right that switches the mini card to the full card and back',
     ed_language: 'Language',
@@ -247,6 +251,8 @@ var CcI18n = {
     ed_show_countdown: 'Countdown',
     ed_show_empty_days: 'Tage ohne Termine',
     ed_show_past_events: 'Heute beendete Termine',
+    ed_exclude: 'Ausgeblendete Termine',
+    ed_exclude_helper: 'Blendet Termine aus, deren Titel einen dieser Texte enthält (ohne Groß-/Kleinschreibung)',
     ed_zoom: 'Detail-Schaltfläche',
     ed_zoom_helper: 'Schaltfläche oben rechts, die die Mini-Karte zur vollständigen Karte aufklappt und zurück',
     ed_language: 'Sprache',
@@ -334,6 +340,8 @@ var CcI18n = {
     ed_show_countdown: 'Cuenta atrás',
     ed_show_empty_days: 'Días sin eventos',
     ed_show_past_events: 'Eventos de hoy ya terminados',
+    ed_exclude: 'Eventos ocultos',
+    ed_exclude_helper: 'Oculta los eventos cuyo título contiene uno de estos textos (sin distinguir mayúsculas)',
     ed_zoom: 'Botón de detalle',
     ed_zoom_helper: 'Botón arriba a la derecha que despliega la minitarjeta en tarjeta completa y viceversa',
     ed_language: 'Idioma',
@@ -421,6 +429,8 @@ var CcI18n = {
     ed_show_countdown: 'Одбројавање',
     ed_show_empty_days: 'Дани без догађаја',
     ed_show_past_events: 'Завршени догађаји за данас',
+    ed_exclude: 'Скривени догађаји',
+    ed_exclude_helper: 'Скрива догађаје чији наслов садржи један од ових текстова (без обзира на велика и мала слова)',
     ed_zoom: 'Дугме за детаље',
     ed_zoom_helper: 'Дугме у горњем десном углу које пребацује мини картицу на пуну картицу и назад',
     ed_language: 'Језик',
@@ -508,6 +518,8 @@ var CcI18n = {
     ed_show_countdown: 'Odbrojavanje',
     ed_show_empty_days: 'Dani bez događaja',
     ed_show_past_events: 'Završeni događaji za danas',
+    ed_exclude: 'Skriveni događaji',
+    ed_exclude_helper: 'Skriva događaje čiji naslov sadrži jedan od ovih tekstova (bez obzira na velika i mala slova)',
     ed_zoom: 'Dugme za detalje',
     ed_zoom_helper: 'Dugme u gornjem desnom uglu koje prebacuje mini karticu na punu karticu i nazad',
     ed_language: 'Jezik',
@@ -595,6 +607,8 @@ var CcI18n = {
     ed_show_countdown: 'Conto alla rovescia',
     ed_show_empty_days: 'Giorni senza eventi',
     ed_show_past_events: 'Eventi di oggi già terminati',
+    ed_exclude: 'Eventi nascosti',
+    ed_exclude_helper: 'Nasconde gli eventi il cui titolo contiene uno di questi testi (senza distinzione tra maiuscole e minuscole)',
     ed_zoom: 'Pulsante dettagli',
     ed_zoom_helper: 'Pulsante in alto a destra che passa dalla mini scheda alla scheda completa e viceversa',
     ed_language: 'Lingua',
@@ -682,6 +696,8 @@ var CcI18n = {
     ed_show_countdown: 'Aftellen',
     ed_show_empty_days: 'Dagen zonder afspraken',
     ed_show_past_events: 'Afgelopen afspraken van vandaag',
+    ed_exclude: 'Verborgen afspraken',
+    ed_exclude_helper: 'Verbergt afspraken waarvan de titel een van deze teksten bevat (hoofdletterongevoelig)',
     ed_zoom: 'Detailknop',
     ed_zoom_helper: 'Knop rechtsboven die de minikaart uitklapt tot de volledige kaart en terug',
     ed_language: 'Taal',
@@ -769,6 +785,8 @@ var CcI18n = {
     ed_show_countdown: 'Contagem decrescente',
     ed_show_empty_days: 'Dias sem eventos',
     ed_show_past_events: 'Eventos de hoje já terminados',
+    ed_exclude: 'Eventos ocultos',
+    ed_exclude_helper: 'Oculta os eventos cujo título contém um destes textos (sem distinguir maiúsculas)',
     ed_zoom: 'Botão de detalhe',
     ed_zoom_helper: 'Botão no canto superior direito que alterna entre o mini cartão e o cartão completo',
     ed_language: 'Idioma',
@@ -856,6 +874,8 @@ var CcI18n = {
     ed_show_countdown: 'Odliczanie',
     ed_show_empty_days: 'Dni bez wydarzeń',
     ed_show_past_events: 'Dzisiejsze zakończone wydarzenia',
+    ed_exclude: 'Ukryte wydarzenia',
+    ed_exclude_helper: 'Ukrywa wydarzenia, których tytuł zawiera jeden z tych tekstów (bez rozróżniania wielkości liter)',
     ed_zoom: 'Przycisk szczegółów',
     ed_zoom_helper: 'Przycisk w prawym górnym rogu, który przełącza mini kartę na pełną kartę i z powrotem',
     ed_language: 'Język',
@@ -943,6 +963,8 @@ var CcI18n = {
     ed_show_countdown: 'Numărătoare inversă',
     ed_show_empty_days: 'Zile fără evenimente',
     ed_show_past_events: 'Evenimentele de azi încheiate',
+    ed_exclude: 'Evenimente ascunse',
+    ed_exclude_helper: 'Ascunde evenimentele al căror titlu conține unul dintre aceste texte (fără a ține cont de majuscule)',
     ed_zoom: 'Buton de detalii',
     ed_zoom_helper: 'Buton din dreapta sus care extinde mini cardul în cardul complet și înapoi',
     ed_language: 'Limbă',
@@ -1030,6 +1052,8 @@ var CcI18n = {
     ed_show_countdown: 'Nedtælling',
     ed_show_empty_days: 'Dage uden aftaler',
     ed_show_past_events: 'Dagens afsluttede aftaler',
+    ed_exclude: 'Skjulte begivenheder',
+    ed_exclude_helper: 'Skjuler begivenheder, hvis titel indeholder en af disse tekster (uden forskel på store og små bogstaver)',
     ed_zoom: 'Detaljeknap',
     ed_zoom_helper: 'Knap øverst til højre, der folder minikortet ud til hele kortet og tilbage',
     ed_language: 'Sprog',
@@ -1117,6 +1141,8 @@ var CcI18n = {
     ed_show_countdown: 'Nedräkning',
     ed_show_empty_days: 'Dagar utan händelser',
     ed_show_past_events: 'Dagens avslutade händelser',
+    ed_exclude: 'Dolda händelser',
+    ed_exclude_helper: 'Döljer händelser vars titel innehåller någon av dessa texter (skiftlägesokänsligt)',
     ed_zoom: 'Detaljknapp',
     ed_zoom_helper: 'Knapp uppe till höger som fäller ut minikortet till hela kortet och tillbaka',
     ed_language: 'Språk',
@@ -1204,6 +1230,8 @@ var CcI18n = {
     ed_show_countdown: 'Обратно отброяване',
     ed_show_empty_days: 'Дни без събития',
     ed_show_past_events: 'Приключилите днес събития',
+    ed_exclude: 'Скрити събития',
+    ed_exclude_helper: 'Скрива събитията, чието заглавие съдържа един от тези текстове (без значение от главни и малки букви)',
     ed_zoom: 'Бутон за подробности',
     ed_zoom_helper: 'Бутон горе вдясно, който разгъва мини картата до цялата карта и обратно',
     ed_language: 'Език',
@@ -1291,6 +1319,8 @@ var CcI18n = {
     ed_show_countdown: 'Обратный отсчёт',
     ed_show_empty_days: 'Дни без событий',
     ed_show_past_events: 'Завершённые сегодня события',
+    ed_exclude: 'Скрытые события',
+    ed_exclude_helper: 'Скрывает события, название которых содержит один из этих текстов (без учёта регистра)',
     ed_zoom: 'Кнопка подробностей',
     ed_zoom_helper: 'Кнопка в правом верхнем углу, которая разворачивает мини-карточку в полную и обратно',
     ed_language: 'Язык',
@@ -1378,6 +1408,8 @@ var CcI18n = {
     ed_show_countdown: 'Зворотний відлік',
     ed_show_empty_days: 'Дні без подій',
     ed_show_past_events: 'Завершені сьогодні події',
+    ed_exclude: 'Приховані події',
+    ed_exclude_helper: 'Приховує події, назва яких містить один із цих текстів (без урахування регістру)',
     ed_zoom: 'Кнопка деталей',
     ed_zoom_helper: 'Кнопка у правому верхньому куті, яка розгортає міні-картку до повної і назад',
     ed_language: 'Мова',
@@ -1465,6 +1497,8 @@ var CcI18n = {
     ed_show_countdown: 'Visszaszámlálás',
     ed_show_empty_days: 'Esemény nélküli napok',
     ed_show_past_events: 'Mai befejezett események',
+    ed_exclude: 'Elrejtett események',
+    ed_exclude_helper: 'Elrejti azokat az eseményeket, amelyek címe tartalmazza e szövegek egyikét (kis- és nagybetűtől függetlenül)',
     ed_zoom: 'Részletek gomb',
     ed_zoom_helper: 'Gomb a jobb felső sarokban, amely a mini kártyát teljes kártyává nyitja ki, és vissza',
     ed_language: 'Nyelv',
@@ -1552,6 +1586,8 @@ var CcI18n = {
     ed_show_countdown: 'Odpočítavanie',
     ed_show_empty_days: 'Dni bez udalostí',
     ed_show_past_events: 'Dnešné ukončené udalosti',
+    ed_exclude: 'Skryté udalosti',
+    ed_exclude_helper: 'Skryje udalosti, ktorých názov obsahuje jeden z týchto textov (bez ohľadu na veľkosť písmen)',
     ed_zoom: 'Tlačidlo podrobností',
     ed_zoom_helper: 'Tlačidlo vpravo hore, ktoré rozbalí mini kartu na celú kartu a späť',
     ed_language: 'Jazyk',
@@ -1639,6 +1675,8 @@ var CcI18n = {
     ed_show_countdown: 'Odpočet',
     ed_show_empty_days: 'Dny bez událostí',
     ed_show_past_events: 'Dnešní skončené události',
+    ed_exclude: 'Skryté události',
+    ed_exclude_helper: 'Skryje události, jejichž název obsahuje jeden z těchto textů (bez ohledu na velikost písmen)',
     ed_zoom: 'Tlačítko podrobností',
     ed_zoom_helper: 'Tlačítko vpravo nahoře, které rozbalí mini kartu na celou kartu a zpět',
     ed_language: 'Jazyk',
@@ -1726,6 +1764,8 @@ var CcI18n = {
     ed_show_countdown: 'Odštevanje',
     ed_show_empty_days: 'Dnevi brez dogodkov',
     ed_show_past_events: 'Današnji končani dogodki',
+    ed_exclude: 'Skriti dogodki',
+    ed_exclude_helper: 'Skrije dogodke, katerih naslov vsebuje enega od teh besedil (ne glede na velike in male črke)',
     ed_zoom: 'Gumb za podrobnosti',
     ed_zoom_helper: 'Gumb zgoraj desno, ki mini kartico razširi v celotno kartico in nazaj',
     ed_language: 'Jezik',
@@ -1813,6 +1853,8 @@ var CcI18n = {
     ed_show_countdown: 'Atpakaļskaitīšana',
     ed_show_empty_days: 'Dienas bez notikumiem',
     ed_show_past_events: 'Šodienas beigušies notikumi',
+    ed_exclude: 'Paslēptie notikumi',
+    ed_exclude_helper: 'Paslēpj notikumus, kuru nosaukumā ir kāds no šiem tekstiem (reģistrs netiek ņemts vērā)',
     ed_zoom: 'Detaļu poga',
     ed_zoom_helper: 'Poga augšējā labajā stūrī, kas izvērš mini karti par pilno karti un atpakaļ',
     ed_language: 'Valoda',
@@ -1900,6 +1942,8 @@ var CcI18n = {
     ed_show_countdown: 'Αντίστροφη μέτρηση',
     ed_show_empty_days: 'Ημέρες χωρίς συμβάντα',
     ed_show_past_events: 'Σημερινά ολοκληρωμένα συμβάντα',
+    ed_exclude: 'Κρυφά συμβάντα',
+    ed_exclude_helper: 'Κρύβει τα συμβάντα των οποίων ο τίτλος περιέχει ένα από αυτά τα κείμενα (χωρίς διάκριση πεζών-κεφαλαίων)',
     ed_zoom: 'Κουμπί λεπτομερειών',
     ed_zoom_helper: 'Κουμπί πάνω δεξιά που αναπτύσσει τη μίνι κάρτα σε πλήρη κάρτα και αντίστροφα',
     ed_language: 'Γλώσσα',
@@ -3535,7 +3579,7 @@ class CalendarAgendaCardEditor extends HTMLElement {
     ].concat([
       { name: 'workday_entity', selector: { entity: { domain: 'binary_sensor', integration: 'workday' } } },
       { name: 'school_holidays_calendar', selector: { entity: { domain: 'calendar' } } },
-    ], mini ? [] : [
+      // The unfolded mini card is the full card: the week view and the buttons apply to it too.
       { name: 'view', selector: { select: { mode: 'dropdown', options: [{ value: 'agenda', label: ccT(this._lang(), 'view_agenda') }, { value: 'week', label: ccT(this._lang(), 'view_week') }] } } },
     ], [
       {
@@ -3553,8 +3597,11 @@ class CalendarAgendaCardEditor extends HTMLElement {
           { name: 'show_countdown', selector: { boolean: {} } },
           { name: 'show_empty_days', selector: { boolean: {} } },
           { name: 'show_past_events', selector: { boolean: {} } },
-        ].concat(mini ? [{ name: 'zoom', selector: { boolean: {} } }] : [{ name: 'add_button', selector: { boolean: {} } }, { name: 'edit_buttons', selector: { boolean: {} } }]),
+          { name: 'add_button', selector: { boolean: {} } },
+          { name: 'edit_buttons', selector: { boolean: {} } },
+        ].concat(mini ? [{ name: 'zoom', selector: { boolean: {} } }] : []),
       },
+      { name: 'exclude', selector: { text: { multiple: true } } },
       {
         name: 'language',
         selector: { select: { mode: 'dropdown', options: [{ value: 'fr', label: 'Français' }, { value: 'en', label: 'English' }, { value: 'de', label: 'Deutsch' }, { value: 'es', label: 'Español' }, { value: 'sr', label: 'Српски' }, { value: 'sr-Latn', label: 'Srpski (latinica)' }, { value: 'it', label: 'Italiano' }, { value: 'nl', label: 'Nederlands' }, { value: 'pt', label: 'Português (Portugal)' }, { value: 'pl', label: 'Polski' }, { value: 'ro', label: 'Română' }, { value: 'da', label: 'Dansk' }, { value: 'sv', label: 'Svenska' }, { value: 'bg', label: 'Български' }, { value: 'ru', label: 'Русский' }, { value: 'uk', label: 'Українська' }, { value: 'hu', label: 'Magyar' }, { value: 'sk', label: 'Slovenčina' }, { value: 'cs', label: 'Čeština' }, { value: 'sl', label: 'Slovenščina' }, { value: 'lv', label: 'Latviešu' }, { value: 'el', label: 'Ελληνικά' }] } },
@@ -3584,6 +3631,8 @@ class CalendarAgendaCardEditor extends HTMLElement {
     data.entities = this._calList().map((e) => (typeof e === 'string' ? e : e.entity));
     if (data.todo_entities) data.todo_entities = ccList(data.todo_entities).map((e) => (typeof e === 'string' ? e : e?.entity));
     if (data.workday_entity === false) delete data.workday_entity;
+    // `exclude: Private` (a YAML scalar) is shown as a one-item list.
+    if (data.exclude != null) data.exclude = ccList(data.exclude).map(String);
     delete data.entity;
     this._form.data = data;
   }
@@ -3611,7 +3660,10 @@ class CalendarAgendaCardEditor extends HTMLElement {
       else delete value.todo_entities;
     }
     if (this._config.workday_entity === false && !value.workday_entity) value.workday_entity = false;
-    if (this._config.exclude) value.exclude = this._config.exclude;
+    if (Array.isArray(value.exclude)) {
+      value.exclude = value.exclude.filter((x) => x != null && String(x).trim() !== '');
+      if (!value.exclude.length) delete value.exclude;
+    }
     if (this._config.type) value = Object.assign({ type: this._config.type }, value);
     var lang = this._lang();
     this._config = value;
