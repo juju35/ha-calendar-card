@@ -77,6 +77,17 @@ var CcI18n = {
     ed_zoom_helper: 'Bouton en haut à droite qui passe la mini-carte en carte complète et inversement',
     ed_language: 'Langue',
     ed_language_helper: 'Laisser vide pour suivre la langue de Home Assistant',
+    workday: 'Jour ouvré',
+    day_off: 'Jour non ouvré',
+    school_holidays: 'Vacances scolaires',
+    todo_done: 'Marquer comme fait',
+    todo_empty: 'Rien à faire',
+    ed_todo_entities: 'Listes de tâches',
+    ed_todo_entities_helper: 'Éléments à faire de ces listes (Bring!, liste locale…), cochés depuis la carte',
+    ed_workday_entity: 'Capteur de jours ouvrés',
+    ed_workday_entity_helper: 'Badge jour ouvré ou non ouvré dans l\'en-tête ; trouvé tout seul quand l\'intégration Workday est configurée',
+    ed_school_holidays_calendar: 'Calendrier des vacances scolaires',
+    ed_school_holidays_calendar_helper: 'Ses événements marquent les jours qu\'ils couvrent, sans être listés (Remote Calendar…)',
   },
   en: {
     agenda: 'Agenda',
@@ -153,6 +164,17 @@ var CcI18n = {
     ed_zoom_helper: 'Button at the top right that switches the mini card to the full card and back',
     ed_language: 'Language',
     ed_language_helper: 'Leave empty to follow the Home Assistant language',
+    workday: 'Working day',
+    day_off: 'Day off',
+    school_holidays: 'School holidays',
+    todo_done: 'Mark as done',
+    todo_empty: 'Nothing to do',
+    ed_todo_entities: 'To-do lists',
+    ed_todo_entities_helper: 'Open items of these lists (Bring!, Local To-do…), checked off from the card',
+    ed_workday_entity: 'Workday sensor',
+    ed_workday_entity_helper: 'Working day or day off badge in the header; found by itself when the Workday integration is set up',
+    ed_school_holidays_calendar: 'School holidays calendar',
+    ed_school_holidays_calendar_helper: 'Its events mark the days they cover, without being listed (Remote Calendar…)',
   },
   de: {
     agenda: 'Termine',
@@ -229,6 +251,17 @@ var CcI18n = {
     ed_zoom_helper: 'Schaltfläche oben rechts, die die Mini-Karte zur vollständigen Karte aufklappt und zurück',
     ed_language: 'Sprache',
     ed_language_helper: 'Leer lassen, um der Sprache von Home Assistant zu folgen',
+    workday: 'Arbeitstag',
+    day_off: 'Freier Tag',
+    school_holidays: 'Schulferien',
+    todo_done: 'Als erledigt markieren',
+    todo_empty: 'Nichts zu tun',
+    ed_todo_entities: 'Aufgabenlisten',
+    ed_todo_entities_helper: 'Offene Einträge dieser Listen (Bring!, lokale Liste…), in der Karte abhakbar',
+    ed_workday_entity: 'Arbeitstag-Sensor',
+    ed_workday_entity_helper: 'Abzeichen Arbeitstag oder freier Tag in der Kopfzeile; automatisch gefunden, wenn die Workday-Integration eingerichtet ist',
+    ed_school_holidays_calendar: 'Schulferien-Kalender',
+    ed_school_holidays_calendar_helper: 'Seine Termine markieren die Tage, die sie abdecken, ohne aufgelistet zu werden (Remote Calendar…)',
   },
   es: {
     agenda: 'Agenda',
@@ -305,6 +338,17 @@ var CcI18n = {
     ed_zoom_helper: 'Botón arriba a la derecha que despliega la minitarjeta en tarjeta completa y viceversa',
     ed_language: 'Idioma',
     ed_language_helper: 'Déjalo vacío para usar el idioma de Home Assistant',
+    workday: 'Día laborable',
+    day_off: 'Día libre',
+    school_holidays: 'Vacaciones escolares',
+    todo_done: 'Marcar como hecho',
+    todo_empty: 'Nada pendiente',
+    ed_todo_entities: 'Listas de tareas',
+    ed_todo_entities_helper: 'Elementos pendientes de estas listas (Bring!, lista local…), marcados desde la tarjeta',
+    ed_workday_entity: 'Sensor de días laborables',
+    ed_workday_entity_helper: 'Insignia de día laborable o libre en la cabecera; se encuentra solo cuando la integración Workday está configurada',
+    ed_school_holidays_calendar: 'Calendario de vacaciones escolares',
+    ed_school_holidays_calendar_helper: 'Sus eventos marcan los días que cubren, sin listarse (Remote Calendar…)',
   },
   sr: {
     agenda: 'Агенда',
@@ -381,6 +425,17 @@ var CcI18n = {
     ed_zoom_helper: 'Дугме у горњем десном углу које пребацује мини картицу на пуну картицу и назад',
     ed_language: 'Језик',
     ed_language_helper: 'Оставите празно да прати језик Home Assistant-а',
+    workday: 'Радни дан',
+    day_off: 'Слободан дан',
+    school_holidays: 'Школски распуст',
+    todo_done: 'Означи као урађено',
+    todo_empty: 'Нема обавеза',
+    ed_todo_entities: 'Листе задатака',
+    ed_todo_entities_helper: 'Отворене ставке ових листа, штиклиране из картице',
+    ed_workday_entity: 'Сензор радних дана',
+    ed_workday_entity_helper: 'Ознака радног или слободног дана у заглављу; проналази се сам када је интеграција радних дана подешена',
+    ed_school_holidays_calendar: 'Календар школских распуста',
+    ed_school_holidays_calendar_helper: 'Његови догађаји означавају дане које покривају, без приказа на листи',
   },
   'sr-Latn': {
     agenda: 'Agenda',
@@ -457,6 +512,17 @@ var CcI18n = {
     ed_zoom_helper: 'Dugme u gornjem desnom uglu koje prebacuje mini karticu na punu karticu i nazad',
     ed_language: 'Jezik',
     ed_language_helper: 'Ostavite prazno da prati jezik Home Assistant-a',
+    workday: 'Radni dan',
+    day_off: 'Slobodan dan',
+    school_holidays: 'Školski raspust',
+    todo_done: 'Označi kao urađeno',
+    todo_empty: 'Nema obaveza',
+    ed_todo_entities: 'Liste zadataka',
+    ed_todo_entities_helper: 'Otvorene stavke ovih lista (Bring!, lokalna lista…), štiklirane iz kartice',
+    ed_workday_entity: 'Senzor radnih dana',
+    ed_workday_entity_helper: 'Oznaka radnog ili slobodnog dana u zaglavlju; pronalazi se sam kada je integracija Workday podešena',
+    ed_school_holidays_calendar: 'Kalendar školskih raspusta',
+    ed_school_holidays_calendar_helper: 'Njegovi događaji označavaju dane koje pokrivaju, bez prikaza na listi (Remote Calendar…)',
   },
   it: {
     agenda: 'Agenda',
@@ -533,6 +599,17 @@ var CcI18n = {
     ed_zoom_helper: 'Pulsante in alto a destra che passa dalla mini scheda alla scheda completa e viceversa',
     ed_language: 'Lingua',
     ed_language_helper: 'Lascia vuoto per seguire la lingua di Home Assistant',
+    workday: 'Giorno lavorativo',
+    day_off: 'Giorno libero',
+    school_holidays: 'Vacanze scolastiche',
+    todo_done: 'Segna come fatto',
+    todo_empty: 'Niente da fare',
+    ed_todo_entities: 'Liste di cose da fare',
+    ed_todo_entities_helper: 'Elementi aperti di queste liste (Bring!, lista locale…), spuntati dalla scheda',
+    ed_workday_entity: 'Sensore giorni lavorativi',
+    ed_workday_entity_helper: 'Badge giorno lavorativo o libero nell\'intestazione; trovato da solo quando l\'integrazione Workday è configurata',
+    ed_school_holidays_calendar: 'Calendario delle vacanze scolastiche',
+    ed_school_holidays_calendar_helper: 'I suoi eventi segnano i giorni che coprono, senza essere elencati (Remote Calendar…)',
   },
   nl: {
     agenda: 'Agenda',
@@ -609,6 +686,17 @@ var CcI18n = {
     ed_zoom_helper: 'Knop rechtsboven die de minikaart uitklapt tot de volledige kaart en terug',
     ed_language: 'Taal',
     ed_language_helper: 'Leeg laten om de taal van Home Assistant te volgen',
+    workday: 'Werkdag',
+    day_off: 'Vrije dag',
+    school_holidays: 'Schoolvakantie',
+    todo_done: 'Markeren als gedaan',
+    todo_empty: 'Niets te doen',
+    ed_todo_entities: 'Takenlijsten',
+    ed_todo_entities_helper: 'Open items van deze lijsten (Bring!, lokale lijst…), af te vinken vanuit de kaart',
+    ed_workday_entity: 'Werkdagsensor',
+    ed_workday_entity_helper: 'Badge werkdag of vrije dag in de kop; vanzelf gevonden als de Workday-integratie is ingesteld',
+    ed_school_holidays_calendar: 'Schoolvakantiekalender',
+    ed_school_holidays_calendar_helper: 'De afspraken markeren de dagen die ze beslaan, zonder in de lijst te staan (Remote Calendar…)',
   },
   pt: {
     agenda: 'Agenda',
@@ -685,6 +773,17 @@ var CcI18n = {
     ed_zoom_helper: 'Botão no canto superior direito que alterna entre o mini cartão e o cartão completo',
     ed_language: 'Idioma',
     ed_language_helper: 'Deixar vazio para seguir o idioma do Home Assistant',
+    workday: 'Dia útil',
+    day_off: 'Dia de folga',
+    school_holidays: 'Férias escolares',
+    todo_done: 'Marcar como feito',
+    todo_empty: 'Nada a fazer',
+    ed_todo_entities: 'Listas de tarefas',
+    ed_todo_entities_helper: 'Itens por fazer destas listas (Bring!, lista local…), marcados a partir do cartão',
+    ed_workday_entity: 'Sensor de dias úteis',
+    ed_workday_entity_helper: 'Distintivo de dia útil ou de folga no cabeçalho; encontrado sozinho quando a integração Workday está configurada',
+    ed_school_holidays_calendar: 'Calendário das férias escolares',
+    ed_school_holidays_calendar_helper: 'Os seus eventos marcam os dias que abrangem, sem serem listados (Remote Calendar…)',
   },
   pl: {
     agenda: 'Terminarz',
@@ -761,6 +860,17 @@ var CcI18n = {
     ed_zoom_helper: 'Przycisk w prawym górnym rogu, który przełącza mini kartę na pełną kartę i z powrotem',
     ed_language: 'Język',
     ed_language_helper: 'Pozostaw puste, aby używać języka Home Assistant',
+    workday: 'Dzień roboczy',
+    day_off: 'Dzień wolny',
+    school_holidays: 'Ferie szkolne',
+    todo_done: 'Oznacz jako zrobione',
+    todo_empty: 'Nic do zrobienia',
+    ed_todo_entities: 'Listy zadań',
+    ed_todo_entities_helper: 'Otwarte pozycje tych list (Bring!, lista lokalna…), odhaczane z karty',
+    ed_workday_entity: 'Czujnik dni roboczych',
+    ed_workday_entity_helper: 'Plakietka dnia roboczego lub wolnego w nagłówku; znajdowany sam, gdy integracja Workday jest skonfigurowana',
+    ed_school_holidays_calendar: 'Kalendarz ferii szkolnych',
+    ed_school_holidays_calendar_helper: 'Jego wydarzenia oznaczają dni, które obejmują, bez pokazywania na liście (Remote Calendar…)',
   },
   ro: {
     agenda: 'Agendă',
@@ -837,6 +947,17 @@ var CcI18n = {
     ed_zoom_helper: 'Buton din dreapta sus care extinde mini cardul în cardul complet și înapoi',
     ed_language: 'Limbă',
     ed_language_helper: 'Lăsați gol pentru a urma limba Home Assistant',
+    workday: 'Zi lucrătoare',
+    day_off: 'Zi liberă',
+    school_holidays: 'Vacanță școlară',
+    todo_done: 'Marchează ca făcut',
+    todo_empty: 'Nimic de făcut',
+    ed_todo_entities: 'Liste de sarcini',
+    ed_todo_entities_helper: 'Elementele deschise ale acestor liste (Bring!, listă locală…), bifate din card',
+    ed_workday_entity: 'Senzor de zile lucrătoare',
+    ed_workday_entity_helper: 'Insignă zi lucrătoare sau liberă în antet; găsit singur când integrarea Workday este configurată',
+    ed_school_holidays_calendar: 'Calendarul vacanțelor școlare',
+    ed_school_holidays_calendar_helper: 'Evenimentele lui marchează zilele pe care le acoperă, fără a fi listate (Remote Calendar…)',
   },
   da: {
     agenda: 'Aftaler',
@@ -913,6 +1034,17 @@ var CcI18n = {
     ed_zoom_helper: 'Knap øverst til højre, der folder minikortet ud til hele kortet og tilbage',
     ed_language: 'Sprog',
     ed_language_helper: 'Lad stå tomt for at følge sproget i Home Assistant',
+    workday: 'Arbejdsdag',
+    day_off: 'Fridag',
+    school_holidays: 'Skoleferie',
+    todo_done: 'Markér som udført',
+    todo_empty: 'Intet at lave',
+    ed_todo_entities: 'Opgavelister',
+    ed_todo_entities_helper: 'Åbne punkter på disse lister (Bring!, lokal liste…), afkrydset fra kortet',
+    ed_workday_entity: 'Arbejdsdagssensor',
+    ed_workday_entity_helper: 'Mærke for arbejdsdag eller fridag i overskriften; findes selv, når Workday-integrationen er sat op',
+    ed_school_holidays_calendar: 'Skoleferiekalender',
+    ed_school_holidays_calendar_helper: 'Dens begivenheder markerer de dage, de dækker, uden at blive vist på listen (Remote Calendar…)',
   },
   sv: {
     agenda: 'Schema',
@@ -989,6 +1121,17 @@ var CcI18n = {
     ed_zoom_helper: 'Knapp uppe till höger som fäller ut minikortet till hela kortet och tillbaka',
     ed_language: 'Språk',
     ed_language_helper: 'Lämna tomt för att följa språket i Home Assistant',
+    workday: 'Arbetsdag',
+    day_off: 'Ledig dag',
+    school_holidays: 'Skollov',
+    todo_done: 'Markera som klar',
+    todo_empty: 'Inget att göra',
+    ed_todo_entities: 'Att göra-listor',
+    ed_todo_entities_helper: 'Öppna punkter i dessa listor (Bring!, lokal lista…), bockas av från kortet',
+    ed_workday_entity: 'Arbetsdagssensor',
+    ed_workday_entity_helper: 'Märke för arbetsdag eller ledig dag i rubriken; hittas automatiskt när Workday-integrationen är konfigurerad',
+    ed_school_holidays_calendar: 'Skollovskalender',
+    ed_school_holidays_calendar_helper: 'Dess händelser markerar dagarna de täcker, utan att listas (Remote Calendar…)',
   },
   bg: {
     agenda: 'График',
@@ -1065,6 +1208,17 @@ var CcI18n = {
     ed_zoom_helper: 'Бутон горе вдясно, който разгъва мини картата до цялата карта и обратно',
     ed_language: 'Език',
     ed_language_helper: 'Оставете празно, за да се използва езикът на Home Assistant',
+    workday: 'Работен ден',
+    day_off: 'Почивен ден',
+    school_holidays: 'Училищна ваканция',
+    todo_done: 'Отбелязване като изпълнено',
+    todo_empty: 'Няма задачи',
+    ed_todo_entities: 'Списъци със задачи',
+    ed_todo_entities_helper: 'Отворени елементи от тези списъци (Bring!, локален списък…), отмятани от картата',
+    ed_workday_entity: 'Сензор за работни дни',
+    ed_workday_entity_helper: 'Значка за работен или почивен ден в заглавката; намира се сам, когато интеграцията Workday е настроена',
+    ed_school_holidays_calendar: 'Календар на училищните ваканции',
+    ed_school_holidays_calendar_helper: 'Събитията му отбелязват дните, които обхващат, без да се показват в списъка (Remote Calendar…)',
   },
   ru: {
     agenda: 'События',
@@ -1141,6 +1295,17 @@ var CcI18n = {
     ed_zoom_helper: 'Кнопка в правом верхнем углу, которая разворачивает мини-карточку в полную и обратно',
     ed_language: 'Язык',
     ed_language_helper: 'Оставьте пустым, чтобы использовать язык Home Assistant',
+    workday: 'Рабочий день',
+    day_off: 'Выходной',
+    school_holidays: 'Школьные каникулы',
+    todo_done: 'Отметить как выполненное',
+    todo_empty: 'Нечего делать',
+    ed_todo_entities: 'Списки дел',
+    ed_todo_entities_helper: 'Открытые пункты этих списков (Bring!, локальный список…), отмечаются прямо в карточке',
+    ed_workday_entity: 'Датчик рабочих дней',
+    ed_workday_entity_helper: 'Значок рабочего или выходного дня в заголовке; находится сам, если настроена интеграция Workday',
+    ed_school_holidays_calendar: 'Календарь школьных каникул',
+    ed_school_holidays_calendar_helper: 'Его события отмечают дни, которые они охватывают, не попадая в список (Remote Calendar…)',
   },
   uk: {
     agenda: 'Розклад',
@@ -1217,6 +1382,17 @@ var CcI18n = {
     ed_zoom_helper: 'Кнопка у правому верхньому куті, яка розгортає міні-картку до повної і назад',
     ed_language: 'Мова',
     ed_language_helper: 'Залиште порожнім, щоб використовувати мову Home Assistant',
+    workday: 'Робочий день',
+    day_off: 'Вихідний',
+    school_holidays: 'Шкільні канікули',
+    todo_done: 'Позначити як виконане',
+    todo_empty: 'Нічого робити',
+    ed_todo_entities: 'Списки справ',
+    ed_todo_entities_helper: 'Відкриті пункти цих списків (Bring!, локальний список…), позначаються з картки',
+    ed_workday_entity: 'Датчик робочих днів',
+    ed_workday_entity_helper: 'Значок робочого чи вихідного дня в заголовку; знаходиться сам, коли налаштовано інтеграцію Workday',
+    ed_school_holidays_calendar: 'Календар шкільних канікул',
+    ed_school_holidays_calendar_helper: 'Його події позначають дні, які вони охоплюють, не потрапляючи до списку (Remote Calendar…)',
   },
   hu: {
     agenda: 'Napirend',
@@ -1293,6 +1469,17 @@ var CcI18n = {
     ed_zoom_helper: 'Gomb a jobb felső sarokban, amely a mini kártyát teljes kártyává nyitja ki, és vissza',
     ed_language: 'Nyelv',
     ed_language_helper: 'Hagyja üresen a Home Assistant nyelvének követéséhez',
+    workday: 'Munkanap',
+    day_off: 'Szabadnap',
+    school_holidays: 'Iskolai szünet',
+    todo_done: 'Megjelölés késznek',
+    todo_empty: 'Nincs teendő',
+    ed_todo_entities: 'Teendőlisták',
+    ed_todo_entities_helper: 'E listák nyitott tételei (Bring!, helyi lista…), a kártyáról kipipálhatók',
+    ed_workday_entity: 'Munkanap-érzékelő',
+    ed_workday_entity_helper: 'Munkanap vagy szabadnap jelvény a fejlécben; magától megtalálja, ha a Workday integráció be van állítva',
+    ed_school_holidays_calendar: 'Iskolai szünetek naptára',
+    ed_school_holidays_calendar_helper: 'Eseményei megjelölik az általuk lefedett napokat, a listában való megjelenés nélkül (Remote Calendar…)',
   },
   sk: {
     agenda: 'Program',
@@ -1369,6 +1556,17 @@ var CcI18n = {
     ed_zoom_helper: 'Tlačidlo vpravo hore, ktoré rozbalí mini kartu na celú kartu a späť',
     ed_language: 'Jazyk',
     ed_language_helper: 'Nechajte prázdne, ak chcete používať jazyk Home Assistanta',
+    workday: 'Pracovný deň',
+    day_off: 'Voľný deň',
+    school_holidays: 'Školské prázdniny',
+    todo_done: 'Označiť ako hotové',
+    todo_empty: 'Nič na práci',
+    ed_todo_entities: 'Zoznamy úloh',
+    ed_todo_entities_helper: 'Otvorené položky týchto zoznamov (Bring!, miestny zoznam…), odškrtávané z karty',
+    ed_workday_entity: 'Snímač pracovných dní',
+    ed_workday_entity_helper: 'Odznak pracovného alebo voľného dňa v hlavičke; nájde sa sám, keď je nastavená integrácia Workday',
+    ed_school_holidays_calendar: 'Kalendár školských prázdnin',
+    ed_school_holidays_calendar_helper: 'Jeho udalosti označujú dni, ktoré pokrývajú, bez zobrazenia v zozname (Remote Calendar…)',
   },
   cs: {
     agenda: 'Program',
@@ -1445,6 +1643,17 @@ var CcI18n = {
     ed_zoom_helper: 'Tlačítko vpravo nahoře, které rozbalí mini kartu na celou kartu a zpět',
     ed_language: 'Jazyk',
     ed_language_helper: 'Ponechte prázdné pro použití jazyka Home Assistantu',
+    workday: 'Pracovní den',
+    day_off: 'Volný den',
+    school_holidays: 'Školní prázdniny',
+    todo_done: 'Označit jako hotové',
+    todo_empty: 'Nic na práci',
+    ed_todo_entities: 'Seznamy úkolů',
+    ed_todo_entities_helper: 'Otevřené položky těchto seznamů (Bring!, místní seznam…), odškrtávané z karty',
+    ed_workday_entity: 'Senzor pracovních dnů',
+    ed_workday_entity_helper: 'Odznak pracovního nebo volného dne v záhlaví; najde se sám, když je nastavena integrace Workday',
+    ed_school_holidays_calendar: 'Kalendář školních prázdnin',
+    ed_school_holidays_calendar_helper: 'Jeho události označují dny, které pokrývají, bez zobrazení v seznamu (Remote Calendar…)',
   },
   sl: {
     agenda: 'Razpored',
@@ -1521,6 +1730,17 @@ var CcI18n = {
     ed_zoom_helper: 'Gumb zgoraj desno, ki mini kartico razširi v celotno kartico in nazaj',
     ed_language: 'Jezik',
     ed_language_helper: 'Pustite prazno, da sledi jeziku Home Assistanta',
+    workday: 'Delovni dan',
+    day_off: 'Prost dan',
+    school_holidays: 'Šolske počitnice',
+    todo_done: 'Označi kot opravljeno',
+    todo_empty: 'Nič za narediti',
+    ed_todo_entities: 'Seznami opravil',
+    ed_todo_entities_helper: 'Odprti elementi teh seznamov (Bring!, lokalni seznam…), odkljukani iz kartice',
+    ed_workday_entity: 'Senzor delovnih dni',
+    ed_workday_entity_helper: 'Značka delovnega ali prostega dne v glavi; najde se sam, ko je integracija Workday nastavljena',
+    ed_school_holidays_calendar: 'Koledar šolskih počitnic',
+    ed_school_holidays_calendar_helper: 'Njegovi dogodki označijo dneve, ki jih pokrivajo, ne da bi bili na seznamu (Remote Calendar…)',
   },
   lv: {
     agenda: 'Grafiks',
@@ -1597,6 +1817,17 @@ var CcI18n = {
     ed_zoom_helper: 'Poga augšējā labajā stūrī, kas izvērš mini karti par pilno karti un atpakaļ',
     ed_language: 'Valoda',
     ed_language_helper: 'Atstājiet tukšu, lai izmantotu Home Assistant valodu',
+    workday: 'Darba diena',
+    day_off: 'Brīvdiena',
+    school_holidays: 'Skolas brīvdienas',
+    todo_done: 'Atzīmēt kā izdarītu',
+    todo_empty: 'Nav ko darīt',
+    ed_todo_entities: 'Uzdevumu saraksti',
+    ed_todo_entities_helper: 'Šo sarakstu atvērtie vienumi (Bring!, lokāls saraksts…), atzīmējami no kartītes',
+    ed_workday_entity: 'Darba dienu sensors',
+    ed_workday_entity_helper: 'Darba dienas vai brīvdienas žetons galvenē; atrodams pats, kad iestatīta Workday integrācija',
+    ed_school_holidays_calendar: 'Skolas brīvdienu kalendārs',
+    ed_school_holidays_calendar_helper: 'Tā notikumi iezīmē dienas, ko tie aptver, neparādoties sarakstā (Remote Calendar…)',
   },
   el: {
     agenda: 'Ατζέντα',
@@ -1673,6 +1904,17 @@ var CcI18n = {
     ed_zoom_helper: 'Κουμπί πάνω δεξιά που αναπτύσσει τη μίνι κάρτα σε πλήρη κάρτα και αντίστροφα',
     ed_language: 'Γλώσσα',
     ed_language_helper: 'Αφήστε κενό για να ακολουθεί τη γλώσσα του Home Assistant',
+    workday: 'Εργάσιμη ημέρα',
+    day_off: 'Αργία',
+    school_holidays: 'Σχολικές διακοπές',
+    todo_done: 'Σήμανση ως ολοκληρωμένο',
+    todo_empty: 'Τίποτα για να κάνετε',
+    ed_todo_entities: 'Λίστες εργασιών',
+    ed_todo_entities_helper: 'Ανοιχτά στοιχεία αυτών των λιστών (Bring!, τοπική λίστα…), τσεκάρονται από την κάρτα',
+    ed_workday_entity: 'Αισθητήρας εργάσιμων ημερών',
+    ed_workday_entity_helper: 'Σήμα εργάσιμης ημέρας ή αργίας στην κεφαλίδα; βρίσκεται μόνο του όταν έχει ρυθμιστεί η ενσωμάτωση Workday',
+    ed_school_holidays_calendar: 'Ημερολόγιο σχολικών διακοπών',
+    ed_school_holidays_calendar_helper: 'Τα συμβάντα του σημειώνουν τις ημέρες που καλύπτουν, χωρίς να εμφανίζονται στη λίστα (Remote Calendar…)',
   },
 };
 
@@ -1884,6 +2126,32 @@ function ccOnColor(color) {
   });
   var lum = 0.2126 * l[0] + 0.7152 * l[1] + 0.0722 * l[2];
   return 1.05 / (lum + 0.05) >= 4.5 ? '#ffffff' : '#000000';
+}
+
+// Workday badge: the `binary_sensor` of `workday_entity`, else the first one of the Workday integration;
+// `workday_entity: false` turns it off.
+function ccWorkday(config, hass) {
+  var v = config.workday_entity;
+  if (v === false || v === 'none') return null;
+  if (typeof v === 'string' && v) return hass?.states?.[v] ? v : null;
+  var e = Object.values(hass?.entities || {}).find((x) => x?.platform === 'workday' && String(x.entity_id).indexOf('binary_sensor.') === 0 && hass.states?.[x.entity_id]);
+  return e ? e.entity_id : null;
+}
+
+// `todo_entities`: to-do lists (Bring!, Local To-do…) as entity ids or objects { entity, name }.
+function ccTodoLists(config, hass) {
+  return ccList(config.todo_entities).map((item) => {
+    var t = typeof item === 'string' ? { entity: item } : Object.assign({}, item);
+    t.name = t.name || hass?.states?.[t.entity]?.attributes?.friendly_name || t.entity;
+    return t;
+  }).filter((t) => t.entity && String(t.entity).indexOf('todo.') === 0);
+}
+
+// A to-do item's due date ("2026-11-20" or a date and time) as a local Date, or null.
+function ccDue(v) {
+  if (!v) return null;
+  var d = /^\d{4}-\d{2}-\d{2}$/.test(v) ? ccLocalDate(v) : new Date(v);
+  return Number.isNaN(d.getTime()) ? null : d;
 }
 
 // `entities` accepts entity ids or objects { entity, color, name }; colors default to a palette.
@@ -2220,21 +2488,31 @@ class CalendarAgendaCard extends HTMLElement {
     // update after a minute change does not re-render (and reset the popup's scroll) underneath it.
     var minute = this._detail != null ? '' : Math.floor(Date.now() / 60000);
     var loc = this._hass.locale || {};
-    var tick = `${cals.map((c) => this._hass.states[c.entity]?.last_updated || '').join('|')}|${minute}|${this._detail}|${this._expanded}|${this._zoomed}|${!!this._adding}|${this._confirm}` +
+    var workday = ccWorkday(this._config, this._hass);
+    var todos = ccTodoLists(this._config, this._hass);
+    var watched = cals.map((c) => c.entity).concat(todos.map((t) => t.entity), workday ? [workday] : []);
+    var tick = `${watched.map((id) => this._hass.states[id]?.last_updated || '').join('|')}|${this._todoAt || 0}|${minute}|${this._detail}|${this._expanded}|${this._zoomed}|${!!this._adding}|${this._confirm}` +
       `|${this._hass.language}|${loc.language}|${loc.time_format}|${tz}|${this._weekOff || 0}`;
     if (this._sig != null && tick === this._tick) return;
     this._tick = tick;
     // Fetch again when the calendars, the range or the day change, when a calendar entity changes
     // (an event starts or ends) and every 5 minutes.
-    var key = JSON.stringify([cals.map((c) => c.entity), this._days(), ccKey(now), tz, this._weekOff || 0,
+    var key = JSON.stringify([cals.map((c) => c.entity), this._config.school_holidays_calendar || '', this._days(), ccKey(now), tz, this._weekOff || 0,
       cals.map((c) => this._hass.states[c.entity]?.last_changed || '')]);
     if (cals.length && (key !== this._fetchKey || Date.now() - this._fetchedAt > CC_REFRESH)) {
       this._fetchKey = key;
       this._fetch(cals);
     }
+    // To-do lists: fetched again when one of them changes (its state is the count of open items).
+    var todoKey = JSON.stringify(todos.map((t) => [t.entity, this._hass.states[t.entity]?.last_updated || '']));
+    if (todos.length && (todoKey !== this._todoKey || Date.now() - (this._todoFetched || 0) > CC_REFRESH)) {
+      this._todoKey = todoKey;
+      this._fetchTodos(todos);
+    } else if (!todos.length) this._todos = [];
     var sig = JSON.stringify([this._lang(), this._fmtLang(), this._fetchedAt, this._weekOff || 0, this._detail, this._expanded, this._zoomed, !!this._adding, this._form?.error, this._form?.busy, this._form?.confirm,
       this._confirm, this._popErr, this._popBusy,
-      minute, cals.map((c) => [c.entity, c.color, c.name]), this._hass.locale?.time_format, tz]);
+      minute, cals.map((c) => [c.entity, c.color, c.name]), this._hass.locale?.time_format, tz,
+      workday ? this._hass.states[workday]?.state : '', this._todoAt || 0, todos.map((t) => t.name)]);
     if (sig === this._sig) return;
     this._sig = sig;
     // Re-rendering replaces the whole shadow DOM: put the keyboard focus back on the same event (found
@@ -2314,8 +2592,14 @@ class CalendarAgendaCard extends HTMLElement {
     var q = `?start=${encodeURIComponent(ccOutZone(from, tz).toISOString())}&end=${encodeURIComponent(ccOutZone(to, tz).toISOString())}`;
     // Set before the await, so a `set hass` while the request is pending does not refetch.
     this._fetchedAt = Date.now();
+    // School holidays: the events of `school_holidays_calendar` mark the days they cover, without being listed.
+    var hol = this._config.school_holidays_calendar;
+    var holReq = hol ? this._hass.callApi('GET', `calendars/${hol}${q}`).catch(() => null) : Promise.resolve([]);
     var res = await Promise.allSettled(cals.map((c) => this._hass.callApi('GET', `calendars/${c.entity}${q}`)));
+    var holRes = await holReq;
     if (seq !== this._fetchSeq) return;
+    // A failed holiday request keeps the days already marked.
+    if (holRes) this._holidays = (Array.isArray(holRes) ? holRes : []).map((raw) => ccParse(raw, -1)).filter(Boolean);
     var events = [], failed = [];
     res.forEach((r, i) => {
       // A calendar that fails (network blip, HA restarting) keeps its last events instead of
@@ -2341,6 +2625,72 @@ class CalendarAgendaCard extends HTMLElement {
     this._fetchedAt = failed.length ? Date.now() - CC_REFRESH + 60000 : Date.now();
     this._sig = null;
     this._update();
+  }
+
+  // The open items of the to-do lists (todo/item/list); a list that fails keeps its last items.
+  async _fetchTodos(lists) {
+    var seq = (this._todoSeq = (this._todoSeq || 0) + 1);
+    this._todoFetched = Date.now();
+    var res = await Promise.allSettled(lists.map((t) => this._hass.callWS({ type: 'todo/item/list', entity_id: t.entity })));
+    if (seq !== this._todoSeq) return;
+    var prev = this._todos || [];
+    this._todos = lists.map((t, i) => {
+      var ok = res[i].status === 'fulfilled';
+      var items = ok ? (res[i].value?.items || []).filter((x) => x && x.status !== 'completed')
+        : (prev.find((p) => p.entity === t.entity)?.items || []);
+      return { entity: t.entity, name: t.name, items: items, failed: !ok };
+    });
+    this._todoAt = Date.now();
+    this._sig = null;
+    this._update();
+  }
+
+  // Check off a to-do item: shown done at once, the list is fetched again when its entity changes.
+  _todoDone(li, uid) {
+    var list = this._todos?.[li];
+    var item = list?.items.find((x) => x.uid === uid);
+    if (!item) return;
+    list.items = list.items.filter((x) => x !== item);
+    this._todoAt = Date.now();
+    Promise.resolve(this._hass.callService('todo', 'update_item', { item: uid, status: 'completed' }, { entity_id: list.entity }))
+      .catch(() => { this._todoKey = null; this._sig = null; this._update(); });
+  }
+
+  // The to-do lists under the agenda: each list's name and open items, a round check button before each item.
+  _todoHtml(now) {
+    if (!this._todos?.length) return '';
+    var lists = this._todos.map((t, li) => {
+      var items = t.items.map((x) => {
+        var due = ccDue(x.due);
+        var dueHtml = due ? `<span class="tdue${due < ccDayStart(now) ? ' late' : ''}">${ccEsc(this._dateFmt(due, { day: 'numeric', month: 'short' }))}</span>` : '';
+        var label = `${this._t('todo_done')} · ${x.summary}`;
+        return `<div class="titem"><button class="tcheck" data-action="todo-done" data-list="${li}" data-uid="${ccEsc(x.uid)}" title="${ccEsc(label)}" aria-label="${ccEsc(label)}">` +
+          `<ha-icon icon="mdi:checkbox-blank-circle-outline"></ha-icon></button><span class="tsum">${ccEsc(x.summary)}</span>${dueHtml}</div>`;
+      }).join('');
+      return `<div class="tlist"><div class="thead"><ha-icon icon="mdi:format-list-checks"></ha-icon><span class="tname">${ccEsc(t.name)}</span>` +
+        `${t.items.length ? `<span class="tcount">${t.items.length}</span>` : ''}</div>${items || `<div class="none">${this._t('todo_empty')}</div>`}</div>`;
+    });
+    return `<div class="todos">${lists.join('')}</div>`;
+  }
+
+  // The school holiday that covers a day, or null.
+  _holidayOn(date) {
+    var next = ccAddDays(date, 1);
+    return (this._holidays || []).find((h) => h.start < next && h.end > date) || null;
+  }
+
+  // Under the title: the workday badge (working day / day off) and today's school holiday.
+  _chipsHtml(now) {
+    var chips = [];
+    var wd = ccWorkday(this._config, this._hass);
+    var st = wd ? this._hass.states[wd]?.state : '';
+    if (st === 'on' || st === 'off') {
+      var off = st === 'off';
+      chips.push(`<span class="chip${off ? ' off' : ''}"><ha-icon icon="${off ? 'mdi:beach' : 'mdi:briefcase-outline'}"></ha-icon>${ccEsc(this._t(off ? 'day_off' : 'workday'))}</span>`);
+    }
+    var hol = this._holidayOn(ccDayStart(now));
+    if (hol) chips.push(`<span class="chip hol" title="${ccEsc(hol.summary)}"><ha-icon icon="mdi:school-outline"></ha-icon>${ccEsc(hol.summary || this._t('school_holidays'))}</span>`);
+    return chips.length ? `<div class="chips">${chips.join('')}</div>` : '';
   }
 
   _visibleDays(now) {
@@ -2378,7 +2728,8 @@ class CalendarAgendaCard extends HTMLElement {
       return `<div class="wev${ongoing ? ' ongoing' : ''}${e.end <= now && !e.allDay ? ' past' : ''}${e.allDay ? ' allday' : ''}" style="--c:${ccEsc(cal.color)};--c-on:${ccEsc(ccOnColor(cal.color))}" data-ev="${firstIdx + i}" role="button" tabindex="0" title="${ccEsc(`${this._when(e)} · ${e.summary}`)}">` +
         `<span class="wt">${ccEsc(when)}</span><span class="ws">${ccEsc(e.summary)}</span></div>`;
     }).join('');
-    return `<div class="wcol${isToday ? ' today' : ''}"><div class="whead"><span class="wd">${ccEsc(this._wdShort(day.date))}</span><span class="dn">${day.date.getDate()}</span></div>` +
+    var hol = this._holidayOn(day.date);
+    return `<div class="wcol${isToday ? ' today' : ''}${hol ? ' hol' : ''}"><div class="whead"${hol ? ` title="${ccEsc(hol.summary || this._t('school_holidays'))}"` : ''}><span class="wd">${ccEsc(this._wdShort(day.date))}</span><span class="dn">${day.date.getDate()}</span></div>` +
       `<div class="wevs">${evs || '<div class="none">–</div>'}</div></div>`;
   }
 
@@ -2393,7 +2744,9 @@ class CalendarAgendaCard extends HTMLElement {
     var body = events.length
       ? events.map((e, i) => this._eventHtml(e, now, firstIdx + i, isToday)).join('')
       : `<div class="none">${this._t('no_events')}</div>`;
-    return `<div class="day${cont ? ' cont' : ''}">${date}<div class="events">${label && !cont ? `<div class="dlabel">${ccEsc(label)}</div>` : ''}${body}</div></div>`;
+    var hol = cont ? null : this._holidayOn(day.date);
+    var holHtml = hol ? `<div class="dhol" title="${ccEsc(hol.summary)}"><ha-icon icon="mdi:school-outline"></ha-icon><span>${ccEsc(hol.summary || this._t('school_holidays'))}</span></div>` : '';
+    return `<div class="day${cont ? ' cont' : ''}">${date}<div class="events">${label && !cont ? `<div class="dlabel">${ccEsc(label)}</div>` : ''}${holHtml}${body}</div></div>`;
   }
 
   // Shared by the full and mini cards: the "N events today" counter is a status badge at the right
@@ -2402,7 +2755,7 @@ class CalendarAgendaCard extends HTMLElement {
     // Locale-aware upper case: Greek drops its accents (ΤΡΙ, not ΤΡΊ).
     var wd = this._wdShort(now).toLocaleUpperCase(this._fmtLang());
     return '<div class="header">' + ccLogo(wd, now.getDate()) +
-      `<div class="titles">${this._config.show_title !== false ? `<div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div>` : ''}</div>` +
+      `<div class="titles">${this._config.show_title !== false ? `<div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div>` : ''}${this._chipsHtml(now)}</div>` +
       `<span class="st" title="${ccEsc(sub)}"><span class="dot"></span><span class="stt">${ccEsc(sub)}</span></span>${this._addButton()}${this._zoomButton()}</div>`;
   }
 
@@ -2697,7 +3050,7 @@ class CalendarAgendaCard extends HTMLElement {
       this.shadowRoot.innerHTML = this._styles(accent) + `<ha-card class="${this._detail != null || this._adding ? 'popped' : ''}" lang="${ccEsc(this._fmtLang())}">` +
         (c.show_header ? this._headerHtml(now, this._todaySub(days)) : '') +
         this._weekNavHtml(days) +
-        `<div class="weekwrap"><div class="week">${cols.join('')}</div></div>${this._errorHtml()}${this._popupHtml()}</ha-card>`;
+        `<div class="weekwrap"><div class="week">${cols.join('')}</div></div>${this._todoHtml(now)}${this._errorHtml()}${this._popupHtml()}</ha-card>`;
       return;
     }
 
@@ -2738,7 +3091,7 @@ class CalendarAgendaCard extends HTMLElement {
     this.shadowRoot.innerHTML = this._styles(accent) + `<ha-card class="${this._detail != null || this._adding ? 'popped' : ''}" lang="${ccEsc(this._fmtLang())}">` +
       // An unfolded mini card keeps its header whatever show_header says: it holds the fold button.
       (c.show_header || this._zoomed ? this._headerHtml(now, this._todaySub(days)) : '') +
-      `<div class="list">${list}</div>${moreHtml}${this._errorHtml()}${this._popupHtml()}</ha-card>`;
+      `<div class="list">${list}</div>${moreHtml}${this._todoHtml(now)}${this._errorHtml()}${this._popupHtml()}</ha-card>`;
   }
 
   // Event details, at the top of the card.
@@ -2792,6 +3145,7 @@ class CalendarAgendaCard extends HTMLElement {
     if (btn) {
       switch (btn.dataset.action) {
         case 'more': this._expanded = !this._expanded; break;
+        case 'todo-done': this._todoDone(Number(btn.dataset.list), btn.dataset.uid); break;
         case 'week-prev': this._weekOff = (this._weekOff || 0) - 1; this._detail = null; break;
         case 'week-next': this._weekOff = (this._weekOff || 0) + 1; this._detail = null; break;
         case 'week-today': this._weekOff = 0; this._detail = null; break;
@@ -3028,6 +3382,32 @@ class CalendarAgendaCard extends HTMLElement {
       '.mallday b { min-width: 40px; font-weight: 500; color: var(--primary-text-color); overflow: hidden; text-overflow: ellipsis; }' +
       '.mallday span:last-child { margin-left: auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }' +
       '.mallday .ndot, .mnext .ndot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: var(--c); }' +
+      // Workday and school holiday chips under the title; the holiday's days are tinted in the agenda and the week.
+      '.chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 3px; }' +
+      '.chip { display: inline-flex; align-items: center; gap: 3px; min-width: 0; max-width: 100%; padding: 0 7px 0 5px; border-radius: 10px; font-size: 11px; font-weight: 500; line-height: 18px;' +
+      ' white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--secondary-text-color); background: color-mix(in srgb, var(--secondary-text-color) 12%, transparent); }' +
+      '.chip ha-icon { --mdc-icon-size: 13px; flex: none; }' +
+      '.chip.off, .chip.hol { color: color-mix(in srgb, var(--cc-hol) 70%, var(--primary-text-color)); background: color-mix(in srgb, var(--cc-hol) 16%, transparent); }' +
+      ':host { --cc-hol: #f4511e; }' +
+      '.dhol { display: flex; align-items: center; gap: 4px; min-width: 0; padding: 2px 8px 2px 6px; border-radius: 8px; font-size: 12px; color: color-mix(in srgb, var(--cc-hol) 70%, var(--primary-text-color));' +
+      ' background: color-mix(in srgb, var(--cc-hol) 12%, transparent); }' +
+      '.dhol ha-icon { --mdc-icon-size: 14px; flex: none; }' +
+      '.dhol span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }' +
+      '.wcol.hol .whead { box-shadow: inset 0 -2px 0 var(--cc-hol); }' +
+      // To-do lists under the agenda.
+      '.todos { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--divider-color, rgba(128,128,128,0.15)); padding-top: 10px; }' +
+      '.thead { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; color: var(--secondary-text-color); }' +
+      '.thead ha-icon { --mdc-icon-size: 16px; }' +
+      '.tname { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }' +
+      '.tcount { margin-left: auto; padding: 0 7px; border-radius: 10px; line-height: 18px; background: color-mix(in srgb, var(--cc-accent) 16%, transparent); color: var(--primary-text-color); }' +
+      '.titem { display: flex; align-items: center; gap: 6px; min-width: 0; font-size: 14px; color: var(--primary-text-color); }' +
+      '.tcheck { flex: none; display: grid; place-items: center; width: 32px; height: 32px; margin: -2px 0 -2px -4px; padding: 0; border: 0; border-radius: 50%; background: none; color: var(--secondary-text-color); cursor: pointer; }' +
+      '.tcheck:hover { color: var(--cc-accent); background: color-mix(in srgb, var(--cc-accent) 12%, transparent); }' +
+      '.tcheck:focus-visible { outline: 2px solid var(--cc-accent); }' +
+      '.tcheck ha-icon { --mdc-icon-size: 20px; }' +
+      '.tsum { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }' +
+      '.tdue { flex: none; font-size: 12px; color: var(--secondary-text-color); }' +
+      '.tdue.late { color: var(--error-color, #db4437); }' +
     '</style>';
   }
 }
@@ -3129,6 +3509,11 @@ class CalendarAgendaCardEditor extends HTMLElement {
       { name: 'entities', selector: { entity: { domain: 'calendar', multiple: true } } },
       { name: 'title', selector: { text: {} } },
     ].concat(mini ? [] : [
+      { name: 'todo_entities', selector: { entity: { domain: 'todo', multiple: true } } },
+    ], [
+      { name: 'workday_entity', selector: { entity: { domain: 'binary_sensor', integration: 'workday' } } },
+      { name: 'school_holidays_calendar', selector: { entity: { domain: 'calendar' } } },
+    ], mini ? [] : [
       { name: 'view', selector: { select: { mode: 'dropdown', options: [{ value: 'agenda', label: ccT(this._lang(), 'view_agenda') }, { value: 'week', label: ccT(this._lang(), 'view_week') }] } } },
     ], [
       {
@@ -3175,6 +3560,8 @@ class CalendarAgendaCardEditor extends HTMLElement {
     // The form edits entity ids; colors and names set in YAML are kept aside. A YAML `entity:` (single
     // calendar) is shown as the list and written back as `entities`.
     data.entities = this._calList().map((e) => (typeof e === 'string' ? e : e.entity));
+    if (data.todo_entities) data.todo_entities = ccList(data.todo_entities).map((e) => (typeof e === 'string' ? e : e?.entity));
+    if (data.workday_entity === false) delete data.workday_entity;
     delete data.entity;
     this._form.data = data;
   }
@@ -3194,6 +3581,14 @@ class CalendarAgendaCardEditor extends HTMLElement {
     // `entities` replaces a YAML `entity:` (an empty list would otherwise hide it from ccCalendars).
     delete value.entity;
     if (value.entities) value.entities = value.entities.map((id) => prev[id] || id);
+    // Same for the names of the to-do lists; an empty list is dropped.
+    var prevTodo = {};
+    ccList(this._config.todo_entities).forEach((e) => { if (typeof e === 'object' && e) prevTodo[e.entity] = e; });
+    if (Array.isArray(value.todo_entities)) {
+      if (value.todo_entities.length) value.todo_entities = value.todo_entities.map((id) => prevTodo[id] || id);
+      else delete value.todo_entities;
+    }
+    if (this._config.workday_entity === false && !value.workday_entity) value.workday_entity = false;
     if (this._config.exclude) value.exclude = this._config.exclude;
     if (this._config.type) value = Object.assign({ type: this._config.type }, value);
     var lang = this._lang();

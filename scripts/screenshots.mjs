@@ -95,6 +95,11 @@ const icons = {
   "map-marker-outline": "M12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5M12,2A7,7 0 0,1 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9A7,7 0 0,1 12,2M12,4A5,5 0 0,0 7,9C7,10 7,12 12,18.71C17,12 17,10 17,9A5,5 0 0,0 12,4Z",
   "pencil-outline": "M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z",
   "plus": "M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z",
+  "beach": "M15,18.54C17.13,18.21 19.5,18 22,18V22H5C5,21.35 8.2,19.86 13,18.9V12.4C12.16,12.65 11.45,13.21 11,13.95C10.39,12.93 9.27,12.25 8,12.25C6.73,12.25 5.61,12.93 5,13.95C5.03,10.37 8.5,7.43 13,7.04V7A1,1 0 0,1 14,6A1,1 0 0,1 15,7V7.04C19.5,7.43 22.96,10.37 23,13.95C22.39,12.93 21.27,12.25 20,12.25C18.73,12.25 17.61,12.93 17,13.95C16.55,13.21 15.84,12.65 15,12.39V18.54M7,2A5,5 0 0,1 2,7V2H7Z",
+  "briefcase-outline": "M20,6C20.58,6 21.05,6.2 21.42,6.59C21.8,7 22,7.45 22,8V19C22,19.55 21.8,20 21.42,20.41C21.05,20.8 20.58,21 20,21H4C3.42,21 2.95,20.8 2.58,20.41C2.2,20 2,19.55 2,19V8C2,7.45 2.2,7 2.58,6.59C2.95,6.2 3.42,6 4,6H8V4C8,3.42 8.2,2.95 8.58,2.58C8.95,2.2 9.42,2 10,2H14C14.58,2 15.05,2.2 15.42,2.58C15.8,2.95 16,3.42 16,4V6H20M4,8V19H20V8H4M14,6V4H10V6H14Z",
+  "checkbox-blank-circle-outline": "M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z",
+  "format-list-checks": "M3,5H9V11H3V5M5,7V9H7V7H5M11,7H21V9H11V7M11,15H21V17H11V15M5,20L1.5,16.5L2.91,15.09L5,17.17L9.59,12.59L11,14L5,20Z",
+  "school-outline": "M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3M18.82 9L12 12.72L5.18 9L12 5.28L18.82 9M17 16L12 18.72L7 16V12.27L12 15L17 12.27V16Z",
 };
 
 // Mock calendars, neutral data. Times are UTC, like the page's time zone.
@@ -129,6 +134,35 @@ const states = {
   "calendar.work": { entity_id: "calendar.work", state: "on", attributes: { friendly_name: "Work", supported_features: 7 }, last_changed: "x" },
   "calendar.holidays": { entity_id: "calendar.holidays", state: "off", attributes: { friendly_name: "Public holidays" }, last_changed: "x" },
 };
+// To-do lists (a Bring! shopping list), the Workday sensor and a school holidays calendar (Remote Calendar), for
+// the captures of `todo_entities`, the working day badge and `school_holidays_calendar`; the other captures
+// leave them out.
+EVENTS["calendar.school_holidays"] = [{ uid: "sh-0", summary: "Autumn holidays", start: { date: "2026-10-17" }, end: { date: "2026-11-02" } }];
+const TODO_ITEMS = {
+  "todo.shopping": [
+    { uid: "t1", summary: "Milk", status: "needs_action" },
+    { uid: "t2", summary: "Bread", status: "needs_action", description: "Wholemeal" },
+    { uid: "t3", summary: "Tomatoes", status: "needs_action" },
+    { uid: "t4", summary: "Coffee", status: "completed" },
+  ],
+  "todo.chores": [
+    { uid: "c1", summary: "Water the plants", status: "needs_action", due: "2026-10-25" },
+    { uid: "c2", summary: "Take the parcel to the post office", status: "needs_action", due: "2026-10-27" },
+  ],
+};
+const EXTRA_STATES = {
+  "todo.shopping": { entity_id: "todo.shopping", state: "3", attributes: { friendly_name: "Shopping list" }, last_updated: "x" },
+  "todo.chores": { entity_id: "todo.chores", state: "2", attributes: { friendly_name: "Chores" }, last_updated: "x" },
+  "binary_sensor.workday_sensor": { entity_id: "binary_sensor.workday_sensor", state: "on", attributes: { friendly_name: "Workday Sensor" }, last_updated: "x" },
+  "calendar.school_holidays": { entity_id: "calendar.school_holidays", state: "on", attributes: { friendly_name: "School holidays" }, last_changed: "x" },
+};
+const EXTRA_ENTITIES = {
+  "todo.shopping": { entity_id: "todo.shopping", platform: "bring" },
+  "todo.chores": { entity_id: "todo.chores", platform: "local_todo" },
+  "binary_sensor.workday_sensor": { entity_id: "binary_sensor.workday_sensor", platform: "workday" },
+};
+const EXTRAS = { todo_entities: ["todo.shopping", "todo.chores"], school_holidays_calendar: "calendar.school_holidays" };
+
 const entities = ["calendar.home", { entity: "calendar.work", color: "#33b679" }, { entity: "calendar.holidays", color: "#8e24aa" }];
 
 const shots = [
@@ -174,6 +208,11 @@ const shots = [
   })),
   { file: "week", type: "calendar-agenda-card", theme: "light", width: 760, config: { view: "week" } },
   { file: "week-dark", type: "calendar-agenda-card", theme: "dark", width: 760, config: { view: "week" } },
+  // To-do lists, the working day badge and the school holidays, in the agenda and the week.
+  ...["light", "dark"].flatMap((theme) => [
+    { file: theme === "dark" ? "agenda-extras-dark" : "agenda-extras", type: "calendar-agenda-card", theme, width: 460, extras: true, config: { ...EXTRAS, days_to_show: 3 } },
+    { file: theme === "dark" ? "week-extras-dark" : "week-extras", type: "calendar-agenda-card", theme, width: 760, extras: true, config: { ...EXTRAS, view: "week" } },
+  ]),
   { file: "mini", type: "calendar-agenda-mini-card", theme: "light", width: 380, config: {} },
   { file: "mini-dark", type: "calendar-agenda-mini-card", theme: "dark", width: 380, config: {} },
   {
@@ -240,17 +279,21 @@ async function openCard(s) {
   await page.addScriptTag({ content: haElements(icons) });
   await page.addScriptTag({ content: cardJs });
   await page.evaluate(
-    ({ type, config, states, events, entities }) => {
+    ({ type, config, states, events, entities, registry, todos }) => {
       const el = document.createElement(type);
       el.setConfig({ type: `custom:${type}`, entities, ...config });
       el.hass = {
-        states, entities: {}, devices: {}, language: "en", locale: { language: "en", time_format: "24" },
+        states, entities: registry, devices: {}, language: "en", locale: { language: "en", time_format: "24" },
         callService: async () => {},
         callApi: async (_method, path) => events[path.split("?")[0].replace("calendars/", "")] || [],
+        callWS: async (msg) => (msg.type === "todo/item/list" ? { items: todos[msg.entity_id] || [] } : null),
       };
       document.getElementById("root").appendChild(el);
     },
-    { type: s.type, config: s.config, states, events: EVENTS, entities }
+    {
+      type: s.type, config: s.config, events: EVENTS, entities, todos: TODO_ITEMS,
+      states: s.extras ? { ...states, ...EXTRA_STATES } : states, registry: s.extras ? EXTRA_ENTITIES : {},
+    }
   );
   await page.waitForTimeout(300);
   return page;

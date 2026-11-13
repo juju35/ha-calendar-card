@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.10.0 - 2026-11-13
+
+### Features
+- **Workday badge**: *Working day* or *Day off* under the title, from the Workday integration's `binary_sensor` (found by itself, or `workday_entity`; `false` hides it).
+- **School holidays**: `school_holidays_calendar` (a Remote Calendar of the school holidays, or any calendar) marks the days its events cover in the agenda and the week, and shows today's holiday under the title; its events are not listed.
+- **To-do lists**: `todo_entities` lists the open items of Bring!, Local To-do or any `todo` list under the agenda, with their due date (red when late), each checked off with a tap (`todo.update_item`).
+- The three options in the visual editor, and their texts in the 22 languages.
 ## 1.9.0 - 2026-11-12
 
 ### Features
