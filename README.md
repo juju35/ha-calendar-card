@@ -187,6 +187,8 @@ Calendar options:
 | Edit event | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-edit.png" alt="edit event form" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-edit-dark.png" alt="edit event form dark" width="400"> |
 | Delete event | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-delete.png" alt="delete confirmation" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-delete-dark.png" alt="delete confirmation dark" width="400"> |
 | Mini card unfolded | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini-zoom.png" alt="mini card unfolded" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini-zoom-dark.png" alt="mini card unfolded dark" width="400"> |
+| To-do lists, working day, school holidays | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-extras.png" alt="to-do lists, working day badge and school holidays" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-extras-dark.png" alt="to-do lists, working day badge and school holidays dark" width="400"> |
+| Week with to-do lists and school holidays | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/week-extras.png" alt="week view with to-do lists and school holidays" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/week-extras-dark.png" alt="week view with to-do lists and school holidays dark" width="400"> |
 
 ### Animations
 
