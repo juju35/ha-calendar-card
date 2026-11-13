@@ -159,7 +159,7 @@ language: en
 | `edit_buttons` | ❌ | `true` | Full card only: **Edit** and **Delete** buttons in the event details (shown only when the event's calendar allows changing or deleting events) |
 | `workday_entity` | ❌ | Auto | `binary_sensor` of the Workday integration for the *Working day* / *Day off* badge under the title; the first one found by default, `false` to hide the badge |
 | `school_holidays_calendar` | ❌ | — | Calendar whose events are school holidays: the days they cover are marked in the agenda and the week (not listed as events), today's shows under the title |
-| `todo_entities` | ❌ | — | Full card only: to-do lists (entity IDs, or objects `{ entity, name }`) whose open items show under the agenda, each checked off with a tap |
+| `todo_entities` | ❌ | — | To-do lists (entity IDs, or objects `{ entity, name }`) whose open items show under the agenda, each checked off with a tap; on the mini card, once unfolded |
 | `zoom` | ❌ | `true` | Mini card only: detail button at the top right that unfolds the full agenda (a click elsewhere folds it back) |
 | `language` | ❌ | Auto | Force language: `en`, `fr`, `de`, `es`, `sr`, `sr-Latn`, `it`, `nl`, `pt`, `pl`, `ro`, `da`, `sv`, `bg`, `ru`, `uk`, `hu`, `sk`, `cs`, `sl`, `lv` or `el` (auto-detects from HA settings) |
 

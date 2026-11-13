@@ -3508,9 +3508,9 @@ class CalendarAgendaCardEditor extends HTMLElement {
     return [
       { name: 'entities', selector: { entity: { domain: 'calendar', multiple: true } } },
       { name: 'title', selector: { text: {} } },
-    ].concat(mini ? [] : [
+      // The mini card shows the to-do lists once unfolded.
       { name: 'todo_entities', selector: { entity: { domain: 'todo', multiple: true } } },
-    ], [
+    ].concat([
       { name: 'workday_entity', selector: { entity: { domain: 'binary_sensor', integration: 'workday' } } },
       { name: 'school_holidays_calendar', selector: { entity: { domain: 'calendar' } } },
     ], mini ? [] : [
