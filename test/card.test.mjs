@@ -1622,3 +1622,86 @@ test("week view: arrows and swipes move a week at a time, Today comes back", asy
   card._onSwipe({ clientX: 230, clientY: 260 });
   assert.equal(card._weekOff, 1);
 });
+
+// ── Workday badge, school holidays, to-do lists ──────────────────────────────
+async function renderWith(Card, events, config, extra) {
+  const card = new Card();
+  card.setConfig({ entities: ["calendar.home"], ...config });
+  const hass = mockHass(events);
+  Object.assign(hass.states, extra.states || {});
+  if (extra.entities) hass.entities = extra.entities;
+  if (extra.callWS) hass.callWS = extra.callWS;
+  hass.services = [];
+  hass.callService = async (...a) => { hass.services.push(a); };
+  card.hass = hass;
+  await new Promise((r) => setTimeout(r, 0));
+  return { card, hass };
+}
+
+test("workday badge: found by itself from the Workday integration, or set, or turned off", async () => {
+  const states = { "binary_sensor.workday_sensor": { state: "off", attributes: {}, last_updated: "1" } };
+  const entities = { "binary_sensor.workday_sensor": { entity_id: "binary_sensor.workday_sensor", platform: "workday" } };
+  let { card } = await renderWith(CalendarAgendaCard, {}, {}, { states, entities });
+  assert.match(card.shadowRoot.innerHTML, /<span class="chip off"><ha-icon icon="mdi:beach"><\/ha-icon>Day off<\/span>/);
+  ({ card } = await renderWith(CalendarAgendaCard, {}, { workday_entity: false }, { states, entities }));
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /class="chip/);
+  ({ card } = await renderWith(customElements.get("calendar-agenda-mini-card"), {}, { workday_entity: "binary_sensor.mine", language: "fr" }, {
+    states: { "binary_sensor.mine": { state: "on", attributes: {}, last_updated: "1" } },
+  }));
+  assert.match(card.shadowRoot.innerHTML, /<span class="chip">.*Jour ouvré<\/span>/);
+  // No Workday sensor: no badge.
+  ({ card } = await renderWith(CalendarAgendaCard, {}, {}, {}));
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /class="chip/);
+});
+
+test("school holidays: the days they cover are marked, today's holiday is a chip, the calendar is not listed", async () => {
+  const events = {
+    "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }],
+    "calendar.school": [{ summary: "Autumn break", start: { date: day(0) }, end: { date: day(2) } }],
+  };
+  const { card, hass } = await renderWith(CalendarAgendaCard, events, { school_holidays_calendar: "calendar.school", show_empty_days: true }, {});
+  const html = card.shadowRoot.innerHTML;
+  assert.ok(hass.calls.some(([, path]) => path.startsWith("calendars/calendar.school?")));
+  assert.equal((html.match(/class="dhol"/g) || []).length, 2, "today and tomorrow");
+  assert.match(html, /<span class="chip hol" title="Autumn break">/);
+  assert.doesNotMatch(html, /data-ev="\d+"[^>]*>[^<]*<span class="cbar"><\/span><div class="emain"><div class="etitle">Autumn break/, "not an agenda event");
+  const week = (await renderWith(CalendarAgendaCard, events, { school_holidays_calendar: "calendar.school", view: "week" }, {})).card.shadowRoot.innerHTML;
+  assert.equal((week.match(/class="wcol[^"]* hol"/g) || []).length, 2);
+});
+
+test("to-do lists: open items under the agenda, checked off with todo.update_item", async () => {
+  const ws = [];
+  const callWS = async (msg) => {
+    ws.push(msg);
+    return { items: [
+      { uid: "1", summary: "Milk", status: "needs_action" },
+      { uid: "2", summary: "Bread", status: "needs_action", due: "2000-01-01" },
+      { uid: "3", summary: "Eggs", status: "completed" },
+    ] };
+  };
+  const states = { "todo.shopping": { state: "2", attributes: { friendly_name: "Shopping" }, last_updated: "1" } };
+  const { card, hass } = await renderWith(CalendarAgendaCard, {}, { todo_entities: [{ entity: "todo.shopping", name: "Groceries" }] }, { states, callWS });
+  await new Promise((r) => setTimeout(r, 0));
+  let html = card.shadowRoot.innerHTML;
+  assert.deepEqual(plain(ws[0]), { type: "todo/item/list", entity_id: "todo.shopping" });
+  assert.match(html, /<span class="tname">Groceries<\/span><span class="tcount">2<\/span>/);
+  assert.match(html, /<span class="tsum">Milk<\/span>/);
+  assert.match(html, /<span class="tdue late">/);
+  assert.doesNotMatch(html, /Eggs/);
+  card._onClick({ composedPath: () => [{ dataset: { action: "todo-done", list: "0", uid: "1" } }] });
+  assert.deepEqual(plain(hass.services[0]), ["todo", "update_item", { item: "1", status: "completed" }, { entity_id: "todo.shopping" }]);
+  html = card.shadowRoot.innerHTML;
+  assert.doesNotMatch(html, /Milk/);
+  assert.match(html, /<span class="tcount">1<\/span>/);
+});
+
+test("editor: to-do lists on the full card, workday sensor and school holidays calendar on both", () => {
+  const ed = new CalendarAgendaCardEditor();
+  ed.setConfig({ type: "custom:calendar-agenda-card" });
+  const full = JSON.stringify(ed._schema());
+  for (const n of ["todo_entities", "workday_entity", "school_holidays_calendar"]) assert.match(full, new RegExp(`"${n}"`));
+  ed.setConfig({ type: "custom:calendar-agenda-mini-card" });
+  const mini = JSON.stringify(ed._schema());
+  assert.doesNotMatch(mini, /"todo_entities"/);
+  assert.match(mini, /"workday_entity"/);
+});

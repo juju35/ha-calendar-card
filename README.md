@@ -30,11 +30,24 @@ Custom Lovelace agenda card for Home Assistant [calendars](https://www.home-assi
 - **+** button in the header: a **New event** form (title, calendar, all day, start and end date and time, location, description) adds the event to a calendar that accepts new events (local calendar, CalDAV, Google…); the end date allows overnight and multi-day events
 - **Edit** and **Delete** buttons in the event details, for a calendar that allows it: edit opens the same form pre-filled, delete asks for a confirmation in the popup; for a recurring event, the change applies to this event only or to this one and the following ones
 - Hide events by title with `exclude`
+- **Workday badge** under the title: *Working day* or *Day off* from a [Workday](https://www.home-assistant.io/integrations/workday/) sensor, found by itself
+- **School holidays**: the events of a calendar set in `school_holidays_calendar` (a [Remote Calendar](https://www.home-assistant.io/integrations/remote_calendar/) of the school holidays, for instance) mark the days they cover in the agenda and the week, and today's holiday shows under the title, without being listed as events
+- **To-do lists** (`todo_entities`): the open items of [Bring!](https://www.home-assistant.io/integrations/bring/), Local To-do or any `todo` list under the agenda, with their due date (in red when late), checked off with a tap
 - Refreshes when an event starts or ends and every 5 minutes
 - Visual editor in the dashboard UI
 - English, French, German, Spanish, Serbian (Cyrillic and Latin), Italian, Dutch, European Portuguese, Polish, Romanian, Danish, Swedish, Bulgarian, Russian, Ukrainian, Hungarian, Slovak, Czech, Slovenian, Latvian and Greek, follows the Home Assistant language, 12 h / 24 h time format and time zone setting (the browser's or the server's)
 - Light and dark theme compatible
 - Single file, no dependencies, ready for the Marketplace
+
+## Supported integrations
+
+Any `calendar` entity works (Google Calendar, CalDAV, Local Calendar, Microsoft 365…). These integrations get more:
+
+| Integration | What the cards show |
+|---|---|
+| [Workday](https://www.home-assistant.io/integrations/workday/) (core) | *Working day* or *Day off* badge under the title, from its `binary_sensor` (the first one found, or `workday_entity`) |
+| [Remote Calendar](https://www.home-assistant.io/integrations/remote_calendar/) (core) | With `school_holidays_calendar`, the school holidays of an iCal feed mark the days they cover and today's holiday shows under the title. Any calendar can be used the same way |
+| <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/images/bring.png" alt="" width="16"> [Bring!](https://www.home-assistant.io/integrations/bring/) (core) | With `todo_entities`, the open items of the shopping lists under the agenda, checked off from the card. Any `todo` list (Local To-do, Todoist, Google Tasks…) works the same way |
 
 ## Prerequisites
 
@@ -117,6 +130,11 @@ show_empty_days: false
 show_past_events: false
 exclude:
   - Private
+workday_entity: binary_sensor.workday_sensor
+school_holidays_calendar: calendar.school_holidays
+todo_entities:
+  - entity: todo.shopping_list
+    name: Groceries
 language: en
 ```
 
@@ -139,6 +157,9 @@ language: en
 | `exclude` | ❌ | — | Hide events whose title contains one of these texts (case-insensitive) |
 | `add_button` | ❌ | `true` | Full card only: **+** button in the header that opens the new event form (shown only when a calendar accepts new events) |
 | `edit_buttons` | ❌ | `true` | Full card only: **Edit** and **Delete** buttons in the event details (shown only when the event's calendar allows changing or deleting events) |
+| `workday_entity` | ❌ | Auto | `binary_sensor` of the Workday integration for the *Working day* / *Day off* badge under the title; the first one found by default, `false` to hide the badge |
+| `school_holidays_calendar` | ❌ | — | Calendar whose events are school holidays: the days they cover are marked in the agenda and the week (not listed as events), today's shows under the title |
+| `todo_entities` | ❌ | — | Full card only: to-do lists (entity IDs, or objects `{ entity, name }`) whose open items show under the agenda, each checked off with a tap |
 | `zoom` | ❌ | `true` | Mini card only: detail button at the top right that unfolds the full agenda (a click elsewhere folds it back) |
 | `language` | ❌ | Auto | Force language: `en`, `fr`, `de`, `es`, `sr`, `sr-Latn`, `it`, `nl`, `pt`, `pl`, `ro`, `da`, `sv`, `bg`, `ru`, `uk`, `hu`, `sk`, `cs`, `sl`, `lv` or `el` (auto-detects from HA settings) |
 
@@ -196,6 +217,8 @@ Times follow the **Time zone** setting of the Home Assistant user profile: the b
 The **+** button appears when at least one calendar supports creating events. The form needs a title, a date and, unless all day, a start and an end time. It calls the `calendar.create_event` action (all-day events end the next day, as Home Assistant expects) and the agenda fetches again once it is saved; an error from the calendar is shown in the form.
 
 The **Edit** and **Delete** buttons appear in the details of an event that has a uid, when its calendar supports updating or deleting events. They use the `calendar/event/update` and `calendar/event/delete` WebSocket commands, like the calendar panel of Home Assistant: times are sent in UTC, all-day events as dates ending the next day, the description edited in the form like the other fields. For a recurring event, the card asks whether the change applies to this event only or to this one and the following ones (`recurrence_range: THISANDFUTURE`, the recurrence rule kept). The agenda fetches again once the event is saved or deleted; an error is shown in the form or the popup.
+
+The workday badge reads the state of the Workday `binary_sensor` (`on` for a working day). The school holidays calendar is fetched over the same range as the agenda; its events are not listed. The to-do lists use the `todo/item/list` WebSocket command, fetched again when a list changes (its state is the number of open items) and every 5 minutes; checking an item calls `todo.update_item` with `status: completed`.
 
 A multi-day event is listed once, on the first day shown (its start day, or today when it started earlier), with its date range. Today's timed events that are over are hidden unless `show_past_events` is on.
 
