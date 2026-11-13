@@ -677,7 +677,16 @@ test("editor turns a YAML string calendar into the calendar list", () => {
   assert.deepEqual(plain(ed._form.data.entities), ["calendar.home"]);
   ed._valueChanged({ stopPropagation() {}, detail: { value: { ...ed._form.data, title: "Family" } } });
   assert.deepEqual(plain(ed._config.entities), ["calendar.home"]);
-  assert.equal(ed._config.exclude, "Private");
+  assert.deepEqual(plain(ed._config.exclude), ["Private"]);
+});
+
+test("editor: exclude texts, emptied list dropped", () => {
+  const ed = editor({ type: "custom:calendar-agenda-card", entities: ["calendar.home"], exclude: "Private" });
+  assert.deepEqual(plain(ed._form.data.exclude), ["Private"]);
+  ed._valueChanged({ stopPropagation() {}, detail: { value: { ...ed._form.data, exclude: ["Private", "", "Gym"] } } });
+  assert.deepEqual(plain(ed._config.exclude), ["Private", "Gym"]);
+  ed._valueChanged({ stopPropagation() {}, detail: { value: { ...ed._form.data, exclude: [] } } });
+  assert.equal(ed._config.exclude, undefined);
 });
 
 // ── Review pass 8 ────────────────────────────────────────────────────────────
@@ -1323,13 +1332,13 @@ test("new event: an end date for overnight and multi-day events, the end after t
   assert.deepEqual(plain(services[1][2]), { summary: "Trip", start_date: "2026-12-30", end_date: "2027-01-02" });
 });
 
-test("editor offers the edit and delete buttons option on the full card", () => {
+test("editor offers the edit and delete buttons option on both cards (the unfolded mini card has them)", () => {
   const ed = new CalendarAgendaCardEditor();
   ed.setConfig({ type: "custom:calendar-agenda-card" });
   const names = JSON.stringify(ed._schema());
   assert.match(names, /"edit_buttons"/);
   ed.setConfig({ type: "custom:calendar-agenda-mini-card" });
-  assert.doesNotMatch(JSON.stringify(ed._schema()), /"edit_buttons"/);
+  assert.match(JSON.stringify(ed._schema()), /"edit_buttons"/);
 });
 
 test("distinct events with the same title and times in two calendars are both listed, each changed in its own calendar", async () => {
@@ -1576,17 +1585,30 @@ test("week view: 7 columns from today, every event as a tile that opens its deta
   assert.match(card.shadowRoot.innerHTML, /11:30 – 12:00/);
 });
 
-test("week view: the editor offers it on the full card only; the mini card keeps its list", async () => {
+test("week view: offered on both editors; the folded mini card keeps its list, unfolded it shows the week", async () => {
   const ed = new CalendarAgendaCardEditor();
   ed._config = { type: "custom:calendar-agenda-card" };
   ed._hass = mockHass({});
   const view = ed._schema().find((f) => f.name === "view");
   assert.deepEqual(plain(view.selector.select.options.map((o) => o.value)), ["agenda", "week"]);
   ed._config = { type: "custom:calendar-agenda-mini-card" };
-  assert.equal(ed._schema().find((f) => f.name === "view"), undefined);
+  assert.ok(ed._schema().find((f) => f.name === "view"));
   const Mini = customElements.get("calendar-agenda-mini-card");
   const mini = await render(Mini, { "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11) }, end: { dateTime: at(1, 12) } }] }, { view: "week" });
   assert.doesNotMatch(mini.shadowRoot.innerHTML, /class="week"/);
+  mini._onClick({ composedPath: () => [{ dataset: { action: "zoom" } }], detail: 1 });
+  assert.match(mini.shadowRoot.innerHTML, /class="week"/);
+});
+
+test("editor: the mini card offers the full card options its unfolded view uses", () => {
+  const ed = new CalendarAgendaCardEditor();
+  ed.setConfig({ type: "custom:calendar-agenda-mini-card" });
+  const mini = JSON.stringify(ed._schema());
+  for (const n of ["view", "add_button", "edit_buttons", "exclude", "zoom"]) assert.match(mini, new RegExp(`"${n}"`));
+  ed.setConfig({ type: "custom:calendar-agenda-card" });
+  const full = JSON.stringify(ed._schema());
+  for (const n of ["view", "add_button", "edit_buttons", "exclude"]) assert.match(full, new RegExp(`"${n}"`));
+  assert.doesNotMatch(full, /"zoom"/);
 });
 
 test("week view: arrows and swipes move a week at a time, Today comes back", async () => {

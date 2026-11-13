@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.11.1 - 2026-11-14
+
+### Fixes
+- Visual editor: **Hidden events** (`exclude`) is now offered on both cards, as a list of texts (a YAML string is shown as a one-item list).
+- Visual editor of the mini card: the full card options its unfolded view uses — **View** (`view`), **Add button** (`add_button`), **Edit and delete buttons** (`edit_buttons`) — are now offered.
+
 ## 1.11.0 - 2026-11-14
 
 ### Features
