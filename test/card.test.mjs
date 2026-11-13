@@ -1705,13 +1705,15 @@ test("editor: to-do lists, workday sensor and school holidays calendar on both c
   for (const n of ["todo_entities", "workday_entity", "school_holidays_calendar"]) assert.match(mini, new RegExp(`"${n}"`));
 });
 
-test("mini card: the to-do lists show once unfolded", async () => {
+test("mini card: folded, a line per to-do list with its count; unfolded, the lists", async () => {
   const callWS = async () => ({ items: [{ uid: "1", summary: "Milk", status: "needs_action" }] });
   const states = { "todo.shopping": { state: "1", attributes: { friendly_name: "Shopping" }, last_updated: "1" } };
   const Mini = customElements.get("calendar-agenda-mini-card");
   const { card } = await renderWith(Mini, {}, { todo_entities: ["todo.shopping"] }, { states, callWS });
   await new Promise((r) => setTimeout(r, 0));
+  // Folded: the list's name and its number of open items, not the items; a tap unfolds the card.
   assert.doesNotMatch(card.shadowRoot.innerHTML, /Milk/);
+  assert.match(card.shadowRoot.innerHTML, /<div class="mtodo" data-action="zoom" role="button" tabindex="0"><ha-icon icon="mdi:format-list-checks"><\/ha-icon><span class="tname">Shopping<\/span><span class="tcount">1<\/span><\/div>/);
   card._onClick({ composedPath: () => [{ dataset: { action: "zoom" } }], detail: 1 });
   assert.match(card.shadowRoot.innerHTML, /<span class="tsum">Milk<\/span>/);
 });

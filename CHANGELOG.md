@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.11.0 - 2026-11-14
+
+### Features
+- Folded **mini card**: a line per to-do list (`todo_entities`) under the events, with the list's name and its number of open items; a tap unfolds the card to the lists.
+
 ## 1.10.1 - 2026-11-13
 
 ### Fixes

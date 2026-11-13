@@ -159,7 +159,7 @@ language: en
 | `edit_buttons` | ❌ | `true` | Full card only: **Edit** and **Delete** buttons in the event details (shown only when the event's calendar allows changing or deleting events) |
 | `workday_entity` | ❌ | Auto | `binary_sensor` of the Workday integration for the *Working day* / *Day off* badge under the title; the first one found by default, `false` to hide the badge |
 | `school_holidays_calendar` | ❌ | — | Calendar whose events are school holidays: the days they cover are marked in the agenda and the week (not listed as events), today's shows under the title |
-| `todo_entities` | ❌ | — | To-do lists (entity IDs, or objects `{ entity, name }`) whose open items show under the agenda, each checked off with a tap; on the mini card, once unfolded |
+| `todo_entities` | ❌ | — | To-do lists (entity IDs, or objects `{ entity, name }`) whose open items show under the agenda, each checked off with a tap; the folded mini card shows a line per list with its number of open items, a tap unfolds it |
 | `zoom` | ❌ | `true` | Mini card only: detail button at the top right that unfolds the full agenda (a click elsewhere folds it back) |
 | `language` | ❌ | Auto | Force language: `en`, `fr`, `de`, `es`, `sr`, `sr-Latn`, `it`, `nl`, `pt`, `pl`, `ro`, `da`, `sv`, `bg`, `ru`, `uk`, `hu`, `sk`, `cs`, `sl`, `lv` or `el` (auto-detects from HA settings) |
 
@@ -189,6 +189,7 @@ Calendar options:
 | Mini card unfolded | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini-zoom.png" alt="mini card unfolded" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini-zoom-dark.png" alt="mini card unfolded dark" width="400"> |
 | To-do lists, working day, school holidays | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-extras.png" alt="to-do lists, working day badge and school holidays" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/agenda-extras-dark.png" alt="to-do lists, working day badge and school holidays dark" width="400"> |
 | Week with to-do lists and school holidays | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/week-extras.png" alt="week view with to-do lists and school holidays" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/week-extras-dark.png" alt="week view with to-do lists and school holidays dark" width="400"> |
+| Mini card with to-do lists | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini-todos.png" alt="mini card with to-do lists" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/mini-todos-dark.png" alt="mini card with to-do lists dark" width="400"> |
 
 ### Animations
 
