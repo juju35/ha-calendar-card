@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.10.1 - 2026-11-13
+
+### Fixes
+- Visual editor of the mini card: the **To-do lists** field (`todo_entities`) is now offered; the lists show once the mini card is unfolded.
+
 ## 1.10.0 - 2026-11-13
 
 ### Features

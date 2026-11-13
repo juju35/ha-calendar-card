@@ -1695,13 +1695,23 @@ test("to-do lists: open items under the agenda, checked off with todo.update_ite
   assert.match(html, /<span class="tcount">1<\/span>/);
 });
 
-test("editor: to-do lists on the full card, workday sensor and school holidays calendar on both", () => {
+test("editor: to-do lists, workday sensor and school holidays calendar on both cards", () => {
   const ed = new CalendarAgendaCardEditor();
   ed.setConfig({ type: "custom:calendar-agenda-card" });
   const full = JSON.stringify(ed._schema());
   for (const n of ["todo_entities", "workday_entity", "school_holidays_calendar"]) assert.match(full, new RegExp(`"${n}"`));
   ed.setConfig({ type: "custom:calendar-agenda-mini-card" });
   const mini = JSON.stringify(ed._schema());
-  assert.doesNotMatch(mini, /"todo_entities"/);
-  assert.match(mini, /"workday_entity"/);
+  for (const n of ["todo_entities", "workday_entity", "school_holidays_calendar"]) assert.match(mini, new RegExp(`"${n}"`));
+});
+
+test("mini card: the to-do lists show once unfolded", async () => {
+  const callWS = async () => ({ items: [{ uid: "1", summary: "Milk", status: "needs_action" }] });
+  const states = { "todo.shopping": { state: "1", attributes: { friendly_name: "Shopping" }, last_updated: "1" } };
+  const Mini = customElements.get("calendar-agenda-mini-card");
+  const { card } = await renderWith(Mini, {}, { todo_entities: ["todo.shopping"] }, { states, callWS });
+  await new Promise((r) => setTimeout(r, 0));
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /Milk/);
+  card._onClick({ composedPath: () => [{ dataset: { action: "zoom" } }], detail: 1 });
+  assert.match(card.shadowRoot.innerHTML, /<span class="tsum">Milk<\/span>/);
 });
