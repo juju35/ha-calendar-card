@@ -3370,6 +3370,14 @@ class CalendarAgendaCard extends HTMLElement {
         ' .st .dot { display: block; }' +
       ' }' +
       '.mnext { font-size: 12px; color: var(--secondary-text-color); display: flex; gap: 6px; align-items: center; min-width: 0; white-space: nowrap; overflow: hidden; border-radius: 6px; cursor: pointer; }' +
+      '.mtodos { display: flex; flex-direction: column; gap: 2px; border-top: 1px solid var(--divider-color, rgba(128,128,128,0.15)); padding-top: 8px; }' +
+      '.mtodo { display: flex; align-items: center; gap: 6px; min-width: 0; font-size: 12px; color: var(--secondary-text-color); border-radius: 6px; }' +
+      '.mtodo[data-action] { cursor: pointer; }' +
+      '.mtodo[data-action]:hover { background: color-mix(in srgb, var(--cc-accent) 12%, transparent); }' +
+      '.mtodo:focus-visible { box-shadow: 0 0 0 2px var(--cc-accent); outline: none; }' +
+      '.mtodo ha-icon { --mdc-icon-size: 16px; }' +
+      '.mtodo .tname { color: var(--primary-text-color); font-weight: 500; }' +
+      '.tcount.none { opacity: 0.6; }' +
       '.mnext:hover { background: color-mix(in srgb, var(--c) 16%, transparent); }' +
       '.mnext:focus-visible { box-shadow: 0 0 0 2px var(--c); outline: none; }' +
       // The event name keeps at least 40px; the date or time after it gives way first.
@@ -3475,7 +3483,21 @@ class CalendarAgendaMiniCard extends CalendarAgendaCard {
     }
     return `<ha-card class="mini${this._detail != null ? ' popped' : ''}" lang="${ccEsc(this._fmtLang())}">` +
       this._headerHtml(now, this._todaySub(days)) +
-      `<div class="list">${body}</div>${this._errorHtml()}${this._popupHtml()}</ha-card>`;
+      `<div class="list">${body}</div>${this._todoSummaryHtml()}${this._errorHtml()}${this._popupHtml()}</ha-card>`;
+  }
+
+  // Folded: a line per to-do list, its name and its number of open items; a tap unfolds the card to the lists
+  // (with zoom: false, the line only shows).
+  _todoSummaryHtml() {
+    if (!this._todos?.length) return '';
+    var zoom = this._config.zoom !== false;
+    var lines = this._todos.map((t) => {
+      var n = t.items.length;
+      var attrs = zoom ? ' data-action="zoom" role="button" tabindex="0"' : '';
+      return `<div class="mtodo"${attrs}><ha-icon icon="mdi:format-list-checks"></ha-icon><span class="tname">${ccEsc(t.name)}</span>` +
+        `<span class="tcount${n ? '' : ' none'}">${n}</span></div>`;
+    });
+    return `<div class="mtodos">${lines.join('')}</div>`;
   }
 }
 

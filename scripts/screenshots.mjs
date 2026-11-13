@@ -214,6 +214,8 @@ const shots = [
     { file: theme === "dark" ? "week-extras-dark" : "week-extras", type: "calendar-agenda-card", theme, width: 760, extras: true, config: { ...EXTRAS, view: "week" } },
   ]),
   { file: "mini", type: "calendar-agenda-mini-card", theme: "light", width: 380, config: {} },
+  // Folded mini card with to-do lists: a line per list with its number of open items.
+  ...["light", "dark"].map((theme) => ({ file: theme === "dark" ? "mini-todos-dark" : "mini-todos", type: "calendar-agenda-mini-card", theme, width: 380, extras: true, config: { ...EXTRAS } })),
   { file: "mini-dark", type: "calendar-agenda-mini-card", theme: "dark", width: 380, config: {} },
   {
     file: "mini-zoom", type: "calendar-agenda-mini-card", theme: "light", width: 460, config: { days_to_show: 4 },
