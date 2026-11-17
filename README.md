@@ -20,7 +20,7 @@ Custom Lovelace agenda card for Home Assistant [calendars](https://www.home-assi
 
 ## Features
 
-- **Illustrated header** (90px, full and mini card): today's tear-off wall calendar (month, day number, weekday) over a desk; the desk and the calendar icon's colour tell the status — a video call while an event is under way, an alarm clock ringing now and then before the next event today, a steaming mug when the rest of the day is free; night picture after sunset or with a dark theme (even while the sun is up), animations off with *reduce motion*
+- **Illustrated header** (90px, full and mini card): today's tear-off wall calendar (month, day number, weekday) over a desk; the desk and the calendar icon's colour tell the status — a video call while an event is under way, an alarm clock ringing now and then before the next event today, a steaming mug when the rest of the day is free; night picture with a dark Home Assistant theme (day with a light one), animations off with *reduce motion*
 - Two cards: `calendar-agenda-card` and its mini version `calendar-agenda-mini-card` (next event and the one after; a detail button unfolds the full agenda)
 - Several calendars merged in one list, each with its own color and name; an event shared by several calendars (same uid) is listed once, distinct events with the same title and times are all kept
 - Days with today and tomorrow labelled, all-day events, time range and location; a multi-day event is listed once with its date range
