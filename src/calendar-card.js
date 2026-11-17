@@ -2135,6 +2135,13 @@ function ccCount(lang, one, many, n) {
   return ccT(lang, ccIsOne(lang, n) ? one : many).replace('{n}', n);
 }
 
+// The width of an element's whole text in fractional pixels, even while an ellipsis cuts it.
+var ccTextWidth = (el) => {
+  const range = document.createRange();
+  range.selectNodeContents(el);
+  return range.getBoundingClientRect().width || el.scrollWidth;
+};
+
 function ccEsc(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
@@ -2524,16 +2531,13 @@ var CC_SCENE_STYLE =
   '.banner.night .logo { color: color-mix(in srgb, var(--cc-ic) 78%, #fff); background: rgba(255,255,255,.12); box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); }' +
   '.banner .logo ha-icon { --mdc-icon-size: 24px; }' +
   '.banner .name { color: inherit; font-weight: 600; }' +
-  // The titles are their own container: the status pill sits right after the title, centred on it, in the icon's
-  // colour (the title ellipsises first, down to 4 characters); short of room it drops under the subtitle.
-  '.banner > .titles { container: cc-titles / inline-size; align-self: stretch; display: flex; flex-direction: column; justify-content: center; gap: 2px; }' +
-  '.banner .tline { display: flex; align-items: center; gap: 8px; min-width: 0; }' +
-  '.banner .tline .name { flex: 0 1 auto; min-width: 4ch; }' +
-  '.banner .st { flex: 0 0 auto; max-width: 100%; margin: 0; padding: 1px 8px; border-radius: 12px; font-size: 11px; font-weight: 500; line-height: 16px;' +
+  // The status pill right after the title, centred on it, in the icon's colour (placed by _fitPill, see the card's
+  // style).
+  '.banner > .titles { align-self: stretch; display: flex; flex-direction: column; justify-content: center; gap: 2px; }' +
+  '.banner .st { margin: 0; padding: 1px 8px; border-radius: 12px; font-size: 11px; font-weight: 500; line-height: 16px;' +
   ' background: color-mix(in srgb, var(--cc-ic) 18%, rgba(255,255,255,.78)); color: color-mix(in srgb, var(--cc-ic) 45%, #0d2a45); }' +
   '.banner.night .st { background: color-mix(in srgb, var(--cc-ic) 30%, rgba(8,18,38,.55)); color: color-mix(in srgb, var(--cc-ic) 35%, #ffffff); }' +
   '.banner .st .dot { display: block; width: 7px; height: 7px; background: var(--cc-ic); }' +
-  '@container cc-titles (max-width: 200px) { .banner .tline { display: contents; } .banner .st { order: 3; align-self: flex-start; margin-top: 1px; } }' +
   // The chips stay on one line (each ends with an ellipsis, its full text in its tooltip): stacked, they pushed
   // the title out of the 90px banner on a narrow card.
   '.banner .chips { flex-wrap: nowrap; min-width: 0; overflow: hidden; } .banner .chip { flex: 0 1 auto; }' +
@@ -2676,7 +2680,59 @@ class CalendarAgendaCard extends HTMLElement {
     this._detailKey = key;
   }
 
+  // The header's status pill goes right after the title, on its row, only while the title stays whole and the
+  // pill's whole label fits beside it; otherwise it takes a line of its own under the subtitle (.below), the title
+  // whole on its row (cut only when it does not fit alone). There, in the banner, the subtitle keeps one line; if the
+  // text still does not fit above the ground strip, the pill keeps its dot alone (.dot-only, its label in its tooltip
+  // and for screen readers). Measured after each render and on each new width, whatever the language: no fixed
+  // width threshold.
+  _fitPill() {
+    if (!this.isConnected) return;
+    for (const t of this.shadowRoot?.querySelectorAll?.(".titles") || []) {
+      const row = t.querySelector(".tline");
+      const pills = row ? [...row.children].filter((n) => n.matches(".st")) : [];
+      if (!pills.length || !pills[0].getBoundingClientRect) continue;
+      t.classList.remove("below", "dot-only");
+      const name = row.querySelector(".name");
+      const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
+      const title = name && getComputedStyle(name).display !== "none" ? ccTextWidth(name) + gap : 0;
+      const need = pills.reduce((w, p) => w + p.getBoundingClientRect().width + gap, title - gap);
+      if (need > t.getBoundingClientRect().width - 0.5) {
+        t.classList.add("below");
+        const banner = t.closest(".banner");
+        if (banner) {
+          const b = banner.getBoundingClientRect();
+          const out = [...t.querySelectorAll("*")].some((n) => {
+            const r = n.getBoundingClientRect();
+            return r.height > 0 && (r.top < b.top - 0.5 || r.bottom > b.bottom - 10 + 0.5);
+          });
+          if (out) t.classList.add("dot-only");
+        }
+      }
+      // A subtitle cut by its ellipsis keeps its whole text in its tooltip.
+      const s = t.querySelector(".chips");
+      if (s && (!s.hasAttribute("title") || s.dataset.fit)) {
+        const cut = s.scrollWidth > s.clientWidth + 1;
+        s.toggleAttribute("data-fit", cut);
+        if (cut) s.title = s.textContent.trim();
+        else s.removeAttribute("title");
+      }
+    }
+  }
+
   connectedCallback() {
+    // A new width (or the web font loaded): the status pill is fitted again, in the next frame.
+    if (typeof ResizeObserver === "function") {
+      this._resize ??= new ResizeObserver((entries) => {
+        const w = Math.round(entries.at(-1).contentRect.width);
+        if (w === this._fitWidth) return;
+        this._fitWidth = w;
+        cancelAnimationFrame(this._fitFrame);
+        this._fitFrame = requestAnimationFrame(() => this._fitPill());
+      });
+      this._resize.observe(this);
+    }
+    document.fonts?.ready?.then(() => this._fitPill());
     // Every minute: countdowns move on, finished events go, and the events are fetched again every 5 min.
     // The tick is skipped while the details popup is open: re-rendering would reset its scroll position.
     clearInterval(this._timer);
@@ -2685,6 +2741,8 @@ class CalendarAgendaCard extends HTMLElement {
   }
 
   disconnectedCallback() {
+    this._resize?.disconnect();
+    this._fitWidth = null;
     clearInterval(this._timer);
     document.removeEventListener('click', this._onOutside, true);
   }
@@ -2855,6 +2913,7 @@ class CalendarAgendaCard extends HTMLElement {
     var popShown = this._popShown;
     var wasAdding = !!this._formWas;
     this._render(cals, now);
+    this._fitPill();
     this._popShown = this._detail;
     this._formWas = !!this._adding;
     this._formShown = !!this._adding;
@@ -3087,8 +3146,9 @@ class CalendarAgendaCard extends HTMLElement {
     // Locale-aware upper case: Greek drops its accents (ΤΡΙ, not ΤΡΊ).
     var wd = this._wdShort(now).toLocaleUpperCase(this._fmtLang());
     return '<div class="header">' + ccLogo(wd, now.getDate()) +
-      `<div class="titles">${this._config.show_title !== false ? `<div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div>` : ''}${this._chipsHtml(now)}</div>` +
-      `<span class="st" title="${ccEsc(sub)}"><span class="dot"></span><span class="stt">${ccEsc(sub)}</span></span>${this._addButton()}${this._zoomButton()}</div>`;
+      `<div class="titles"><div class="tline">${this._config.show_title !== false ? `<div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div>` : ''}` +
+      `<span class="st" title="${ccEsc(sub)}" aria-label="${ccEsc(sub)}"><span class="dot"></span><span class="stt">${ccEsc(sub)}</span></span></div>${this._chipsHtml(now)}</div>` +
+      `${this._addButton()}${this._zoomButton()}</div>`;
   }
 
   // The illustrated header (default): the round calendar icon in the status colour, the title and the counter on
@@ -3576,8 +3636,6 @@ class CalendarAgendaCard extends HTMLElement {
       // The body starts 8px under the header, like the other ha-* cards (the card's gap is 10px).
       '.header { display: flex; align-items: center; gap: 10px; margin-bottom: -2px; container-type: inline-size; container-name: cc-head; }' +
       '.logo { width: 40px; height: 40px; flex-shrink: 0; font-family: inherit; }' +
-      // The counter pill gets its whole width first and the title the rest, down to a few characters
-      // (ellipsized); only then does the pill give way.
       '.titles { flex: 1 1 0; min-width: 4.5ch; font-size: 16px; }' +
       '.name { font-size: 16px; font-weight: 500; line-height: 1.25; color: var(--primary-text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }' +
       '.list, .more-body { display: flex; flex-direction: column; gap: 10px; }' +
@@ -3716,12 +3774,27 @@ class CalendarAgendaCard extends HTMLElement {
       '.zoom ha-icon { --mdc-icon-size: 16px; }' +
       '.zoom:hover { background: color-mix(in srgb, var(--secondary-text-color) 16%, transparent); color: var(--primary-text-color); }' +
       '.zoom:focus-visible { outline: 2px solid var(--primary-color, #03a9f4); outline-offset: 1px; }' +
-      // The counter pill shrinks before the title and ellipsizes its text; on a very narrow card only its dot is left.
+      // The counter pill; on a very narrow card only its dot is left.
       '.st { display: inline-flex; align-items: center; gap: 4px; flex: 0 1 auto; min-width: 0; overflow: hidden; padding: 1px 8px; border-radius: 12px; font-size: 11px; font-weight: 500;' +
         ' white-space: nowrap; background: color-mix(in srgb, var(--cc-accent) 15%, transparent);' +
         ' color: color-mix(in srgb, var(--cc-accent) 45%, var(--primary-text-color)); }' +
       '.st .stt { min-width: 0; overflow: hidden; text-overflow: ellipsis; }' +
       '.st .dot { display: none; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--cc-accent); }' +
+      // The counter pill right after the title, its whole label on one line, while the title stays whole beside it
+      // (measured by the card, see _fitPill); otherwise on its own line under the chips, kept on one line, and with
+      // its dot alone when even that does not fit the header.
+      '.tline { display: flex; align-items: center; gap: 8px; min-width: 0; }' +
+      '.tline > .name { flex: 0 1 auto; min-width: 0; }' +
+      '.tline > .st { flex: none; max-width: none; }' +
+      '.tline > .st .stt { white-space: nowrap; overflow: visible; }' +
+      '.titles.below { display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; }' +
+      '.titles.below > .tline { display: contents; }' +
+      '.titles.below > .tline > .st { order: 3; justify-self: start; align-self: start; margin-top: 3px; }' +
+      '.titles.below > .chips { order: 2; flex-wrap: nowrap; overflow: hidden; }' +
+      '.titles.dot-only > .tline { display: flex; }' +
+      '.titles.dot-only > .tline > .st { order: 0; margin-top: 0; align-self: center; padding: 4px; }' +
+      '.titles.dot-only > .tline > .st .stt { display: none; }' +
+      '.titles.dot-only > .tline > .st .dot { display: block; }' +
       // Header under 240px (a phone's 6 to 8-column section card): the logo gives its room to the title and
       // the counter, which then shows its whole text down to a 245px card in every language.
       '@container cc-head (max-width: 240px) { .logo { display: none; } }' +
