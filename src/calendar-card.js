@@ -2702,9 +2702,15 @@ class CalendarAgendaCard extends HTMLElement {
         const banner = t.closest(".banner");
         if (banner) {
           const b = banner.getBoundingClientRect();
+          // Each element as it shows: its box cut by its ancestors that hide their overflow (a clamped line).
           const out = [...t.querySelectorAll("*")].some((n) => {
-            const r = n.getBoundingClientRect();
-            return r.height > 0 && (r.top < b.top - 0.5 || r.bottom > b.bottom - 10 + 0.5);
+            let { top, bottom } = n.getBoundingClientRect();
+            for (let p = n.parentElement; p && p !== t; p = p.parentElement) {
+              if (getComputedStyle(p).overflowY === "visible") continue;
+              top = Math.max(top, p.getBoundingClientRect().top);
+              bottom = Math.min(bottom, p.getBoundingClientRect().bottom);
+            }
+            return bottom - top > 0.5 && (top < b.top - 0.5 || bottom > b.bottom - 10 + 0.5);
           });
           if (out) t.classList.add("dot-only");
         }

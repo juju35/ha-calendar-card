@@ -67,7 +67,7 @@ const node = (cls, { box = {}, w = 0, children = [], display = "block" } = {}) =
 
 const fit = (titles) => {
   const doc = { createRange: () => ({ selectNodeContents(el) { this.el = el; }, getBoundingClientRect() { return { width: this.el.w }; } }) };
-  const gcs = (el) => ({ columnGap: "8px", display: el.display, getPropertyValue: () => "10px" });
+  const gcs = (el) => ({ columnGap: "8px", display: el.display, overflowY: "visible", getPropertyValue: () => "10px" });
   const card = new Function("document", "getComputedStyle", `${textWidth}; return { ${method} };`)(doc, gcs);
   card.isConnected = true;
   card.shadowRoot = { querySelectorAll: (sel) => (titles.matches(sel) ? [titles] : []) };
