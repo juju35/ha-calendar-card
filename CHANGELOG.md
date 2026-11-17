@@ -5,7 +5,8 @@
 ### Features
 - **Illustrated header** on the full and mini cards (90px): today's tear-off wall calendar (month, day number, weekday) and a wall clock over a 10px desk strip, the title and today's counter on the left. The round calendar icon and the desk tell the status: an event under way (HA's calendar *on* colour, a video call on a laptop), another event still ahead today (the card's accent, an alarm clock ringing now and then), the rest of the day free (grey, a steaming mug), a calendar that failed to load (error colour).
 - **Status pill on the banner**: the day's counter (5 events today, Nothing today…) is a pill right after the title again, in the icon's status colour, on its own line when the title needs the room. The add and expand / collapse buttons are 24 px frosted discs on the banner's top-right line, the detail button in the corner.
-- Night picture when `sun.sun` is below the horizon (else with a dark theme), forced with `illustration_theme: day | night`; `illustration: false` keeps the classic header. Animations stop with *reduce motion*. Both options are in the visual editor of both cards.
+- Night picture when `sun.sun` is below the horizon or with a dark theme, forced with `illustration_theme: day | night`; `illustration: false` keeps the classic header. Animations stop with *reduce motion*. Both options are in the visual editor of both cards.
+- **Night picture with the dark theme even while the sun is up**: in `auto`, the banner shows the night picture when the sun is below the horizon or Home Assistant's theme is dark.
 
 ## 1.11.1 - 2026-11-14
 

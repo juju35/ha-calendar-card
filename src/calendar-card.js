@@ -2452,15 +2452,13 @@ var ccLogo = (wd, day) => '<svg class="logo" viewBox="0 0 40 40" role="img" aria
 // carries the card's uid so several cards on a page never share a gradient.
 var ccUid = 0;
 
-// Night picture: forced by illustration_theme, else the sun below the horizon, else Home Assistant's dark theme.
+// Night picture: forced by illustration_theme, else the sun below the horizon or Home Assistant's dark theme
+// (the dark theme shows the night picture even while the sun is up; an unavailable sun leaves the dark theme alone).
 function ccIsNight(hass, config) {
   var theme = config?.illustration_theme;
   if (theme === 'night') return true;
   if (theme === 'day') return false;
-  var sun = hass?.states?.['sun.sun']?.state;
-  if (sun === 'below_horizon') return true;
-  if (sun === 'above_horizon') return false;
-  return !!hass?.themes?.darkMode;
+  return hass?.states?.['sun.sun']?.state === 'below_horizon' || !!hass?.themes?.darkMode;
 }
 
 // Header icon colour of each status: HA's state colours of a calendar entity (on while an event is under way),
