@@ -8,6 +8,9 @@
 - Night picture when `sun.sun` is below the horizon or with a dark theme, forced with `illustration_theme: day | night`; `illustration: false` keeps the classic header. Animations stop with *reduce motion*. Both options are in the visual editor of both cards.
 - **Night picture with the dark theme even while the sun is up**: in `auto`, the banner shows the night picture when the sun is below the horizon or Home Assistant's theme is dark.
 
+### Fixes
+- **Readable week view**: the 7 columns only from a 720px wide card (one day per row below, as on a narrow card), event tiles in 12px with a 11px time, titles cut with an ellipsis after three lines (two in rows) and whole in their tooltip; in the agenda the countdown goes under an event rather than squeeze its time and place, and the banner's workday and holiday chips stay on one line (ellipsis, full text in a tooltip) instead of pushing the title out of the banner on a narrow card.
+
 ## 1.11.1 - 2026-11-14
 
 ### Fixes

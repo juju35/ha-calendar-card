@@ -207,8 +207,10 @@ const shots = [
       await page.mouse.move(0, 0);
     },
   })),
-  { file: "week", type: "calendar-agenda-card", theme: "light", width: 760, config: { view: "week" } },
-  { file: "week-dark", type: "calendar-agenda-card", theme: "dark", width: 760, config: { view: "week" } },
+  // The week as most dashboards show it (one day per row, readable at the README's size); week-extras shows the
+  // 7 columns of a wide card.
+  { file: "week", type: "calendar-agenda-card", theme: "light", width: 460, config: { view: "week" } },
+  { file: "week-dark", type: "calendar-agenda-card", theme: "dark", width: 460, config: { view: "week" } },
   // To-do lists, the working day badge and the school holidays, in the agenda and the week.
   ...["light", "dark"].flatMap((theme) => [
     { file: theme === "dark" ? "agenda-extras-dark" : "agenda-extras", type: "calendar-agenda-card", theme, width: 460, extras: true, config: { ...EXTRAS, days_to_show: 3 } },

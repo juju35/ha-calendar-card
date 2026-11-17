@@ -1585,6 +1585,17 @@ test("week view: 7 columns from today, every event as a tile that opens its deta
   assert.match(card.shadowRoot.innerHTML, /11:30 – 12:00/);
 });
 
+test("week view: readable text, 7 columns only from a 720px card, one day per row below", async () => {
+  const card = await render(CalendarAgendaCard, { "calendar.home": [{ summary: "Dentist", start: { dateTime: at(1, 11, 30) }, end: { dateTime: at(1, 12) } }] }, { view: "week" });
+  const css = card.shadowRoot.innerHTML;
+  const size = (rule) => Number(css.match(new RegExp(`${rule} \\{[^}]*font-size: (\\d+)px`))[1]);
+  assert.ok(size("\\.wev") >= 12, "event tile text");
+  assert.ok(size("\\.wt") >= 11, "event time");
+  assert.match(css, /@container \(max-width: 719px\) \{ \.week \{ grid-template-columns: minmax\(0, 1fr\);/);
+  // The full text of a tile stays in its tooltip when its title is cut.
+  assert.match(css, /class="wev[^"]*"[^>]*title="[^"]*Dentist"/);
+});
+
 test("week view: offered on both editors; the folded mini card keeps its list, unfolded it shows the week", async () => {
   const ed = new CalendarAgendaCardEditor();
   ed._config = { type: "custom:calendar-agenda-card" };
@@ -1664,13 +1675,13 @@ test("workday badge: found by itself from the Workday integration, or set, or tu
   const states = { "binary_sensor.workday_sensor": { state: "off", attributes: {}, last_updated: "1" } };
   const entities = { "binary_sensor.workday_sensor": { entity_id: "binary_sensor.workday_sensor", platform: "workday" } };
   let { card } = await renderWith(CalendarAgendaCard, {}, {}, { states, entities });
-  assert.match(card.shadowRoot.innerHTML, /<span class="chip off"><ha-icon icon="mdi:beach"><\/ha-icon>Day off<\/span>/);
+  assert.match(card.shadowRoot.innerHTML, /<span class="chip off" title="Day off"><ha-icon icon="mdi:beach"><\/ha-icon><span class="ct">Day off<\/span><\/span>/);
   ({ card } = await renderWith(CalendarAgendaCard, {}, { workday_entity: false }, { states, entities }));
   assert.doesNotMatch(card.shadowRoot.innerHTML, /class="chip/);
   ({ card } = await renderWith(customElements.get("calendar-agenda-mini-card"), {}, { workday_entity: "binary_sensor.mine", language: "fr" }, {
     states: { "binary_sensor.mine": { state: "on", attributes: {}, last_updated: "1" } },
   }));
-  assert.match(card.shadowRoot.innerHTML, /<span class="chip">.*Jour ouvré<\/span>/);
+  assert.match(card.shadowRoot.innerHTML, /<span class="chip" title="Jour ouvré">.*<span class="ct">Jour ouvré<\/span><\/span>/);
   // No Workday sensor: no badge.
   ({ card } = await renderWith(CalendarAgendaCard, {}, {}, {}));
   assert.doesNotMatch(card.shadowRoot.innerHTML, /class="chip/);

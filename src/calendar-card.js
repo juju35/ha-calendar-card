@@ -2534,6 +2534,9 @@ var CC_SCENE_STYLE =
   '.banner.night .st { background: color-mix(in srgb, var(--cc-ic) 30%, rgba(8,18,38,.55)); color: color-mix(in srgb, var(--cc-ic) 35%, #ffffff); }' +
   '.banner .st .dot { display: block; width: 7px; height: 7px; background: var(--cc-ic); }' +
   '@container cc-titles (max-width: 200px) { .banner .tline { display: contents; } .banner .st { order: 3; align-self: flex-start; margin-top: 1px; } }' +
+  // The chips stay on one line (each ends with an ellipsis, its full text in its tooltip): stacked, they pushed
+  // the title out of the 90px banner on a narrow card.
+  '.banner .chips { flex-wrap: nowrap; min-width: 0; overflow: hidden; } .banner .chip { flex: 0 1 auto; }' +
   '.banner .chip { color: #3d4a5a; background: rgba(255,255,255,.7); }' +
   '.banner.night .chip { color: rgba(255,255,255,.85); background: rgba(255,255,255,.12); }' +
   // The header buttons: 24 px frosted discs on the banner's top line, the detail button in the top-right corner.
@@ -3013,10 +3016,11 @@ class CalendarAgendaCard extends HTMLElement {
     var st = wd ? this._hass.states[wd]?.state : '';
     if (st === 'on' || st === 'off') {
       var off = st === 'off';
-      chips.push(`<span class="chip${off ? ' off' : ''}"><ha-icon icon="${off ? 'mdi:beach' : 'mdi:briefcase-outline'}"></ha-icon>${ccEsc(this._t(off ? 'day_off' : 'workday'))}</span>`);
+      var wl = ccEsc(this._t(off ? 'day_off' : 'workday'));
+      chips.push(`<span class="chip${off ? ' off' : ''}" title="${wl}"><ha-icon icon="${off ? 'mdi:beach' : 'mdi:briefcase-outline'}"></ha-icon><span class="ct">${wl}</span></span>`);
     }
     var hol = this._holidayOn(ccDayStart(now));
-    if (hol) chips.push(`<span class="chip hol" title="${ccEsc(hol.summary)}"><ha-icon icon="mdi:school-outline"></ha-icon>${ccEsc(hol.summary || this._t('school_holidays'))}</span>`);
+    if (hol) chips.push(`<span class="chip hol" title="${ccEsc(hol.summary)}"><ha-icon icon="mdi:school-outline"></ha-icon><span class="ct">${ccEsc(hol.summary || this._t('school_holidays'))}</span></span>`);
     return chips.length ? `<div class="chips">${chips.join('')}</div>` : '';
   }
 
@@ -3577,7 +3581,8 @@ class CalendarAgendaCard extends HTMLElement {
       '.titles { flex: 1 1 0; min-width: 4.5ch; font-size: 16px; }' +
       '.name { font-size: 16px; font-weight: 500; line-height: 1.25; color: var(--primary-text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }' +
       '.list, .more-body { display: flex; flex-direction: column; gap: 10px; }' +
-      // Week view: 7 columns, each day on top of its events; on a narrow card (under 7 × 72px), one day per row.
+      // Week view: 7 columns, each day on top of its events, once each column gets about 100px (a 720px card); a
+      // narrower card shows one day per row, its events beside the date, so their text stays readable.
       '.weekwrap { container-type: inline-size; touch-action: pan-y; }' +
       '.wnav { display: flex; align-items: center; gap: 4px; margin: 0 0 6px; }' +
       '.wrange { flex: 1; text-align: center; font-size: 13px; font-weight: 500; color: var(--secondary-text-color); }' +
@@ -3593,21 +3598,23 @@ class CalendarAgendaCard extends HTMLElement {
       '.wcol.today .whead .dn { color: var(--cc-accent); }' +
       '.wevs { display: flex; flex-direction: column; gap: 3px; min-width: 0; }' +
       '.wevs .none { text-align: center; font-size: 12px; }' +
-      '.wev { display: flex; flex-direction: column; min-width: 0; padding: 2px 5px; border-radius: 5px; cursor: pointer; font-size: 11px; line-height: 1.3;' +
+      '.wev { display: flex; flex-direction: column; min-width: 0; padding: 3px 6px; border-radius: 6px; cursor: pointer; font-size: 12px; line-height: 1.3;' +
         ' border-left: 3px solid var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); color: var(--primary-text-color); }' +
       '.wev.allday { background: var(--c); color: var(--c-on); border-left-color: transparent; }' +
       '.wev.past { opacity: .55; }' +
       '.wev.ongoing { box-shadow: inset 0 0 0 1px var(--c); }' +
       '.wev:focus-visible { outline: 2px solid var(--cc-accent); outline-offset: 1px; }' +
-      '.wt { font-variant-numeric: tabular-nums; color: var(--secondary-text-color); white-space: nowrap; }' +
+      '.wt { font-size: 11px; font-variant-numeric: tabular-nums; color: var(--secondary-text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }' +
       '.wev.allday .wt { color: inherit; opacity: .85; }' +
-      '.ws { font-weight: 500; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow-wrap: anywhere; }' +
-      '@container (max-width: 504px) {' +
+      '.ws { font-weight: 500; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow-wrap: break-word; hyphens: auto; }' +
+      '@container (max-width: 719px) {' +
         ' .week { grid-template-columns: minmax(0, 1fr); gap: 2px; }' +
         ' .wcol { flex-direction: row; align-items: flex-start; gap: 10px; }' +
         ' .whead { width: 40px; flex: none; }' +
         ' .wevs { flex: 1; }' +
-        ' .wev { flex-direction: row; gap: 6px; font-size: 13px; }' +
+        ' .wev { flex-direction: row; align-items: baseline; gap: 6px; font-size: 13px; }' +
+        ' .wt { flex: none; font-size: 12px; }' +
+        ' .ws { -webkit-line-clamp: 2; line-clamp: 2; }' +
         ' .wevs .none { text-align: start; }' +
       ' }' +
       '.more-body:not(.open) { display: none; }' +
@@ -3636,13 +3643,14 @@ class CalendarAgendaCard extends HTMLElement {
       '.ev.past { opacity: 0.55; }' +
       '.cbar { width: 4px; align-self: stretch; min-height: 28px; border-radius: 2px; background: var(--c); flex-shrink: 0; }' +
       '.ev .cbar { position: absolute; left: 6px; top: 6px; bottom: 6px; min-height: 0; }' +
-      '.emain { flex: 1 1 0; min-width: min(100%, 120px); display: flex; flex-direction: column; gap: 2px; }' +
+      // The countdown goes under the event rather than leave its time and place less than 190px.
+      '.emain { flex: 1 1 0; min-width: min(100%, 190px); display: flex; flex-direction: column; gap: 2px; }' +
       '.etitle { font-size: 14px; font-weight: 500; color: var(--primary-text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }' +
       '.emeta { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--secondary-text-color); min-width: 0; white-space: nowrap; overflow: hidden; }' +
       '.emeta .sep { opacity: 0.6; }' +
       // The time comes first: the location gives way before it (and ends with an ellipsis). A time line
       // still too long (an all-day range) wraps rather than being cut.
-      '.emeta .when { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: normal; }' +
+      '.emeta .when { flex: 0 0 auto; max-width: 100%; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: normal; }' +
       '.loc { display: inline-flex; align-items: center; gap: 2px; flex: 0 1000 auto; min-width: 0; overflow: hidden; }' +
       '.loc .lt { min-width: 0; overflow: hidden; text-overflow: ellipsis; }' +
       '.loc ha-icon { --mdc-icon-size: 13px; flex-shrink: 0; }' +
@@ -3751,6 +3759,7 @@ class CalendarAgendaCard extends HTMLElement {
       '.chip { display: inline-flex; align-items: center; gap: 3px; min-width: 0; max-width: 100%; padding: 0 7px 0 5px; border-radius: 10px; font-size: 11px; font-weight: 500; line-height: 18px;' +
       ' white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--secondary-text-color); background: color-mix(in srgb, var(--secondary-text-color) 12%, transparent); }' +
       '.chip ha-icon { --mdc-icon-size: 13px; flex: none; }' +
+      '.chip .ct { min-width: 0; overflow: hidden; text-overflow: ellipsis; }' +
       '.chip.off, .chip.hol { color: color-mix(in srgb, var(--cc-hol) 70%, var(--primary-text-color)); background: color-mix(in srgb, var(--cc-hol) 16%, transparent); }' +
       ':host { --cc-hol: #f4511e; }' +
       '.dhol { display: flex; align-items: center; gap: 4px; min-width: 0; padding: 2px 8px 2px 6px; border-radius: 8px; font-size: 12px; color: color-mix(in srgb, var(--cc-hol) 70%, var(--primary-text-color));' +
