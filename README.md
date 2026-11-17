@@ -20,6 +20,7 @@ Custom Lovelace agenda card for Home Assistant [calendars](https://www.home-assi
 
 ## Features
 
+- **Illustrated header** (90px, full and mini card): today's tear-off wall calendar (month, day number, weekday) over a desk; the desk and the calendar icon's colour tell the status — a video call while an event is under way, an alarm clock ringing now and then before the next event today, a steaming mug when the rest of the day is free; night picture after sunset (or with a dark theme), animations off with *reduce motion*
 - Two cards: `calendar-agenda-card` and its mini version `calendar-agenda-mini-card` (next event and the one after; a detail button unfolds the full agenda)
 - Several calendars merged in one list, each with its own color and name; an event shared by several calendars (same uid) is listed once, distinct events with the same title and times are all kept
 - Days with today and tomorrow labelled, all-day events, time range and location; a multi-day event is listed once with its date range
@@ -123,6 +124,8 @@ view: agenda
 days_to_show: 7
 max_events: 5
 show_header: true
+illustration: true
+illustration_theme: auto
 show_location: true
 show_end_time: true
 show_countdown: true
@@ -149,6 +152,8 @@ language: en
 | `days_to_show` | ❌ | `7` | Number of days from today (1 to 62) |
 | `max_events` | ❌ | `5` | Events shown before the folded **more** section (`0` shows everything) |
 | `show_header` | ❌ | `true` | Header with today's date and the number of events today |
+| `illustration` | ❌ | `true` | Both cards: illustrated header (today's calendar on a desk, status colour and animations); `false` for the classic header |
+| `illustration_theme` | ❌ | `auto` | Both cards: `auto` (night when `sun.sun` is below the horizon, else with a dark theme), `day` or `night` |
 | `show_location` | ❌ | `true` | Show the event location |
 | `show_end_time` | ❌ | `true` | Show the end time of timed events |
 | `show_countdown` | ❌ | `true` | Countdown and **Now** badge for today's events |

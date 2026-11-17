@@ -550,7 +550,7 @@ test("the new languages are passed to Intl for dates, with a readable short mont
   assert.equal(await short("pl", sun), "niedz");
   assert.equal(await short("el", thu), thu.toLocaleDateString("el", { weekday: "short" }));
   // Greek: the header weekday is upper-cased without accents (ΤΡΙ, not ΤΡΊ).
-  const el = await render(CalendarAgendaCard, {}, { language: "el" });
+  const el = await render(CalendarAgendaCard, {}, { language: "el", illustration: false });
   const wd = new Date().toLocaleDateString("el", { weekday: "short" }).replace(".", "").toLocaleUpperCase("el");
   assert.doesNotMatch(wd, /[\u0386\u0388-\u038F]/);
   assert.match(el.shadowRoot.innerHTML, new RegExp(`>${wd}<`));
@@ -728,7 +728,7 @@ test("text on a calendar color (live countdown, today's date, logo) reaches 4.5:
   for (const color of PALETTE) {
     const card = await render(CalendarAgendaCard, {
       "calendar.home": [{ summary: "Stand-up", start: { dateTime: new Date(Date.now() - 600000).toISOString() }, end: { dateTime: new Date(Date.now() + 600000).toISOString() } }],
-    }, { entities: [{ entity: "calendar.home", color }] });
+    }, { entities: [{ entity: "calendar.home", color }], illustration: false });
     const html = card.shadowRoot.innerHTML;
     assert.match(cssRule(html, ".cd.live"), /color: var\(--c-on\)/);
     assert.match(cssRule(html, ".date.today .dn"), /color: var\(--cc-accent-on\)/);
@@ -1738,4 +1738,53 @@ test("mini card: folded, a line per to-do list with its count; unfolded, the lis
   assert.match(card.shadowRoot.innerHTML, /<div class="mtodo" data-action="zoom" role="button" tabindex="0"><ha-icon icon="mdi:format-list-checks"><\/ha-icon><span class="tname">Shopping<\/span><span class="tcount">1<\/span><\/div>/);
   card._onClick({ composedPath: () => [{ dataset: { action: "zoom" } }], detail: 1 });
   assert.match(card.shadowRoot.innerHTML, /<span class="tsum">Milk<\/span>/);
+});
+
+test("illustrated header: today's date on the calendar, status colour, night, classic fallback", async () => {
+  mock.timers.enable({ apis: ["Date"], now: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9, 40) });
+  try {
+    const Mini = customElements.get("calendar-agenda-mini-card");
+    const ongoing = { "calendar.home": [{ summary: "Stand-up", start: { dateTime: at(0, 9, 30) }, end: { dateTime: at(0, 10) } }] };
+    const later = { "calendar.home": [{ summary: "Dentist", start: { dateTime: at(0, 14) }, end: { dateTime: at(0, 15) } }] };
+    const tomorrow = { "calendar.home": [{ summary: "Trip", start: { dateTime: at(1, 8) }, end: { dateTime: at(1, 9) } }] };
+    for (const Card of [CalendarAgendaCard, Mini]) {
+      const now = (await render(Card, ongoing)).shadowRoot.innerHTML;
+      assert.match(now, /class="header banner now"/);
+      assert.match(now, new RegExp(`class="cc-day"[^>]*>${today.getDate()}<`));
+      assert.match(now, /<ha-icon icon="mdi:calendar"><\/ha-icon>/);
+      assert.match(now, /--cc-ic:var\(--state-calendar-on-color/);
+      assert.match(now, /class="cc-laptop"/);
+      assert.match(cssRule(now, ".banner"), /height: 90px/);
+      assert.match(cssRule(now, ".cc-desk"), /height: 10px/);
+      assert.match(now, /prefers-reduced-motion: reduce\) \{ \.banner \*/);
+      const up = (await render(Card, later)).shadowRoot.innerHTML;
+      assert.match(up, /class="header banner upcoming"[^>]*--cc-ic:var\(--cc-accent\)/);
+      assert.match(up, /class="cc-alarm"/);
+      const free = (await render(Card, tomorrow)).shadowRoot.innerHTML;
+      assert.match(free, /class="header banner free"[^>]*--cc-ic:var\(--state-calendar-off-color/);
+      assert.match(free, /class="cc-mug"/);
+      assert.match((await render(Card, {}, { illustration_theme: "night" })).shadowRoot.innerHTML, /class="header banner free night"/);
+      const classic = (await render(Card, {}, { illustration: false })).shadowRoot.innerHTML;
+      assert.doesNotMatch(classic, /banner|cc-scene/);
+      assert.match(classic, /<svg class="logo"/);
+    }
+    // Two cards never share a gradient id.
+    const a = (await render(CalendarAgendaCard, {})).shadowRoot.innerHTML.match(/id="(cc-glow-\d+)"/)[1];
+    const b = (await render(CalendarAgendaCard, {})).shadowRoot.innerHTML.match(/id="(cc-glow-\d+)"/)[1];
+    assert.notEqual(a, b);
+  } finally {
+    mock.timers.reset();
+  }
+});
+
+test("night picture follows sun.sun, then the dark theme, unless illustration_theme forces it", async () => {
+  const card = new CalendarAgendaCard();
+  card.setConfig({ entities: ["calendar.home"] });
+  const hass = mockHass({});
+  card.hass = { ...hass, states: { ...hass.states, "sun.sun": { state: "below_horizon" } } };
+  assert.match(card.shadowRoot.innerHTML, /banner [a-z]+ night/);
+  card.hass = { ...hass, themes: { darkMode: true } };
+  assert.match(card.shadowRoot.innerHTML, /banner [a-z]+ night/);
+  card.setConfig({ entities: ["calendar.home"], illustration_theme: "day" });
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /banner [a-z]+ night/);
 });

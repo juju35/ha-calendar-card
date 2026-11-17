@@ -67,6 +67,12 @@ var CcI18n = {
     ed_max_events: 'Événements avant « de plus »',
     ed_max_events_helper: '0 pour tout afficher',
     ed_show_header: 'En-tête',
+    ed_illustration: 'Illustration',
+    ed_illustration_helper: 'Scène animée dans l’en-tête ; désactivée : en-tête classique',
+    ed_illustration_theme: 'Thème de l’illustration',
+    theme_auto: 'Automatique (soleil / thème sombre)',
+    theme_day: 'Jour',
+    theme_night: 'Nuit',
     ed_show_title: 'Afficher le titre',
     ed_show_location: 'Lieu',
     ed_show_end_time: 'Heure de fin',
@@ -156,6 +162,12 @@ var CcI18n = {
     ed_max_events: 'Events before "more"',
     ed_max_events_helper: '0 to show everything',
     ed_show_header: 'Header',
+    ed_illustration: 'Illustration',
+    ed_illustration_helper: 'Animated scene in the header; off: the classic header',
+    ed_illustration_theme: 'Illustration theme',
+    theme_auto: 'Automatic (sun / dark theme)',
+    theme_day: 'Day',
+    theme_night: 'Night',
     ed_show_title: 'Show title',
     ed_show_location: 'Location',
     ed_show_end_time: 'End time',
@@ -245,6 +257,12 @@ var CcI18n = {
     ed_max_events: 'Termine vor „weitere“',
     ed_max_events_helper: '0, um alles anzuzeigen',
     ed_show_header: 'Kopfzeile',
+    ed_illustration: 'Illustration',
+    ed_illustration_helper: 'Animierte Szene in der Kopfzeile; aus: klassische Kopfzeile',
+    ed_illustration_theme: 'Illustrationsdesign',
+    theme_auto: 'Automatisch (Sonne / dunkles Design)',
+    theme_day: 'Tag',
+    theme_night: 'Nacht',
     ed_show_title: 'Titel anzeigen',
     ed_show_location: 'Ort',
     ed_show_end_time: 'Endzeit',
@@ -334,6 +352,12 @@ var CcI18n = {
     ed_max_events: 'Eventos antes de «más»',
     ed_max_events_helper: '0 para mostrarlo todo',
     ed_show_header: 'Encabezado',
+    ed_illustration: 'Ilustración',
+    ed_illustration_helper: 'Escena animada en el encabezado; desactivada: encabezado clásico',
+    ed_illustration_theme: 'Tema de la ilustración',
+    theme_auto: 'Automático (sol / tema oscuro)',
+    theme_day: 'Día',
+    theme_night: 'Noche',
     ed_show_title: 'Mostrar el título',
     ed_show_location: 'Ubicación',
     ed_show_end_time: 'Hora de fin',
@@ -423,6 +447,12 @@ var CcI18n = {
     ed_max_events: 'Догађаји пре „још“',
     ed_max_events_helper: '0 за приказ свих догађаја',
     ed_show_header: 'Заглавље',
+    ed_illustration: 'Илустрација',
+    ed_illustration_helper: 'Анимирана сцена у заглављу; искључено: класично заглавље',
+    ed_illustration_theme: 'Тема илустрације',
+    theme_auto: 'Аутоматски (сунце / тамна тема)',
+    theme_day: 'Дан',
+    theme_night: 'Ноћ',
     ed_show_title: 'Прикажи наслов',
     ed_show_location: 'Локација',
     ed_show_end_time: 'Време завршетка',
@@ -512,6 +542,12 @@ var CcI18n = {
     ed_max_events: 'Događaji pre „još“',
     ed_max_events_helper: '0 za prikaz svih događaja',
     ed_show_header: 'Zaglavlje',
+    ed_illustration: 'Ilustracija',
+    ed_illustration_helper: 'Animirana scena u zaglavlju; isključeno: klasično zaglavlje',
+    ed_illustration_theme: 'Tema ilustracije',
+    theme_auto: 'Automatski (sunce / tamna tema)',
+    theme_day: 'Dan',
+    theme_night: 'Noć',
     ed_show_title: 'Prikaži naslov',
     ed_show_location: 'Lokacija',
     ed_show_end_time: 'Vreme završetka',
@@ -601,6 +637,12 @@ var CcI18n = {
     ed_max_events: 'Eventi prima di «altri»',
     ed_max_events_helper: '0 per mostrare tutto',
     ed_show_header: 'Intestazione',
+    ed_illustration: 'Illustrazione',
+    ed_illustration_helper: 'Scena animata nell’intestazione; disattivata: intestazione classica',
+    ed_illustration_theme: 'Tema dell’illustrazione',
+    theme_auto: 'Automatico (sole / tema scuro)',
+    theme_day: 'Giorno',
+    theme_night: 'Notte',
     ed_show_title: 'Mostra il titolo',
     ed_show_location: 'Luogo',
     ed_show_end_time: 'Ora di fine',
@@ -690,6 +732,12 @@ var CcI18n = {
     ed_max_events: 'Afspraken vóór ‘nog’',
     ed_max_events_helper: '0 om alles te tonen',
     ed_show_header: 'Koptekst',
+    ed_illustration: 'Illustratie',
+    ed_illustration_helper: 'Geanimeerde scène in de koptekst; uit: klassieke koptekst',
+    ed_illustration_theme: 'Thema van de illustratie',
+    theme_auto: 'Automatisch (zon / donker thema)',
+    theme_day: 'Dag',
+    theme_night: 'Nacht',
     ed_show_title: 'Titel tonen',
     ed_show_location: 'Locatie',
     ed_show_end_time: 'Eindtijd',
@@ -779,6 +827,12 @@ var CcI18n = {
     ed_max_events: 'Eventos antes de «mais»',
     ed_max_events_helper: '0 para mostrar tudo',
     ed_show_header: 'Cabeçalho',
+    ed_illustration: 'Ilustração',
+    ed_illustration_helper: 'Cena animada no cabeçalho; desligada: cabeçalho clássico',
+    ed_illustration_theme: 'Tema da ilustração',
+    theme_auto: 'Automático (sol / tema escuro)',
+    theme_day: 'Dia',
+    theme_night: 'Noite',
     ed_show_title: 'Mostrar o título',
     ed_show_location: 'Local',
     ed_show_end_time: 'Hora de fim',
@@ -868,6 +922,12 @@ var CcI18n = {
     ed_max_events: 'Wydarzenia przed „Więcej”',
     ed_max_events_helper: '0, aby pokazać wszystko',
     ed_show_header: 'Nagłówek',
+    ed_illustration: 'Ilustracja',
+    ed_illustration_helper: 'Animowana scena w nagłówku; wyłączona: klasyczny nagłówek',
+    ed_illustration_theme: 'Motyw ilustracji',
+    theme_auto: 'Automatyczny (słońce / ciemny motyw)',
+    theme_day: 'Dzień',
+    theme_night: 'Noc',
     ed_show_title: 'Pokaż tytuł',
     ed_show_location: 'Lokalizacja',
     ed_show_end_time: 'Godzina zakończenia',
@@ -957,6 +1017,12 @@ var CcI18n = {
     ed_max_events: 'Evenimente afișate',
     ed_max_events_helper: '0 pentru a afișa tot',
     ed_show_header: 'Antet',
+    ed_illustration: 'Ilustrație',
+    ed_illustration_helper: 'Scenă animată în antet; dezactivată: antetul clasic',
+    ed_illustration_theme: 'Tema ilustrației',
+    theme_auto: 'Automat (soare / temă întunecată)',
+    theme_day: 'Zi',
+    theme_night: 'Noapte',
     ed_show_title: 'Afișează titlul',
     ed_show_location: 'Locație',
     ed_show_end_time: 'Ora de sfârșit',
@@ -1046,6 +1112,12 @@ var CcI18n = {
     ed_max_events: 'Aftaler før »mere«',
     ed_max_events_helper: '0 for at vise alt',
     ed_show_header: 'Overskrift',
+    ed_illustration: 'Illustration',
+    ed_illustration_helper: 'Animeret scene i overskriften; fra: den klassiske overskrift',
+    ed_illustration_theme: 'Illustrationstema',
+    theme_auto: 'Automatisk (sol / mørkt tema)',
+    theme_day: 'Dag',
+    theme_night: 'Nat',
     ed_show_title: 'Vis titel',
     ed_show_location: 'Sted',
     ed_show_end_time: 'Sluttidspunkt',
@@ -1135,6 +1207,12 @@ var CcI18n = {
     ed_max_events: 'Max antal händelser',
     ed_max_events_helper: '0 för att visa allt',
     ed_show_header: 'Rubrik',
+    ed_illustration: 'Illustration',
+    ed_illustration_helper: 'Animerad scen i rubriken; av: den klassiska rubriken',
+    ed_illustration_theme: 'Illustrationstema',
+    theme_auto: 'Automatiskt (sol / mörkt tema)',
+    theme_day: 'Dag',
+    theme_night: 'Natt',
     ed_show_title: 'Visa rubrik',
     ed_show_location: 'Plats',
     ed_show_end_time: 'Sluttid',
@@ -1224,6 +1302,12 @@ var CcI18n = {
     ed_max_events: 'Събития преди „Още“',
     ed_max_events_helper: '0, за да се покаже всичко',
     ed_show_header: 'Заглавна част',
+    ed_illustration: 'Илюстрация',
+    ed_illustration_helper: 'Анимирана сцена в заглавната част; изключено: класическа заглавна част',
+    ed_illustration_theme: 'Тема на илюстрацията',
+    theme_auto: 'Автоматично (слънце / тъмна тема)',
+    theme_day: 'Ден',
+    theme_night: 'Нощ',
     ed_show_title: 'Показване на заглавието',
     ed_show_location: 'Местоположение',
     ed_show_end_time: 'Час на приключване',
@@ -1313,6 +1397,12 @@ var CcI18n = {
     ed_max_events: 'Событий до «Ещё»',
     ed_max_events_helper: '0 — показать все',
     ed_show_header: 'Шапка',
+    ed_illustration: 'Иллюстрация',
+    ed_illustration_helper: 'Анимированная сцена в шапке; выкл.: классическая шапка',
+    ed_illustration_theme: 'Тема иллюстрации',
+    theme_auto: 'Автоматически (солнце / тёмная тема)',
+    theme_day: 'День',
+    theme_night: 'Ночь',
     ed_show_title: 'Показывать заголовок',
     ed_show_location: 'Место',
     ed_show_end_time: 'Время окончания',
@@ -1402,6 +1492,12 @@ var CcI18n = {
     ed_max_events: 'Подій до «Ще»',
     ed_max_events_helper: '0 — показати все',
     ed_show_header: 'Шапка',
+    ed_illustration: 'Ілюстрація',
+    ed_illustration_helper: 'Анімована сцена в шапці; вимк.: класична шапка',
+    ed_illustration_theme: 'Тема ілюстрації',
+    theme_auto: 'Автоматично (сонце / темна тема)',
+    theme_day: 'День',
+    theme_night: 'Ніч',
     ed_show_title: 'Показувати заголовок',
     ed_show_location: 'Місце',
     ed_show_end_time: 'Час завершення',
@@ -1491,6 +1587,12 @@ var CcI18n = {
     ed_max_events: 'Események a „További” előtt',
     ed_max_events_helper: '0 esetén minden megjelenik',
     ed_show_header: 'Fejléc',
+    ed_illustration: 'Illusztráció',
+    ed_illustration_helper: 'Animált jelenet a fejlécben; ki: klasszikus fejléc',
+    ed_illustration_theme: 'Illusztráció témája',
+    theme_auto: 'Automatikus (nap / sötét téma)',
+    theme_day: 'Nappal',
+    theme_night: 'Éjszaka',
     ed_show_title: 'Cím megjelenítése',
     ed_show_location: 'Helyszín',
     ed_show_end_time: 'Befejezés ideje',
@@ -1580,6 +1682,12 @@ var CcI18n = {
     ed_max_events: 'Udalosti pred „Ďalšie“',
     ed_max_events_helper: '0 na zobrazenie všetkého',
     ed_show_header: 'Hlavička',
+    ed_illustration: 'Ilustrácia',
+    ed_illustration_helper: 'Animovaná scéna v hlavičke; vypnuté: klasická hlavička',
+    ed_illustration_theme: 'Téma ilustrácie',
+    theme_auto: 'Automaticky (slnko / tmavá téma)',
+    theme_day: 'Deň',
+    theme_night: 'Noc',
     ed_show_title: 'Zobraziť názov',
     ed_show_location: 'Miesto',
     ed_show_end_time: 'Čas ukončenia',
@@ -1669,6 +1777,12 @@ var CcI18n = {
     ed_max_events: 'Události před „Další“',
     ed_max_events_helper: '0 pro zobrazení všeho',
     ed_show_header: 'Záhlaví',
+    ed_illustration: 'Ilustrace',
+    ed_illustration_helper: 'Animovaná scéna v záhlaví; vypnuto: klasické záhlaví',
+    ed_illustration_theme: 'Motiv ilustrace',
+    theme_auto: 'Automaticky (slunce / tmavý motiv)',
+    theme_day: 'Den',
+    theme_night: 'Noc',
     ed_show_title: 'Zobrazit název',
     ed_show_location: 'Místo',
     ed_show_end_time: 'Čas konce',
@@ -1758,6 +1872,12 @@ var CcI18n = {
     ed_max_events: 'Dogodki pred »Več«',
     ed_max_events_helper: '0 za prikaz vsega',
     ed_show_header: 'Glava',
+    ed_illustration: 'Ilustracija',
+    ed_illustration_helper: 'Animirani prizor v glavi; izklopljeno: klasična glava',
+    ed_illustration_theme: 'Tema ilustracije',
+    theme_auto: 'Samodejno (sonce / temna tema)',
+    theme_day: 'Dan',
+    theme_night: 'Noč',
     ed_show_title: 'Prikaži naslov',
     ed_show_location: 'Lokacija',
     ed_show_end_time: 'Čas konca',
@@ -1847,6 +1967,12 @@ var CcI18n = {
     ed_max_events: 'Notikumi pirms „Citi notikumi”',
     ed_max_events_helper: '0, lai rādītu visu',
     ed_show_header: 'Galvene',
+    ed_illustration: 'Ilustrācija',
+    ed_illustration_helper: 'Animēta aina galvenē; izslēgta: klasiskā galvene',
+    ed_illustration_theme: 'Ilustrācijas motīvs',
+    theme_auto: 'Automātiski (saule / tumšais motīvs)',
+    theme_day: 'Diena',
+    theme_night: 'Nakts',
     ed_show_title: 'Rādīt virsrakstu',
     ed_show_location: 'Vieta',
     ed_show_end_time: 'Beigu laiks',
@@ -1936,6 +2062,12 @@ var CcI18n = {
     ed_max_events: 'Συμβάντα πριν το «Άλλα»',
     ed_max_events_helper: '0 για εμφάνιση όλων',
     ed_show_header: 'Κεφαλίδα',
+    ed_illustration: 'Εικονογράφηση',
+    ed_illustration_helper: 'Κινούμενη σκηνή στην κεφαλίδα· ανενεργή: κλασική κεφαλίδα',
+    ed_illustration_theme: 'Θέμα εικονογράφησης',
+    theme_auto: 'Αυτόματο (ήλιος / σκούρο θέμα)',
+    theme_day: 'Ημέρα',
+    theme_night: 'Νύχτα',
     ed_show_title: 'Εμφάνιση τίτλου',
     ed_show_location: 'Τοποθεσία',
     ed_show_end_time: 'Ώρα λήξης',
@@ -2015,6 +2147,7 @@ var CC_REFRESH = 5 * 60000;
 var CC_DEFAULTS = {
   view: 'agenda', days_to_show: 7, max_events: 5, show_header: true, show_title: true, show_location: true, show_end_time: true,
   show_countdown: true, show_empty_days: false, show_past_events: false, add_button: true, edit_buttons: true,
+  illustration: true, illustration_theme: 'auto',
 };
 
 // Calendar features (CalendarEntityFeature): calendar.create_event, calendar/event/delete and
@@ -2311,6 +2444,143 @@ var ccLogo = (wd, day) => '<svg class="logo" viewBox="0 0 40 40" role="img" aria
   `<text x="20" y="11.6" text-anchor="middle" font-size="7.2" font-weight="700" fill="var(--cc-accent-on)" letter-spacing=".4">${ccEsc(wd)}</text>` +
   `<text x="20" y="32" text-anchor="middle" font-size="17" font-weight="500" fill="var(--primary-text-color, #212121)">${ccEsc(day)}</text></svg>`;
 
+// ── Illustrated header: a desk under a tear-off wall calendar showing today's date ──────────────────
+// A 150 × 80 picture at the right of the 90px banner, over its 10px desk strip (edge to edge). The wall
+// calendar shows today's month, day number and weekday; the desk tells the status: a video call on a laptop
+// while an event is under way (now), an alarm clock that rings now and then before the next one (upcoming),
+// a steaming mug when the rest of the day is free. Colours come from the CSS (day and night), and every id
+// carries the card's uid so several cards on a page never share a gradient.
+var ccUid = 0;
+
+// Night picture: forced by illustration_theme, else the sun below the horizon, else Home Assistant's dark theme.
+function ccIsNight(hass, config) {
+  var theme = config?.illustration_theme;
+  if (theme === 'night') return true;
+  if (theme === 'day') return false;
+  var sun = hass?.states?.['sun.sun']?.state;
+  if (sun === 'below_horizon') return true;
+  if (sun === 'above_horizon') return false;
+  return !!hass?.themes?.darkMode;
+}
+
+// Header icon colour of each status: HA's state colours of a calendar entity (on while an event is under way),
+// the card's accent for an event still ahead today, the error colour when a calendar failed to load.
+var CC_STATUS_COLOR = {
+  now: 'var(--state-calendar-on-color, var(--state-calendar-active-color, var(--state-active-color, #ff9800)))',
+  upcoming: 'var(--cc-accent)',
+  free: 'var(--state-calendar-off-color, var(--state-inactive-color, #9e9e9e))',
+  error: 'var(--error-color, #db4437)',
+};
+
+function ccSceneSvg(uid, status, month, day, weekday) {
+  // A long weekday (Russian "воскресенье") is squeezed into the page rather than overflowing it.
+  var fit = weekday.length > 10 ? ' textLength="38" lengthAdjust="spacingAndGlyphs"' : '';
+  var desk = {
+    now: '<g class="cc-laptop"><path class="cc-lid" d="M95 57.5h32a1.5 1.5 0 0 1 1.5 1.5v17h-35v-17a1.5 1.5 0 0 1 1.5-1.5Z"/>' +
+      '<rect class="cc-screen" x="96" y="59.5" width="30" height="15" rx=".8"/>' +
+      '<rect class="cc-tile t1" x="97.5" y="61" width="13" height="5.8" rx=".6"/><rect class="cc-tile t2" x="111.5" y="61" width="13" height="5.8" rx=".6"/>' +
+      '<rect class="cc-tile t3" x="97.5" y="67.6" width="13" height="5.8" rx=".6"/><rect class="cc-tile t4" x="111.5" y="67.6" width="13" height="5.8" rx=".6"/>' +
+      '<circle class="cc-head" cx="104" cy="63.4" r="1.4"/><circle class="cc-head" cx="118" cy="63.4" r="1.4"/><circle class="cc-head" cx="104" cy="70" r="1.4"/><circle class="cc-head" cx="118" cy="70" r="1.4"/>' +
+      '<path class="cc-base" d="M89 76h44l-2 4H91Z"/></g>',
+    upcoming: '<g class="cc-alarm"><g class="cc-ring"><circle class="cc-bell" cx="106.5" cy="62.2" r="3.4"/><circle class="cc-bell" cx="119.5" cy="62.2" r="3.4"/>' +
+      '<path class="cc-leg" d="M107.5 77.5 105 80M118.5 77.5 121 80"/>' +
+      '<circle class="cc-abody" cx="113" cy="70.5" r="8"/><circle class="cc-aface" cx="113" cy="70.5" r="6.2"/>' +
+      '<path class="cc-ahand" d="M113 70.5V66.4M113 70.5l2.6 1.6"/><circle class="cc-anut" cx="113" cy="70.5" r=".8"/></g></g>',
+    free: '<g class="cc-mug"><g class="cc-steam"><path class="s1" d="M106 64q-2-3 0-6t0-6"/><path class="s2" d="M111 64q-2-3 0-6t0-6"/></g>' +
+      '<path class="cc-cup" d="M102.5 66h13v10.5a3.5 3.5 0 0 1-3.5 3.5h-6a3.5 3.5 0 0 1-3.5-3.5Z"/><path class="cc-handle" d="M115.5 69h1.6a3 3 0 0 1 0 6h-1.6"/>' +
+      '<rect class="cc-band" x="102.5" y="70.2" width="13" height="2.4"/></g>' +
+      '<g class="cc-plant"><path class="cc-leaf l1" d="M134 70c-6-1-8-6-7-10 4 1 7 5 7 10Z"/><path class="cc-leaf l2" d="M134 70c5-2 6-8 4-12-4 2-5 7-4 12Z"/>' +
+      '<path class="cc-pot" d="M128.5 70h11l-1.6 10h-7.8Z"/></g>',
+  }[status] || '';
+  return '<div class="cc-desk" aria-hidden="true"></div>' +
+    `<svg class="cc-scene" viewBox="0 0 150 80" preserveAspectRatio="xMaxYMax meet" aria-hidden="true" focusable="false">` +
+    `<defs><radialGradient id="cc-glow-${uid}"><stop offset="0" stop-color="#ffd27a" stop-opacity=".42"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></radialGradient></defs>` +
+    `<circle class="cc-glow" cx="60" cy="34" r="46" fill="url(#cc-glow-${uid})"/>` +
+    // Wall clock.
+    '<g class="cc-clock"><circle class="cc-cface" cx="16" cy="22" r="9"/><path class="cc-tick" d="M16 14.6v1.4M16 28v1.4M8.6 22H10M22 22h1.4"/>' +
+    '<path class="cc-hand hh" d="M16 22v-4.4"/><path class="cc-hand mm" d="M16 22v-6.4"/><circle class="cc-nut" cx="16" cy="22" r=".9"/></g>' +
+    // Tear-off calendar with today's date.
+    '<g class="cc-cal" transform="translate(34 5)"><rect class="cc-shadow" x="2" y="3" width="44" height="52" rx="3"/>' +
+    '<rect class="cc-page" width="44" height="52" rx="3"/><path class="cc-band" d="M3 0h38a3 3 0 0 1 3 3v10H0V3a3 3 0 0 1 3-3Z"/>' +
+    '<circle class="cc-hole" cx="11" cy="0" r="1.8"/><circle class="cc-hole" cx="33" cy="0" r="1.8"/>' +
+    `<text class="cc-month" x="22" y="9.8" text-anchor="middle">${ccEsc(month)}</text>` +
+    `<text class="cc-day" x="22" y="38.5" text-anchor="middle">${ccEsc(day)}</text>` +
+    `<text class="cc-wd" x="22" y="47.5" text-anchor="middle"${fit}>${ccEsc(weekday)}</text>` +
+    '<path class="cc-curl" d="M44 46v3a3 3 0 0 1-3 3H33Q40 51 44 46Z"/>' +
+    (status === 'now' ? '<circle class="cc-pulse" cx="41" cy="16.5" r="2.6"/><circle class="cc-live" cx="41" cy="16.5" r="2.6"/>' : '') +
+    '</g>' +
+    // Desk: notes on the left, the status object on the right.
+    '<rect class="cc-note" x="4" y="72" width="10" height="8" rx=".8"/><rect class="cc-note b" x="16" y="76" width="18" height="4" rx=".8"/>' +
+    `${desk}</svg>`;
+}
+
+var CC_SCENE_STYLE =
+  '.banner { position: relative; height: 90px; box-sizing: border-box; margin: -12px -12px -2px; padding: 0 12px 10px; overflow: hidden;' +
+  ' border-radius: var(--ha-card-border-radius, 12px) var(--ha-card-border-radius, 12px) 0 0; color: #1f2a37;' +
+  ' background: linear-gradient(90deg, #f7f9fc 0%, #eef2f7 55%, #e4e9f0 100%); }' +
+  '.banner.night { color: #fff; background: linear-gradient(90deg, #2e3546 0%, #262c3a 55%, #20252f 100%); }' +
+  '.banner > .logo, .banner > .titles { position: relative; z-index: 1; }' +
+  // The text stops where the picture starts (150px), or under the buttons once the picture is gone.
+  '.banner > .titles { margin-right: 146px; }' +
+  '.banner .logo { display: grid; place-items: center; border-radius: 50%; color: var(--cc-ic); background: rgba(255,255,255,.66); box-shadow: inset 0 0 0 1px rgba(31,42,55,.1); }' +
+  '.banner.night .logo { color: color-mix(in srgb, var(--cc-ic) 78%, #fff); background: rgba(255,255,255,.12); box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); }' +
+  '.banner .logo ha-icon { --mdc-icon-size: 24px; }' +
+  '.banner .name { color: inherit; font-weight: 600; }' +
+  '.banner .st { display: flex; padding: 0; background: none; border-radius: 0; font-size: 13px; font-weight: 400; color: #4a5565; }' +
+  '.banner.night .st { color: rgba(255,255,255,.8); }' +
+  '.banner .st .dot { background: var(--cc-ic); }' +
+  '.banner .chip { color: #3d4a5a; background: rgba(255,255,255,.7); }' +
+  '.banner.night .chip { color: rgba(255,255,255,.85); background: rgba(255,255,255,.12); }' +
+  '.hbtns { position: absolute; top: 6px; right: 6px; z-index: 1; display: flex; gap: 4px; }' +
+  '.hbtns .addb, .hbtns .zoom { margin: 0; width: 28px; height: 28px; color: #1f2a37; background: rgba(255,255,255,.6); }' +
+  '.night .hbtns .addb, .night .hbtns .zoom { color: #fff; background: rgba(10,16,28,.45); }' +
+  '.cc-desk { position: absolute; left: 0; right: 0; bottom: 0; height: 10px; background: #b98a5c; box-shadow: inset 0 2px 0 #d4a878; }' +
+  '.night .cc-desk { background: #4a3a2c; box-shadow: inset 0 2px 0 #5c4836; }' +
+  '.cc-scene { position: absolute; right: 0; bottom: 10px; width: 150px; height: 80px; pointer-events: none; font-family: inherit; }' +
+  '.cc-glow { display: none; } .night .cc-glow { display: inline; }' +
+  '.cc-cface { fill: #fff; stroke: #c3cad3; stroke-width: 1.3; } .night .cc-cface { fill: #fff6dc; stroke: #5a6272; }' +
+  '.cc-tick { stroke: #8a94a1; stroke-width: .8; }' +
+  '.cc-hand { stroke: #2a3038; stroke-width: 1.1; stroke-linecap: round; transform-box: view-box; transform-origin: 16px 22px; }' +
+  '.cc-hand.mm { animation: cc-turn 10s linear infinite; } .cc-hand.hh { animation: cc-turn 120s linear infinite; }' +
+  '.cc-nut { fill: #2a3038; }' +
+  '.cc-shadow { fill: #dde3ea; } .night .cc-shadow { fill: #1d222c; }' +
+  '.cc-page { fill: #fff; stroke: #d3d9e0; stroke-width: .8; } .night .cc-page { fill: #3a4050; stroke: #4a5568; }' +
+  '.cc-cal .cc-band { fill: #e5484d; } .night .cc-cal .cc-band { fill: #c93c42; }' +
+  '.cc-hole { fill: #5f6b7a; }' +
+  '.cc-month { font-size: 7px; font-weight: 700; letter-spacing: .6px; fill: #fff; }' +
+  '.cc-day { font-size: 25px; font-weight: 700; fill: #1f2329; } .night .cc-day { fill: #f0f0f0; }' +
+  '.cc-wd { font-size: 6px; fill: #5c6470; } .night .cc-wd { fill: #a0a6ae; }' +
+  '.cc-curl { fill: #eef1f5; transform-box: fill-box; transform-origin: 100% 100%; animation: cc-flip 7s ease-in-out infinite; } .night .cc-curl { fill: #4a5060; }' +
+  '.cc-live { fill: var(--cc-ic); } .cc-pulse { fill: var(--cc-ic); transform-box: fill-box; transform-origin: center; animation: cc-pulse 1.8s ease-out infinite; }' +
+  '.cc-note { fill: #f5b400; } .cc-note.b { fill: #86b9de; } .night .cc-note { fill: #b88a12; } .night .cc-note.b { fill: #4f7598; }' +
+  '.cc-lid { fill: #9aa3ae; } .cc-base { fill: #c3cad3; } .night .cc-lid { fill: #5d6573; } .night .cc-base { fill: #707987; }' +
+  '.cc-screen { fill: #23303f; } .cc-tile { fill: #3b5470; } .cc-head { fill: #9fc1e6; }' +
+  '.night .cc-screen { fill: #182230; } .night .cc-laptop { filter: drop-shadow(0 0 3px rgba(120,170,255,.45)); }' +
+  '.cc-tile { animation: cc-talk 4.8s steps(1) infinite; } .cc-tile.t2 { animation-delay: -1.2s; } .cc-tile.t3 { animation-delay: -2.4s; } .cc-tile.t4 { animation-delay: -3.6s; }' +
+  '.cc-bell, .cc-abody { fill: #e5484d; } .night .cc-bell, .night .cc-abody { fill: #b8393e; }' +
+  '.cc-aface { fill: #fff; } .night .cc-aface { fill: #fff6dc; }' +
+  '.cc-leg { stroke: #7a2a2e; stroke-width: 1.4; stroke-linecap: round; }' +
+  '.cc-ahand { stroke: #2a3038; stroke-width: .9; stroke-linecap: round; fill: none; } .cc-anut { fill: #2a3038; }' +
+  '.cc-ring { transform-box: view-box; transform-origin: 113px 80px; animation: cc-ring 5s ease-in-out infinite; }' +
+  '.cc-cup { fill: #fff; stroke: #c3cad3; stroke-width: .8; } .night .cc-cup { fill: #d9dde3; stroke: #8a94a1; }' +
+  '.cc-handle { fill: none; stroke: #c3cad3; stroke-width: 1.6; } .night .cc-handle { stroke: #8a94a1; }' +
+  '.cc-mug .cc-band { fill: #e5484d; }' +
+  '.cc-steam path { fill: none; stroke: #aab4c0; stroke-width: 1.1; stroke-linecap: round; opacity: 0; animation: cc-steam 3.2s ease-out infinite; }' +
+  '.cc-steam .s2 { animation-delay: -1.6s; } .night .cc-steam path { stroke: #cfd6df; }' +
+  '.cc-leaf { fill: #5fae6e; transform-box: view-box; transform-origin: 134px 70px; animation: cc-sway 6s ease-in-out infinite alternate; }' +
+  '.cc-leaf.l2 { fill: #4c9a5c; animation-delay: -3s; } .night .cc-leaf { fill: #3c6e48; } .night .cc-leaf.l2 { fill: #335f3e; }' +
+  '.cc-pot { fill: #c46b4e; } .night .cc-pot { fill: #7a4334; }' +
+  '@keyframes cc-turn { to { transform: rotate(360deg); } }' +
+  '@keyframes cc-flip { 0%, 80%, 100% { transform: scale(1); } 88% { transform: scale(1.5, 1.7); } }' +
+  '@keyframes cc-pulse { from { transform: scale(1); opacity: .7; } to { transform: scale(2.6); opacity: 0; } }' +
+  '@keyframes cc-talk { 0% { fill: #4f8fd6; } 25%, 100% { fill: #3b5470; } }' +
+  '@keyframes cc-ring { 0%, 70%, 100% { transform: rotate(0); } 72%, 76%, 80%, 84% { transform: rotate(-7deg); } 74%, 78%, 82%, 86% { transform: rotate(7deg); } 88% { transform: rotate(0); } }' +
+  '@keyframes cc-steam { 0% { opacity: 0; transform: translateY(3px); } 30% { opacity: .9; } 100% { opacity: 0; transform: translateY(-5px); } }' +
+  '@keyframes cc-sway { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }' +
+  // A narrow card: the sky alone stays, the text gets the room.
+  '@container (max-width: 300px) { .cc-scene { display: none; } .banner > .titles { margin-right: 30px; } }' +
+  '@media (prefers-reduced-motion: reduce) { .banner *, .banner *::before { animation: none !important; } }';
+
 var ccInDialog = (ev) => ev.composedPath().some((n) => ['ha-more-info-dialog', 'ha-dialog', 'dialog'].indexOf(n.localName) >= 0);
 
 // ── Card ─────────────────────────────────────────────────────────────────────
@@ -2330,6 +2600,7 @@ class CalendarAgendaCard extends HTMLElement {
     this._failed = [];
     this._fetchedAt = 0;
     this._fetchSeq = 0;
+    this._uid = ++ccUid;
     // Popup, "more" section and mini card fold back on a click anywhere else on the page.
     this._onOutside = (ev) => {
       if (ev.composedPath().includes(this) || ccInDialog(ev)) return;
@@ -2536,7 +2807,7 @@ class CalendarAgendaCard extends HTMLElement {
     var todos = ccTodoLists(this._config, this._hass);
     var watched = cals.map((c) => c.entity).concat(todos.map((t) => t.entity), workday ? [workday] : []);
     var tick = `${watched.map((id) => this._hass.states[id]?.last_updated || '').join('|')}|${this._todoAt || 0}|${minute}|${this._detail}|${this._expanded}|${this._zoomed}|${!!this._adding}|${this._confirm}` +
-      `|${this._hass.language}|${loc.language}|${loc.time_format}|${tz}|${this._weekOff || 0}`;
+      `|${this._hass.language}|${loc.language}|${loc.time_format}|${tz}|${this._weekOff || 0}|${this._hass.states['sun.sun']?.state}|${!!this._hass.themes?.darkMode}`;
     if (this._sig != null && tick === this._tick) return;
     this._tick = tick;
     // Fetch again when the calendars, the range or the day change, when a calendar entity changes
@@ -2556,7 +2827,8 @@ class CalendarAgendaCard extends HTMLElement {
     var sig = JSON.stringify([this._lang(), this._fmtLang(), this._fetchedAt, this._weekOff || 0, this._detail, this._expanded, this._zoomed, !!this._adding, this._form?.error, this._form?.busy, this._form?.confirm,
       this._confirm, this._popErr, this._popBusy,
       minute, cals.map((c) => [c.entity, c.color, c.name]), this._hass.locale?.time_format, tz,
-      workday ? this._hass.states[workday]?.state : '', this._todoAt || 0, todos.map((t) => t.name)]);
+      workday ? this._hass.states[workday]?.state : '', this._todoAt || 0, todos.map((t) => t.name),
+      ccIsNight(this._hass, this._config)]);
     if (sig === this._sig) return;
     this._sig = sig;
     // Re-rendering replaces the whole shadow DOM: put the keyboard focus back on the same event (found
@@ -2796,11 +3068,40 @@ class CalendarAgendaCard extends HTMLElement {
   // Shared by the full and mini cards: the "N events today" counter is a status badge at the right
   // of the header, like the other ha-* cards.
   _headerHtml(now, sub) {
+    if (this._config.illustration !== false) return this._bannerHtml(now, sub);
     // Locale-aware upper case: Greek drops its accents (ΤΡΙ, not ΤΡΊ).
     var wd = this._wdShort(now).toLocaleUpperCase(this._fmtLang());
     return '<div class="header">' + ccLogo(wd, now.getDate()) +
       `<div class="titles">${this._config.show_title !== false ? `<div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div>` : ''}${this._chipsHtml(now)}</div>` +
       `<span class="st" title="${ccEsc(sub)}"><span class="dot"></span><span class="stt">${ccEsc(sub)}</span></span>${this._addButton()}${this._zoomButton()}</div>`;
+  }
+
+  // The illustrated header (default): the round calendar icon in the status colour, the title and the counter on
+  // the wall at the left, today's tear-off calendar and the desk at the right, the buttons at the top right.
+  _bannerHtml(now, sub) {
+    var status = this._status(now);
+    var lang = this._fmtLang();
+    var month = this._monthShort(now).toLocaleUpperCase(lang);
+    var wd = this._dateFmt(now, { weekday: 'long' });
+    wd = wd.charAt(0).toLocaleUpperCase(lang) + wd.slice(1);
+    var night = ccIsNight(this._hass, this._config);
+    return `<div class="header banner ${status}${night ? ' night' : ''}" style="--cc-ic:${CC_STATUS_COLOR[status]}">` +
+      ccSceneSvg(this._uid, status, month, now.getDate(), wd) +
+      `<div class="logo" title="${ccEsc(sub)}"><ha-icon icon="mdi:calendar"></ha-icon></div>` +
+      `<div class="titles">${this._config.show_title !== false ? `<div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div>` : ''}` +
+      `<span class="st" title="${ccEsc(sub)}"><span class="dot"></span><span class="stt">${ccEsc(sub)}</span></span>${this._chipsHtml(now)}</div>` +
+      `<div class="hbtns">${this._addButton()}${this._zoomButton()}</div></div>`;
+  }
+
+  // Status of the day for the header: an event under way (now), another one still ahead today or an all-day
+  // event today (upcoming), nothing more today (free), or a calendar that failed to load (error).
+  _status(now) {
+    if (this._failed.length) return 'error';
+    var c = this._config;
+    var events = this._events.filter((e) => !ccExcluded(e, c.exclude) && this._cals?.[e.cal]);
+    if (events.some((e) => !e.allDay && e.start <= now && e.end > now)) return 'now';
+    var end = ccAddDays(ccDayStart(now), 1);
+    return events.some((e) => (e.allDay ? e.start < end && e.end > now : e.start > now && e.start < end)) ? 'upcoming' : 'free';
   }
 
   // Above the week: the arrows, its dates, and Today when another week is shown.
@@ -3460,6 +3761,7 @@ class CalendarAgendaCard extends HTMLElement {
       '.tsum { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }' +
       '.tdue { flex: none; font-size: 12px; color: var(--secondary-text-color); }' +
       '.tdue.late { color: var(--error-color, #db4437); }' +
+      (this._config?.illustration !== false ? CC_SCENE_STYLE : '') +
     '</style>';
   }
 }
@@ -3591,6 +3893,7 @@ class CalendarAgendaCardEditor extends HTMLElement {
       {
         type: 'grid', name: '', schema: [
           { name: 'show_header', selector: { boolean: {} } },
+          { name: 'illustration', selector: { boolean: {} } },
           { name: 'show_title', selector: { boolean: {} } },
           { name: 'show_location', selector: { boolean: {} } },
           { name: 'show_end_time', selector: { boolean: {} } },
@@ -3601,6 +3904,7 @@ class CalendarAgendaCardEditor extends HTMLElement {
           { name: 'edit_buttons', selector: { boolean: {} } },
         ].concat(mini ? [{ name: 'zoom', selector: { boolean: {} } }] : []),
       },
+      { name: 'illustration_theme', selector: { select: { mode: 'dropdown', options: ['auto', 'day', 'night'].map((v) => ({ value: v, label: ccT(this._lang(), `theme_${v}`) })) } } },
       { name: 'exclude', selector: { text: { multiple: true } } },
       {
         name: 'language',
