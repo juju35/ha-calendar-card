@@ -818,13 +818,13 @@ test("narrow header: the title keeps a few characters, the pill shrinks to its d
       assert.doesNotMatch(st, /flex-shrink: 0/);
       assert.match(cssRule(html, ".st .stt"), /text-overflow: ellipsis/);
       // The counter text sits in its own ellipsized span; the whole text stays in the pill's tooltip.
-      assert.match(html, /<span class="st" title="1 événement aujourd&#39;hui"><span class="dot"><\/span><span class="stt">1 événement aujourd&#39;hui<\/span><\/span>/);
+      assert.match(html, /<span class="st" title="1 événement aujourd&#39;hui"(?: aria-label="1 événement aujourd&#39;hui")?><span class="dot"><\/span><span class="stt">1 événement aujourd&#39;hui<\/span><\/span>/);
       // Under the threshold only the dot is shown; the text is visually hidden but still read out.
-      const narrow = html.match(/@container \(max-width: 200px\) \{([\s\S]*?)\}\s*\}/)?.[1] || "";
+      const narrow = html.match(/@container (?:cc-head )?\(max-width: 200px\) \{([\s\S]*?)\}\s*\}/)?.[1] || "";
       assert.match(narrow, /\.st \.stt \{[^}]*clip-path: inset\(50%\)/);
       assert.match(narrow, /\.st \.dot \{[^}]*display: block/);
       // A little wider, the logo gives way so the counter keeps its whole text; the title, first then, keeps its place.
-      assert.match(html, /@container \(max-width: 240px\) \{ \.logo \{ display: none; \} \}/);
+      assert.match(html, /@container (?:cc-head )?\(max-width: 240px\) \{ \.logo \{ display: none; \} \}/);
       assert.doesNotMatch(narrow, /\.titles[^{]*\{[^}]*margin-left: -/);
     }
     const card = await render(Mini, events);
@@ -941,7 +941,7 @@ test("no size containment on the card itself, so it keeps its width in a contain
     assert.doesNotMatch(cssRule(html, "ha-card"), /container/);
     assert.doesNotMatch(cssRule(html, ":host"), /container/);
     // The narrow query only targets what is inside the header.
-    const narrow = html.match(/@container \(max-width: 200px\) \{([\s\S]*?)\}\s*\}/)?.[1] || "";
+    const narrow = html.match(/@container (?:cc-head )?\(max-width: 200px\) \{([\s\S]*?)\}\s*\}/)?.[1] || "";
     for (const sel of narrow.match(/(^|\})\s*([^{}]+)\{/g).map((x) => x.replace(/[{}]/g, "").trim())) {
       assert.doesNotMatch(sel, /(^|,\s*)\.header\s*($|,)/, sel);
     }

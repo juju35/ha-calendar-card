@@ -2526,14 +2526,27 @@ var CC_SCENE_STYLE =
   '.banner.night .logo { color: color-mix(in srgb, var(--cc-ic) 78%, #fff); background: rgba(255,255,255,.12); box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); }' +
   '.banner .logo ha-icon { --mdc-icon-size: 24px; }' +
   '.banner .name { color: inherit; font-weight: 600; }' +
-  '.banner .st { display: flex; padding: 0; background: none; border-radius: 0; font-size: 13px; font-weight: 400; color: #4a5565; }' +
-  '.banner.night .st { color: rgba(255,255,255,.8); }' +
-  '.banner .st .dot { background: var(--cc-ic); }' +
+  // The titles are their own container: the status pill sits right after the title, centred on it, in the icon's
+  // colour (the title ellipsises first, down to 4 characters); short of room it drops under the subtitle.
+  '.banner > .titles { container: cc-titles / inline-size; align-self: stretch; display: flex; flex-direction: column; justify-content: center; gap: 2px; }' +
+  '.banner .tline { display: flex; align-items: center; gap: 8px; min-width: 0; }' +
+  '.banner .tline .name { flex: 0 1 auto; min-width: 4ch; }' +
+  '.banner .st { flex: 0 0 auto; max-width: 100%; margin: 0; padding: 1px 8px; border-radius: 12px; font-size: 11px; font-weight: 500; line-height: 16px;' +
+  ' background: color-mix(in srgb, var(--cc-ic) 18%, rgba(255,255,255,.78)); color: color-mix(in srgb, var(--cc-ic) 45%, #0d2a45); }' +
+  '.banner.night .st { background: color-mix(in srgb, var(--cc-ic) 30%, rgba(8,18,38,.55)); color: color-mix(in srgb, var(--cc-ic) 35%, #ffffff); }' +
+  '.banner .st .dot { display: block; width: 7px; height: 7px; background: var(--cc-ic); }' +
+  '@container cc-titles (max-width: 200px) { .banner .tline { display: contents; } .banner .st { order: 3; align-self: flex-start; margin-top: 1px; } }' +
   '.banner .chip { color: #3d4a5a; background: rgba(255,255,255,.7); }' +
   '.banner.night .chip { color: rgba(255,255,255,.85); background: rgba(255,255,255,.12); }' +
-  '.hbtns { position: absolute; top: 6px; right: 6px; z-index: 1; display: flex; gap: 4px; }' +
-  '.hbtns .addb, .hbtns .zoom { margin: 0; width: 28px; height: 28px; color: #1f2a37; background: rgba(255,255,255,.6); }' +
-  '.night .hbtns .addb, .night .hbtns .zoom { color: #fff; background: rgba(10,16,28,.45); }' +
+  // The header buttons: 24 px frosted discs on the banner's top line, the detail button in the top-right corner.
+  '.hbtns { position: absolute; top: 5px; right: 5px; z-index: 2; display: flex; gap: 4px; }' +
+  '.hbtns .addb, .hbtns .zoom { all: unset; box-sizing: border-box; display: grid; place-items: center; cursor: pointer; margin: 0; width: 24px; height: 24px; border-radius: 50%;' +
+  ' color: #33506b; background: rgba(255,255,255,.55); box-shadow: inset 0 0 0 1px rgba(255,255,255,.7); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); --mdc-icon-size: 16px; }' +
+  '.hbtns .addb ha-icon, .hbtns .zoom ha-icon { --mdc-icon-size: 16px; }' +
+  '.hbtns .addb:hover, .hbtns .zoom:hover { background: rgba(255,255,255,.75); color: #33506b; }' +
+  '.night .hbtns .addb, .night .hbtns .zoom { color: #fff; background: rgba(255,255,255,.12); box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); }' +
+  '.night .hbtns .addb:hover, .night .hbtns .zoom:hover { background: rgba(255,255,255,.22); color: #fff; }' +
+  '.hbtns .addb:focus-visible, .hbtns .zoom:focus-visible { outline: 2px solid var(--primary-color, #03a9f4); outline-offset: 2px; }' +
   '.cc-desk { position: absolute; left: 0; right: 0; bottom: 0; height: 10px; background: #b98a5c; box-shadow: inset 0 2px 0 #d4a878; }' +
   '.night .cc-desk { background: #4a3a2c; box-shadow: inset 0 2px 0 #5c4836; }' +
   '.cc-scene { position: absolute; right: 0; bottom: 10px; width: 150px; height: 80px; pointer-events: none; font-family: inherit; }' +
@@ -3088,8 +3101,8 @@ class CalendarAgendaCard extends HTMLElement {
     return `<div class="header banner ${status}${night ? ' night' : ''}" style="--cc-ic:${CC_STATUS_COLOR[status]}">` +
       ccSceneSvg(this._uid, status, month, now.getDate(), wd) +
       `<div class="logo" title="${ccEsc(sub)}"><ha-icon icon="mdi:calendar"></ha-icon></div>` +
-      `<div class="titles">${this._config.show_title !== false ? `<div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div>` : ''}` +
-      `<span class="st" title="${ccEsc(sub)}"><span class="dot"></span><span class="stt">${ccEsc(sub)}</span></span>${this._chipsHtml(now)}</div>` +
+      `<div class="titles"><div class="tline">${this._config.show_title !== false ? `<div class="name">${ccEsc(this._config.title || this._t('agenda'))}</div>` : ''}` +
+      `<span class="st" title="${ccEsc(sub)}" aria-label="${ccEsc(sub)}"><span class="dot"></span><span class="stt">${ccEsc(sub)}</span></span></div>${this._chipsHtml(now)}</div>` +
       `<div class="hbtns">${this._addButton()}${this._zoomButton()}</div></div>`;
   }
 
@@ -3559,7 +3572,7 @@ class CalendarAgendaCard extends HTMLElement {
       'ha-card.popped { min-height: 240px; }' +
       '.empty { display: flex; align-items: center; gap: 10px; color: var(--secondary-text-color); }' +
       // The body starts 8px under the header, like the other ha-* cards (the card's gap is 10px).
-      '.header { display: flex; align-items: center; gap: 10px; margin-bottom: -2px; container-type: inline-size; }' +
+      '.header { display: flex; align-items: center; gap: 10px; margin-bottom: -2px; container-type: inline-size; container-name: cc-head; }' +
       '.logo { width: 40px; height: 40px; flex-shrink: 0; font-family: inherit; }' +
       // The counter pill gets its whole width first and the title the rest, down to a few characters
       // (ellipsized); only then does the pill give way.
@@ -3705,10 +3718,10 @@ class CalendarAgendaCard extends HTMLElement {
       '.st .dot { display: none; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--cc-accent); }' +
       // Header under 240px (a phone's 6 to 8-column section card): the logo gives its room to the title and
       // the counter, which then shows its whole text down to a 245px card in every language.
-      '@container (max-width: 240px) { .logo { display: none; } }' +
+      '@container cc-head (max-width: 240px) { .logo { display: none; } }' +
       // Header under 200px: dot only, tighter gaps (the header is the container: its 10px gaps lose 4px
       // through the items' margins). The text stays readable by screen readers, and in the pill's tooltip.
-      '@container (max-width: 200px) {' +
+      '@container cc-head (max-width: 200px) {' +
         ' .st, .zoom { margin-left: -4px; }' +
         ' .st { padding: 4px; }' +
         ' .st .stt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }' +
