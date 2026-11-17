@@ -70,7 +70,7 @@ var CcI18n = {
     ed_illustration: 'Illustration',
     ed_illustration_helper: 'Scène animée dans l’en-tête ; désactivée : en-tête classique',
     ed_illustration_theme: 'Thème de l’illustration',
-    theme_auto: 'Automatique (soleil ou thème sombre)',
+    theme_auto: 'Automatique (suit le thème)',
     theme_day: 'Jour',
     theme_night: 'Nuit',
     ed_show_title: 'Afficher le titre',
@@ -165,7 +165,7 @@ var CcI18n = {
     ed_illustration: 'Illustration',
     ed_illustration_helper: 'Animated scene in the header; off: the classic header',
     ed_illustration_theme: 'Illustration theme',
-    theme_auto: 'Automatic (sun or dark theme)',
+    theme_auto: 'Automatic (follows the theme)',
     theme_day: 'Day',
     theme_night: 'Night',
     ed_show_title: 'Show title',
@@ -260,7 +260,7 @@ var CcI18n = {
     ed_illustration: 'Illustration',
     ed_illustration_helper: 'Animierte Szene in der Kopfzeile; aus: klassische Kopfzeile',
     ed_illustration_theme: 'Illustrationsdesign',
-    theme_auto: 'Automatisch (Sonne oder dunkles Design)',
+    theme_auto: 'Automatisch (folgt dem Design)',
     theme_day: 'Tag',
     theme_night: 'Nacht',
     ed_show_title: 'Titel anzeigen',
@@ -355,7 +355,7 @@ var CcI18n = {
     ed_illustration: 'Ilustración',
     ed_illustration_helper: 'Escena animada en el encabezado; desactivada: encabezado clásico',
     ed_illustration_theme: 'Tema de la ilustración',
-    theme_auto: 'Automático (sol o tema oscuro)',
+    theme_auto: 'Automático (sigue el tema)',
     theme_day: 'Día',
     theme_night: 'Noche',
     ed_show_title: 'Mostrar el título',
@@ -450,7 +450,7 @@ var CcI18n = {
     ed_illustration: 'Илустрација',
     ed_illustration_helper: 'Анимирана сцена у заглављу; искључено: класично заглавље',
     ed_illustration_theme: 'Тема илустрације',
-    theme_auto: 'Аутоматски (сунце или тамна тема)',
+    theme_auto: 'Аутоматски (прати тему)',
     theme_day: 'Дан',
     theme_night: 'Ноћ',
     ed_show_title: 'Прикажи наслов',
@@ -545,7 +545,7 @@ var CcI18n = {
     ed_illustration: 'Ilustracija',
     ed_illustration_helper: 'Animirana scena u zaglavlju; isključeno: klasično zaglavlje',
     ed_illustration_theme: 'Tema ilustracije',
-    theme_auto: 'Automatski (sunce ili tamna tema)',
+    theme_auto: 'Automatski (prati temu)',
     theme_day: 'Dan',
     theme_night: 'Noć',
     ed_show_title: 'Prikaži naslov',
@@ -640,7 +640,7 @@ var CcI18n = {
     ed_illustration: 'Illustrazione',
     ed_illustration_helper: 'Scena animata nell’intestazione; disattivata: intestazione classica',
     ed_illustration_theme: 'Tema dell’illustrazione',
-    theme_auto: 'Automatico (sole o tema scuro)',
+    theme_auto: 'Automatico (segue il tema)',
     theme_day: 'Giorno',
     theme_night: 'Notte',
     ed_show_title: 'Mostra il titolo',
@@ -735,7 +735,7 @@ var CcI18n = {
     ed_illustration: 'Illustratie',
     ed_illustration_helper: 'Geanimeerde scène in de koptekst; uit: klassieke koptekst',
     ed_illustration_theme: 'Thema van de illustratie',
-    theme_auto: 'Automatisch (zon of donker thema)',
+    theme_auto: 'Automatisch (volgt het thema)',
     theme_day: 'Dag',
     theme_night: 'Nacht',
     ed_show_title: 'Titel tonen',
@@ -830,7 +830,7 @@ var CcI18n = {
     ed_illustration: 'Ilustração',
     ed_illustration_helper: 'Cena animada no cabeçalho; desligada: cabeçalho clássico',
     ed_illustration_theme: 'Tema da ilustração',
-    theme_auto: 'Automático (sol ou tema escuro)',
+    theme_auto: 'Automático (segue o tema)',
     theme_day: 'Dia',
     theme_night: 'Noite',
     ed_show_title: 'Mostrar o título',
@@ -925,7 +925,7 @@ var CcI18n = {
     ed_illustration: 'Ilustracja',
     ed_illustration_helper: 'Animowana scena w nagłówku; wyłączona: klasyczny nagłówek',
     ed_illustration_theme: 'Motyw ilustracji',
-    theme_auto: 'Automatycznie (słońce lub ciemny motyw)',
+    theme_auto: 'Automatycznie (według motywu)',
     theme_day: 'Dzień',
     theme_night: 'Noc',
     ed_show_title: 'Pokaż tytuł',
@@ -1020,7 +1020,7 @@ var CcI18n = {
     ed_illustration: 'Ilustrație',
     ed_illustration_helper: 'Scenă animată în antet; dezactivată: antetul clasic',
     ed_illustration_theme: 'Tema ilustrației',
-    theme_auto: 'Automat (soare sau temă întunecată)',
+    theme_auto: 'Automat (urmează tema)',
     theme_day: 'Zi',
     theme_night: 'Noapte',
     ed_show_title: 'Afișează titlul',
@@ -1115,7 +1115,7 @@ var CcI18n = {
     ed_illustration: 'Illustration',
     ed_illustration_helper: 'Animeret scene i overskriften; fra: den klassiske overskrift',
     ed_illustration_theme: 'Illustrationstema',
-    theme_auto: 'Automatisk (sol eller mørkt tema)',
+    theme_auto: 'Automatisk (følger temaet)',
     theme_day: 'Dag',
     theme_night: 'Nat',
     ed_show_title: 'Vis titel',
@@ -1210,7 +1210,7 @@ var CcI18n = {
     ed_illustration: 'Illustration',
     ed_illustration_helper: 'Animerad scen i rubriken; av: den klassiska rubriken',
     ed_illustration_theme: 'Illustrationstema',
-    theme_auto: 'Automatiskt (sol eller mörkt tema)',
+    theme_auto: 'Automatiskt (följer temat)',
     theme_day: 'Dag',
     theme_night: 'Natt',
     ed_show_title: 'Visa rubrik',
@@ -1305,7 +1305,7 @@ var CcI18n = {
     ed_illustration: 'Илюстрация',
     ed_illustration_helper: 'Анимирана сцена в заглавната част; изключено: класическа заглавна част',
     ed_illustration_theme: 'Тема на илюстрацията',
-    theme_auto: 'Автоматично (слънце или тъмна тема)',
+    theme_auto: 'Автоматично (следва темата)',
     theme_day: 'Ден',
     theme_night: 'Нощ',
     ed_show_title: 'Показване на заглавието',
@@ -1400,7 +1400,7 @@ var CcI18n = {
     ed_illustration: 'Иллюстрация',
     ed_illustration_helper: 'Анимированная сцена в шапке; выкл.: классическая шапка',
     ed_illustration_theme: 'Тема иллюстрации',
-    theme_auto: 'Автоматически (солнце или тёмная тема)',
+    theme_auto: 'Автоматически (по теме)',
     theme_day: 'День',
     theme_night: 'Ночь',
     ed_show_title: 'Показывать заголовок',
@@ -1495,7 +1495,7 @@ var CcI18n = {
     ed_illustration: 'Ілюстрація',
     ed_illustration_helper: 'Анімована сцена в шапці; вимк.: класична шапка',
     ed_illustration_theme: 'Тема ілюстрації',
-    theme_auto: 'Автоматично (сонце або темна тема)',
+    theme_auto: 'Автоматично (за темою)',
     theme_day: 'День',
     theme_night: 'Ніч',
     ed_show_title: 'Показувати заголовок',
@@ -1590,7 +1590,7 @@ var CcI18n = {
     ed_illustration: 'Illusztráció',
     ed_illustration_helper: 'Animált jelenet a fejlécben; ki: klasszikus fejléc',
     ed_illustration_theme: 'Illusztráció témája',
-    theme_auto: 'Automatikus (nap vagy sötét téma)',
+    theme_auto: 'Automatikus (a témát követi)',
     theme_day: 'Nappal',
     theme_night: 'Éjszaka',
     ed_show_title: 'Cím megjelenítése',
@@ -1685,7 +1685,7 @@ var CcI18n = {
     ed_illustration: 'Ilustrácia',
     ed_illustration_helper: 'Animovaná scéna v hlavičke; vypnuté: klasická hlavička',
     ed_illustration_theme: 'Téma ilustrácie',
-    theme_auto: 'Automaticky (slnko alebo tmavá téma)',
+    theme_auto: 'Automaticky (podľa témy)',
     theme_day: 'Deň',
     theme_night: 'Noc',
     ed_show_title: 'Zobraziť názov',
@@ -1780,7 +1780,7 @@ var CcI18n = {
     ed_illustration: 'Ilustrace',
     ed_illustration_helper: 'Animovaná scéna v záhlaví; vypnuto: klasické záhlaví',
     ed_illustration_theme: 'Motiv ilustrace',
-    theme_auto: 'Automaticky (slunce nebo tmavý motiv)',
+    theme_auto: 'Automaticky (podle motivu)',
     theme_day: 'Den',
     theme_night: 'Noc',
     ed_show_title: 'Zobrazit název',
@@ -1875,7 +1875,7 @@ var CcI18n = {
     ed_illustration: 'Ilustracija',
     ed_illustration_helper: 'Animirani prizor v glavi; izklopljeno: klasična glava',
     ed_illustration_theme: 'Tema ilustracije',
-    theme_auto: 'Samodejno (sonce ali temna tema)',
+    theme_auto: 'Samodejno (sledi temi)',
     theme_day: 'Dan',
     theme_night: 'Noč',
     ed_show_title: 'Prikaži naslov',
@@ -1970,7 +1970,7 @@ var CcI18n = {
     ed_illustration: 'Ilustrācija',
     ed_illustration_helper: 'Animēta aina galvenē; izslēgta: klasiskā galvene',
     ed_illustration_theme: 'Ilustrācijas motīvs',
-    theme_auto: 'Automātiski (saule vai tumšā tēma)',
+    theme_auto: 'Automātiski (seko tēmai)',
     theme_day: 'Diena',
     theme_night: 'Nakts',
     ed_show_title: 'Rādīt virsrakstu',
@@ -2065,7 +2065,7 @@ var CcI18n = {
     ed_illustration: 'Εικονογράφηση',
     ed_illustration_helper: 'Κινούμενη σκηνή στην κεφαλίδα· ανενεργή: κλασική κεφαλίδα',
     ed_illustration_theme: 'Θέμα εικονογράφησης',
-    theme_auto: 'Αυτόματο (ήλιος ή σκούρο θέμα)',
+    theme_auto: 'Αυτόματο (ακολουθεί το θέμα)',
     theme_day: 'Ημέρα',
     theme_night: 'Νύχτα',
     ed_show_title: 'Εμφάνιση τίτλου',
@@ -2459,13 +2459,13 @@ var ccLogo = (wd, day) => '<svg class="logo" viewBox="0 0 40 40" role="img" aria
 // carries the card's uid so several cards on a page never share a gradient.
 var ccUid = 0;
 
-// Night picture: forced by illustration_theme, else the sun below the horizon or Home Assistant's dark theme
-// (the dark theme shows the night picture even while the sun is up; an unavailable sun leaves the dark theme alone).
+// Night picture: forced by illustration_theme, else Home Assistant's dark theme alone (a light theme keeps the day
+// picture after sunset).
 function ccIsNight(hass, config) {
   var theme = config?.illustration_theme;
   if (theme === 'night') return true;
   if (theme === 'day') return false;
-  return hass?.states?.['sun.sun']?.state === 'below_horizon' || !!hass?.themes?.darkMode;
+  return !!hass?.themes?.darkMode;
 }
 
 // Header icon colour of each status: HA's state colours of a calendar entity (on while an event is under way),
@@ -2885,7 +2885,7 @@ class CalendarAgendaCard extends HTMLElement {
     var todos = ccTodoLists(this._config, this._hass);
     var watched = cals.map((c) => c.entity).concat(todos.map((t) => t.entity), workday ? [workday] : []);
     var tick = `${watched.map((id) => this._hass.states[id]?.last_updated || '').join('|')}|${this._todoAt || 0}|${minute}|${this._detail}|${this._expanded}|${this._zoomed}|${!!this._adding}|${this._confirm}` +
-      `|${this._hass.language}|${loc.language}|${loc.time_format}|${tz}|${this._weekOff || 0}|${this._hass.states['sun.sun']?.state}|${!!this._hass.themes?.darkMode}`;
+      `|${this._hass.language}|${loc.language}|${loc.time_format}|${tz}|${this._weekOff || 0}|${!!this._hass.themes?.darkMode}`;
     if (this._sig != null && tick === this._tick) return;
     this._tick = tick;
     // Fetch again when the calendars, the range or the day change, when a calendar entity changes

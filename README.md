@@ -153,7 +153,7 @@ language: en
 | `max_events` | ❌ | `5` | Events shown before the folded **more** section (`0` shows everything) |
 | `show_header` | ❌ | `true` | Header with today's date and the number of events today |
 | `illustration` | ❌ | `true` | Both cards: illustrated header (today's calendar on a desk, status colour and animations); `false` for the classic header |
-| `illustration_theme` | ❌ | `auto` | Both cards: `auto` (night when `sun.sun` is below the horizon or with a dark theme, even while the sun is up), `day` or `night` |
+| `illustration_theme` | ❌ | `auto` | Both cards: `auto` (follows the Home Assistant theme: night with a dark theme, day with a light theme), `day` or `night` |
 | `show_location` | ❌ | `true` | Show the event location |
 | `show_end_time` | ❌ | `true` | Show the end time of timed events |
 | `show_countdown` | ❌ | `true` | Countdown and **Now** badge for today's events |

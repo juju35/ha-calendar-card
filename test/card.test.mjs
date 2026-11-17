@@ -1788,27 +1788,25 @@ test("illustrated header: today's date on the calendar, status colour, night, cl
   }
 });
 
-test("night picture follows sun.sun below the horizon or the dark theme, unless illustration_theme forces it", async () => {
+test("night picture follows the dark theme alone, unless illustration_theme forces it", async () => {
   const card = new CalendarAgendaCard();
   card.setConfig({ entities: ["calendar.home"] });
   const hass = mockHass({});
-  card.hass = { ...hass, states: { ...hass.states, "sun.sun": { state: "below_horizon" } } };
-  assert.match(card.shadowRoot.innerHTML, /banner [a-z]+ night/);
-  card.hass = { ...hass, themes: { darkMode: true } };
-  assert.match(card.shadowRoot.innerHTML, /banner [a-z]+ night/);
-  card.setConfig({ entities: ["calendar.home"], illustration_theme: "day" });
+  const sky = (sun, dark) => ({ ...hass, states: { ...hass.states, "sun.sun": { state: sun } }, themes: { darkMode: dark } });
+  // The theme decides: a light theme keeps the day picture after sunset, a dark theme shows the night one even
+  // while the sun is up.
+  card.hass = sky("below_horizon", false);
   assert.doesNotMatch(card.shadowRoot.innerHTML, /banner [a-z]+ night/);
-  // The dark theme shows the night picture even while the sun is up; the light theme keeps the day one.
-  const sunUp = (dark) => ({ ...hass, states: { ...hass.states, "sun.sun": { state: "above_horizon" } }, themes: { darkMode: dark } });
-  card.setConfig({ entities: ["calendar.home"] });
-  card.hass = sunUp(true);
+  card.hass = sky("below_horizon", true);
   assert.match(card.shadowRoot.innerHTML, /banner [a-z]+ night/);
-  card.hass = sunUp(false);
+  card.hass = sky("above_horizon", true);
+  assert.match(card.shadowRoot.innerHTML, /banner [a-z]+ night/);
+  card.hass = sky("above_horizon", false);
   assert.doesNotMatch(card.shadowRoot.innerHTML, /banner [a-z]+ night/);
   card.setConfig({ entities: ["calendar.home"], illustration_theme: "day" });
-  card.hass = sunUp(true);
+  card.hass = sky("below_horizon", true);
   assert.doesNotMatch(card.shadowRoot.innerHTML, /banner [a-z]+ night/);
   card.setConfig({ entities: ["calendar.home"], illustration_theme: "night" });
-  card.hass = sunUp(false);
+  card.hass = sky("above_horizon", false);
   assert.match(card.shadowRoot.innerHTML, /banner [a-z]+ night/);
 });
