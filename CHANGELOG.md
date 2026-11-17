@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.12.0 - 2026-11-17
+
+### Features
+- **Illustrated header** on the full and mini cards (90px): today's tear-off wall calendar (month, day number, weekday) and a wall clock over a 10px desk strip, the title and today's counter on the left. The round calendar icon and the desk tell the status: an event under way (HA's calendar *on* colour, a video call on a laptop), another event still ahead today (the card's accent, an alarm clock ringing now and then), the rest of the day free (grey, a steaming mug), a calendar that failed to load (error colour).
+- **Status pill**: the day's counter (5 events today, Nothing today…) is a pill right after the title again, in the icon's status colour, with or without the illustration, as long as the title stays whole and the pill keeps its whole label beside it (measured by the card in every language, no fixed width threshold); otherwise it takes its own line under the day's chips, kept to one line, and shows its dot alone when even that does not fit the banner, and below 200 px. The add and expand / collapse buttons are 24 px frosted discs on the banner's top-right line, the detail button in the corner.
+- Night picture when `sun.sun` is below the horizon or with a dark theme, forced with `illustration_theme: day | night`; `illustration: false` keeps the classic header. Animations stop with *reduce motion*. Both options are in the visual editor of both cards.
+- **Night picture with the dark theme even while the sun is up**: in `auto`, the banner shows the night picture when the sun is below the horizon or Home Assistant's theme is dark.
+
+### Fixes
+- **Readable week view**: the 7 columns only from a 720px wide card (one day per row below, as on a narrow card), event tiles in 12px with a 11px time, titles cut with an ellipsis after three lines (two in rows) and whole in their tooltip; in the agenda the countdown goes under an event rather than squeeze its time and place, and the banner's workday and holiday chips stay on one line (ellipsis, full text in a tooltip) instead of pushing the title out of the banner on a narrow card.
+
 ## 1.11.1 - 2026-11-14
 
 ### Fixes

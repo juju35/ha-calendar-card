@@ -95,6 +95,7 @@ const icons = {
   "map-marker-outline": "M12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5M12,2A7,7 0 0,1 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9A7,7 0 0,1 12,2M12,4A5,5 0 0,0 7,9C7,10 7,12 12,18.71C17,12 17,10 17,9A5,5 0 0,0 12,4Z",
   "pencil-outline": "M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z",
   "plus": "M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z",
+  "calendar": "M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z",
   "beach": "M15,18.54C17.13,18.21 19.5,18 22,18V22H5C5,21.35 8.2,19.86 13,18.9V12.4C12.16,12.65 11.45,13.21 11,13.95C10.39,12.93 9.27,12.25 8,12.25C6.73,12.25 5.61,12.93 5,13.95C5.03,10.37 8.5,7.43 13,7.04V7A1,1 0 0,1 14,6A1,1 0 0,1 15,7V7.04C19.5,7.43 22.96,10.37 23,13.95C22.39,12.93 21.27,12.25 20,12.25C18.73,12.25 17.61,12.93 17,13.95C16.55,13.21 15.84,12.65 15,12.39V18.54M7,2A5,5 0 0,1 2,7V2H7Z",
   "briefcase-outline": "M20,6C20.58,6 21.05,6.2 21.42,6.59C21.8,7 22,7.45 22,8V19C22,19.55 21.8,20 21.42,20.41C21.05,20.8 20.58,21 20,21H4C3.42,21 2.95,20.8 2.58,20.41C2.2,20 2,19.55 2,19V8C2,7.45 2.2,7 2.58,6.59C2.95,6.2 3.42,6 4,6H8V4C8,3.42 8.2,2.95 8.58,2.58C8.95,2.2 9.42,2 10,2H14C14.58,2 15.05,2.2 15.42,2.58C15.8,2.95 16,3.42 16,4V6H20M4,8V19H20V8H4M14,6V4H10V6H14Z",
   "checkbox-blank-circle-outline": "M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z",
@@ -206,8 +207,10 @@ const shots = [
       await page.mouse.move(0, 0);
     },
   })),
-  { file: "week", type: "calendar-agenda-card", theme: "light", width: 760, config: { view: "week" } },
-  { file: "week-dark", type: "calendar-agenda-card", theme: "dark", width: 760, config: { view: "week" } },
+  // The week as most dashboards show it (one day per row, readable at the README's size); week-extras shows the
+  // 7 columns of a wide card.
+  { file: "week", type: "calendar-agenda-card", theme: "light", width: 460, config: { view: "week" } },
+  { file: "week-dark", type: "calendar-agenda-card", theme: "dark", width: 460, config: { view: "week" } },
   // To-do lists, the working day badge and the school holidays, in the agenda and the week.
   ...["light", "dark"].flatMap((theme) => [
     { file: theme === "dark" ? "agenda-extras-dark" : "agenda-extras", type: "calendar-agenda-card", theme, width: 460, extras: true, config: { ...EXTRAS, days_to_show: 3 } },
@@ -281,11 +284,11 @@ async function openCard(s) {
   await page.addScriptTag({ content: haElements(icons) });
   await page.addScriptTag({ content: cardJs });
   await page.evaluate(
-    ({ type, config, states, events, entities, registry, todos }) => {
+    ({ type, config, states, events, entities, registry, todos, dark }) => {
       const el = document.createElement(type);
       el.setConfig({ type: `custom:${type}`, entities, ...config });
       el.hass = {
-        states, entities: registry, devices: {}, language: "en", locale: { language: "en", time_format: "24" },
+        states, entities: registry, devices: {}, language: "en", themes: { darkMode: dark }, locale: { language: "en", time_format: "24" },
         callService: async () => {},
         callApi: async (_method, path) => events[path.split("?")[0].replace("calendars/", "")] || [],
         callWS: async (msg) => (msg.type === "todo/item/list" ? { items: todos[msg.entity_id] || [] } : null),
@@ -293,7 +296,7 @@ async function openCard(s) {
       document.getElementById("root").appendChild(el);
     },
     {
-      type: s.type, config: s.config, events: EVENTS, entities, todos: TODO_ITEMS,
+      type: s.type, config: s.config, events: EVENTS, entities, todos: TODO_ITEMS, dark: s.theme === "dark",
       states: s.extras ? { ...states, ...EXTRA_STATES } : states, registry: s.extras ? EXTRA_ENTITIES : {},
     }
   );
