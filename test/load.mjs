@@ -5,7 +5,9 @@ import { fileURLToPath } from "node:url";
 import vm from "node:vm";
 
 export function loadCard(file, names) {
-  const src = readFileSync(fileURLToPath(new URL(`../src/${file}`, import.meta.url)), "utf8");
+  // One source file, or several evaluated as the build bundles them (the cards, then the panel).
+  const files = Array.isArray(file) ? file : [file];
+  const src = files.map((f) => readFileSync(fileURLToPath(new URL(`../src/${f}`, import.meta.url)), "utf8")).join("\n");
   const registry = new Map();
   const sandbox = {
     console: { info() {}, log() {}, warn() {}, error() {} },
@@ -33,6 +35,6 @@ export function loadCard(file, names) {
   // The current global Date, so node:test mock timers apply to the card too.
   Object.defineProperty(sandbox, "Date", { get: () => globalThis.Date });
   vm.createContext(sandbox);
-  vm.runInContext(`${src}\n;globalThis.__exports = { ${names.join(", ")} };`, sandbox, { filename: file });
+  vm.runInContext(`${src}\n;globalThis.__exports = { ${names.join(", ")} };`, sandbox, { filename: files.join("+") });
   return { ...sandbox.__exports, customElements: registry };
 }
