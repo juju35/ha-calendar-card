@@ -61,6 +61,10 @@ customElements.define("ha-card", class extends HTMLElement {
       "border:1px solid var(--divider-color);color:var(--primary-text-color);overflow:hidden}</style><slot></slot>";
   }
 });
+// The sidebar button shows only on a narrow screen: hidden here, as on a desktop.
+customElements.define("ha-menu-button", class extends HTMLElement {
+  connectedCallback() { this.style.display = "none"; }
+});
 customElements.define("ha-icon", class extends HTMLElement {
   static get observedAttributes() { return ["icon"]; }
   connectedCallback() { this._draw(); }
@@ -95,6 +99,7 @@ const icons = {
   "map-marker-outline": "M12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5M12,2A7,7 0 0,1 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9A7,7 0 0,1 12,2M12,4A5,5 0 0,0 7,9C7,10 7,12 12,18.71C17,12 17,10 17,9A5,5 0 0,0 12,4Z",
   "pencil-outline": "M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z",
   "plus": "M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z",
+  "refresh": "M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z",
   "calendar": "M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z",
   "beach": "M15,18.54C17.13,18.21 19.5,18 22,18V22H5C5,21.35 8.2,19.86 13,18.9V12.4C12.16,12.65 11.45,13.21 11,13.95C10.39,12.93 9.27,12.25 8,12.25C6.73,12.25 5.61,12.93 5,13.95C5.03,10.37 8.5,7.43 13,7.04V7A1,1 0 0,1 14,6A1,1 0 0,1 15,7V7.04C19.5,7.43 22.96,10.37 23,13.95C22.39,12.93 21.27,12.25 20,12.25C18.73,12.25 17.61,12.93 17,13.95C16.55,13.21 15.84,12.65 15,12.39V18.54M7,2A5,5 0 0,1 2,7V2H7Z",
   "briefcase-outline": "M20,6C20.58,6 21.05,6.2 21.42,6.59C21.8,7 22,7.45 22,8V19C22,19.55 21.8,20 21.42,20.41C21.05,20.8 20.58,21 20,21H4C3.42,21 2.95,20.8 2.58,20.41C2.2,20 2,19.55 2,19V8C2,7.45 2.2,7 2.58,6.59C2.95,6.2 3.42,6 4,6H8V4C8,3.42 8.2,2.95 8.58,2.58C8.95,2.2 9.42,2 10,2H14C14.58,2 15.05,2.2 15.42,2.58C15.8,2.95 16,3.42 16,4V6H20M4,8V19H20V8H4M14,6V4H10V6H14Z",
@@ -216,6 +221,25 @@ const shots = [
     { file: theme === "dark" ? "agenda-extras-dark" : "agenda-extras", type: "calendar-agenda-card", theme, width: 460, extras: true, config: { ...EXTRAS, days_to_show: 3 } },
     { file: theme === "dark" ? "week-extras-dark" : "week-extras", type: "calendar-agenda-card", theme, width: 760, extras: true, config: { ...EXTRAS, view: "week" } },
   ]),
+  // The optional sidebar panel: its four views, an event's details and the new event form with its repeat rule,
+  // in a 1000 x 760 window (the popups stand over the page).
+  ...["light", "dark"].flatMap((theme) => {
+    const dark = theme === "dark" ? "-dark" : "";
+    const panel = (file, view, after) => ({ file: `${file}${dark}`, type: "calendar-agenda-panel", panel: true, view, theme, width: 968, config: {}, after });
+    return [
+      panel("panel", "month"),
+      panel("panel-week", "week"),
+      panel("panel-day", "day"),
+      panel("panel-list", "list"),
+      panel("panel-details", "month", (page) => page.locator("calendar-agenda-panel .mev", { hasText: "Boiler service" }).click()),
+      panel("panel-add", "month", async (page) => {
+        await page.locator("calendar-agenda-panel .hbtn.addb").click();
+        await page.locator("calendar-agenda-panel input[data-f=summary]").fill("Yoga class");
+        await page.locator("calendar-agenda-panel select[data-f=freq]").selectOption("WEEKLY");
+        await page.mouse.move(0, 0);
+      }),
+    ];
+  }),
   { file: "mini", type: "calendar-agenda-mini-card", theme: "light", width: 380, config: {} },
   // Folded mini card with to-do lists: a line per list with its number of open items.
   ...["light", "dark"].map((theme) => ({ file: theme === "dark" ? "mini-todos-dark" : "mini-todos", type: "calendar-agenda-mini-card", theme, width: 380, extras: true, config: { ...EXTRAS } })),
@@ -277,16 +301,21 @@ const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePa
 
 // A fresh page per shot: re-running the scripts in the same realm would redeclare their globals.
 async function openCard(s) {
-  const page = await browser.newPage({ deviceScaleFactor: 2, viewport: { width: 1000, height: 2000 }, timezoneId: "UTC" });
+  const page = await browser.newPage({ deviceScaleFactor: 2, viewport: { width: 1000, height: s.panel ? 760 : 2000 }, timezoneId: "UTC" });
   await page.clock.setFixedTime(NOW);
   page.on("pageerror", (err) => console.error(`${s.file}: ${err.message}`));
   await page.setContent(pageHtml(s.theme, s.width));
   await page.addScriptTag({ content: haElements(icons) });
   await page.addScriptTag({ content: cardJs });
   await page.evaluate(
-    ({ type, config, states, events, entities, registry, todos, dark }) => {
+    ({ type, config, states, events, entities, registry, todos, dark, panel, view }) => {
       const el = document.createElement(type);
-      el.setConfig({ type: `custom:${type}`, entities, ...config });
+      // The panel gets its YAML config, its route and narrow from Home Assistant, the cards their config.
+      if (panel) {
+        el.panel = { config: { entities, ...config } };
+        el.route = { prefix: "/calendar", path: `/${view}` };
+        el.narrow = false;
+      } else el.setConfig({ type: `custom:${type}`, entities, ...config });
       el.hass = {
         states, entities: registry, devices: {}, language: "en", themes: { darkMode: dark }, locale: { language: "en", time_format: "24" },
         callService: async () => {},
@@ -296,7 +325,7 @@ async function openCard(s) {
       document.getElementById("root").appendChild(el);
     },
     {
-      type: s.type, config: s.config, events: EVENTS, entities, todos: TODO_ITEMS, dark: s.theme === "dark",
+      type: s.type, config: s.config, events: EVENTS, entities, todos: TODO_ITEMS, dark: s.theme === "dark", panel: !!s.panel, view: s.view,
       states: s.extras ? { ...states, ...EXTRA_STATES } : states, registry: s.extras ? EXTRA_ENTITIES : {},
     }
   );
@@ -323,6 +352,8 @@ for (const s of shots) {
     path: join(scratch, `${s.file}.png`),
     clip: { x: 0, y: 0, width: s.width + 32, height: Math.ceil(box.height) + 32 },
     animations: "disabled",
+    // The panel is taller than its window: the whole page.
+    fullPage: !!s.panel,
   });
   keep(join(scratch, `${s.file}.png`), `${s.file}.png`);
   await page.close();

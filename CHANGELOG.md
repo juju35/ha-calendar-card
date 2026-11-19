@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.13.0 - 2026-11-19
+
+### Features
+- **Sidebar panel** (optional, `panel_custom` on the same file): a full-page calendar with the views of Home Assistant's calendar panel as text tabs — **Month** (up to three events a day, all-day and multi-day bars, **+N** to the day, dots on a narrow screen, a click on a free day opens the new event form), **Week** (7 columns, a multi-day event on each of its days), **Day** and **List** (the cards' day rows) — with **Today**, the arrows and a swipe, the first weekday from the profile, a toggle per calendar remembered by the browser, and the view in the address. The cards' illustrated header runs across the top (today's tear-off calendar, the status of the day, refresh and **+** buttons); the details, edit and delete dialogs open at the top of the page.
+- **Repeat rule** in the panel's event form: daily, weekly, monthly or yearly, with an optional end date (`calendar/event/create` for a new repeating event); a rule the form cannot show is kept as *Custom*.
+- Translations of the new texts in the 22 languages.
+
 ## 1.12.1 - 2026-11-18
 
 ### Fixes

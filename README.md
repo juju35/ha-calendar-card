@@ -35,6 +35,7 @@ Custom Lovelace agenda card for Home Assistant [calendars](https://www.home-assi
 - **School holidays**: the events of a calendar set in `school_holidays_calendar` (a [Remote Calendar](https://www.home-assistant.io/integrations/remote_calendar/) of the school holidays, for instance) mark the days they cover in the agenda and the week, and today's holiday shows under the title, without being listed as events
 - **To-do lists** (`todo_entities`): the open items of [Bring!](https://www.home-assistant.io/integrations/bring/), Local To-do or any `todo` list under the agenda, with their due date (in red when late), checked off with a tap
 - Refreshes when an event starts or ends and every 5 minutes
+- Optional **sidebar panel** (`panel_custom`): a full-page calendar with the views of Home Assistant's calendar panel — **Month**, **Week**, **Day** and **List** — Today and the arrows (or a swipe), a toggle per calendar, the event details, new event (with a **repeat** rule), edit and delete dialogs, under the cards' illustrated header
 - Visual editor in the dashboard UI
 - English, French, German, Spanish, Serbian (Cyrillic and Latin), Italian, Dutch, European Portuguese, Polish, Romanian, Danish, Swedish, Bulgarian, Russian, Ukrainian, Hungarian, Slovak, Czech, Slovenian, Latvian and Greek, follows the Home Assistant language, 12 h / 24 h time format and time zone setting (the browser's or the server's)
 - Light and dark theme compatible
@@ -176,6 +177,47 @@ Calendar options:
 | `color` | Palette | Any CSS color, used for the bar, background and dot of its events |
 | `name` | Entity name | Shown in the event details |
 
+## Sidebar panel (optional)
+
+The same bundle also holds a **Calendar** page for the sidebar. The cards never need it: add it only if you want it. It draws its own full-page layout (it does not embed the cards), with the views of Home Assistant's own calendar panel as text tabs under the cards' illustrated header (today's tear-off calendar, the status of the day, the refresh and **+** buttons):
+
+- **Month**: the weeks of the month, up to three events a day (all-day and multi-day events as coloured bars, timed ones with their time) and a **+N** that opens the day; on a narrow screen, a dot per event. A click on a day's free space opens the new event form on that day, a click on its number opens the day
+- **Week**: the 7 days side by side (one day per row on a narrow screen), a multi-day event on each of its days
+- **Day** and **List** (the week): the cards' day rows, with times, places, countdowns and the **Now** progress bar
+- **Today**, the arrows and a horizontal swipe move by month, week or day; the first day of the week follows the profile setting (or the language)
+- A toggle per calendar (its colour and name) shows or hides its events, remembered by the browser
+- The event details, edit and delete dialogs of the cards, at the top of the page; the new event and edit form adds a **Repeat** rule (daily, weekly, monthly, yearly, with an optional end date) — a rule the form cannot show (every 2 weeks, several weekdays…) is kept as *Custom*
+
+The view is in the address (`/calendar-agenda/week`). Declare it in `configuration.yaml`, pointing at the file the Marketplace installed, then restart Home Assistant:
+
+```yaml
+panel_custom:
+  - name: calendar-agenda-panel
+    sidebar_title: Calendar
+    sidebar_icon: mdi:calendar
+    url_path: calendar-agenda
+    module_url: /local/community/ha-calendar-card/calendar-card.js
+    # require_admin: true   # to keep it for administrators
+    config:                 # optional
+      default_view: month   # month, week, day or list
+      entities:             # every calendar by default (by name)
+        - calendar.home
+        - entity: calendar.work
+          color: "#33b679"
+      school_holidays_calendar: calendar.school_holidays
+```
+
+`config` takes the card options that apply to a calendar page (`entities`, `title`, `exclude`, `workday_entity`, `school_holidays_calendar`, `show_location`, `show_end_time`, `show_countdown`, `add_button`, `edit_buttons`, `illustration_theme`, `language`), plus `default_view`. Without `entities`, every calendar is shown (but the school holidays one). Pick a `url_path` other than `calendar`, which Home Assistant's own panel uses.
+
+| | Light | Dark |
+|---|---|---|
+| Month | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/panel.png" alt="panel month view" width="480"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/panel-dark.png" alt="panel month view dark" width="480"> |
+| Week | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/panel-week.png" alt="panel week view" width="480"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/panel-week-dark.png" alt="panel week view dark" width="480"> |
+| Day | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/panel-day.png" alt="panel day view" width="480"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/panel-day-dark.png" alt="panel day view dark" width="480"> |
+| List | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/panel-list.png" alt="panel list view" width="480"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/panel-list-dark.png" alt="panel list view dark" width="480"> |
+| Event details | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/panel-details.png" alt="panel event details" width="480"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/panel-details-dark.png" alt="panel event details dark" width="480"> |
+| New repeating event | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/panel-add.png" alt="panel new event with a repeat rule" width="480"> | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/screenshots/panel-add-dark.png" alt="panel new event with a repeat rule dark" width="480"> |
+
 ## Screenshots
 
 | Light | Dark |
@@ -225,6 +267,8 @@ Times follow the **Time zone** setting of the Home Assistant user profile: the b
 The **+** button appears when at least one calendar supports creating events. The form needs a title, a date and, unless all day, a start and an end time. It calls the `calendar.create_event` action (all-day events end the next day, as Home Assistant expects) and the agenda fetches again once it is saved; an error from the calendar is shown in the form.
 
 The **Edit** and **Delete** buttons appear in the details of an event that has a uid, when its calendar supports updating or deleting events. They use the `calendar/event/update` and `calendar/event/delete` WebSocket commands, like the calendar panel of Home Assistant: times are sent in UTC, all-day events as dates ending the next day, the description edited in the form like the other fields. For a recurring event, the card asks whether the change applies to this event only or to this one and the following ones (`recurrence_range: THISANDFUTURE`, the recurrence rule kept). The agenda fetches again once the event is saved or deleted; an error is shown in the form or the popup.
+
+The sidebar panel fetches the range it shows (the whole weeks of the month, the week or the day) the same way, and today alone for its header when the range does not hold today. A new repeating event goes through the `calendar/event/create` WebSocket command with its `rrule` (a plain one through `calendar.create_event`); an edit of the series, or of an event and the following ones, sends the form's rule.
 
 The workday badge reads the state of the Workday `binary_sensor` (`on` for a working day). The school holidays calendar is fetched over the same range as the agenda; its events are not listed. The to-do lists use the `todo/item/list` WebSocket command, fetched again when a list changes (its state is the number of open items) and every 5 minutes; checking an item calls `todo.update_item` with `status: completed`.
 
