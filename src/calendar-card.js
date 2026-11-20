@@ -2450,6 +2450,53 @@ var ccTextWidth = (el) => {
   return range.getBoundingClientRect().width || el.scrollWidth;
 };
 
+// Shadow DOM patching: a new render rewrites the markup in place instead of replacing it (innerHTML), so the nodes
+// kept keep their size, running animations, focus, hover and scroll. Replacing them all on every minute tick and
+// every fetch made the card's content show anew, the Sections view reflowing and the page jumping by itself.
+// Elements with a data-key are matched by it, the others by position; a node of another kind is replaced. A custom
+// element written empty (<ha-icon>) draws its own content: only the attributes the markup gives are updated.
+var ccPatchChildren = (cur, next) => {
+  const old = [...cur.childNodes];
+  const fresh = [...next.childNodes];
+  const keyOf = (n) => (n.nodeType === 1 ? n.getAttribute('data-key') : null);
+  const byKey = new Map();
+  for (const o of old) {
+    const k = keyOf(o);
+    if (k !== null && !byKey.has(k)) byKey.set(k, o);
+  }
+  const used = new Set();
+  fresh.forEach((n, i) => {
+    const k = keyOf(n);
+    let o = k !== null ? byKey.get(k) : old[i];
+    if (!o || o.nodeType !== n.nodeType || o.nodeName !== n.nodeName || used.has(o) || (k === null && keyOf(o) !== null)) o = null;
+    const ref = cur.childNodes[i] ?? null;
+    if (!o) {
+      cur.insertBefore(n, ref);
+      return;
+    }
+    used.add(o);
+    if (o !== ref) cur.insertBefore(o, ref);
+    if (n.nodeType !== 1) {
+      if (o.nodeValue !== n.nodeValue) o.nodeValue = n.nodeValue;
+      return;
+    }
+    const own = n.localName.includes('-') && !n.firstChild;
+    if (!own) for (const { name } of [...o.attributes]) if (!n.hasAttribute(name)) o.removeAttribute(name);
+    for (const { name, value } of n.attributes) if (o.getAttribute(name) !== value) o.setAttribute(name, value);
+    if (!own) ccPatchChildren(o, n);
+  });
+  while (cur.childNodes.length > fresh.length) cur.removeChild(cur.lastChild);
+};
+function ccMorph(root, html) {
+  const tpl = root.childNodes && document.createElement('template');
+  if (!tpl || !tpl.content) {
+    root.innerHTML = html;
+    return;
+  }
+  tpl.innerHTML = html;
+  ccPatchChildren(root, tpl.content);
+}
+
 function ccEsc(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
@@ -3267,8 +3314,8 @@ class CalendarAgendaCard extends HTMLElement {
       ccIsNight(this._hass, this._config)]);
     if (sig === this._sig) return;
     this._sig = sig;
-    // Re-rendering replaces the whole shadow DOM: put the keyboard focus back on the same event (found
-    // by its key, its row index may have moved) and keep the open popup's scroll position — only when
+    // A re-render patches the shadow DOM in place (ccMorph); should a node be replaced all the same, put the
+    // keyboard focus back on the same event (found by its key, its row index may have moved) and keep the open popup's scroll position — only when
     // the popup still shows the same event (another event's popup, e.g. opened from the keyboard, starts
     // at the top).
     var focusedIdx = this.shadowRoot.activeElement?.dataset?.ev;
@@ -3807,7 +3854,7 @@ class CalendarAgendaCard extends HTMLElement {
     var c = this._config;
     var accent = cals[0]?.color || CC_COLORS[0];
     if (!cals.length) {
-      this.shadowRoot.innerHTML = `${this._styles(accent)}<ha-card lang="${ccEsc(this._fmtLang())}"><div class="empty"><ha-icon icon="mdi:calendar-blank-outline"></ha-icon>${this._t('no_calendar')}</div></ha-card>`;
+      ccMorph(this.shadowRoot, `${this._styles(accent)}<ha-card lang="${ccEsc(this._fmtLang())}"><div class="empty"><ha-icon icon="mdi:calendar-blank-outline"></ha-icon>${this._t('no_calendar')}</div></ha-card>`);
       return;
     }
     var days = this._visibleDays(now);
@@ -3818,7 +3865,7 @@ class CalendarAgendaCard extends HTMLElement {
     if (this._detail != null && this._evIndex(this._detail) < 0) this._detail = null;
 
     if (this._compact()) {
-      this.shadowRoot.innerHTML = this._styles(accent) + this._miniHtml(days, now);
+      ccMorph(this.shadowRoot, this._styles(accent) + this._miniHtml(days, now));
       return;
     }
 
@@ -3830,10 +3877,10 @@ class CalendarAgendaCard extends HTMLElement {
         return html;
       });
       this._shown = this._flat.length;
-      this.shadowRoot.innerHTML = this._styles(accent) + `<ha-card class="${this._detail != null || this._adding ? 'popped' : ''}" lang="${ccEsc(this._fmtLang())}">` +
+      ccMorph(this.shadowRoot, this._styles(accent) + `<ha-card class="${this._detail != null || this._adding ? 'popped' : ''}" lang="${ccEsc(this._fmtLang())}">` +
         (c.show_header ? this._headerHtml(now, this._todaySub(days)) : '') +
         this._weekNavHtml(days) +
-        `<div class="weekwrap"><div class="week">${cols.join('')}</div></div>${this._todoHtml(now)}${this._errorHtml()}${this._popupHtml()}</ha-card>`;
+        `<div class="weekwrap"><div class="week">${cols.join('')}</div></div>${this._todoHtml(now)}${this._errorHtml()}${this._popupHtml()}</ha-card>`);
       return;
     }
 
@@ -3871,10 +3918,10 @@ class CalendarAgendaCard extends HTMLElement {
         `<button class="more" data-action="more" aria-expanded="${open}"><ha-icon icon="${open ? 'mdi:chevron-down' : 'mdi:chevron-right'}"></ha-icon>${ccEsc(label)}</button>`;
     }
 
-    this.shadowRoot.innerHTML = this._styles(accent) + `<ha-card class="${this._detail != null || this._adding ? 'popped' : ''}" lang="${ccEsc(this._fmtLang())}">` +
+    ccMorph(this.shadowRoot, this._styles(accent) + `<ha-card class="${this._detail != null || this._adding ? 'popped' : ''}" lang="${ccEsc(this._fmtLang())}">` +
       // An unfolded mini card keeps its header whatever show_header says: it holds the fold button.
       (c.show_header || this._zoomed ? this._headerHtml(now, this._todaySub(days)) : '') +
-      `<div class="list">${list}</div>${moreHtml}${this._todoHtml(now)}${this._errorHtml()}${this._popupHtml()}</ha-card>`;
+      `<div class="list">${list}</div>${moreHtml}${this._todoHtml(now)}${this._errorHtml()}${this._popupHtml()}</ha-card>`);
   }
 
   // Event details, at the top of the card.

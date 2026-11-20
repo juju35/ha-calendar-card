@@ -5,6 +5,7 @@
 ### Fixes
 - Folding back on a tap elsewhere now works on iOS (Safari and the companion app): a tap on something that is not clickable sent no click to the page, so the event details, the **more** section and the mini card's detail view stayed open. The press and the release are caught instead; a scroll does not fold anything, and keyboard clicks still work.
 - Leaving the page (another dashboard view, a conditional card hidden) closes the event details and folds the card back, so that it does not come back open; a new event being typed is kept.
+- The page no longer jumps by itself: every minute tick and every fetch of the events rebuilt the card's whole shadow DOM (123 nodes replaced on the agenda card, 86 on the mini card); the markup is now patched in place (0 nodes replaced), so nothing shows anew for a frame, the animations and the open popup's scroll are kept.
 
 ### Maintenance
 - The commit-msg hook works again (the commitlint config is an ES module, as `package.json` declares).
