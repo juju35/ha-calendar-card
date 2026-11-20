@@ -2918,6 +2918,31 @@ var CC_SCENE_STYLE =
 
 var ccInDialog = (ev) => ev.composedPath().some((n) => ['ha-more-info-dialog', 'ha-dialog', 'dialog'].indexOf(n.localName) >= 0);
 
+// "A click elsewhere" is caught on the pointer, not only on the click event: on iOS (Safari and the companion app) a
+// tap on something that is not clickable (the background, an empty spot) sends no click to the page. It counts when
+// the press and the release are both outside the card (a scroll cancels the pointer); keyboard clicks (no click
+// count) still go through the click event. The handler keeps its own checks (inside the card, a dialog opened from it).
+var ccWatchOutside = (card, handler) => {
+  var downOutside = false;
+  var outside = (ev) => !ev.composedPath().includes(card);
+  var onDown = (ev) => { downOutside = outside(ev); };
+  var onUp = (ev) => { if (downOutside && outside(ev)) handler(ev); downOutside = false; };
+  var onClick = (ev) => { if (ev.detail === 0) handler(ev); };
+  return {
+    on() {
+      document.addEventListener('pointerdown', onDown, true);
+      document.addEventListener('pointerup', onUp, true);
+      document.addEventListener('click', onClick, true);
+    },
+    off() {
+      document.removeEventListener('pointerdown', onDown, true);
+      document.removeEventListener('pointerup', onUp, true);
+      document.removeEventListener('click', onClick, true);
+    },
+    tap(ev) { onDown(ev); onUp(ev); },
+  };
+};
+
 // ── Card ─────────────────────────────────────────────────────────────────────
 class CalendarAgendaCard extends HTMLElement {
   static getConfigElement() {
@@ -3060,14 +3085,24 @@ class CalendarAgendaCard extends HTMLElement {
     // The tick is skipped while the details popup is open: re-rendering would reset its scroll position.
     clearInterval(this._timer);
     this._timer = setInterval(() => { if (this._detail != null) return; this._sig = null; this._update(); }, 60000);
-    document.addEventListener('click', this._onOutside, true);
+    (this._outsideWatch ??= ccWatchOutside(this, (ev) => this._onOutside(ev))).on();
+    // Back on the page after leaving it: drawn again in its default state.
+    this._sig = null;
+    this._update();
   }
 
   disconnectedCallback() {
     this._resize?.disconnect();
+    if (this._fitFrame) cancelAnimationFrame(this._fitFrame);
     this._fitWidth = null;
     clearInterval(this._timer);
-    document.removeEventListener('click', this._onOutside, true);
+    this._outsideWatch?.off();
+    // Left (another dashboard view, a conditional card hidden): the details popup, the "more" section and the
+    // mini card's detail view fold back, so that the card does not come back open. The new event form is kept
+    // (what was typed would be lost).
+    this._detail = null;
+    this._expanded = false;
+    this._zoomed = false;
   }
 
   getCardSize() {
