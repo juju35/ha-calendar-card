@@ -10,6 +10,7 @@
 ### Maintenance
 - The commit-msg hook works again (the commitlint config is an ES module, as `package.json` declares).
 - The pending status pill frame is cancelled when the card leaves the page.
+- README: the options reference has a **Card** column (`both` / `mini`), like the other ha-* cards, instead of *Required* (`entities` says it is required).
 
 ## 1.13.0 - 2026-11-19
 

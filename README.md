@@ -144,30 +144,30 @@ language: en
 
 ### Options reference
 
-| Option | Required | Default | Description |
+| Option | Card | Default | Description |
 |---|---|---|---|
-| `entities` | ✅ | — | Calendars: entity IDs, or objects `{ entity, color, name }` |
-| `title` | ❌ | `Agenda` (translated) | Card title |
-| `show_title` | ❌ | `true` | Show the title in the header (e.g. `false` under a section heading of your own) |
-| `view` | ❌ | `agenda` | `agenda` (list by day) or `week` (7 columns from today; `days_to_show` and `max_events` don't apply). On the mini card, once unfolded (folded, it keeps its list) |
-| `days_to_show` | ❌ | `7` | Number of days from today (1 to 62) |
-| `max_events` | ❌ | `5` | Events shown before the folded **more** section (`0` shows everything) |
-| `show_header` | ❌ | `true` | Header with today's date and the number of events today |
-| `illustration` | ❌ | `true` | Both cards: illustrated header (today's calendar on a desk, status colour and animations); `false` for the classic header |
-| `illustration_theme` | ❌ | `auto` | Both cards: `auto` (follows the Home Assistant theme: night with a dark theme, day with a light theme), `day` or `night` |
-| `show_location` | ❌ | `true` | Show the event location |
-| `show_end_time` | ❌ | `true` | Show the end time of timed events |
-| `show_countdown` | ❌ | `true` | Countdown and **Now** badge for today's events |
-| `show_empty_days` | ❌ | `false` | List days without events |
-| `show_past_events` | ❌ | `false` | Keep today's finished events (greyed out) |
-| `exclude` | ❌ | — | Hide events whose title contains one of these texts (case-insensitive) |
-| `add_button` | ❌ | `true` | Full card and unfolded mini card: **+** button in the header that opens the new event form (shown only when a calendar accepts new events) |
-| `edit_buttons` | ❌ | `true` | Full card and unfolded mini card: **Edit** and **Delete** buttons in the event details (shown only when the event's calendar allows changing or deleting events) |
-| `workday_entity` | ❌ | Auto | `binary_sensor` of the Workday integration for the *Working day* / *Day off* badge under the title; the first one found by default, `false` to hide the badge |
-| `school_holidays_calendar` | ❌ | — | Calendar whose events are school holidays: the days they cover are marked in the agenda and the week (not listed as events), today's shows under the title |
-| `todo_entities` | ❌ | — | To-do lists (entity IDs, or objects `{ entity, name }`) whose open items show under the agenda, each checked off with a tap; the folded mini card shows a line per list with its number of open items, a tap unfolds it |
-| `zoom` | ❌ | `true` | Mini card only: detail button at the top right that unfolds the full agenda (a click elsewhere folds it back) |
-| `language` | ❌ | Auto | Force language: `en`, `fr`, `de`, `es`, `sr`, `sr-Latn`, `it`, `nl`, `pt`, `pl`, `ro`, `da`, `sv`, `bg`, `ru`, `uk`, `hu`, `sk`, `cs`, `sl`, `lv` or `el` (auto-detects from HA settings) |
+| `entities` | both | — | **Required.** Calendars: entity IDs, or objects `{ entity, color, name }` |
+| `title` | both | `Agenda` (translated) | Card title |
+| `show_title` | both | `true` | Show the title in the header (e.g. `false` under a section heading of your own) |
+| `view` | both | `agenda` | `agenda` (list by day) or `week` (7 columns from today; `days_to_show` and `max_events` don't apply). On the mini card, once unfolded (folded, it keeps its list) |
+| `days_to_show` | both | `7` | Number of days from today (1 to 62) |
+| `max_events` | both | `5` | Events shown before the folded **more** section (`0` shows everything) |
+| `show_header` | both | `true` | Header with today's date and the number of events today |
+| `illustration` | both | `true` | Illustrated header (today's calendar on a desk, status colour and animations); `false` for the classic header |
+| `illustration_theme` | both | `auto` | `auto` (follows the Home Assistant theme: night with a dark theme, day with a light theme), `day` or `night` |
+| `show_location` | both | `true` | Show the event location |
+| `show_end_time` | both | `true` | Show the end time of timed events |
+| `show_countdown` | both | `true` | Countdown and **Now** badge for today's events |
+| `show_empty_days` | both | `false` | List days without events |
+| `show_past_events` | both | `false` | Keep today's finished events (greyed out) |
+| `exclude` | both | — | Hide events whose title contains one of these texts (case-insensitive) |
+| `add_button` | both | `true` | Full card and unfolded mini card: **+** button in the header that opens the new event form (shown only when a calendar accepts new events) |
+| `edit_buttons` | both | `true` | Full card and unfolded mini card: **Edit** and **Delete** buttons in the event details (shown only when the event's calendar allows changing or deleting events) |
+| `workday_entity` | both | Auto | `binary_sensor` of the Workday integration for the *Working day* / *Day off* badge under the title; the first one found by default, `false` to hide the badge |
+| `school_holidays_calendar` | both | — | Calendar whose events are school holidays: the days they cover are marked in the agenda and the week (not listed as events), today's shows under the title |
+| `todo_entities` | both | — | To-do lists (entity IDs, or objects `{ entity, name }`) whose open items show under the agenda, each checked off with a tap; the folded mini card shows a line per list with its number of open items, a tap unfolds it |
+| `zoom` | mini | `true` | Detail button at the top right that unfolds the full agenda (a click elsewhere folds it back) |
+| `language` | both | Auto | Force language: `en`, `fr`, `de`, `es`, `sr`, `sr-Latn`, `it`, `nl`, `pt`, `pl`, `ro`, `da`, `sv`, `bg`, `ru`, `uk`, `hu`, `sk`, `cs`, `sl`, `lv` or `el` (auto-detects from HA settings) |
 
 Calendar options:
 
