@@ -166,6 +166,15 @@ function calendarPanelFold(host, o) {
   // find this one
   const menuBtn = document.createElement("ha-menu-button");
   el(".pf-menu").attachShadow?.({ mode: "open" })?.append(menuBtn);
+  // A copy keeps the icons of its ha-icon elements, which panels often set as a property (not copied by cloneNode)
+  const copyIcons = (from, to) => {
+    const a = from.matches?.("ha-icon") ? [from] : [...from.querySelectorAll("ha-icon")];
+    const b = to.matches?.("ha-icon") ? [to] : [...to.querySelectorAll("ha-icon")];
+    a.forEach((n, i) => {
+      const icon = n.icon || n.getAttribute("icon");
+      if (b[i] && icon) b[i].setAttribute("icon", icon);
+    });
+  };
   const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[ch]);
   let folded = false;
   let queued = false;
@@ -185,7 +194,9 @@ function calendarPanelFold(host, o) {
     if (!folded) return;
     const iconBox = q(o.icon);
     const icon = iconBox?.querySelector("svg, ha-icon, ha-svg-icon, img");
-    el(".pf-ic").replaceChildren(...(icon ? [icon.cloneNode(true)] : []));
+    const iconCopy = icon?.cloneNode(true);
+    if (iconCopy) copyIcons(icon, iconCopy);
+    el(".pf-ic").replaceChildren(...(iconCopy ? [iconCopy] : []));
     // The icon keeps the colour of its state, as in the top bar
     el(".pf-ic").style.color = iconBox && !o.iconAccent ? getComputedStyle(iconBox).color : "";
     el(".pf-t").textContent = (q(o.name)?.textContent || "").trim();
@@ -215,9 +226,12 @@ function calendarPanelFold(host, o) {
         }
         const path = o.icons[id];
         const own = path ? null : b.querySelector("svg, ha-icon");
+        const ownIcon = own?.localName === "ha-icon" ? own.icon || own.getAttribute("icon") : null;
         const glyph = !path
           ? own
-            ? own.outerHTML
+            ? ownIcon
+              ? `<ha-icon icon="${esc(ownIcon)}" aria-hidden="true"></ha-icon>`
+              : own.outerHTML
             : `<span class="pf-l" aria-hidden="true">${esc(label.slice(0, 1))}</span>`
           : path.startsWith("mdi:")
             ? `<ha-icon icon="${esc(path)}" aria-hidden="true"></ha-icon>`
@@ -240,7 +254,8 @@ function calendarPanelFold(host, o) {
     subRow.innerHTML = subs.length < 2 ? "" : subs
       .map((b, i) => {
         const on = isActive(b);
-        const ic = b.querySelector("ha-icon")?.getAttribute("icon");
+        const hi = b.querySelector("ha-icon");
+        const ic = hi && (hi.icon || hi.getAttribute("icon"));
         return `<button class="pf-sub" role="tab" data-s="${i}" aria-selected="${on}" tabindex="${on ? 0 : -1}">${ic ? `<ha-icon icon="${esc(ic)}" aria-hidden="true"></ha-icon>` : ""}${esc(tabLabel(b))}</button>`;
       })
       .join("");
@@ -253,6 +268,7 @@ function calendarPanelFold(host, o) {
     for (const a of o.acts ? root.querySelectorAll(o.acts) : []) {
       if (a.offsetParent === null && !top.contains(a)) continue;
       const c = a.cloneNode(true);
+      copyIcons(a, c);
       c.removeAttribute("id");
       // An active button (`.on`) keeps the colour of its state
       if (c.classList.contains("on")) c.style.setProperty("--pf-on", getComputedStyle(a).color);
