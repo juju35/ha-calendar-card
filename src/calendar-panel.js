@@ -63,7 +63,7 @@ const calendarPanel_FOLD_CSS = `
   .pf-pill:hover { background:color-mix(in srgb, currentColor 6%, transparent); }
   .pf-pill[aria-selected="true"] { color:var(--pf-accent); border:1.5px solid var(--pf-accent); background:color-mix(in srgb, var(--pf-accent) 14%, transparent); }
   .pf-pill:focus-visible { outline:2px solid var(--pf-accent); outline-offset:2px; }
-  .pf-pill svg { width:20px; height:20px; fill:currentColor; }
+  .pf-pill svg { width:20px; height:20px; fill:currentColor; flex:none; }
   .pf-pill ha-icon { --mdc-icon-size:20px; display:flex; }
   .pf-pill .pf-l { font-size:14px; font-weight:700; }
   .pf-pill b { position:absolute; top:-5px; right:-5px; min-width:18px; height:18px; padding:0 4px; box-sizing:border-box; border-radius:999px;
@@ -214,8 +214,11 @@ function calendarPanelFold(host, o) {
           tone = ` style="background:${cs.backgroundColor};color:${cs.color}"`;
         }
         const path = o.icons[id];
+        const own = path ? null : b.querySelector("svg, ha-icon");
         const glyph = !path
-          ? `<span class="pf-l" aria-hidden="true">${esc(label.slice(0, 1))}</span>`
+          ? own
+            ? own.outerHTML
+            : `<span class="pf-l" aria-hidden="true">${esc(label.slice(0, 1))}</span>`
           : path.startsWith("mdi:")
             ? `<ha-icon icon="${esc(path)}" aria-hidden="true"></ha-icon>`
             : `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${path}"/></svg>`;
