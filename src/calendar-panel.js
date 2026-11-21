@@ -293,7 +293,9 @@ function calendarPanelFold(host, o) {
       const b = tabs.getBoundingClientRect();
       if (!t.height || o.skip?.()) return; // top bar hidden (Settings): the tabs alone stay sticky
       const extra = q(o.extra);
-      const room = (extra?.getBoundingClientRect().bottom || (b.height ? b.bottom : t.bottom)) - t.top;
+      // The room of the top bar and the tabs (and an extra row), by their heights: the tabs may be stuck at the top
+      // already (a jump down the page), where their position says nothing of the room they take in the page
+      const room = t.height + b.height + (extra ? extra.getBoundingClientRect().height : 0);
       folded = true;
       sync();
       if (extra) {
