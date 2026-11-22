@@ -4490,7 +4490,7 @@ window.customCards = window.customCards || [];
 ].forEach(([type, cls, name, description]) => {
   if (customElements.get(type)) return;
   customElements.define(type, cls);
-  window.customCards.push({ type, name, description, preview: true, documentationURL: 'https://github.com/juju35/ha-calendar-card' });
+  window.customCards.push({ type, name, description, preview: false, documentationURL: 'https://github.com/juju35/ha-calendar-card' });
 });
 
 console.info(`%c CALENDAR-CARD %c v${CALENDAR_CARD_VERSION} `, 'color:#fff;background:#039be5;font-weight:700', 'color:#039be5;background:#fff');
