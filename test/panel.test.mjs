@@ -8,6 +8,7 @@ const plain = (v) => JSON.parse(JSON.stringify(v));
 
 const today = ccDayStart(new Date());
 const iso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+const weekStart = new Date(today.getFullYear(), today.getMonth(), today.getDate() - ((today.getDay() + 6) % 7));
 const at = (days, h) => new Date(today.getFullYear(), today.getMonth(), today.getDate() + days, h).toISOString();
 
 function mockHass(events, calls = []) {
@@ -30,7 +31,8 @@ function mockHass(events, calls = []) {
 
 const EVENTS = {
   "calendar.home": [{ uid: "h1", summary: "Dentist", start: { dateTime: at(0, 23) }, end: { dateTime: at(0, 23) } }],
-  "calendar.work": [{ uid: "w1", summary: "Trip", start: { date: iso(today) }, end: { date: iso(new Date(today.getFullYear(), today.getMonth(), today.getDate() + 3)) } }],
+  // Anchored on the Monday of this week (the mocked first weekday), so the three days always sit in the week view.
+  "calendar.work": [{ uid: "w1", summary: "Trip", start: { date: iso(weekStart) }, end: { date: iso(new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 3)) } }],
 };
 
 async function open(view = "month", config = {}, calls = []) {
