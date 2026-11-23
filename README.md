@@ -47,8 +47,8 @@ Any `calendar` entity works (Google Calendar, CalDAV, Local Calendar, Microsoft 
 
 | Integration | What the cards show |
 |---|---|
-| [Workday](https://www.home-assistant.io/integrations/workday/) (core) | *Working day* or *Day off* badge under the title, from its `binary_sensor` (the first one found, or `workday_entity`) |
-| [Remote Calendar](https://www.home-assistant.io/integrations/remote_calendar/) (core) | With `school_holidays_calendar`, the school holidays of an iCal feed mark the days they cover and today's holiday shows under the title. Any calendar can be used the same way |
+| <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/images/home_assistant.png" alt="" width="16"> [Workday](https://www.home-assistant.io/integrations/workday/) (core) | *Working day* or *Day off* badge under the title, from its `binary_sensor` (the first one found, or `workday_entity`) |
+| <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/images/home_assistant.png" alt="" width="16"> [Remote Calendar](https://www.home-assistant.io/integrations/remote_calendar/) (core) | With `school_holidays_calendar`, the school holidays of an iCal feed mark the days they cover and today's holiday shows under the title. Any calendar can be used the same way |
 | <img src="https://raw.githubusercontent.com/juju35/ha-calendar-card/main/images/bring.png" alt="" width="16"> [Bring!](https://www.home-assistant.io/integrations/bring/) (core) | With `todo_entities`, the open items of the shopping lists under the agenda, checked off from the card. Any `todo` list (Local To-do, Todoist, Google Tasks…) works the same way |
 
 ## Prerequisites
