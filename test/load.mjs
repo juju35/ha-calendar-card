@@ -3,11 +3,12 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import vm from "node:vm";
+import { sources } from "./source.mjs";
 
 export function loadCard(file, names) {
   // One source file, or several evaluated as the build bundles them (the cards, then the panel).
   const files = Array.isArray(file) ? file : [file];
-  const src = files.map((f) => readFileSync(fileURLToPath(new URL(`../src/${f}`, import.meta.url)), "utf8")).join("\n");
+  const src = files.map((f) => (sources[f] ?? readFileSync(fileURLToPath(new URL(`../src/${f}`, import.meta.url)), "utf8"))).join("\n");
   const registry = new Map();
   const sandbox = {
     console: { info() {}, log() {}, warn() {}, error() {} },
